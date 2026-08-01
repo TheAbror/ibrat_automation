@@ -4,6 +4,6 @@ APP_ACTIVITY = ".MainActivity"
 
 APPIUM_SERVER = "http://127.0.0.1:4723"
 
-# Update these each time you want to run a different course/test
+# Which course to open. The test itself is no longer configured: the runner
+# always opens whatever the course sequence says is next.
 COURSE_DESCRIPTION = "Ingliz tili B2\nRustam Qoriyev"
-TEST_NAME = "Test 68.1 A / an vs The articles"

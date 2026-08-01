@@ -6,6 +6,8 @@ from appium.webdriver.common.appiumby import AppiumBy
 PROGRAM_CERTIFICATE = (AppiumBy.ACCESSIBILITY_ID, "2+6 Program Certificate")
 GET_CERTIFICATE = (AppiumBy.ACCESSIBILITY_ID, "Get certificate")
 START_TEST = (AppiumBy.ACCESSIBILITY_ID, "Start")
+# On the "You must study the lessons in sequence!" reminder dialog
+NEXT_LESSON = (AppiumBy.ACCESSIBILITY_ID, "Next lesson")
 
 # Class-unrestricted (//*) because on some sheets "Next" is not an
 # android.widget.Button.

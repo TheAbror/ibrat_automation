@@ -49,6 +49,64 @@ class FakeDriver:
         return self._elements[0]
 
 
+class TestLastLessonDesc(unittest.TestCase):
+    def test_picks_last_dars_or_test_item(self):
+        import navigation
+        nodes = [
+            ("android.view.View", "Lessons"),
+            ("android.widget.Button", "Dars 68 A vs The | Articles\n9 minutes"),
+            ("android.widget.Button", "Test 68.1 A / an vs The articles"),
+            ("android.widget.Button", "Dars 69 The article\n14 minutes"),
+            ("android.widget.Button", "Test 69.1 The article"),
+            ("android.widget.Button", "null"),
+        ]
+        self.assertEqual(navigation.last_lesson_desc(nodes), "Test 69.1 The article")
+
+    def test_returns_none_when_no_lessons(self):
+        import navigation
+        self.assertIsNone(navigation.last_lesson_desc([("android.view.View", "Lessons")]))
+
+
+class TestRecoveryHelpers(unittest.TestCase):
+    def test_find_close_icon(self):
+        import navigation
+        nodes = [
+            ("android.view.View", "Special offer!"),
+            ("android.widget.Button", "Buy now"),
+            ("android.widget.Button", "X"),
+        ]
+        self.assertEqual(navigation.find_close_icon(nodes), "X")
+        self.assertIsNone(navigation.find_close_icon(nodes[:2]))
+
+    def test_candidate_buttons_skips_back_close_and_null(self):
+        import navigation
+        nodes = [
+            ("android.view.View", "Dars 70 Go to work vs Go home"),
+            ("android.widget.Button", "Go back"),
+            ("android.widget.Button", "null"),
+            ("android.widget.Button", "X"),
+            ("android.widget.Button", "Play"),
+            ("android.widget.Button", "Mark as done"),
+        ]
+        self.assertEqual(
+            navigation.candidate_buttons(nodes), ["Play", "Mark as done"]
+        )
+
+    def test_looks_like_question(self):
+        import navigation
+        question_nodes = [
+            ("android.view.View", "He's reading ___ interesting book."),
+            ("android.widget.Button", "a"),
+            ("android.widget.Button", "an"),
+        ]
+        video_nodes = [
+            ("android.view.View", "Dars 70"),
+            ("android.widget.Button", "Play"),
+        ]
+        self.assertTrue(navigation.looks_like_question(question_nodes))
+        self.assertFalse(navigation.looks_like_question(video_nodes))
+
+
 class TestTapNext(unittest.TestCase):
     def test_tap_next_retries_after_stale_click(self):
         el = FakeElement("Next", click_fails=1)
@@ -80,6 +138,15 @@ class TestDetectQuestionType(unittest.TestCase):
             qh.detect_question_type(
                 "Moslashtiring.",
                 ["The", "letter he wrote", "An", "apple", "A", "cat"],
+            ),
+            "matching",
+        )
+
+    def test_sozlarni_moslashtiring_is_matching(self):
+        self.assertEqual(
+            qh.detect_question_type(
+                "So‘zlarni moslashtiring.",
+                ["An", "plans", "A", "poems I wrote", "The", "fox", "-", "airplane"],
             ),
             "matching",
         )
@@ -143,13 +210,11 @@ class TestStrategies(unittest.TestCase):
         chips = ["She", "is", "reading"]
         self.assertEqual(qh.chip_sequence("Q1", chips, known), chips)
 
-    def test_matching_tries_direct_neighbour_first(self):
+    def test_split_matching_cards_by_column(self):
         cards = ["The", "letter he wrote", "An", "apple", "A", "cat"]
-        attempts = qh.matching_attempt_pairs(cards)
-        self.assertEqual(attempts[0], ("The", "letter he wrote"))
-        self.assertEqual(attempts[3], ("An", "apple"))
-        self.assertEqual(len(attempts), 9)  # 3 lefts x 3 rights
-        self.assertEqual(len(set(attempts)), 9)  # every combination once
+        lefts, rights = qh.split_matching_cards(cards)
+        self.assertEqual(lefts, ["The", "An", "A"])
+        self.assertEqual(rights, ["letter he wrote", "apple", "cat"])
 
     def test_xpath_literal_handles_apostrophes(self):
         self.assertEqual(qh.xpath_literal("the"), "'the'")

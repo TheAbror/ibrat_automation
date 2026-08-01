@@ -59,6 +59,9 @@ def connect(attach=True):
     if not attach:
         options.app_package = config.APP_PACKAGE
         options.app_activity = config.APP_ACTIVITY
+        # Relaunch the app on session start even when it is already open,
+        # so main.py always begins from the app's home screen.
+        options.set_capability("appium:forceAppLaunch", True)
     return webdriver.Remote(config.APPIUM_SERVER, options=options)
 
 

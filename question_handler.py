@@ -41,12 +41,13 @@ def detect_question_type(question, options):
 
     - multiple_choice: the sentence contains a "___" or "|_|" blank and the
       options are a few words to choose from.
-    - matching: the screen is titled "Moslashtiring." — pair cards.
+    - matching: the title contains "moslashtiring" ("Moslashtiring.",
+      "So'zlarni moslashtiring.", ...) — pair cards.
     - fill_the_blank: the sentence is built from many word chips (no blank
       in the prompt).
     """
     q = (question or "").strip().lower().rstrip(".")
-    if q in ("moslashtiring", "match"):
+    if "moslashtiring" in q or q.startswith("match"):
         return "matching"
     if "___" in q or "|_|" in q:
         return "multiple_choice"
@@ -123,20 +124,13 @@ def chip_sequence(question, options, known):
     return list(options)
 
 
-def matching_attempt_pairs(cards):
-    """(left, right) tap attempts for a matching screen.
+def split_matching_cards(cards):
+    """Split matching-screen cards into (lefts, rights).
 
-    Cards come row by row: [L1, R1, L2, R2, ...]. For each left card the
-    direct neighbour is tried first, then the other right cards. Wrong pairs
-    reset harmlessly while correct pairs lock in, so trying every
-    combination always completes the screen.
+    Cards come row by row: [L1, R1, L2, R2, ...] — left column at even
+    indices, right column at odd indices.
     """
-    lefts, rights = cards[0::2], cards[1::2]
-    attempts = []
-    for i, left in enumerate(lefts):
-        order = rights[i:i + 1] + rights[:i] + rights[i + 1:]
-        attempts.extend((left, right) for right in order)
-    return attempts
+    return cards[0::2], cards[1::2]
 
 
 def xpath_literal(s):

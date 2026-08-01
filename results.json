@@ -1209,5 +1209,152 @@
       "the",
       "an"
     ]
+  },
+  {
+    "time": "2026-08-02 00:39:54",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "A",
+      "poems I wrote",
+      "-",
+      "fox",
+      "The",
+      "plans",
+      "An",
+      "airplane"
+    ],
+    "correct_answer": []
+  },
+  {
+    "time": "2026-08-02 00:40:12",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kecha men qiziqarli kino ko‘rdim.",
+    "options": [
+      "I",
+      "watch",
+      "an",
+      "a",
+      "boring",
+      "movie",
+      "interesting",
+      "yesterday.",
+      "watched"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:40:15",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He's engrossed in reading ___ captivating book.",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:40:18",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We're going to |_| restaurant for dinner tonight.",
+    "options": [
+      "-",
+      "a",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:40:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I saw ___ interesting movie last night.",
+    "options": [
+      "an",
+      "-",
+      "the"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:40:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ salt, please?",
+    "options": [
+      "an",
+      "a",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:40:42",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Iltimos, menga tuzni uzata olasizmi?",
+    "options": [
+      "pass",
+      "salt,",
+      "the",
+      "Can",
+      "me",
+      "sugar",
+      "a",
+      "please?",
+      "passing",
+      "you"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:40:45",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I saw |_| movie last night.",
+    "options": [
+      "of",
+      "the",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:40:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There's a beautiful sun over ___ ocean.",
+    "options": [
+      "the",
+      "-",
+      "a"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:41:11",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) ta'lim (o‘qitish) sohasida mutaxassis.",
+    "options": [
+      "field",
+      "teacher",
+      "a",
+      "is",
+      "he",
+      "of",
+      "the",
+      "in",
+      "an",
+      "She",
+      "teaching.",
+      "expert"
+    ]
   }
 ]
