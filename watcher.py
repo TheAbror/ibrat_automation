@@ -87,12 +87,16 @@ def poll_once(driver, state, results):
         question = next(
             (d for cls, d in nodes if cls == "android.view.View" and d), None
         )
-        if question:
+        options = [
+            d for cls, d in nodes
+            if cls == "android.widget.Button" and d and d not in OPTION_IGNORE
+        ]
+        # A real question always offers 2+ option buttons; without this
+        # floor the mid-run streak popup ("3" / "Day" / Continue) counts
+        # as a question and the runner never tries to dismiss it.
+        if question and len(options) >= 2:
             state["question"] = question
-            state["options"] = [
-                d for cls, d in nodes
-                if cls == "android.widget.Button" and d and d not in OPTION_IGNORE
-            ]
+            state["options"] = options
             state["descs"] = descs
             return "question"
         return None

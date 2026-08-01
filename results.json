@@ -3588,5 +3588,103 @@
     "correct_answer": [
       "They are getting ready to go on a family vacation."
     ]
+  },
+  {
+    "time": "2026-08-02 01:29:41",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": null,
+    "options": [],
+    "correct_answer": [
+      "Hide player controls",
+      "When NOT to use \"the\" | 71-dars | Ingliz tilini 0 dan o'rganish",
+      "IBRAT FARZANDLARI",
+      "Mute",
+      "Playback Settings",
+      "Rewind 10 seconds",
+      "Pause video",
+      "Fast forward 10 seconds",
+      "Enter full screen",
+      "Copy link",
+      "More videos",
+      "Watch on YouTube",
+      "Dars 71 When NOT to use \"the\"",
+      "We do not use the with general nouns.",
+      "Examples:",
+      "1. I like music, especially classical music. (not “the music, the classical music”)",
+      "2. We don’t eat meat very often. (not “the meat”)",
+      "3. I love chocolate. (not \"I love the chocolate\")"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:29:51",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We should go to ___ theatre on Sundays.",
+    "options": [
+      "-",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:29:55",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We should visit |_| Louvre Museum when we're in Paris.",
+    "options": [
+      "a",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "We should visit \na\n Louvre Museum when we're in Paris.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:29:58",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "They enjoy going to ___ beach.",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:30:01",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He needs to buy ___ furniture for his new apartment.",
+    "options": [
+      "-",
+      "of",
+      "an"
+    ],
+    "correct_answer": [
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:30:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ salt, please?",
+    "options": [
+      "an",
+      "the",
+      "-"
+    ],
+    "correct_answer": [
+      "the"
+    ]
   }
 ]

@@ -527,6 +527,17 @@ class TestPollOnce(unittest.TestCase):
         self.assertEqual(state["options"], ["a", "an", "the"])
         self.assertEqual(results, [])
 
+    def test_streak_popup_is_not_a_question(self):
+        # Its "3" View plus at most one candidate button ("Last week") must
+        # not count as a question — the runner has to fall through to
+        # dismiss_popup instead of waiting for a feedback sheet forever.
+        driver = XmlDriver(STREAK_POPUP_XML)
+        state = watcher.fresh_state()
+        results = []
+        self.assertIsNone(watcher.poll_once(driver, state, results))
+        self.assertIsNone(state["question"])
+        self.assertEqual(results, [])
+
     def test_feedback_sheet_logs_type_result_and_correct_answer(self):
         driver = XmlDriver(QUESTION_XML)
         state = watcher.fresh_state()
