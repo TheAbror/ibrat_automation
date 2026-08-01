@@ -18,8 +18,9 @@ from question_handler import OPTION_IGNORE, parse_screen, xpath_literal
 # Labels a close (X) icon may carry on offer/promo popups
 CLOSE_ICON_DESCS = ("X", "x", "✕", "×", "Close", "close")
 # Buttons never worth tapping when pushing through an unknown screen:
-# backwards navigation, popup closers, and the report icon
-SKIP_BUTTONS = ("Go back", "Back", "null") + CLOSE_ICON_DESCS
+# backwards navigation, popup closers, the report icon, and Retry — which
+# restarts an already-finished test instead of moving forward
+SKIP_BUTTONS = ("Go back", "Back", "null", "Retry") + CLOSE_ICON_DESCS
 
 BOUNDS_RE = re.compile(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]")
 # The home screen's bottom navigation — its top-left gear icon is also an
@@ -296,6 +297,11 @@ def push_through_to_start(driver, attempts=3):
         if looks_like_question(parse_screen(driver.page_source)):
             print("Questions already started")
             return True
+
+        # A finish/start/streak screen: its forward button (Next ... /
+        # Start / Continue) beats blind-tapping in tree order.
+        if tap_forward_button(driver):
+            continue
 
         print("No Start button — tapping through this screen...")
         tap_through_buttons(driver)

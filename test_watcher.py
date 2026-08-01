@@ -92,6 +92,32 @@ class TestRecoveryHelpers(unittest.TestCase):
             navigation.candidate_buttons(nodes), ["Play", "Mark as done"]
         )
 
+    def test_candidate_buttons_never_include_retry(self):
+        # Retry restarts a finished test — the blind tap-through fallback
+        # must never press it, whatever the tree order.
+        import navigation
+        nodes = qh.parse_screen(FINISH_SCREEN_XML)
+        self.assertEqual(navigation.candidate_buttons(nodes), ["Next lesson"])
+
+    def test_tap_through_buttons_never_taps_retry(self):
+        # Tree order on the finish screen puts Retry first — the blind
+        # fallback must still skip it and tap Next lesson.
+        import navigation
+
+        taps = []
+
+        class FinishDriver:
+            page_source = FINISH_SCREEN_XML
+
+            def find_element(self, by, value):
+                el = FakeElement("btn")
+                el.click = lambda: taps.append(value)
+                return el
+
+        navigation.tap_through_buttons(FinishDriver())
+        self.assertTrue(all("Retry" not in t for t in taps), taps)
+        self.assertTrue(any("Next lesson" in t for t in taps), taps)
+
     def test_find_forward_button_prefers_next_over_retry(self):
         import navigation
         finish_screen = [
@@ -526,6 +552,15 @@ class TestPollOnce(unittest.TestCase):
         self.assertEqual(state["question"], "He's reading ___ interesting book.")
         self.assertEqual(state["options"], ["a", "an", "the"])
         self.assertEqual(results, [])
+
+    def test_finish_screen_is_not_a_question(self):
+        # "Test finished!" plus [Retry, Next lesson] must never register as
+        # a multiple-choice question — option A would be Retry, silently
+        # restarting the whole test.
+        driver = XmlDriver(FINISH_SCREEN_XML)
+        state = watcher.fresh_state()
+        self.assertIsNone(watcher.poll_once(driver, state, []))
+        self.assertIsNone(state["question"])
 
     def test_streak_popup_is_not_a_question(self):
         # Its "3" View plus at most one candidate button ("Last week") must

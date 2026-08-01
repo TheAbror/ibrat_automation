@@ -12,7 +12,10 @@ INCORRECT_MARKERS = ("Incorrect Answer",)
 NEXT_LABELS = ("Next",)
 # "null" is the report (!) icon-button, which exposes the literal string
 # "null" as its label on every question screen — not a real answer option.
-OPTION_IGNORE = NEXT_LABELS + ("Continue", "null")
+# "Retry" sits on the test-finish screen next to "Next ..."; counting it as
+# an option turns that screen into a fake question whose option A restarts
+# the whole test.
+OPTION_IGNORE = NEXT_LABELS + ("Continue", "null", "Retry")
 
 
 def parse_screen(xml):
