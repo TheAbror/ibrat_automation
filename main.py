@@ -146,6 +146,33 @@ def answer_matching(driver, cards, state, known_pairs):
     return True
 
 
+def answer_until_done(driver):
+    """auto_answer_loop plus reconnect when a command stalls or drops.
+
+    COMMAND_TIMEOUT bounds every request, so a command swallowed by Wi-Fi
+    adb raises instead of blocking forever. The app stays on its current
+    screen, so reattaching resumes right where the run stalled. Owns
+    quitting whichever session is currently live.
+    """
+    reconnects_left = watcher.MAX_RECONNECTS
+    try:
+        while True:
+            try:
+                auto_answer_loop(driver)
+                return
+            except watcher.CONNECTION_ERRORS as e:
+                if reconnects_left == 0:
+                    print("Connection to the device keeps failing — giving up.")
+                    raise
+                reconnects_left -= 1
+                print(f"Lost connection to the device ({type(e).__name__}) — reconnecting...")
+                watcher.safe_quit(driver)
+                time.sleep(watcher.RECONNECT_DELAY)
+                driver = watcher.connect(attach=True)
+    finally:
+        watcher.safe_quit(driver)
+
+
 def auto_answer_loop(driver):
     results = watcher.load_results()
     known = build_answer_map(results)
@@ -241,7 +268,7 @@ def main():
         wait = WebDriverWait(driver, 20)
         wait_long = WebDriverWait(driver, 30)
         if navigate_to_test(driver, wait, wait_long):
-            auto_answer_loop(driver)
+            answer_until_done(driver)
     except KeyboardInterrupt:
         print("\nStopped by user.")
     finally:

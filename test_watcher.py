@@ -684,5 +684,103 @@ class TestReconnect(unittest.TestCase):
         self.assertEqual(len(made), 2, "initial connect + one reconnect, then give up")
 
 
+class TestConnectionResilience(unittest.TestCase):
+    """A command lost over Wi-Fi adb must raise within a bounded time and
+    trigger a reconnect — never block the runner forever."""
+
+    def setUp(self):
+        self._saved = (watcher.RECONNECT_DELAY, watcher.MAX_RECONNECTS)
+        watcher.RECONNECT_DELAY = 0
+
+    def tearDown(self):
+        watcher.RECONNECT_DELAY, watcher.MAX_RECONNECTS = self._saved
+
+    def test_connect_bounds_every_command_with_a_timeout(self):
+        captured = {}
+
+        class FakeRemote:
+            def __init__(self, server, options=None, client_config=None):
+                captured["client_config"] = client_config
+
+        original = watcher.webdriver.Remote
+        watcher.webdriver.Remote = FakeRemote
+        try:
+            watcher.connect(attach=True)
+        finally:
+            watcher.webdriver.Remote = original
+        cc = captured["client_config"]
+        self.assertIsNotNone(cc, "connect() must pass a client_config")
+        self.assertEqual(cc.timeout, watcher.COMMAND_TIMEOUT)
+
+    def test_connection_errors_include_transport_timeouts(self):
+        # selenium does not wrap urllib3 errors: a timed-out request raises
+        # ReadTimeoutError/MaxRetryError, not WebDriverException
+        from urllib3.exceptions import MaxRetryError, ReadTimeoutError
+        self.assertTrue(issubclass(ReadTimeoutError, watcher.CONNECTION_ERRORS))
+        self.assertTrue(issubclass(MaxRetryError, watcher.CONNECTION_ERRORS))
+        self.assertTrue(issubclass(WebDriverException, watcher.CONNECTION_ERRORS))
+
+    def test_answer_until_done_reattaches_after_transport_stall(self):
+        import main as main_mod
+        from urllib3.exceptions import ReadTimeoutError
+
+        class FakeSession:
+            quit_called = False
+
+            def quit(self):
+                self.quit_called = True
+
+        first, second = FakeSession(), FakeSession()
+        seen, attaches = [], []
+
+        def fake_loop(driver):
+            seen.append(driver)
+            if driver is first:
+                raise ReadTimeoutError(None, "127.0.0.1", "Read timed out")
+
+        def fake_connect(attach=True):
+            attaches.append(attach)
+            return second
+
+        saved = (main_mod.auto_answer_loop, watcher.connect)
+        main_mod.auto_answer_loop, watcher.connect = fake_loop, fake_connect
+        try:
+            main_mod.answer_until_done(first)
+        finally:
+            main_mod.auto_answer_loop, watcher.connect = saved
+
+        self.assertEqual(seen, [first, second], "loop should resume on the new session")
+        self.assertEqual(attaches, [True], "must reattach, not relaunch the app")
+        self.assertTrue(first.quit_called, "stalled session should be closed")
+        self.assertTrue(second.quit_called, "helper owns final cleanup")
+
+    def test_answer_until_done_gives_up_after_max_reconnects(self):
+        import main as main_mod
+        from urllib3.exceptions import ReadTimeoutError
+
+        watcher.MAX_RECONNECTS = 1
+
+        class FakeSession:
+            def quit(self):
+                pass
+
+        attempts = []
+
+        def fake_loop(driver):
+            attempts.append(1)
+            raise ReadTimeoutError(None, "127.0.0.1", "Read timed out")
+
+        saved = (main_mod.auto_answer_loop, watcher.connect)
+        main_mod.auto_answer_loop = fake_loop
+        watcher.connect = lambda attach=True: FakeSession()
+        try:
+            with self.assertRaises(ReadTimeoutError):
+                main_mod.answer_until_done(FakeSession())
+        finally:
+            main_mod.auto_answer_loop, watcher.connect = saved
+
+        self.assertEqual(len(attempts), 2, "initial attempt + one reconnect, then give up")
+
+
 if __name__ == "__main__":
     unittest.main()

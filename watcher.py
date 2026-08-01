@@ -16,7 +16,9 @@ from datetime import datetime
 
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
+from appium.webdriver.client_config import AppiumClientConfig
 from selenium.common.exceptions import WebDriverException
+from urllib3.exceptions import HTTPError
 
 import config
 from question_handler import (
@@ -34,6 +36,12 @@ RESULTS_FILE = "results.json"
 POLL_INTERVAL = 0.4
 RECONNECT_DELAY = 2
 MAX_RECONNECTS = 3
+# Wi-Fi adb can silently swallow an in-flight command (the device never
+# receives it); without a timeout the client then blocks forever.
+COMMAND_TIMEOUT = 60
+# selenium does not wrap transport failures: a timed-out or dropped request
+# raises a raw urllib3 error (HTTPError subclass), not a WebDriverException.
+CONNECTION_ERRORS = (WebDriverException, HTTPError)
 
 
 def load_results():
@@ -66,13 +74,18 @@ def connect(attach=True):
         # Relaunch the app on session start even when it is already open,
         # so main.py always begins from the app's home screen.
         options.set_capability("appium:forceAppLaunch", True)
-    return webdriver.Remote(config.APPIUM_SERVER, options=options)
+    client_config = AppiumClientConfig(
+        remote_server_addr=config.APPIUM_SERVER, timeout=COMMAND_TIMEOUT
+    )
+    return webdriver.Remote(
+        config.APPIUM_SERVER, options=options, client_config=client_config
+    )
 
 
 def safe_quit(driver):
     try:
         driver.quit()
-    except WebDriverException:
+    except CONNECTION_ERRORS:
         pass
 
 
@@ -163,7 +176,7 @@ def run(driver_factory):
             try:
                 poll_once(driver, state, results)
                 reconnects_left = MAX_RECONNECTS
-            except WebDriverException as e:
+            except CONNECTION_ERRORS as e:
                 # e.g. "socket hang up": another session restarted the
                 # device-side automation server. Reconnect and keep watching.
                 if reconnects_left == 0:
