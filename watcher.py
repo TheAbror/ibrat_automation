@@ -56,6 +56,9 @@ def connect(attach=True):
     options.platform_name = "Android"
     options.automation_name = "UiAutomator2"
     options.device_name = config.DEVICE_NAME
+    # Pin the session to the Wi-Fi adb target explicitly; deviceName alone
+    # does not select the device when several are attached.
+    options.udid = config.DEVICE_NAME
     options.no_reset = True
     if not attach:
         options.app_package = config.APP_PACKAGE

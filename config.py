@@ -1,4 +1,6 @@
-DEVICE_NAME = "ZY22GTXB9R"
+# Wi-Fi adb target (USB serial was "ZY22GTXB9R"). After a phone reboot,
+# plug in the cable once and run ./wifi_adb.sh to restore this connection.
+DEVICE_NAME = "192.168.1.16:5555"
 APP_PACKAGE = "uz.ibrat.farzandlari"
 APP_ACTIVITY = ".MainActivity"
 
