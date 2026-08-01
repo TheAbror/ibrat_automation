@@ -8,7 +8,8 @@
       "an",
       "a",
       "-"
-    ]
+    ],
+    "type": "multiple_choice"
   },
   {
     "time": "2026-08-01 19:40:27",
@@ -34,7 +35,8 @@
       "are",
       "a",
       "dinner."
-    ]
+    ],
+    "type": "fill_the_blank"
   },
   {
     "time": "2026-08-01 19:43:42",
@@ -45,7 +47,8 @@
       "an",
       "a",
       "-"
-    ]
+    ],
+    "type": "multiple_choice"
   },
   {
     "time": "2026-08-01 19:43:48",
@@ -56,7 +59,8 @@
       "an",
       "the",
       "a"
-    ]
+    ],
+    "type": "multiple_choice"
   },
   {
     "time": "2026-08-01 19:43:53",
@@ -67,7 +71,8 @@
       "an",
       "the",
       "a"
-    ]
+    ],
+    "type": "multiple_choice"
   },
   {
     "time": "2026-08-01 19:43:59",
@@ -85,7 +90,8 @@
       "Can",
       "sugar",
       "please?"
-    ]
+    ],
+    "type": "fill_the_blank"
   },
   {
     "time": "2026-08-01 19:44:03",
@@ -96,7 +102,8 @@
       "the",
       "of",
       "an"
-    ]
+    ],
+    "type": "multiple_choice"
   },
   {
     "time": "2026-08-01 19:44:07",
@@ -107,7 +114,8 @@
       "the",
       "-",
       "a"
-    ]
+    ],
+    "type": "multiple_choice"
   },
   {
     "time": "2026-08-01 19:44:46",
@@ -118,7 +126,8 @@
       "for",
       "the",
       "an"
-    ]
+    ],
+    "type": "multiple_choice"
   },
   {
     "time": "2026-08-01 19:44:48",
@@ -129,7 +138,8 @@
       "for",
       "the",
       "an"
-    ]
+    ],
+    "type": "multiple_choice"
   },
   {
     "time": "2026-08-01 19:44:53",
@@ -140,11 +150,12 @@
       "a",
       "the",
       "an"
-    ]
+    ],
+    "type": "multiple_choice"
   },
   {
     "time": "2026-08-01 23:48:33",
-    "type": "fill_the_blank",
+    "type": "matching",
     "result": "correct",
     "question": "So‘zlarni moslashtiring.",
     "options": [
@@ -3257,10 +3268,6 @@
       "in"
     ],
     "correct_answer": [
-      "They ",
-      "often ",
-      "go ",
-      "swimming.",
       "They often go swimming."
     ]
   },
@@ -3275,11 +3282,7 @@
       "in"
     ],
     "correct_answer": [
-      "She likes to go ___ the park on weekends.",
-      "at",
-      "to",
-      "to",
-      "in"
+      "to"
     ]
   },
   {
@@ -3293,7 +3296,6 @@
       "by"
     ],
     "correct_answer": [
-      "Are you going \nto\n the concert tonight?",
       "to"
     ]
   },
@@ -3368,12 +3370,7 @@
       "with"
     ],
     "correct_answer": [
-      "They usually go |_| a walk after dinner.",
-      "They usually go \nfor  \n a walk after dinner.",
-      "for  ",
-      "in   ",
-      "with",
-      "for"
+      "for  "
     ]
   },
   {
@@ -3401,7 +3398,6 @@
       "on"
     ],
     "correct_answer": [
-      "She went \non\n a business trip last week.",
       "on"
     ]
   },
@@ -3435,13 +3431,6 @@
       "walk "
     ],
     "correct_answer": [
-      "They ",
-      "like ",
-      "going ",
-      "for",
-      " a ",
-      "walk ",
-      "together.",
       "They like going for a walk together."
     ]
   },
@@ -3464,17 +3453,6 @@
       "the "
     ],
     "correct_answer": [
-      "He ",
-      "goes ",
-      "for ",
-      "a ",
-      "run ",
-      "in ",
-      "the ",
-      "park ",
-      "to ",
-      "stay ",
-      "fit. ",
       "He goes for a run in the park to stay fit."
     ]
   },
@@ -3489,11 +3467,7 @@
       "in"
     ],
     "correct_answer": [
-      "They went ____ the museum last month.",
-      "to",
-      "to",
-      "on",
-      "in"
+      "to"
     ]
   },
   {
@@ -3521,7 +3495,6 @@
       "in"
     ],
     "correct_answer": [
-      "Let's go \nfor\n a jog in the park.",
       "for"
     ]
   },
@@ -3578,11 +3551,7 @@
       "in"
     ],
     "correct_answer": [
-      "We can go ___ the movies this evening.",
-      "for",
-      "to",
-      "to",
-      "in"
+      "to"
     ]
   },
   {
@@ -3596,7 +3565,6 @@
       "with"
     ],
     "correct_answer": [
-      "He's planning to go \non \n a vacation with his family.",
       "on"
     ]
   },
@@ -3618,16 +3586,6 @@
       "are "
     ],
     "correct_answer": [
-      "They ",
-      "are ",
-      "getting ",
-      "ready ",
-      "to ",
-      "go ",
-      "on ",
-      "a ",
-      "family ",
-      "vacation.",
       "They are getting ready to go on a family vacation."
     ]
   }
