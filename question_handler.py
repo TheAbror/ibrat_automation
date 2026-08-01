@@ -82,7 +82,10 @@ def build_answer_map(results):
     known = {}
     for entry in results:
         if entry.get("correct_answer"):
-            known[entry["question"]] = entry["correct_answer"][0]
+            # The diff can pick up stray texts besides the revealed answer
+            # (e.g. a chip the runner placed) — the longest text is the
+            # answer: full sentence for chips, the word itself for blanks.
+            known[entry["question"]] = max(entry["correct_answer"], key=len)
     return known
 
 
@@ -118,15 +121,18 @@ def chip_sequence(question, options, known):
     """
     answer = known.get(question)
     if answer:
-        words = answer.split()
+        # Chip labels can carry trailing spaces ("They ", "go ") — match
+        # stripped, but return the original labels so taps find them.
         pool = list(options)
-        for w in words:
-            if w in pool:
-                pool.remove(w)
-            else:
+        sequence = []
+        for word in answer.split():
+            chip = next((c for c in pool if c.strip() == word), None)
+            if chip is None:
                 break
+            pool.remove(chip)
+            sequence.append(chip)
         else:
-            return words
+            return sequence
     return list(options[:1])
 
 

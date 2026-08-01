@@ -238,6 +238,25 @@ class TestStrategies(unittest.TestCase):
             ["She", "is", "reading", "the", "book", "you", "recommended."],
         )
 
+    def test_build_answer_map_picks_longest_when_diff_has_stray_chip(self):
+        results = [{
+            "question": "Ular tez-tez suzishga borishadi. ",
+            "result": "incorrect",
+            "correct_answer": ["swimming.", "They often go swimming."],
+        }]
+        self.assertEqual(
+            qh.build_answer_map(results),
+            {"Ular tez-tez suzishga borishadi. ": "They often go swimming."},
+        )
+
+    def test_chip_sequence_matches_chips_with_trailing_spaces(self):
+        known = {"Q1": "They often go swimming."}
+        chips = ["swimming.", "in", "often ", "They ", "go "]
+        self.assertEqual(
+            qh.chip_sequence("Q1", chips, known),
+            ["They ", "often ", "go ", "swimming."],
+        )
+
     def test_chip_sequence_unknown_taps_first_chip_only(self):
         chips = ["She", "is", "reading"]
         self.assertEqual(qh.chip_sequence("Q1", chips, {}), ["She"])

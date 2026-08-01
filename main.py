@@ -52,11 +52,18 @@ def sheet_is_up(driver):
     return classify_sheet([d for _, d in parse_screen(driver.page_source) if d]) is not None
 
 
-def wait_for_sheet(driver, timeout=12):
+def wait_for_sheet(driver, state, timeout=12):
+    """Wait for the feedback sheet, refreshing state's pre-sheet snapshot.
+
+    Keeping state["descs"] fresh while our own taps rearrange the screen
+    means the answer-reveal diff won't include chips we placed ourselves.
+    """
     end = time.time() + timeout
     while time.time() < end:
-        if sheet_is_up(driver):
+        descs = [d for _, d in parse_screen(driver.page_source) if d]
+        if classify_sheet(descs) is not None:
             return True
+        state["descs"] = descs
         time.sleep(0.4)
     return False
 
@@ -169,7 +176,7 @@ def auto_answer_loop(driver):
             except (NoSuchElementException, StaleElementReferenceException) as e:
                 print(f"  tap failed ({type(e).__name__}), retrying next cycle")
                 continue
-            if not wait_for_sheet(driver):
+            if not wait_for_sheet(driver, state):
                 print("  no feedback sheet appeared within 12s")
             idle_since = time.time()
             continue
