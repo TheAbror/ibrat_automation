@@ -26,7 +26,7 @@ from selenium.common.exceptions import (
 import config
 import locators as loc
 import watcher
-from navigation import dismiss_popup, navigate_to_test
+from navigation import dismiss_popup, navigate_to_test, tap_forward_button
 from question_handler import (
     OPTION_IGNORE,
     build_answer_map,
@@ -174,8 +174,12 @@ def auto_answer_loop(driver):
             idle_since = time.time()
             continue
 
-        # Unrecognized screen: an offer popup may be in the way
+        # Unrecognized screen: an offer popup may be in the way, or it's a
+        # finish screen (Retry / Next ...) or the next quiz's Start page.
         if dismiss_popup(driver):
+            idle_since = time.time()
+            continue
+        if tap_forward_button(driver):
             idle_since = time.time()
             continue
 

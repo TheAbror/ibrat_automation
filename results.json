@@ -1356,5 +1356,1071 @@
       "teaching.",
       "expert"
     ]
+  },
+  {
+    "time": "2026-08-02 00:41:29",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) siz tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "a",
+      "He",
+      "the",
+      "is",
+      "reading",
+      "offer",
+      "you",
+      "recommended.",
+      "book"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:41:46",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kecha men qiziqarli kino ko‘rdim.",
+    "options": [
+      "yesterday.",
+      "I",
+      "watched",
+      "watch",
+      "boring",
+      "interesting",
+      "an",
+      "a",
+      "movie"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:42:19",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He's engrossed in reading ___ captivating book.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:42:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ banana, please?",
+    "options": [
+      "the",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:42:25",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He's an excellent musician. He plays ___ guitar beautifully.",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:42:51",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "-",
+      "bag",
+      "An",
+      "architect",
+      "A",
+      "poems",
+      "The",
+      "café you recommended"
+    ],
+    "correct_answer": []
+  },
+  {
+    "time": "2026-08-02 00:42:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She's ___ expert in the field of medicine.",
+    "options": [
+      "an",
+      "for",
+      "a"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:43:11",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) siz tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "is",
+      "reading",
+      "offer",
+      "a",
+      "recommended.",
+      "He",
+      "you",
+      "book",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:43:14",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me |_| salt, please?",
+    "options": [
+      "the",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "Can you pass me \nthe\n salt, please?",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:43:37",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "An",
+      "airplane",
+      "-",
+      "poems I wrote",
+      "The",
+      "fox",
+      "A",
+      "plans"
+    ],
+    "correct_answer": []
+  },
+  {
+    "time": "2026-08-02 00:47:32",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I need to buy |_| new laptop.",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "I need to buy \nthe\n new laptop.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:47:56",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) ta'lim (o‘qitish) sohasida mutaxassis.",
+    "options": [
+      "an",
+      "teaching.",
+      "teacher",
+      "expert",
+      "the",
+      "in",
+      "is",
+      "he",
+      "a",
+      "of",
+      "field",
+      "She"
+    ],
+    "correct_answer": [
+      "an",
+      "teaching.",
+      "teacher",
+      "expert",
+      "the",
+      "in",
+      "is",
+      "he",
+      "a",
+      "of",
+      "field",
+      "She",
+      "She is an expert in the field of teaching."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:48:15",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Iltimos, menga tuzni uzata olasizmi?",
+    "options": [
+      "salt,",
+      "please?",
+      "me",
+      "passing",
+      "you",
+      "sugar",
+      "pass",
+      "Can",
+      "a",
+      "the"
+    ],
+    "correct_answer": [
+      "salt,",
+      "please?",
+      "me",
+      "passing",
+      "you",
+      "sugar",
+      "pass",
+      "Can",
+      "a",
+      "the",
+      "Can you pass me the salt, please?"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:34",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kechki ovqat uchun restoranga bormoqchimiz.",
+    "options": [
+      "We",
+      "goes",
+      "are",
+      "a",
+      "going",
+      "for",
+      "dinner.",
+      "is",
+      "restaurant",
+      "an",
+      "to"
+    ],
+    "correct_answer": [
+      "We",
+      "We are going to a restaurant for dinner."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:37",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He's reading |_| book you recommended.",
+    "options": [
+      "an",
+      "the",
+      "for"
+    ],
+    "correct_answer": [
+      "He's reading \nan\n book you recommended.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I saw ___ interesting movie last night.",
+    "options": [
+      "-",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:42",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Can you pass me ___ pepper, please?",
+    "options": [
+      "a",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ salt, please?",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:48",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I saw |_| movie last night.",
+    "options": [
+      "of",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "I saw \nof\n movie last night.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:51",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She has ___ umbrella because it's raining.",
+    "options": [
+      "a",
+      "some",
+      "an"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:53",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They visited ___ Eiffel Tower when they were in Paris.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:56",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He's reading ___ book you recommended.",
+    "options": [
+      "an",
+      "a",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:50:59",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I need to buy ___ new book.",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:02",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We're going to |_| restaurant for dinner tonight.",
+    "options": [
+      "an",
+      "-",
+      "a"
+    ],
+    "correct_answer": [
+      "We're going to \nan\n restaurant for dinner tonight.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There's a beautiful sun over ___ ocean.",
+    "options": [
+      "-",
+      "a",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We're going to |_| restaurant for dinner tonight.",
+    "options": [
+      "a",
+      "-",
+      "an"
+    ],
+    "correct_answer": [
+      "We're going to \na\n restaurant for dinner tonight.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:11",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kecha men qiziqarli kino ko‘rdim.",
+    "options": [
+      "watch",
+      "watched",
+      "a",
+      "interesting",
+      "movie",
+      "boring",
+      "yesterday.",
+      "an",
+      "I"
+    ],
+    "correct_answer": [
+      "watch",
+      "I watched an interesting movie yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:14",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She's |_| expert in the field of medicine.",
+    "options": [
+      "an",
+      "a",
+      "-"
+    ],
+    "correct_answer": [
+      "She's \nan\n expert in the field of medicine.",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He's engrossed in reading ___ captivating book.",
+    "options": [
+      "an",
+      "a",
+      "the"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's an excellent musician. He plays ___ guitar beautifully.",
+    "options": [
+      "the",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:24",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) siz tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "book",
+      "reading",
+      "you",
+      "the",
+      "He",
+      "is",
+      "offer",
+      "a",
+      "recommended."
+    ],
+    "correct_answer": [
+      "book",
+      "He is reading the book you recommended."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:26",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I need to buy |_| new laptop.",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "I need to buy \nthe\n new laptop.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:31",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) ta'lim (o‘qitish) sohasida mutaxassis.",
+    "options": [
+      "teaching.",
+      "expert",
+      "teacher",
+      "is",
+      "he",
+      "an",
+      "the",
+      "field",
+      "of",
+      "in",
+      "She",
+      "a"
+    ],
+    "correct_answer": [
+      "an",
+      "She is an expert in the field of teaching."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:35",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Iltimos, menga tuzni uzata olasizmi?",
+    "options": [
+      "Can",
+      "me",
+      "the",
+      "a",
+      "please?",
+      "pass",
+      "you",
+      "passing",
+      "sugar",
+      "salt,"
+    ],
+    "correct_answer": [
+      "salt,",
+      "Can you pass me the salt, please?"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:40",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kechki ovqat uchun restoranga bormoqchimiz.",
+    "options": [
+      "We",
+      "restaurant",
+      "dinner.",
+      "is",
+      "going",
+      "goes",
+      "an",
+      "are",
+      "for",
+      "to",
+      "a"
+    ],
+    "correct_answer": [
+      "We",
+      "We are going to a restaurant for dinner."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:42",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's reading |_| book you recommended.",
+    "options": [
+      "the",
+      "for",
+      "an"
+    ],
+    "correct_answer": [
+      "He's reading \nthe\n book you recommended.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ pepper, please?",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:48",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I saw |_| movie last night.",
+    "options": [
+      "of",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "I saw \nan\n movie last night.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:50",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She has ___ umbrella because it's raining.",
+    "options": [
+      "a",
+      "an",
+      "some"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:53",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's reading ___ book you recommended.",
+    "options": [
+      "the",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I need to buy ___ new book.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:51:58",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We're going to |_| restaurant for dinner tonight.",
+    "options": [
+      "-",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "We're going to \n-\n restaurant for dinner tonight.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:52:03",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kecha men qiziqarli kino ko‘rdim.",
+    "options": [
+      "watch",
+      "a",
+      "yesterday.",
+      "watched",
+      "boring",
+      "movie",
+      "an",
+      "interesting",
+      "I"
+    ],
+    "correct_answer": [
+      "watch",
+      "I watched an interesting movie yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:30",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "A",
+      "café you recommended",
+      "An",
+      "bag",
+      "-",
+      "poems",
+      "The",
+      "architect"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:33",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She has ___ umbrella because it's raining.",
+    "options": [
+      "an",
+      "some",
+      "a"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:36",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ banana, please?",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ salt, please?",
+    "options": [
+      "the",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me |_| salt, please?",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "Can you pass me \nthe\n salt, please?",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:47",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) siz tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "book",
+      "the",
+      "He",
+      "reading",
+      "recommended.",
+      "offer",
+      "is",
+      "you",
+      "a"
+    ],
+    "correct_answer": [
+      "book",
+      "He is reading the book you recommended."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:50",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We're going to |_| restaurant for dinner tonight.",
+    "options": [
+      "a",
+      "-",
+      "an"
+    ],
+    "correct_answer": [
+      "We're going to \na\n restaurant for dinner tonight.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:54",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Iltimos, menga tuzni uzata olasizmi?",
+    "options": [
+      "Can",
+      "pass",
+      "salt,",
+      "please?",
+      "the",
+      "me",
+      "sugar",
+      "you",
+      "a",
+      "passing"
+    ],
+    "correct_answer": [
+      "salt,",
+      "Can you pass me the salt, please?"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:56",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They visited ___ Eiffel Tower when they were in Paris.",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:53:59",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We're going to |_| restaurant for dinner tonight.",
+    "options": [
+      "an",
+      "a",
+      "-"
+    ],
+    "correct_answer": [
+      "We're going to \nan\n restaurant for dinner tonight.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's an excellent musician. He plays ___ guitar beautifully.",
+    "options": [
+      "a",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:05",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There's a beautiful sun over ___ ocean.",
+    "options": [
+      "the",
+      "a",
+      "-"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She's ___ expert in the field of medicine.",
+    "options": [
+      "an",
+      "for",
+      "a"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:12",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) ta'lim (o‘qitish) sohasida mutaxassis.",
+    "options": [
+      "an",
+      "expert",
+      "teacher",
+      "of",
+      "he",
+      "in",
+      "a",
+      "field",
+      "She",
+      "the",
+      "teaching.",
+      "is"
+    ],
+    "correct_answer": [
+      "an",
+      "She is an expert in the field of teaching."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I saw ___ interesting movie last night.",
+    "options": [
+      "-",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He's reading |_| book you recommended.",
+    "options": [
+      "for",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "He's reading \nfor\n book you recommended.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I need to buy ___ new book.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ pepper, please?",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:28",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kechki ovqat uchun restoranga bormoqchimiz.",
+    "options": [
+      "We",
+      "goes",
+      "an",
+      "is",
+      "are",
+      "to",
+      "for",
+      "restaurant",
+      "a",
+      "dinner.",
+      "going"
+    ],
+    "correct_answer": [
+      "We",
+      "We are going to a restaurant for dinner."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:30",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's reading ___ book you recommended.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:33",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's engrossed in reading ___ captivating book.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:54:36",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She's |_| expert in the field of medicine.",
+    "options": [
+      "an",
+      "-",
+      "a"
+    ],
+    "correct_answer": [
+      "She's \n-\n expert in the field of medicine.",
+      "an"
+    ]
   }
 ]

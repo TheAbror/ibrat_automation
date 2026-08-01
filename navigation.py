@@ -56,6 +56,36 @@ def looks_like_question(nodes):
     return bool(question) and len(options) >= 2
 
 
+def find_forward_button(nodes):
+    """The button that moves forward on between-screens.
+
+    Test-finish screens offer "Retry" and "Next ..." — always the Next one.
+    A quiz Start page offers "Start". Returns the button label, or None.
+    (The feedback sheet's exact "Next" is excluded — poll_once handles it.)
+    """
+    for _, d in nodes:
+        if d.lower().startswith("next") and d != "Next":
+            return d
+    if any(d == "Start" for _, d in nodes):
+        return "Start"
+    return None
+
+
+def tap_forward_button(driver):
+    """On a finish/start screen, tap the button that moves forward."""
+    label = find_forward_button(parse_screen(driver.page_source))
+    if not label:
+        return False
+    try:
+        xpath = f"//*[@content-desc={xpath_literal(label)}]"
+        driver.find_element(AppiumBy.XPATH, xpath).click()
+        print(f"Tapped: {label}")
+        time.sleep(1.5)
+        return True
+    except (NoSuchElementException, StaleElementReferenceException):
+        return False
+
+
 def dismiss_popup(driver):
     """If a popup with a close (X) icon is on screen, tap the X."""
     icon = find_close_icon(parse_screen(driver.page_source))

@@ -92,6 +92,29 @@ class TestRecoveryHelpers(unittest.TestCase):
             navigation.candidate_buttons(nodes), ["Play", "Mark as done"]
         )
 
+    def test_find_forward_button_prefers_next_over_retry(self):
+        import navigation
+        finish_screen = [
+            ("android.view.View", "Test finished!"),
+            ("android.widget.Button", "Retry"),
+            ("android.widget.Button", "Next lesson"),
+        ]
+        self.assertEqual(navigation.find_forward_button(finish_screen), "Next lesson")
+
+    def test_find_forward_button_taps_start_page(self):
+        import navigation
+        start_page = [
+            ("android.view.View", "Quizzes"),
+            ("android.widget.Button", "Start"),
+        ]
+        self.assertEqual(navigation.find_forward_button(start_page), "Start")
+
+    def test_find_forward_button_ignores_plain_next_and_other_screens(self):
+        import navigation
+        sheet = [("android.widget.Button", "Next")]
+        self.assertIsNone(navigation.find_forward_button(sheet))
+        self.assertIsNone(navigation.find_forward_button([("android.view.View", "x")]))
+
     def test_looks_like_question(self):
         import navigation
         question_nodes = [
@@ -168,13 +191,16 @@ class TestDetectQuestionType(unittest.TestCase):
 
 
 class TestStrategies(unittest.TestCase):
-    def test_build_answer_map_takes_correct_entries_only(self):
+    def test_build_answer_map_uses_any_entry_with_captured_answer(self):
         results = [
             {"question": "Q1", "result": "correct", "correct_answer": ["an"]},
-            {"question": "Q2", "result": "incorrect"},
-            {"question": "Q3", "result": "correct"},  # old format, no answer
+            {"question": "Q2", "result": "incorrect", "correct_answer": ["the"]},
+            {"question": "Q3", "result": "incorrect"},  # nothing revealed
+            {"question": "Q4", "result": "correct"},  # old format, no answer
         ]
-        self.assertEqual(qh.build_answer_map(results), {"Q1": "an"})
+        self.assertEqual(
+            qh.build_answer_map(results), {"Q1": "an", "Q2": "the"}
+        )
 
     def test_mc_known_answer_wins(self):
         choice = qh.choose_mc_option(
@@ -201,14 +227,14 @@ class TestStrategies(unittest.TestCase):
             ["She", "is", "reading", "the", "book", "you", "recommended."],
         )
 
-    def test_chip_sequence_falls_back_to_first_line_order(self):
+    def test_chip_sequence_unknown_taps_first_chip_only(self):
         chips = ["She", "is", "reading"]
-        self.assertEqual(qh.chip_sequence("Q1", chips, {}), chips)
+        self.assertEqual(qh.chip_sequence("Q1", chips, {}), ["She"])
 
     def test_chip_sequence_ignores_known_answer_with_missing_chip(self):
         known = {"Q1": "She is sleeping."}
         chips = ["She", "is", "reading"]
-        self.assertEqual(qh.chip_sequence("Q1", chips, known), chips)
+        self.assertEqual(qh.chip_sequence("Q1", chips, known), ["She"])
 
     def test_split_matching_cards_by_column(self):
         cards = ["The", "letter he wrote", "An", "apple", "A", "cat"]
@@ -248,6 +274,7 @@ INCORRECT_XML = """<hierarchy>
   <node class="android.widget.Button" content-desc="an"/>
   <node class="android.widget.Button" content-desc="the"/>
   <node class="android.view.View" content-desc="Incorrect Answer!"/>
+  <node class="android.view.View" content-desc="an"/>
   <node class="android.widget.Button" content-desc="Next"/>
 </hierarchy>"""
 
@@ -311,7 +338,7 @@ class TestPollOnce(unittest.TestCase):
         self.assertEqual(entry["correct_answer"], ["an"])
         self.assertEqual(state["correct"], 1)
 
-    def test_incorrect_sheet_has_no_correct_answer_field(self):
+    def test_incorrect_sheet_saves_revealed_answer_too(self):
         driver = XmlDriver(QUESTION_XML)
         state = watcher.fresh_state()
         results = []
@@ -327,7 +354,7 @@ class TestPollOnce(unittest.TestCase):
 
         entry = results[0]
         self.assertEqual(entry["result"], "incorrect")
-        self.assertNotIn("correct_answer", entry)
+        self.assertEqual(entry["correct_answer"], ["an"])
         self.assertEqual(state["incorrect"], 1)
 
 

@@ -74,10 +74,14 @@ def tap_next(driver):
 # --- Answer strategies (pure logic, no driver) ---
 
 def build_answer_map(results):
-    """question -> known correct answer text, from logged correct results."""
+    """question -> known correct answer text.
+
+    The feedback sheet reveals the correct answer whether the attempt was
+    right or wrong, so every entry with a captured answer counts.
+    """
     known = {}
     for entry in results:
-        if entry.get("result") == "correct" and entry.get("correct_answer"):
+        if entry.get("correct_answer"):
             known[entry["question"]] = entry["correct_answer"][0]
     return known
 
@@ -108,7 +112,9 @@ def chip_sequence(question, options, known):
     """Order in which to tap the word chips of a fill_the_blank question.
 
     If the correct sentence is known and every word of it is available as a
-    chip, tap in sentence order; otherwise tap all chips first-to-last.
+    chip, tap in sentence order. Otherwise tap just the first chip and
+    submit — the feedback sheet then reveals the correct sentence, which
+    gets saved for the next encounter.
     """
     answer = known.get(question)
     if answer:
@@ -121,7 +127,7 @@ def chip_sequence(question, options, known):
                 break
         else:
             return words
-    return list(options)
+    return list(options[:1])
 
 
 def split_matching_cards(cards):

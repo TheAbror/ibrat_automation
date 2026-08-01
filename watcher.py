@@ -21,6 +21,7 @@ from selenium.common.exceptions import WebDriverException
 import config
 from question_handler import (
     CORRECT_MARKERS,
+    INCORRECT_MARKERS,
     NEXT_LABELS,
     OPTION_IGNORE,
     classify_sheet,
@@ -103,15 +104,17 @@ def poll_once(driver, state, results):
         "question": state["question"],
         "options": state["options"],
     }
-    if sheet == "correct":
-        # The sheet reveals the correct answer: it's whatever text appeared
-        # on screen that wasn't there before the sheet (multiset diff, so a
-        # repeated text like the chosen option counts too).
-        entry["correct_answer"] = [
-            d for d in (Counter(descs) - Counter(state.get("descs", []))).elements()
-            if d not in NEXT_LABELS
-            and not any(m in d for m in CORRECT_MARKERS)
-        ]
+    # Both sheets reveal the correct answer: it's whatever text appeared on
+    # screen that wasn't there before the sheet (multiset diff, so a repeated
+    # text like a re-shown option counts too). Saving it on incorrect results
+    # too lets the runner learn from its own mistakes.
+    shown = [
+        d for d in (Counter(descs) - Counter(state.get("descs", []))).elements()
+        if d not in NEXT_LABELS
+        and not any(m in d for m in CORRECT_MARKERS + INCORRECT_MARKERS)
+    ]
+    if shown:
+        entry["correct_answer"] = shown
     results.append(entry)
     save_results(results)
     state[sheet] += 1
