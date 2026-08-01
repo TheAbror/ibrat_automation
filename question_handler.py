@@ -73,6 +73,31 @@ def tap_next(driver):
 
 # --- Answer strategies (pure logic, no driver) ---
 
+def pick_revealed_answer(entry):
+    """The real answer among the texts the feedback sheet revealed.
+
+    multiple_choice sheets show the sentence with the blank filled in
+    (sometimes with the WRONG word) plus the answer word — so the answer
+    is the element that matches one of the question's options, and when
+    the diff echoes it twice, the most frequent match. fill_the_blank
+    sheets show the full correct sentence — the longest element — with
+    stray chip texts as noise. Returns None when nothing trustworthy.
+    """
+    answers = entry.get("correct_answer") or []
+    if not answers:
+        return None
+    if entry.get("type") == "multiple_choice":
+        options = entry.get("options") or []
+        matches = [
+            a for a in answers
+            if any(a.strip().lower() == o.strip().lower() for o in options)
+        ]
+        if matches:
+            return max(matches, key=matches.count)
+        return None
+    return max(answers, key=len)
+
+
 def build_answer_map(results):
     """question -> known correct answer text.
 
@@ -81,11 +106,9 @@ def build_answer_map(results):
     """
     known = {}
     for entry in results:
-        if entry.get("correct_answer"):
-            # The diff can pick up stray texts besides the revealed answer
-            # (e.g. a chip the runner placed) — the longest text is the
-            # answer: full sentence for chips, the word itself for blanks.
-            known[entry["question"]] = max(entry["correct_answer"], key=len)
+        answer = pick_revealed_answer(entry)
+        if answer is not None:
+            known[entry["question"]] = answer
     return known
 
 

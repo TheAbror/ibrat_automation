@@ -164,14 +164,7 @@
     "type": "multiple_choice",
     "result": "correct",
     "question": "Dismiss",
-    "options": [],
-    "correct_answer": [
-      "He's reading ___ book you recommended.",
-      "the",
-      "the",
-      "an",
-      "a"
-    ]
+    "options": []
   },
   {
     "time": "2026-08-01 23:49:17",
@@ -309,7 +302,6 @@
       "a"
     ],
     "correct_answer": [
-      "I need \n---\n advice on this matter.",
       "---"
     ]
   },
@@ -346,7 +338,6 @@
       "the"
     ],
     "correct_answer": [
-      "She's looking for \nan\n interesting book to read.",
       "an"
     ]
   },
@@ -525,7 +516,6 @@
       "An"
     ],
     "correct_answer": [
-      "The\n sun is shining brightly today.",
       "The"
     ]
   },
@@ -798,7 +788,6 @@
       "the"
     ],
     "correct_answer": [
-      "We went to \nthe\n movie last night.",
       "the"
     ]
   },
@@ -899,7 +888,6 @@
       "a"
     ],
     "correct_answer": [
-      "There's \nan\n apple on the counter.",
       "an"
     ]
   },
@@ -1486,7 +1474,6 @@
       "an"
     ],
     "correct_answer": [
-      "Can you pass me \nthe\n salt, please?",
       "the"
     ]
   },
@@ -1518,7 +1505,6 @@
       "a"
     ],
     "correct_answer": [
-      "I need to buy \nthe\n new laptop.",
       "a"
     ]
   },
@@ -1542,18 +1528,6 @@
       "She"
     ],
     "correct_answer": [
-      "an",
-      "teaching.",
-      "teacher",
-      "expert",
-      "the",
-      "in",
-      "is",
-      "he",
-      "a",
-      "of",
-      "field",
-      "She",
       "She is an expert in the field of teaching."
     ]
   },
@@ -1575,16 +1549,6 @@
       "the"
     ],
     "correct_answer": [
-      "salt,",
-      "please?",
-      "me",
-      "passing",
-      "you",
-      "sugar",
-      "pass",
-      "Can",
-      "a",
-      "the",
       "Can you pass me the salt, please?"
     ]
   },
@@ -1607,7 +1571,6 @@
       "to"
     ],
     "correct_answer": [
-      "We",
       "We are going to a restaurant for dinner."
     ]
   },
@@ -1622,7 +1585,6 @@
       "for"
     ],
     "correct_answer": [
-      "He's reading \nan\n book you recommended.",
       "the"
     ]
   },
@@ -1679,7 +1641,6 @@
       "an"
     ],
     "correct_answer": [
-      "I saw \nof\n movie last night.",
       "the"
     ]
   },
@@ -1750,7 +1711,6 @@
       "a"
     ],
     "correct_answer": [
-      "We're going to \nan\n restaurant for dinner tonight.",
       "a"
     ]
   },
@@ -1779,7 +1739,6 @@
       "an"
     ],
     "correct_answer": [
-      "We're going to \na\n restaurant for dinner tonight.",
       "a"
     ]
   },
@@ -1800,7 +1759,6 @@
       "I"
     ],
     "correct_answer": [
-      "watch",
       "I watched an interesting movie yesterday."
     ]
   },
@@ -1815,7 +1773,6 @@
       "-"
     ],
     "correct_answer": [
-      "She's \nan\n expert in the field of medicine.",
       "an"
     ]
   },
@@ -1864,7 +1821,6 @@
       "recommended."
     ],
     "correct_answer": [
-      "book",
       "He is reading the book you recommended."
     ]
   },
@@ -1879,7 +1835,6 @@
       "a"
     ],
     "correct_answer": [
-      "I need to buy \nthe\n new laptop.",
       "a"
     ]
   },
@@ -1903,7 +1858,6 @@
       "a"
     ],
     "correct_answer": [
-      "an",
       "She is an expert in the field of teaching."
     ]
   },
@@ -1925,7 +1879,6 @@
       "salt,"
     ],
     "correct_answer": [
-      "salt,",
       "Can you pass me the salt, please?"
     ]
   },
@@ -1948,7 +1901,6 @@
       "a"
     ],
     "correct_answer": [
-      "We",
       "We are going to a restaurant for dinner."
     ]
   },
@@ -1963,7 +1915,6 @@
       "an"
     ],
     "correct_answer": [
-      "He's reading \nthe\n book you recommended.",
       "the"
     ]
   },
@@ -1992,7 +1943,6 @@
       "the"
     ],
     "correct_answer": [
-      "I saw \nan\n movie last night.",
       "the"
     ]
   },
@@ -2049,7 +1999,6 @@
       "a"
     ],
     "correct_answer": [
-      "We're going to \n-\n restaurant for dinner tonight.",
       "a"
     ]
   },
@@ -2070,7 +2019,6 @@
       "I"
     ],
     "correct_answer": [
-      "watch",
       "I watched an interesting movie yesterday."
     ]
   },
@@ -2143,7 +2091,6 @@
       "a"
     ],
     "correct_answer": [
-      "Can you pass me \nthe\n salt, please?",
       "the"
     ]
   },
@@ -2164,7 +2111,6 @@
       "a"
     ],
     "correct_answer": [
-      "book",
       "He is reading the book you recommended."
     ]
   },
@@ -2179,7 +2125,6 @@
       "an"
     ],
     "correct_answer": [
-      "We're going to \na\n restaurant for dinner tonight.",
       "a"
     ]
   },
@@ -2201,7 +2146,6 @@
       "passing"
     ],
     "correct_answer": [
-      "salt,",
       "Can you pass me the salt, please?"
     ]
   },
@@ -2230,7 +2174,6 @@
       "-"
     ],
     "correct_answer": [
-      "We're going to \nan\n restaurant for dinner tonight.",
       "a"
     ]
   },
@@ -2296,7 +2239,6 @@
       "is"
     ],
     "correct_answer": [
-      "an",
       "She is an expert in the field of teaching."
     ]
   },
@@ -2325,7 +2267,6 @@
       "an"
     ],
     "correct_answer": [
-      "He's reading \nfor\n book you recommended.",
       "the"
     ]
   },
@@ -2376,7 +2317,6 @@
       "going"
     ],
     "correct_answer": [
-      "We",
       "We are going to a restaurant for dinner."
     ]
   },
@@ -2419,7 +2359,6 @@
       "a"
     ],
     "correct_answer": [
-      "She's \n-\n expert in the field of medicine.",
       "an"
     ]
   },
@@ -2450,7 +2389,6 @@
       "a"
     ],
     "correct_answer": [
-      "I need to buy \nan\n new laptop.",
       "a"
     ]
   },
@@ -2465,7 +2403,6 @@
       "of"
     ],
     "correct_answer": [
-      "I saw \nthe\n movie last night.",
       "the"
     ]
   },
@@ -2486,7 +2423,6 @@
       "watched"
     ],
     "correct_answer": [
-      "watch",
       "I watched an interesting movie yesterday."
     ]
   },
@@ -2507,7 +2443,6 @@
       "book"
     ],
     "correct_answer": [
-      "book",
       "He is reading the book you recommended."
     ]
   },
@@ -2529,7 +2464,6 @@
       "passing"
     ],
     "correct_answer": [
-      "salt,",
       "Can you pass me the salt, please?"
     ]
   },
@@ -2544,7 +2478,6 @@
       "-"
     ],
     "correct_answer": [
-      "We're going to \na\n restaurant for dinner tonight.",
       "a"
     ]
   },
@@ -2568,7 +2501,6 @@
       "expert"
     ],
     "correct_answer": [
-      "an",
       "She is an expert in the field of teaching."
     ]
   },
@@ -2583,7 +2515,6 @@
       "the"
     ],
     "correct_answer": [
-      "He's reading \nan\n book you recommended.",
       "the"
     ]
   },
@@ -2606,7 +2537,6 @@
       "a"
     ],
     "correct_answer": [
-      "We",
       "We are going to a restaurant for dinner."
     ]
   },
@@ -2621,7 +2551,6 @@
       "-"
     ],
     "correct_answer": [
-      "She's \na\n expert in the field of medicine.",
       "an"
     ]
   },
@@ -2636,7 +2565,6 @@
       "a"
     ],
     "correct_answer": [
-      "I need to buy \na\n new laptop.",
       "a"
     ]
   },
@@ -2657,7 +2585,6 @@
       "yesterday."
     ],
     "correct_answer": [
-      "watch",
       "I watched an interesting movie yesterday."
     ]
   },
@@ -2678,12 +2605,7 @@
       "yesterday."
     ],
     "correct_answer": [
-      "Dars 70 Go to work vs Go home",
-      "\"Go to\" is used to indicate movement towards a specific location or destination. It is followed by a noun that represents the place you are going to.",
-      "Examples:",
-      "1. They're going to school.",
-      "2. I want to go to the park.",
-      "3. They are going to the cinema tonight."
+      "\"Go to\" is used to indicate movement towards a specific location or destination. It is followed by a noun that represents the place you are going to."
     ]
   },
   {
@@ -2697,7 +2619,6 @@
       "on "
     ],
     "correct_answer": [
-      "He's planning to go \nin \n a vacation with his family.",
       "on"
     ]
   },
@@ -2720,7 +2641,6 @@
       "run "
     ],
     "correct_answer": [
-      "in ",
       "He goes for a run in the park to stay fit."
     ]
   },
@@ -2742,7 +2662,6 @@
       "to "
     ],
     "correct_answer": [
-      "getting ",
       "They are getting ready to go on a family vacation."
     ]
   },
@@ -2817,7 +2736,6 @@
       "with "
     ],
     "correct_answer": [
-      "Let's go \nin\n a jog in the park.",
       "for"
     ]
   },
@@ -2837,7 +2755,6 @@
       "walk "
     ],
     "correct_answer": [
-      " a ",
       "They like going for a walk together."
     ]
   },
@@ -2910,7 +2827,6 @@
       "go "
     ],
     "correct_answer": [
-      "swimming.",
       "They often go swimming."
     ]
   },
@@ -2939,7 +2855,6 @@
       "for  "
     ],
     "correct_answer": [
-      "She went \non\n a business trip last week.",
       "on"
     ]
   },
@@ -2982,7 +2897,6 @@
       "for  "
     ],
     "correct_answer": [
-      "They usually go \nin   \n a walk after dinner.",
       "for"
     ]
   },
@@ -3039,7 +2953,6 @@
       "to"
     ],
     "correct_answer": [
-      "Are you going \non\n the concert tonight?",
       "to"
     ]
   },
@@ -3082,7 +2995,6 @@
       "on "
     ],
     "correct_answer": [
-      "He's planning to go \nwith\n a vacation with his family.",
       "on"
     ]
   },
@@ -3105,7 +3017,6 @@
       "a "
     ],
     "correct_answer": [
-      "He ",
       "He goes for a run in the park to stay fit."
     ]
   },
@@ -3127,7 +3038,6 @@
       "are "
     ],
     "correct_answer": [
-      "getting ",
       "They are getting ready to go on a family vacation."
     ]
   },
@@ -3170,7 +3080,6 @@
       "for"
     ],
     "correct_answer": [
-      "Let's go \nwith \n a jog in the park.",
       "for"
     ]
   },
@@ -3190,7 +3099,6 @@
       "for"
     ],
     "correct_answer": [
-      "They ",
       "They like going for a walk together."
     ]
   },
@@ -3235,7 +3143,6 @@
       "go "
     ],
     "correct_answer": [
-      "swimming.",
       "They often go swimming."
     ]
   },
@@ -3292,7 +3199,6 @@
       "with"
     ],
     "correct_answer": [
-      "They usually go \nfor  \n a walk after dinner.",
       "for"
     ]
   },
@@ -3335,7 +3241,6 @@
       "on"
     ],
     "correct_answer": [
-      "Are you going \nby\n the concert tonight?",
       "to"
     ]
   }

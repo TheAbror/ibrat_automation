@@ -241,6 +241,7 @@ class TestStrategies(unittest.TestCase):
     def test_build_answer_map_picks_longest_when_diff_has_stray_chip(self):
         results = [{
             "question": "Ular tez-tez suzishga borishadi. ",
+            "type": "fill_the_blank",
             "result": "incorrect",
             "correct_answer": ["swimming.", "They often go swimming."],
         }]
@@ -248,6 +249,35 @@ class TestStrategies(unittest.TestCase):
             qh.build_answer_map(results),
             {"Ular tez-tez suzishga borishadi. ": "They often go swimming."},
         )
+
+    def test_mc_answer_is_the_option_not_the_filled_sentence(self):
+        entry = {
+            "question": "I need to buy |_| new laptop.",
+            "type": "multiple_choice",
+            "result": "incorrect",
+            "options": ["the", "a", "an"],
+            # sheet echoed the sentence filled with the WRONG word
+            "correct_answer": ["I need to buy \nthe\n new laptop.", "a"],
+        }
+        self.assertEqual(qh.pick_revealed_answer(entry), "a")
+
+    def test_mc_answer_duplicated_in_diff_wins_by_frequency(self):
+        entry = {
+            "question": "He's reading ___ book you recommended.",
+            "type": "multiple_choice",
+            "options": ["for", "the", "an", "a"],
+            "correct_answer": ["the", "the", "an", "a"],
+        }
+        self.assertEqual(qh.pick_revealed_answer(entry), "the")
+
+    def test_mc_answer_untrusted_when_nothing_matches_options(self):
+        entry = {
+            "question": "Q1",
+            "type": "multiple_choice",
+            "options": ["a", "an"],
+            "correct_answer": ["Some unrelated sheet text"],
+        }
+        self.assertIsNone(qh.pick_revealed_answer(entry))
 
     def test_chip_sequence_matches_chips_with_trailing_spaces(self):
         known = {"Q1": "They often go swimming."}
