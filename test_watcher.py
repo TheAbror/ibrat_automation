@@ -1,4 +1,4 @@
-"""Unit tests for the watcher's polling path.
+"""Unit tests for the shared screen logic, watcher polling, and strategies.
 
 Run with: python3 -m unittest test_watcher -v
 """
@@ -12,20 +12,17 @@ from selenium.common.exceptions import (
     WebDriverException,
 )
 
-import question_handler
+import question_handler as qh
 import watcher
 
 
 class FakeElement:
-    def __init__(self, desc, stale=False, click_fails=0):
+    def __init__(self, desc, click_fails=0):
         self._desc = desc
-        self._stale = stale
         self._click_fails = click_fails
         self.clicked = False
 
     def get_attribute(self, name):
-        if self._stale:
-            raise StaleElementReferenceException("element gone from DOM")
         return self._desc
 
     def is_displayed(self):
@@ -52,26 +49,18 @@ class FakeDriver:
         return self._elements[0]
 
 
-class TestStaleHandling(unittest.TestCase):
-    def test_get_question_text_returns_none_when_stale(self):
-        driver = FakeDriver([FakeElement("q", stale=True)])
-        self.assertIsNone(question_handler.get_question_text(driver))
-
-    def test_get_question_text_normal(self):
-        driver = FakeDriver([FakeElement("What is ___?")])
-        self.assertEqual(question_handler.get_question_text(driver), "What is ___?")
-
+class TestTapNext(unittest.TestCase):
     def test_tap_next_retries_after_stale_click(self):
         el = FakeElement("Next", click_fails=1)
         driver = FakeDriver([el])
-        self.assertTrue(watcher.tap_next(driver))
+        self.assertTrue(qh.tap_next(driver))
         self.assertTrue(el.clicked)
 
 
 class TestDetectQuestionType(unittest.TestCase):
     def test_underscore_blank_is_multiple_choice(self):
         self.assertEqual(
-            question_handler.detect_question_type(
+            qh.detect_question_type(
                 "He's reading ___ interesting book.", ["a", "an", "the"]
             ),
             "multiple_choice",
@@ -79,7 +68,7 @@ class TestDetectQuestionType(unittest.TestCase):
 
     def test_pipe_blank_is_multiple_choice(self):
         self.assertEqual(
-            question_handler.detect_question_type(
+            qh.detect_question_type(
                 "We're going to |_| restaurant for dinner tonight.",
                 ["an", "a", "the"],
             ),
@@ -88,7 +77,7 @@ class TestDetectQuestionType(unittest.TestCase):
 
     def test_moslashtiring_is_matching(self):
         self.assertEqual(
-            question_handler.detect_question_type(
+            qh.detect_question_type(
                 "Moslashtiring.",
                 ["The", "letter he wrote", "An", "apple", "A", "cat"],
             ),
@@ -97,7 +86,7 @@ class TestDetectQuestionType(unittest.TestCase):
 
     def test_many_chips_is_fill_the_blank(self):
         self.assertEqual(
-            question_handler.detect_question_type(
+            qh.detect_question_type(
                 "U (qiz) sen tavsiya qilgan kitobni o‘qiyapti.",
                 ["She", "is", "reading", "the", "book", "you", "recommended."],
             ),
@@ -106,11 +95,66 @@ class TestDetectQuestionType(unittest.TestCase):
 
     def test_few_options_without_blank_falls_back_to_multiple_choice(self):
         self.assertEqual(
-            question_handler.detect_question_type(
-                "Choose the correct sentence", ["A cat", "An cat"]
-            ),
+            qh.detect_question_type("Choose the correct sentence", ["A cat", "An cat"]),
             "multiple_choice",
         )
+
+
+class TestStrategies(unittest.TestCase):
+    def test_build_answer_map_takes_correct_entries_only(self):
+        results = [
+            {"question": "Q1", "result": "correct", "correct_answer": ["an"]},
+            {"question": "Q2", "result": "incorrect"},
+            {"question": "Q3", "result": "correct"},  # old format, no answer
+        ]
+        self.assertEqual(qh.build_answer_map(results), {"Q1": "an"})
+
+    def test_mc_known_answer_wins(self):
+        choice = qh.choose_mc_option(
+            "Q1", ["a", "an", "the"], {"Q1": "The"}, {}
+        )
+        self.assertEqual(choice, "the")
+
+    def test_mc_unknown_starts_with_option_a(self):
+        self.assertEqual(
+            qh.choose_mc_option("Q1", ["a", "an", "the"], {}, {}), "a"
+        )
+
+    def test_mc_repeat_tries_next_untried_option(self):
+        attempted = {}
+        first = qh.choose_mc_option("Q1", ["a", "an", "the"], {}, attempted)
+        second = qh.choose_mc_option("Q1", ["a", "an", "the"], {}, attempted)
+        self.assertEqual((first, second), ("a", "an"))
+
+    def test_chip_sequence_uses_known_sentence_order(self):
+        known = {"Q1": "She is reading the book you recommended."}
+        chips = ["you", "She", "recommended.", "is", "the", "reading", "book"]
+        self.assertEqual(
+            qh.chip_sequence("Q1", chips, known),
+            ["She", "is", "reading", "the", "book", "you", "recommended."],
+        )
+
+    def test_chip_sequence_falls_back_to_first_line_order(self):
+        chips = ["She", "is", "reading"]
+        self.assertEqual(qh.chip_sequence("Q1", chips, {}), chips)
+
+    def test_chip_sequence_ignores_known_answer_with_missing_chip(self):
+        known = {"Q1": "She is sleeping."}
+        chips = ["She", "is", "reading"]
+        self.assertEqual(qh.chip_sequence("Q1", chips, known), chips)
+
+    def test_matching_tries_direct_neighbour_first(self):
+        cards = ["The", "letter he wrote", "An", "apple", "A", "cat"]
+        attempts = qh.matching_attempt_pairs(cards)
+        self.assertEqual(attempts[0], ("The", "letter he wrote"))
+        self.assertEqual(attempts[3], ("An", "apple"))
+        self.assertEqual(len(attempts), 9)  # 3 lefts x 3 rights
+        self.assertEqual(len(set(attempts)), 9)  # every combination once
+
+    def test_xpath_literal_handles_apostrophes(self):
+        self.assertEqual(qh.xpath_literal("the"), "'the'")
+        self.assertEqual(qh.xpath_literal("He's"), '"He\'s"')
+        self.assertTrue(qh.xpath_literal("He's \"x\"").startswith("concat("))
 
 
 QUESTION_XML = """<hierarchy>
@@ -142,11 +186,6 @@ INCORRECT_XML = """<hierarchy>
   <node class="android.widget.Button" content-desc="Next"/>
 </hierarchy>"""
 
-UNKNOWN_SHEET_XML = """<hierarchy>
-  <node class="android.view.View" content-desc="Some new title!"/>
-  <node class="android.widget.Button" content-desc="Next"/>
-</hierarchy>"""
-
 
 class XmlDriver:
     def __init__(self, xml, next_el=None):
@@ -174,25 +213,19 @@ class TestPollOnce(unittest.TestCase):
     def tearDown(self):
         os.chdir(self._cwd)
 
-    @staticmethod
-    def fresh_state():
-        return {
-            "question": None, "options": [],
-            "correct": 0, "incorrect": 0, "other": 0,
-        }
-
-    def test_question_screen_updates_state(self):
+    def test_question_screen_updates_state_and_reports_it(self):
         driver = XmlDriver(QUESTION_XML)
-        state = self.fresh_state()
+        state = watcher.fresh_state()
         results = []
-        watcher.poll_once(driver, state, results)
+        status = watcher.poll_once(driver, state, results)
+        self.assertEqual(status, "question")
         self.assertEqual(state["question"], "He's reading ___ interesting book.")
         self.assertEqual(state["options"], ["a", "an", "the"])
         self.assertEqual(results, [])
 
-    def test_feedback_sheet_logs_type_and_result(self):
+    def test_feedback_sheet_logs_type_result_and_correct_answer(self):
         driver = XmlDriver(QUESTION_XML)
-        state = self.fresh_state()
+        state = watcher.fresh_state()
         results = []
         watcher.poll_once(driver, state, results)  # remember the question
 
@@ -202,9 +235,9 @@ class TestPollOnce(unittest.TestCase):
 
         driver.next_el = NextEl("Next")
         driver.xml = FEEDBACK_XML
-        watcher.poll_once(driver, state, results)
+        status = watcher.poll_once(driver, state, results)
 
-        self.assertEqual(len(results), 1)
+        self.assertEqual(status, "correct")
         entry = results[0]
         self.assertEqual(entry["type"], "multiple_choice")
         self.assertEqual(entry["result"], "correct")
@@ -215,7 +248,7 @@ class TestPollOnce(unittest.TestCase):
 
     def test_incorrect_sheet_has_no_correct_answer_field(self):
         driver = XmlDriver(QUESTION_XML)
-        state = self.fresh_state()
+        state = watcher.fresh_state()
         results = []
         watcher.poll_once(driver, state, results)  # remember the question
 
@@ -231,21 +264,6 @@ class TestPollOnce(unittest.TestCase):
         self.assertEqual(entry["result"], "incorrect")
         self.assertNotIn("correct_answer", entry)
         self.assertEqual(state["incorrect"], 1)
-
-    def test_unrecognized_sheet_still_logged_and_skipped(self):
-        driver = XmlDriver(UNKNOWN_SHEET_XML)
-        state = self.fresh_state()
-        state["question"] = "Q1"
-        results = []
-
-        class NextEl(FakeElement):
-            def click(inner):
-                driver.xml = QUESTION_XML
-
-        driver.next_el = NextEl("Next")
-        watcher.poll_once(driver, state, results)
-        self.assertEqual(results[0]["result"], "other")
-        self.assertEqual(state["other"], 1)
 
 
 class TestReconnect(unittest.TestCase):

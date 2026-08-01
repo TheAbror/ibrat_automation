@@ -12,11 +12,4 @@ START_TEST = (AppiumBy.ACCESSIBILITY_ID, "Start")
 NEXT_BUTTON = (AppiumBy.XPATH, "//*[@content-desc='Next']")
 CONTINUE_BUTTON = (AppiumBy.XPATH, "//android.widget.Button[@content-desc='Continue']")
 
-NICELY_DONE = (AppiumBy.XPATH, "//*[contains(@content-desc,'Nicely done')]")
-INCORRECT_ANSWER = (AppiumBy.XPATH, "//*[contains(@content-desc,'Incorrect Answer')]")
-
-QUESTION_TEXT = (AppiumBy.XPATH, "//android.view.View[@content-desc!='']")
-ALL_BUTTONS = (AppiumBy.CLASS_NAME, "android.widget.Button")
-NON_CONTINUE_BUTTONS = (AppiumBy.XPATH, "//android.widget.Button[@content-desc!='Continue']")
-
 PROGRESS_BAR = (AppiumBy.CLASS_NAME, "android.widget.ProgressBar")

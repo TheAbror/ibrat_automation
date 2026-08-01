@@ -211,5 +211,1003 @@
       "is",
       "He"
     ]
+  },
+  {
+    "time": "2026-08-01 23:57:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She's ___ expert in the field of medicine.",
+    "options": [
+      "a",
+      "an",
+      "for"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-01 23:57:44",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They visited ___ Eiffel Tower when they were in Paris.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:00:43",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We went to |_| movie last night.",
+    "options": [
+      "an",
+      "the",
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:00:45",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She bought ___ beautiful dress for the party.",
+    "options": [
+      "the",
+      "a",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:00:49",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I saw ___ bird in the garden.",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:00:51",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Do you have ___ pen? ",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:00:55",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ ocean is the largest body of water on Earth.",
+    "options": [
+      "A",
+      "An",
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:00:58",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I need |_| advice on this matter.",
+    "options": [
+      "---",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "I need \n---\n advice on this matter.",
+      "---"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:01:01",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He found ___ key to his car.",
+    "options": [
+      "-",
+      "the",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:01:04",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ moon is visible during the night.",
+    "options": [
+      "An",
+      "The",
+      "A"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:01:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She's looking for |_| interesting book to read.",
+    "options": [
+      "an",
+      "a",
+      "the"
+    ],
+    "correct_answer": [
+      "She's looking for \nan\n interesting book to read.",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:01:25",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) tibbiyot sohasida mutaxassis.",
+    "options": [
+      " field ",
+      "an ",
+      "the",
+      "a",
+      "medicine.",
+      "She's ",
+      "of ",
+      "in ",
+      "expert "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:01:28",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ earth is the third planet from the sun.  ",
+    "options": [
+      "An",
+      "A",
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:01:31",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He's reading ___ interesting book.   ",
+    "options": [
+      "a",
+      "the",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:01:54",
+    "type": "matching",
+    "result": "correct",
+    "question": "Moslashtiring.",
+    "options": [
+      "A",
+      "letter he wrote",
+      "Some",
+      "cat",
+      "An",
+      "apple",
+      "The",
+      "restaurants"
+    ],
+    "correct_answer": []
+  },
+  {
+    "time": "2026-08-02 00:02:09",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) sen tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "reading ",
+      "is ",
+      "She ",
+      "recommended.",
+      "some",
+      "you ",
+      "the ",
+      "book "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:02:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She wants to buy ___ new car.    ",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:02:15",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There's |_| apple on the counter.",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:02:27",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) qiziqarli kitob o‘qidi.",
+    "options": [
+      "interesting ",
+      "an ",
+      "read",
+      "book.",
+      "He",
+      "reading"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:02:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ giraffes are tall animals.",
+    "options": [
+      "-",
+      "A",
+      "An"
+    ],
+    "correct_answer": [
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:02:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He found ___ wallet he lost yesterday.",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:02:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ elephants are known for their intelligence.",
+    "options": [
+      "-",
+      "An",
+      "A"
+    ],
+    "correct_answer": [
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:02:37",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Can you pass me ___ salt, please?",
+    "options": [
+      "a",
+      "the",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:02:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| sun is shining brightly today.",
+    "options": [
+      "The",
+      "A",
+      "An"
+    ],
+    "correct_answer": [
+      "The\n sun is shining brightly today.",
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:02:54",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men kecha qiziqarli kino ko‘rdim.",
+    "options": [
+      "movie ",
+      "an",
+      "some ",
+      "I ",
+      "yesterday.",
+      " interesting ",
+      "saw "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:07",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men bog‘da kapalaklarni ko‘rdim.",
+    "options": [
+      " the ",
+      "a",
+      "butterflies ",
+      "saw ",
+      "garden.",
+      "in",
+      "I "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:10",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We went to |_| movie last night.",
+    "options": [
+      "-",
+      "the",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:13",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She bought ___ beautiful dress for the party.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:15",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Do you have ___ pen? ",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:18",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ ocean is the largest body of water on Earth.",
+    "options": [
+      "A",
+      "An",
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:21",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He found ___ key to his car.",
+    "options": [
+      "-",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:24",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ moon is visible during the night.",
+    "options": [
+      "The",
+      "A",
+      "An"
+    ],
+    "correct_answer": [
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:41",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) tibbiyot sohasida mutaxassis.",
+    "options": [
+      "in ",
+      "She's ",
+      " field ",
+      "the",
+      "an ",
+      "of ",
+      "expert ",
+      "a",
+      "medicine."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:44",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ earth is the third planet from the sun.  ",
+    "options": [
+      "The",
+      "An",
+      "A"
+    ],
+    "correct_answer": [
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:03:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's reading ___ interesting book.   ",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:04:02",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) sen tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "some",
+      "recommended.",
+      "book ",
+      "She ",
+      "is ",
+      "reading ",
+      "the ",
+      "you "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:04:05",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There's |_| apple on the counter.",
+    "options": [
+      "a",
+      "the",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:04:17",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) qiziqarli kitob o‘qidi.",
+    "options": [
+      "He",
+      "reading",
+      "an ",
+      "interesting ",
+      "read",
+      "book."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:04:19",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ salt, please?",
+    "options": [
+      "the",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:04:33",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men kecha qiziqarli kino ko‘rdim.",
+    "options": [
+      "movie ",
+      "I ",
+      "some ",
+      "saw ",
+      "an",
+      "yesterday.",
+      " interesting "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:04:47",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men bog‘da kapalaklarni ko‘rdim.",
+    "options": [
+      "saw ",
+      " the ",
+      "I ",
+      "butterflies ",
+      "in",
+      "garden.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:05:31",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men bog‘da kapalaklarni ko‘rdim.",
+    "options": [
+      "garden.",
+      "a",
+      "saw ",
+      "butterflies ",
+      " the ",
+      "I ",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:05:33",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I need |_| advice on this matter.",
+    "options": [
+      "---",
+      "a",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:05:36",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We went to |_| movie last night.",
+    "options": [
+      "-",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "We went to \nthe\n movie last night.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:05:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I saw ___ bird in the garden.",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:05:41",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ earth is the third planet from the sun.  ",
+    "options": [
+      "An",
+      "The",
+      "A"
+    ],
+    "correct_answer": [
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:05:56",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) sen tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "recommended.",
+      "is ",
+      "some",
+      "you ",
+      "the ",
+      "She ",
+      "reading ",
+      "book "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:05:59",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's reading ___ interesting book.   ",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ elephants are known for their intelligence.",
+    "options": [
+      "An",
+      "-",
+      "A"
+    ],
+    "correct_answer": [
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ moon is visible during the night.",
+    "options": [
+      "A",
+      "The",
+      "An"
+    ],
+    "correct_answer": [
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There's |_| apple on the counter.",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "There's \nan\n apple on the counter.",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:23",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) tibbiyot sohasida mutaxassis.",
+    "options": [
+      "medicine.",
+      "in ",
+      "the",
+      "She's ",
+      "expert ",
+      "of ",
+      "an ",
+      " field ",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:37",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men kecha qiziqarli kino ko‘rdim.",
+    "options": [
+      "some ",
+      "yesterday.",
+      "an",
+      " interesting ",
+      "saw ",
+      "I ",
+      "movie "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:39",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ ocean is the largest body of water on Earth.",
+    "options": [
+      "An",
+      "A",
+      "The"
+    ],
+    "correct_answer": [
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:42",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Do you have ___ pen? ",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ giraffes are tall animals.",
+    "options": [
+      "An",
+      "A",
+      "-"
+    ],
+    "correct_answer": [
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:47",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She bought ___ beautiful dress for the party.",
+    "options": [
+      "the",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He found ___ wallet he lost yesterday.",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:54",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| sun is shining brightly today.",
+    "options": [
+      "An",
+      "The",
+      "A"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:06:57",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She wants to buy ___ new car.    ",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:07:09",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) qiziqarli kitob o‘qidi.",
+    "options": [
+      "book.",
+      "He",
+      "an ",
+      "reading",
+      "interesting ",
+      "read"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:07:33",
+    "type": "matching",
+    "result": "correct",
+    "question": "Moslashtiring.",
+    "options": [
+      "The",
+      "restaurants",
+      "A",
+      "letter he wrote",
+      "Some",
+      "cat",
+      "An",
+      "apple"
+    ],
+    "correct_answer": []
+  },
+  {
+    "time": "2026-08-02 00:07:36",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ salt, please?",
+    "options": [
+      "a",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:07:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He found ___ key to his car.",
+    "options": [
+      "the",
+      "an",
+      "-"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:07:41",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She's looking for |_| interesting book to read.",
+    "options": [
+      "an",
+      "a",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:07:54",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men bog‘da kapalaklarni ko‘rdim.",
+    "options": [
+      "butterflies ",
+      "I ",
+      "in",
+      " the ",
+      "saw ",
+      "a",
+      "garden."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:07:57",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I need |_| advice on this matter.",
+    "options": [
+      "an",
+      "---",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:08:11",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) sen tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "some",
+      "recommended.",
+      "She ",
+      "book ",
+      "the ",
+      "is ",
+      "reading ",
+      "you "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:08:27",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) tibbiyot sohasida mutaxassis.",
+    "options": [
+      "expert ",
+      "a",
+      "She's ",
+      " field ",
+      "of ",
+      "the",
+      "in ",
+      "an ",
+      "medicine."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:08:41",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men kecha qiziqarli kino ko‘rdim.",
+    "options": [
+      "saw ",
+      "I ",
+      "yesterday.",
+      "some ",
+      "an",
+      "movie ",
+      " interesting "
+    ]
+  },
+  {
+    "time": "2026-08-02 00:08:43",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| sun is shining brightly today.",
+    "options": [
+      "An",
+      "A",
+      "The"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:08:55",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) qiziqarli kitob o‘qidi.",
+    "options": [
+      "reading",
+      "read",
+      "interesting ",
+      "book.",
+      "an ",
+      "He"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:08:57",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She's looking for |_| interesting book to read.",
+    "options": [
+      "a",
+      "the",
+      "an"
+    ]
   }
 ]
