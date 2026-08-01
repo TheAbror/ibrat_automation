@@ -109,6 +109,17 @@ class TestRecoveryHelpers(unittest.TestCase):
         ]
         self.assertEqual(navigation.find_forward_button(start_page), "Start")
 
+    def test_find_forward_button_continue_closes_streak_popup(self):
+        import navigation
+        streak_popup = [
+            ("android.view.View", "3"),
+            ("android.view.View", "Day"),
+            ("android.view.View", "Parvoz boshlandi!"),
+            ("android.widget.Button", "Last week"),
+            ("android.widget.Button", "Continue"),
+        ]
+        self.assertEqual(navigation.find_forward_button(streak_popup), "Continue")
+
     def test_find_forward_button_ignores_plain_next_and_other_screens(self):
         import navigation
         sheet = [("android.widget.Button", "Next")]

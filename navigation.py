@@ -60,14 +60,16 @@ def find_forward_button(nodes):
     """The button that moves forward on between-screens.
 
     Test-finish screens offer "Retry" and "Next ..." — always the Next one.
-    A quiz Start page offers "Start". Returns the button label, or None.
+    A quiz Start page offers "Start". Popups whose X icon has no label
+    (e.g. the streak popup) offer "Continue". Returns the label, or None.
     (The feedback sheet's exact "Next" is excluded — poll_once handles it.)
     """
     for _, d in nodes:
         if d.lower().startswith("next") and d != "Next":
             return d
-    if any(d == "Start" for _, d in nodes):
-        return "Start"
+    for label in ("Start", "Continue"):
+        if any(d == label for _, d in nodes):
+            return label
     return None
 
 

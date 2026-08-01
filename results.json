@@ -2422,5 +2422,51 @@
       "She's \n-\n expert in the field of medicine.",
       "an"
     ]
+  },
+  {
+    "time": "2026-08-02 00:55:03",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "A",
+      "poems I wrote",
+      "-",
+      "fox",
+      "The",
+      "airplane",
+      "An",
+      "plans"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:06",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I need to buy |_| new laptop.",
+    "options": [
+      "the",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "I need to buy \nan\n new laptop.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:08",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I saw |_| movie last night.",
+    "options": [
+      "the",
+      "an",
+      "of"
+    ],
+    "correct_answer": [
+      "I saw \nthe\n movie last night.",
+      "the"
+    ]
   }
 ]
