@@ -26,6 +26,9 @@ BOUNDS_RE = re.compile(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]")
 # The home screen's bottom navigation — its top-left gear icon is also an
 # unlabeled clickable, so blind-closing there would open settings instead.
 HOME_NAV_DESCS = {"Main", "Learn", "Profile"}
+# Caption of the task-reward screen whose chest image must be tapped —
+# that screen has no buttons and no X at all.
+CHEST_TAP_MARKER = "Tap on the chest!"
 
 
 def tap(driver, waiter, locator, label):
@@ -49,10 +52,13 @@ def find_close_icon(nodes):
 def blind_close_unsafe(nodes):
     """True on screens where tapping an unlabeled top-left icon would
     navigate away rather than close a popup: the home screen (its gear
-    icon is an unlabeled top-left clickable too) and finish/start pages
-    (their back arrow sits where a popup's X would)."""
+    icon is an unlabeled top-left clickable too), finish/start pages
+    (their back arrow sits where a popup's X would), and the chest-reward
+    screens, which have no X at all — only their forward button/chest."""
     descs = [d for _, d in nodes if d]
     if HOME_NAV_DESCS.issubset(descs):
+        return True
+    if "Open chest" in descs or CHEST_TAP_MARKER in descs:
         return True
     return any(d == "Start" or d.lower().startswith("next") for d in descs)
 
@@ -107,22 +113,52 @@ def find_forward_button(nodes):
 
     Test-finish screens offer "Retry" and "Next ..." — always the Next one.
     A quiz Start page offers "Start". Popups whose X icon has no label
-    (e.g. the streak popup) offer "Continue". Returns the label, or None.
+    (e.g. the streak popup) offer "Continue", and the task-reward screen
+    offers "Open chest". Returns the label, or None.
     (The feedback sheet's exact "Next" is excluded — poll_once handles it.)
     """
     for _, d in nodes:
         if d.lower().startswith("next") and d != "Next":
             return d
-    for label in ("Start", "Continue"):
+    for label in ("Start", "Continue", "Open chest"):
         if any(d == label for _, d in nodes):
             return label
     return None
 
 
+def tap_chest(driver):
+    """Open the chest on the "Tap on the chest!" reward screen.
+
+    That screen has no buttons and no X — the chest image mid-screen is
+    the only way forward. The chest spans roughly the 47–62% band of the
+    screen height, centered horizontally, so tap the center column at
+    those heights until the caption goes away.
+    """
+    width = height = 0
+    for el in ET.fromstring(driver.page_source).iter():
+        m = BOUNDS_RE.fullmatch(el.get("bounds") or "")
+        if m:
+            width = max(width, int(m.group(3)))
+            height = max(height, int(m.group(4)))
+    if not width or not height:
+        return False
+    for frac in (0.55, 0.47, 0.62):
+        center = (width // 2, int(height * frac))
+        driver.tap([center])
+        print(f"Tapped the reward chest at {center}")
+        time.sleep(1.5)
+        if not any(d == CHEST_TAP_MARKER for _, d in parse_screen(driver.page_source)):
+            return True
+    return False
+
+
 def tap_forward_button(driver):
-    """On a finish/start screen, tap the button that moves forward."""
-    label = find_forward_button(parse_screen(driver.page_source))
+    """On a finish/start/reward screen, tap whatever moves forward."""
+    nodes = parse_screen(driver.page_source)
+    label = find_forward_button(nodes)
     if not label:
+        if any(d == CHEST_TAP_MARKER for _, d in nodes):
+            return tap_chest(driver)
         return False
     try:
         xpath = f"//*[@content-desc={xpath_literal(label)}]"
@@ -232,9 +268,12 @@ def open_next_in_sequence(driver):
     return True
 
 
-def clear_launch_popups(driver, rounds=3):
+def clear_launch_popups(driver, rounds=5):
     """Close popups that cover the home screen right after app launch
-    (streak screen, Pro offer) — X icon first, Continue as fallback."""
+    (streak screen, Pro offer, the chest-reward flow) — X icon first,
+    forward button as fallback. The chest flow alone takes three rounds
+    (Open chest → tap the chest → Continue); unused rounds cost nothing
+    because the loop returns as soon as nothing was closed or tapped."""
     for _ in range(rounds):
         if dismiss_popup(driver) or tap_forward_button(driver):
             time.sleep(1)
@@ -278,12 +317,14 @@ def navigate_to_test(driver, wait, wait_long):
     return True
 
 
-def push_through_to_start(driver, attempts=3):
+def push_through_to_start(driver, attempts=5):
     """Get from wherever the sequence landed to the questions.
 
     Each attempt: close any popup, tap Start if it's there, and otherwise
     tap through the screen's buttons to move forward. Also succeeds when
-    questions have already started (no Start screen in between).
+    questions have already started (no Start screen in between). Five
+    attempts leave room for the three-screen chest-reward flow plus a
+    Start page on the way in.
     """
     for _ in range(attempts):
         dismiss_popup(driver)

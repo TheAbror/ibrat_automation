@@ -817,5 +817,128 @@ class TestConnectionResilience(unittest.TestCase):
         self.assertEqual(len(attempts), 2, "initial attempt + one reconnect, then give up")
 
 
+# The task-reward chest flow has no X icon on any of its three screens:
+# a tasks screen whose only way forward is "Open chest", then a chest
+# image that must be tapped by position (no buttons at all), then a
+# "+50 stars" screen with Continue. The unlabeled top-left clickable in
+# the first two fixtures stands in for a decorative icon that must never
+# be mistaken for a popup's X.
+CHEST_TASKS_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[26,102][117,154]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[150,180][570,240]" clickable="false" content-desc="+1 point for completed task"/>
+  <node class="android.view.View" bounds="[100,300][500,390]" clickable="false" content-desc="1 ta darsni 100% aniqlikda bajaring"/>
+  <node class="android.view.View" bounds="[200,400][280,440]" clickable="false" content-desc="0/1"/>
+  <node class="android.view.View" bounds="[100,520][500,570]" clickable="false" content-desc="Bugun 3 ta darsni yakunlang"/>
+  <node class="android.view.View" bounds="[120,590][600,630]" clickable="false" content-desc="3/3"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Open chest"/>
+</hierarchy>"""
+
+CHEST_TAP_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[26,102][117,154]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[180,290][540,350]" clickable="false" content-desc="Get your reward"/>
+  <node class="android.view.View" bounds="[80,420][560,470]" clickable="false" content-desc="5 ta turli darsni yakunlang"/>
+  <node class="android.view.View" bounds="[570,420][650,470]" clickable="false" content-desc="+50"/>
+  <node class="android.view.View" bounds="[230,770][490,1000]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[200,1230][520,1280]" clickable="false" content-desc="Tap on the chest!"/>
+</hierarchy>"""
+
+CHEST_STARS_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[540,90][700,160]" clickable="false" content-desc="115"/>
+  <node class="android.view.View" bounds="[240,600][480,660]" clickable="false" content-desc="+50 stars"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Continue"/>
+</hierarchy>"""
+
+
+class ChestFlowDriver:
+    """Fake driver that walks the chest-reward flow as taps land."""
+
+    def __init__(self):
+        self.xml = CHEST_TASKS_XML
+        self.coord_taps = []
+        self.clicked = []
+
+    @property
+    def page_source(self):
+        return self.xml
+
+    def find_element(self, by, value):
+        el = FakeElement("forward")
+
+        def click():
+            self.clicked.append(value)
+            if "Open chest" in value:
+                self.xml = CHEST_TAP_XML
+            elif "Continue" in value:
+                self.xml = HOME_SCREEN_XML
+
+        el.click = click
+        return el
+
+    def tap(self, positions, duration=None):
+        self.coord_taps.append(positions[0])
+        self.xml = CHEST_STARS_XML
+
+
+class TestChestRewardFlow(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_find_forward_button_opens_task_chest(self):
+        import navigation
+        nodes = qh.parse_screen(CHEST_TASKS_XML)
+        self.assertEqual(navigation.find_forward_button(nodes), "Open chest")
+
+    def test_tap_forward_button_taps_the_chest_image_by_position(self):
+        import navigation
+        driver = ChestFlowDriver()
+        driver.xml = CHEST_TAP_XML
+        self.assertTrue(navigation.tap_forward_button(driver))
+        self.assertEqual(driver.coord_taps, [(360, 880)])
+
+    def test_chest_tap_walks_nearby_heights_until_screen_changes(self):
+        # If the first tap misses the chest (screen unchanged), nearby
+        # heights on the center column are tried before giving up.
+        import navigation
+        driver = TapDriver(CHEST_TAP_XML)
+        self.assertFalse(navigation.tap_forward_button(driver))
+        self.assertEqual(driver.taps, [(360, 880), (360, 752), (360, 992)])
+
+    def test_full_flow_open_chest_then_tap_then_continue(self):
+        import navigation
+        driver = ChestFlowDriver()
+        for _ in range(3):
+            self.assertTrue(navigation.tap_forward_button(driver))
+        self.assertTrue(any("Open chest" in v for v in driver.clicked), driver.clicked)
+        self.assertEqual(driver.coord_taps, [(360, 880)])
+        self.assertTrue(any("Continue" in v for v in driver.clicked), driver.clicked)
+
+    def test_chest_screens_are_never_blind_tapped(self):
+        # These screens have no X at all — an unlabeled top-left icon on
+        # them is decoration, and tapping it must not count as a dismissal
+        # (a phantom success would loop forever without moving forward).
+        import navigation
+        for xml in (CHEST_TASKS_XML, CHEST_TAP_XML):
+            driver = TapDriver(xml)
+            self.assertFalse(navigation.dismiss_popup(driver))
+            self.assertEqual(driver.taps, [])
+
+    def test_chest_tasks_screen_is_not_a_question(self):
+        # Guard: one "Open chest" button stays under the 2-option floor,
+        # so the runner falls through to tap_forward_button.
+        driver = XmlDriver(CHEST_TASKS_XML)
+        state = watcher.fresh_state()
+        self.assertIsNone(watcher.poll_once(driver, state, []))
+        self.assertIsNone(state["question"])
+
+
 if __name__ == "__main__":
     unittest.main()
