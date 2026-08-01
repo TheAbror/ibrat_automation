@@ -32,6 +32,19 @@ python3 main.py
 
 Stop it anytime with `Ctrl+C` — it cleans up its session on exit.
 
+## If a lesson video loads slowly
+
+Lesson pages with a video swallow the **Next** tap until the video has loaded.
+The runner does not give up there: it prints
+
+```
+Screen is not moving forward (video still loading?) — waiting.
+```
+
+and keeps re-tapping Next every few seconds. You can also just tap **Next**
+on the phone yourself — as soon as the screen changes, the automation
+continues on its own.
+
 ## Manual adb commands
 
 Plain `adb shell ...` works since there is just one device.

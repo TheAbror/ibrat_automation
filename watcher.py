@@ -42,6 +42,9 @@ COMMAND_TIMEOUT = 60
 # selenium does not wrap transport failures: a timed-out or dropped request
 # raises a raw urllib3 error (HTTPError subclass), not a WebDriverException.
 CONNECTION_ERRORS = (WebDriverException, HTTPError)
+# When a screen with a Next button refuses to move (a lesson page whose
+# video is still loading swallows the tap), retry Next this often.
+STUCK_RETAP_EVERY = 10
 
 
 def load_results():
@@ -149,9 +152,17 @@ def poll_once(driver, state, results):
     if not tap_next(driver):
         print("Next button not found — tap it manually, still watching...")
 
-    # Wait until the sheet is gone so the same one isn't logged twice
+    # Wait until the sheet is gone so the same one isn't logged twice.
+    # A lesson page lands here too (its "Next" makes classify_sheet say
+    # "other"); while its video is still loading the tap is swallowed, so
+    # keep re-tapping Next — a manual tap on the phone also moves it on.
+    stuck_since = time.time()
     while classify_sheet([d for _, d in parse_screen(driver.page_source) if d]) is not None:
         time.sleep(0.5)
+        if time.time() - stuck_since >= STUCK_RETAP_EVERY:
+            stuck_since = time.time()
+            print("Screen not moving — re-tapping Next (a tap on the phone works too)...")
+            tap_next(driver)
     return sheet
 
 

@@ -49,6 +49,19 @@ class FakeDriver:
         return self._elements[0]
 
 
+class FakeTime:
+    """Instant time for wait loops: sleep() just advances a fake clock."""
+
+    def __init__(self, start=1000.0):
+        self.now = start
+
+    def time(self):
+        return self.now
+
+    def sleep(self, seconds):
+        self.now += seconds
+
+
 class TestLastLessonDesc(unittest.TestCase):
     def test_picks_last_dars_or_test_item(self):
         import navigation
@@ -938,6 +951,177 @@ class TestChestRewardFlow(unittest.TestCase):
         state = watcher.fresh_state()
         self.assertIsNone(watcher.poll_once(driver, state, []))
         self.assertIsNone(state["question"])
+
+
+# The lesson page the course sequence often lands on: a video player up
+# top, the lesson text, and a "Next" button. While the video is still
+# loading, taps on Next are swallowed and the screen stays exactly like
+# this — only a later re-tap (or a human tap) moves it forward.
+LESSON_SCREEN_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[100,60][620,300]" clickable="true" content-desc="That/This/Those/These IBRAT FARZANDLARI"/>
+  <node class="android.view.View" bounds="[42,350][678,420]" clickable="false" content-desc="Dars 73 That / This / Those / These"/>
+  <node class="android.view.View" bounds="[42,440][678,700]" clickable="false" content-desc="Demonstrative pronouns are used to point to specific people, objects, or places."/>
+  <node class="android.widget.Button" bounds="[26,1418][117,1502]" clickable="true" content-desc="null"/>
+  <node class="android.widget.Button" bounds="[160,1418][678,1502]" clickable="true" content-desc="Next"/>
+</hierarchy>"""
+
+QUIZ_START_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[30,100][100,170]" clickable="true" content-desc="Go back"/>
+  <node class="android.view.View" bounds="[280,600][440,660]" clickable="false" content-desc="Quizzes"/>
+  <node class="android.view.View" bounds="[100,700][620,760]" clickable="false" content-desc="Press the start button when you are ready"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Start"/>
+</hierarchy>"""
+
+
+class StuckLessonDriver:
+    """Lesson page that swallows Next taps until the video has 'loaded'."""
+
+    def __init__(self, works_after_taps):
+        self.xml = LESSON_SCREEN_XML
+        self.taps = []
+        self.works_after = works_after_taps
+
+    @property
+    def page_source(self):
+        return self.xml
+
+    def find_element(self, by, value):
+        el = FakeElement("forward")
+
+        def click():
+            self.taps.append(value)
+            if len(self.taps) >= self.works_after:
+                self.xml = QUIZ_START_XML
+
+        el.click = click
+        return el
+
+
+class ManualAdvanceDriver:
+    """Lesson page that only moves because the human tapped on the phone:
+    the screen changes after a fixed number of reads, never from a tap."""
+
+    def __init__(self, change_after_reads):
+        self.reads = 0
+        self.change_after = change_after_reads
+        self.taps = []
+
+    @property
+    def page_source(self):
+        self.reads += 1
+        return QUIZ_START_XML if self.reads > self.change_after else LESSON_SCREEN_XML
+
+    def find_element(self, by, value):
+        el = FakeElement("forward")
+        el.click = lambda: self.taps.append(value)
+        return el
+
+
+class TestWaitForManualAdvance(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._time = navigation.time
+        navigation.time = FakeTime()
+
+    def tearDown(self):
+        import navigation
+        navigation.time = self._time
+
+    def test_retaps_next_until_slow_video_lets_the_screen_move(self):
+        import navigation
+        driver = StuckLessonDriver(works_after_taps=2)
+        self.assertTrue(navigation.wait_for_manual_advance(driver))
+        self.assertEqual(len(driver.taps), 2)
+        self.assertTrue(all("Next" in t for t in driver.taps), driver.taps)
+
+    def test_returns_when_the_human_taps_on_the_phone(self):
+        import navigation
+        driver = ManualAdvanceDriver(change_after_reads=3)
+        self.assertTrue(navigation.wait_for_manual_advance(driver))
+        self.assertEqual(driver.taps, [], "no re-tap needed before the change")
+
+    def test_forward_tap_label_includes_plain_next(self):
+        # find_forward_button deliberately skips a plain "Next"; the stuck-
+        # screen re-tap must include it — it IS the lesson page's button.
+        import navigation
+        nodes = qh.parse_screen(LESSON_SCREEN_XML)
+        self.assertEqual(navigation.forward_tap_label(nodes), "Next")
+
+
+class TestPushThroughWaitsWhenStuck(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._time = navigation.time
+        navigation.time = FakeTime()
+
+    def tearDown(self):
+        import navigation
+        navigation.time = self._time
+
+    def test_push_through_waits_out_a_stuck_lesson_screen(self):
+        # A stuck round must not give up: it waits for the screen to move
+        # (manual tap), then pushes on to the Start button.
+        import navigation
+        import locators as loc
+        from selenium.common.exceptions import TimeoutException
+
+        driver = TapDriver(LESSON_SCREEN_XML)
+        calls = {"waits": 0, "started": False}
+
+        def fake_wait(d):
+            calls["waits"] += 1
+            d.xml = QUIZ_START_XML  # the human tapped Next on the phone
+            return True
+
+        def fake_tap(d, waiter, locator, label):
+            if locator == loc.START_TEST and "Start" in d.xml:
+                calls["started"] = True
+                return
+            raise TimeoutException(label)
+
+        saved = (navigation.tap, navigation.wait_for_manual_advance)
+        navigation.tap, navigation.wait_for_manual_advance = fake_tap, fake_wait
+        try:
+            result = navigation.push_through_to_start(driver, attempts=1)
+        finally:
+            navigation.tap, navigation.wait_for_manual_advance = saved
+
+        self.assertTrue(result)
+        self.assertEqual(calls["waits"], 1)
+        self.assertTrue(calls["started"])
+
+
+class TestPollOnceStuckLesson(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        self._time = watcher.time
+        watcher.time = FakeTime()
+
+    def tearDown(self):
+        watcher.time = self._time
+        os.chdir(self._cwd)
+
+    def test_stuck_lesson_screen_is_retapped_until_it_moves(self):
+        # A lesson page's exact "Next" classifies as an "other" sheet. When
+        # the video hasn't loaded the first tap is swallowed — poll_once
+        # must keep re-tapping instead of spinning silently forever.
+        driver = XmlDriver(LESSON_SCREEN_XML)
+        clicks = []
+
+        class NextEl(FakeElement):
+            def click(inner):
+                clicks.append(1)
+                if len(clicks) >= 2:  # video finished loading by now
+                    driver.xml = QUIZ_START_XML
+
+        driver.next_el = NextEl("Next")
+        status = watcher.poll_once(driver, watcher.fresh_state(), [])
+
+        self.assertEqual(status, "other")
+        self.assertEqual(len(clicks), 2, "should re-tap Next after the retry interval")
 
 
 if __name__ == "__main__":

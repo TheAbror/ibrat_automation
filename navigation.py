@@ -26,6 +26,11 @@ BOUNDS_RE = re.compile(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]")
 # The home screen's bottom navigation — its top-left gear icon is also an
 # unlabeled clickable, so blind-closing there would open settings instead.
 HOME_NAV_DESCS = {"Main", "Learn", "Profile"}
+
+# While a stuck screen is waited out (e.g. a lesson video still loading):
+STUCK_POLL = 2          # seconds between screen checks
+STUCK_RETAP_EVERY = 10  # seconds between retries of the forward button
+STUCK_REMIND_EVERY = 60 # seconds between reminders to tap manually
 # Caption of the task-reward screen whose chest image must be tapped —
 # that screen has no buttons and no X at all.
 CHEST_TAP_MARKER = "Tap on the chest!"
@@ -229,6 +234,63 @@ def tap_through_buttons(driver):
     return False
 
 
+def forward_tap_label(nodes):
+    """The label to re-tap while waiting out a stuck screen.
+
+    Like find_forward_button, but a plain "Next" counts too: the lesson
+    pages' button is exactly "Next", and no feedback sheet is involved
+    when a screen is being waited out.
+    """
+    for _, d in nodes:
+        if d.lower().startswith("next"):
+            return d
+    for label in ("Start", "Continue", "Open chest"):
+        if any(d == label for _, d in nodes):
+            return label
+    return None
+
+
+def retap_forward(driver, nodes):
+    """Best-effort re-tap of a stuck screen's forward button."""
+    label = forward_tap_label(nodes)
+    if not label:
+        return
+    try:
+        xpath = f"//*[@content-desc={xpath_literal(label)}]"
+        driver.find_element(AppiumBy.XPATH, xpath).click()
+        print(f"Re-tapped: {label}")
+    except (NoSuchElementException, StaleElementReferenceException):
+        pass
+
+
+def wait_for_manual_advance(driver):
+    """Wait out a screen that refuses to move forward.
+
+    Happens on lesson pages whose video is still loading — the Next tap
+    is swallowed until the page is ready. The forward button is re-tapped
+    every few seconds in case the page finished loading, and a manual tap
+    on the phone works too. Returns once the screen has changed; never
+    gives up (Ctrl+C to stop).
+    """
+    before = [d for _, d in parse_screen(driver.page_source) if d]
+    print("Screen is not moving forward (video still loading?) — waiting.")
+    print("Re-tapping it periodically; you can also tap the button on the phone...")
+    last_tap = last_remind = time.time()
+    while True:
+        time.sleep(STUCK_POLL)
+        nodes = parse_screen(driver.page_source)
+        if [d for _, d in nodes if d] != before:
+            print("Screen changed — continuing")
+            return True
+        now = time.time()
+        if now - last_tap >= STUCK_RETAP_EVERY:
+            last_tap = now
+            retap_forward(driver, nodes)
+        if now - last_remind >= STUCK_REMIND_EVERY:
+            last_remind = now
+            print("Still waiting — tap the forward button on the phone to continue...")
+
+
 def wait_for_lessons_list(driver, timeout=15):
     end = time.time() + timeout
     while time.time() < end:
@@ -306,13 +368,7 @@ def navigate_to_test(driver, wait, wait_long):
     if not open_next_in_sequence(driver):
         return False
 
-    if not push_through_to_start(driver):
-        print(
-            "Could not reach the question screen — the next item in sequence\n"
-            "may need to be completed manually in the app. Then run main.py again."
-        )
-        return False
-
+    push_through_to_start(driver)
     print("Reached the question screen!")
     return True
 
@@ -325,25 +381,32 @@ def push_through_to_start(driver, attempts=5):
     questions have already started (no Start screen in between). Five
     attempts leave room for the three-screen chest-reward flow plus a
     Start page on the way in.
+
+    When a whole round of attempts moves nothing (e.g. a lesson page whose
+    video is still loading and swallows every Next tap), the screen is
+    waited out — re-tapped periodically, and a manual tap on the phone
+    works too — then pushing resumes. Never gives up.
     """
-    for _ in range(attempts):
-        dismiss_popup(driver)
+    while True:
+        for _ in range(attempts):
+            dismiss_popup(driver)
 
-        try:
-            tap(driver, WebDriverWait(driver, 5), loc.START_TEST, "Start test")
-            return True
-        except TimeoutException:
-            pass
+            try:
+                tap(driver, WebDriverWait(driver, 5), loc.START_TEST, "Start test")
+                return True
+            except TimeoutException:
+                pass
 
-        if looks_like_question(parse_screen(driver.page_source)):
-            print("Questions already started")
-            return True
+            if looks_like_question(parse_screen(driver.page_source)):
+                print("Questions already started")
+                return True
 
-        # A finish/start/streak screen: its forward button (Next ... /
-        # Start / Continue) beats blind-tapping in tree order.
-        if tap_forward_button(driver):
-            continue
+            # A finish/start/streak screen: its forward button (Next ... /
+            # Start / Continue) beats blind-tapping in tree order.
+            if tap_forward_button(driver):
+                continue
 
-        print("No Start button — tapping through this screen...")
-        tap_through_buttons(driver)
-    return False
+            print("No Start button — tapping through this screen...")
+            tap_through_buttons(driver)
+
+        wait_for_manual_advance(driver)
