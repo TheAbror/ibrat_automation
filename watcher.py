@@ -104,17 +104,23 @@ def poll_once(driver, state, results):
         "question": state["question"],
         "options": state["options"],
     }
-    # Both sheets reveal the correct answer: it's whatever text appeared on
-    # screen that wasn't there before the sheet (multiset diff, so a repeated
-    # text like a re-shown option counts too). Saving it on incorrect results
-    # too lets the runner learn from its own mistakes.
-    shown = [
-        d for d in (Counter(descs) - Counter(state.get("descs", []))).elements()
-        if d not in NEXT_LABELS
-        and not any(m in d for m in CORRECT_MARKERS + INCORRECT_MARKERS)
-    ]
-    if shown:
-        entry["correct_answer"] = shown
+    # Matching sheets reveal nothing, but the auto-runner discovers the
+    # pairs itself and leaves them in state for us to attach.
+    pairs = state.pop("pending_pairs", None)
+    if entry["type"] == "matching" and pairs:
+        entry["correct_answer"] = list(pairs)
+    else:
+        # Both sheets reveal the correct answer: it's whatever text appeared
+        # on screen that wasn't there before the sheet (multiset diff, so a
+        # repeated text like a re-shown option counts too). Saving it on
+        # incorrect results too lets the runner learn from its own mistakes.
+        shown = [
+            d for d in (Counter(descs) - Counter(state.get("descs", []))).elements()
+            if d not in NEXT_LABELS
+            and not any(m in d for m in CORRECT_MARKERS + INCORRECT_MARKERS)
+        ]
+        if shown:
+            entry["correct_answer"] = shown
     results.append(entry)
     save_results(results)
     state[sheet] += 1

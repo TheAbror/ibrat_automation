@@ -30,10 +30,12 @@ from navigation import dismiss_popup, navigate_to_test, tap_forward_button
 from question_handler import (
     OPTION_IGNORE,
     build_answer_map,
+    build_pair_map,
     chip_sequence,
     choose_mc_option,
     classify_sheet,
     detect_question_type,
+    pair_attempt_order,
     parse_screen,
     split_matching_cards,
     xpath_literal,
@@ -105,23 +107,25 @@ def card_state(driver):
     ]
 
 
-def answer_matching(driver, cards):
+def answer_matching(driver, cards, state, known_pairs):
     """Match pairs one at a time, checking after every attempt.
 
-    For each left card, try the remaining right cards top to bottom. A
-    correct pair rearranges the cards (they move up/lock), so a changed
-    screen means matched: remove that right card from the pool and move
-    to the next left card. An unchanged screen means wrong pair: try the
-    next right card.
+    For each left card, try the remaining right cards — the known partner
+    from earlier runs first. A correct pair rearranges the cards (they
+    move up/lock), so a changed screen means matched: remove that right
+    card from the pool and move on. Discovered pairs are left in
+    state["pending_pairs"] so the sheet logger saves them for next time.
     """
     lefts, rights = split_matching_cards(cards)
     remaining = list(rights)
+    found = []
+    state["pending_pairs"] = found
     print(f"  matching {len(lefts)} pairs: {lefts} x {rights}")
 
     for left in lefts:
         if sheet_is_up(driver):
             return True
-        for right in list(remaining):
+        for right in pair_attempt_order(left, remaining, known_pairs):
             before = card_state(driver)
             try:
                 tap_text(driver, left)
@@ -131,9 +135,11 @@ def answer_matching(driver, cards):
                 continue
             time.sleep(0.8)
             if sheet_is_up(driver):
+                found.append([left, right])
                 return True
             if card_state(driver) != before:
                 print(f"  matched: {left} + {right}")
+                found.append([left, right])
                 remaining.remove(right)
                 break
             print(f"  not a pair: {left} + {right}")
@@ -143,6 +149,7 @@ def answer_matching(driver, cards):
 def auto_answer_loop(driver):
     results = watcher.load_results()
     known = build_answer_map(results)
+    known_pairs = build_pair_map(results)
     attempted = {}
     state = watcher.fresh_state()
     answered = 0
@@ -158,6 +165,7 @@ def auto_answer_loop(driver):
             # poll_once logged the result and tapped Next; new correct
             # answers become known immediately.
             known = build_answer_map(results)
+            known_pairs = build_pair_map(results)
             idle_since = time.time()
             continue
 
@@ -172,7 +180,7 @@ def auto_answer_loop(driver):
                 elif qtype == "fill_the_blank":
                     answer_fill_the_blank(driver, question, options, known)
                 else:
-                    answer_matching(driver, options)
+                    answer_matching(driver, options, state, known_pairs)
             except (NoSuchElementException, StaleElementReferenceException) as e:
                 print(f"  tap failed ({type(e).__name__}), retrying next cycle")
                 continue

@@ -1,4 +1,6 @@
+import re
 import time
+import xml.etree.ElementTree as ET
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
@@ -19,6 +21,11 @@ CLOSE_ICON_DESCS = ("X", "x", "✕", "×", "Close", "close")
 # backwards navigation, popup closers, and the report icon
 SKIP_BUTTONS = ("Go back", "Back", "null") + CLOSE_ICON_DESCS
 
+BOUNDS_RE = re.compile(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]")
+# The home screen's bottom navigation — its top-left gear icon is also an
+# unlabeled clickable, so blind-closing there would open settings instead.
+HOME_NAV_DESCS = {"Main", "Learn", "Profile"}
+
 
 def tap(driver, waiter, locator, label):
     el = waiter.until(EC.presence_of_element_located(locator))
@@ -36,6 +43,44 @@ def last_lesson_desc(nodes):
 def find_close_icon(nodes):
     """The label of a popup's close (X) icon, or None."""
     return next((d for _, d in nodes if d in CLOSE_ICON_DESCS), None)
+
+
+def blind_close_unsafe(nodes):
+    """True on screens where tapping an unlabeled top-left icon would
+    navigate away rather than close a popup: the home screen (its gear
+    icon is an unlabeled top-left clickable too) and finish/start pages
+    (their back arrow sits where a popup's X would)."""
+    descs = [d for _, d in nodes if d]
+    if HOME_NAV_DESCS.issubset(descs):
+        return True
+    return any(d == "Start" or d.lower().startswith("next") for d in descs)
+
+
+def find_unlabeled_close_center(xml):
+    """Center (x, y) of a popup's unlabeled close (X) icon, or None.
+
+    The streak and Pro-offer popups' X carries no accessibility label, so
+    it can only be recognized geometrically: an icon-sized clickable with
+    no label in the top-left corner of the screen. Question screens are
+    immune — their unlabeled top bar spans the full width.
+    """
+    nodes = []
+    for el in ET.fromstring(xml).iter():
+        m = BOUNDS_RE.fullmatch(el.get("bounds") or "")
+        if m:
+            nodes.append((el, *map(int, m.groups())))
+    if not nodes:
+        return None
+    width = max(n[3] for n in nodes)
+    height = max(n[4] for n in nodes)
+    for el, x1, y1, x2, y2 in nodes:
+        if el.get("clickable") != "true" or el.get("content-desc"):
+            continue
+        icon_sized = 0 < x2 - x1 <= width * 0.25 and 0 < y2 - y1 <= height * 0.12
+        top_left = x2 <= width * 0.4 and y2 <= height * 0.15
+        if icon_sized and top_left:
+            return (x1 + x2) // 2, (y1 + y2) // 2
+    return None
 
 
 def candidate_buttons(nodes):
@@ -89,18 +134,33 @@ def tap_forward_button(driver):
 
 
 def dismiss_popup(driver):
-    """If a popup with a close (X) icon is on screen, tap the X."""
-    icon = find_close_icon(parse_screen(driver.page_source))
-    if not icon:
+    """If a popup with a close (X) icon is on screen, tap the X.
+
+    A labeled icon is found by name. The streak and Pro-offer popups' X
+    has no label, so it is tapped by position instead — except on screens
+    where a blind top-left tap would navigate away (home, finish/start).
+    """
+    xml = driver.page_source
+    nodes = parse_screen(xml)
+    icon = find_close_icon(nodes)
+    if icon:
+        try:
+            xpath = f"//*[@content-desc={xpath_literal(icon)}]"
+            driver.find_element(AppiumBy.XPATH, xpath).click()
+            print(f"Dismissed popup via '{icon}'")
+            time.sleep(1)
+            return True
+        except (NoSuchElementException, StaleElementReferenceException):
+            return False
+    if blind_close_unsafe(nodes):
         return False
-    try:
-        xpath = f"//*[@content-desc={xpath_literal(icon)}]"
-        driver.find_element(AppiumBy.XPATH, xpath).click()
-        print(f"Dismissed popup via '{icon}'")
-        time.sleep(1)
-        return True
-    except (NoSuchElementException, StaleElementReferenceException):
+    center = find_unlabeled_close_center(xml)
+    if not center:
         return False
+    driver.tap([center])
+    print(f"Dismissed popup via unlabeled X at {center}")
+    time.sleep(1)
+    return True
 
 
 def tap_through_buttons(driver):
@@ -171,9 +231,9 @@ def open_next_in_sequence(driver):
     return True
 
 
-def clear_launch_popups(driver, rounds=2):
+def clear_launch_popups(driver, rounds=3):
     """Close popups that cover the home screen right after app launch
-    (streak screen, offers) via their X icon or Continue button."""
+    (streak screen, Pro offer) — X icon first, Continue as fallback."""
     for _ in range(rounds):
         if dismiss_popup(driver) or tap_forward_button(driver):
             time.sleep(1)

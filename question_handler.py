@@ -106,10 +106,38 @@ def build_answer_map(results):
     """
     known = {}
     for entry in results:
+        # Matching screens all share one question text, so they are looked
+        # up per card via build_pair_map instead.
+        if entry.get("type") == "matching":
+            continue
         answer = pick_revealed_answer(entry)
         if answer is not None:
             known[entry["question"]] = answer
     return known
+
+
+def build_pair_map(results):
+    """left card -> right card, from pairs discovered on matching screens.
+
+    Keyed by card because every matching screen shares the same question
+    text — and a vocabulary pair stays valid wherever its cards reappear.
+    """
+    pairs = {}
+    for entry in results:
+        if entry.get("type") != "matching":
+            continue
+        for pair in entry.get("correct_answer") or []:
+            if isinstance(pair, (list, tuple)) and len(pair) == 2:
+                pairs[pair[0]] = pair[1]
+    return pairs
+
+
+def pair_attempt_order(left, remaining, known_pairs):
+    """Order to try right cards for a left card: the known partner first."""
+    known = known_pairs.get(left)
+    if known in remaining:
+        return [known] + [r for r in remaining if r != known]
+    return list(remaining)
 
 
 def choose_mc_option(question, options, known, attempted):

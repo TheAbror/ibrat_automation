@@ -3243,5 +3243,392 @@
     "correct_answer": [
       "to"
     ]
+  },
+  {
+    "time": "2026-08-02 01:08:24",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Ular tez-tez suzishga borishadi. ",
+    "options": [
+      "go ",
+      "They ",
+      "often ",
+      "swimming.",
+      "in"
+    ],
+    "correct_answer": [
+      "They ",
+      "often ",
+      "go ",
+      "swimming.",
+      "They often go swimming."
+    ]
+  },
+  {
+    "time": "2026-08-02 01:08:28",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She likes to go ___ the park on weekends.",
+    "options": [
+      "at",
+      "to",
+      "in"
+    ],
+    "correct_answer": [
+      "She likes to go ___ the park on weekends.",
+      "at",
+      "to",
+      "to",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:08:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Are you going |_| the concert tonight?",
+    "options": [
+      "on",
+      "to",
+      "by"
+    ],
+    "correct_answer": [
+      "Are you going \nto\n the concert tonight?",
+      "to"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:08:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He should go ___ a doctor for his cough.",
+    "options": [
+      "for",
+      "to",
+      "in"
+    ],
+    "correct_answer": [
+      "to"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:08:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They decided to go ___ a road trip.",
+    "options": [
+      "in",
+      "for",
+      "on"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:08:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We can go ___ a picnic if the weather is nice.",
+    "options": [
+      "for",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:09:21",
+    "type": "matching",
+    "result": "correct",
+    "question": "Moslashtiring.",
+    "options": [
+      "Drive",
+      "to school",
+      "Fly",
+      "along the road",
+      "Go",
+      "for a stroll",
+      "Run",
+      "out of petrol",
+      "Come",
+      "to Tashkent"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:09:25",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They usually go |_| a walk after dinner.",
+    "options": [
+      "for  ",
+      "in   ",
+      "with"
+    ],
+    "correct_answer": [
+      "They usually go |_| a walk after dinner.",
+      "They usually go \nfor  \n a walk after dinner.",
+      "for  ",
+      "in   ",
+      "with",
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:09:28",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Let's go ___ a picnic in the countryside.",
+    "options": [
+      "in",
+      "on",
+      "for"
+    ],
+    "correct_answer": [
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:09:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She went |_| a business trip last week.",
+    "options": [
+      "for  ",
+      "with ",
+      "on"
+    ],
+    "correct_answer": [
+      "She went \non\n a business trip last week.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:09:33",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We should go ___ a movie this evening.",
+    "options": [
+      "to",
+      "for",
+      "on"
+    ],
+    "correct_answer": [
+      "to"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:09:47",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Ular birga sayr qilishni yoqtirishadi.",
+    "options": [
+      "likes",
+      "for",
+      "like ",
+      "together.",
+      "going ",
+      " a ",
+      "They ",
+      "walk "
+    ],
+    "correct_answer": [
+      "They ",
+      "like ",
+      "going ",
+      "for",
+      " a ",
+      "walk ",
+      "together.",
+      "They like going for a walk together."
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:07",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "U sog‘lom bo‘lish uchun parkda yuguradi.",
+    "options": [
+      "a ",
+      "He ",
+      "run ",
+      "to ",
+      "in ",
+      "park ",
+      "for ",
+      "stay ",
+      "fit. ",
+      "goes ",
+      "the "
+    ],
+    "correct_answer": [
+      "He ",
+      "goes ",
+      "for ",
+      "a ",
+      "run ",
+      "in ",
+      "the ",
+      "park ",
+      "to ",
+      "stay ",
+      "fit. ",
+      "He goes for a run in the park to stay fit."
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They went ____ the museum last month.",
+    "options": [
+      "to",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "They went ____ the museum last month.",
+      "to",
+      "to",
+      "on",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We should go ___ the store to buy some groceries.",
+    "options": [
+      "at",
+      "to",
+      "on"
+    ],
+    "correct_answer": [
+      "to"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:17",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Let's go |_| a jog in the park.",
+    "options": [
+      "for",
+      "with ",
+      "in"
+    ],
+    "correct_answer": [
+      "Let's go \nfor\n a jog in the park.",
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She loves to go ___ bike rides on weekends.",
+    "options": [
+      "to",
+      "on",
+      "for"
+    ],
+    "correct_answer": [
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Let's go ___ a bike riding this afternoon.   ",
+    "options": [
+      "with",
+      "in",
+      "for"
+    ],
+    "correct_answer": [
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:25",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I like ___ the library with my friends.  ",
+    "options": [
+      "went to  ",
+      "going with  ",
+      "going to    "
+    ],
+    "correct_answer": [
+      "going to"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We can go ___ the movies this evening.",
+    "options": [
+      "for",
+      "to",
+      "in"
+    ],
+    "correct_answer": [
+      "We can go ___ the movies this evening.",
+      "for",
+      "to",
+      "to",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's planning to go |_| a vacation with his family.",
+    "options": [
+      "in ",
+      "on ",
+      "with"
+    ],
+    "correct_answer": [
+      "He's planning to go \non \n a vacation with his family.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 01:10:51",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Ular oilaviy ta’tilga chiqishga hozirlik ko‘rmoqda.",
+    "options": [
+      "to ",
+      "ready ",
+      "vacation.",
+      "a ",
+      "go ",
+      "family ",
+      "They ",
+      "on ",
+      "getting ",
+      "are "
+    ],
+    "correct_answer": [
+      "They ",
+      "are ",
+      "getting ",
+      "ready ",
+      "to ",
+      "go ",
+      "on ",
+      "a ",
+      "family ",
+      "vacation.",
+      "They are getting ready to go on a family vacation."
+    ]
   }
 ]

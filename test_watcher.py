@@ -141,6 +141,119 @@ class TestRecoveryHelpers(unittest.TestCase):
         self.assertFalse(navigation.looks_like_question(video_nodes))
 
 
+STREAK_POPUP_XML = """<hierarchy>
+  <node class="android.widget.FrameLayout" bounds="[0,0][720,1600]" clickable="false" content-desc=""/>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[26,102][117,154]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[262,300][458,540]" clickable="false" content-desc="3"/>
+  <node class="android.view.View" bounds="[300,560][420,600]" clickable="false" content-desc="Day"/>
+  <node class="android.view.View" bounds="[180,1050][540,1100]" clickable="false" content-desc="Parvoz boshlandi!"/>
+  <node class="android.widget.Button" bounds="[520,1140][690,1195]" clickable="true" content-desc="Last week"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Continue"/>
+</hierarchy>"""
+
+PRO_OFFER_XML = """<hierarchy>
+  <node class="android.widget.FrameLayout" bounds="[0,0][720,1600]" clickable="false" content-desc=""/>
+  <node class="android.view.View" bounds="[40,110][110,180]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[250,115][680,175]" clickable="false" content-desc="35 130+ subscribers"/>
+  <node class="android.widget.Button" bounds="[42,700][678,800]" clickable="true" content-desc="Yillik\n26 500 uzs/oy\n318 000 soums"/>
+  <node class="android.widget.Button" bounds="[42,830][678,930]" clickable="true" content-desc="3 Oylik\n53 000 uzs/oy\n159 000 soums"/>
+  <node class="android.widget.Button" bounds="[42,1440][678,1520]" clickable="true" content-desc="Subscribe · 318 000 soums"/>
+</hierarchy>"""
+
+# A question screen's only unlabeled clickables are the full-screen
+# scrim and the full-width top bar (the quit-X row) — never icon-sized.
+QUESTION_BOUNDS_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.widget.Button" bounds="[0,77][720,175]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[42,189][678,245]" clickable="false" content-desc="Ular tez-tez suzishga borishadi. "/>
+  <node class="android.widget.Button" bounds="[56,1177][136,1261]" clickable="true" content-desc="in"/>
+  <node class="android.widget.Button" bounds="[154,1177][256,1261]" clickable="true" content-desc="They "/>
+</hierarchy>"""
+
+# The home screen's gear icon is an unlabeled top-left clickable, exactly
+# where a popup's X would be — the bottom nav labels must veto the tap.
+HOME_SCREEN_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[26,102][117,154]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[374,91][552,165]" clickable="true" content-desc="Streak"/>
+  <node class="android.widget.ImageView" bounds="[14,1408][152,1516]" clickable="true" content-desc="Main"/>
+  <node class="android.widget.ImageView" bounds="[152,1408][291,1516]" clickable="true" content-desc="Learn"/>
+  <node class="android.widget.ImageView" bounds="[568,1408][706,1516]" clickable="true" content-desc="Profile"/>
+</hierarchy>"""
+
+FINISH_SCREEN_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[30,100][100,170]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[180,600][540,660]" clickable="false" content-desc="Test finished!"/>
+  <node class="android.widget.Button" bounds="[42,1300][678,1380]" clickable="true" content-desc="Retry"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Next lesson"/>
+</hierarchy>"""
+
+
+class TapDriver:
+    """Fake driver for dismiss_popup: static XML, records coordinate taps."""
+
+    def __init__(self, xml):
+        self.xml = xml
+        self.taps = []
+
+    @property
+    def page_source(self):
+        return self.xml
+
+    def find_element(self, by, value):
+        raise NoSuchElementException(value)
+
+    def tap(self, positions, duration=None):
+        self.taps.append(positions[0])
+
+
+class TestUnlabeledClose(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_finds_streak_popup_x_by_geometry(self):
+        import navigation
+        center = navigation.find_unlabeled_close_center(STREAK_POPUP_XML)
+        self.assertEqual(center, (71, 128))
+
+    def test_question_screen_has_no_icon_sized_x(self):
+        import navigation
+        self.assertIsNone(
+            navigation.find_unlabeled_close_center(QUESTION_BOUNDS_XML)
+        )
+
+    def test_dismisses_streak_popup_via_x_not_continue(self):
+        import navigation
+        driver = TapDriver(STREAK_POPUP_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, [(71, 128)])
+
+    def test_dismisses_pro_offer_via_x(self):
+        import navigation
+        driver = TapDriver(PRO_OFFER_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, [(75, 145)])
+
+    def test_home_screen_gear_icon_is_never_blind_tapped(self):
+        import navigation
+        driver = TapDriver(HOME_SCREEN_XML)
+        self.assertFalse(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, [])
+
+    def test_finish_screen_back_arrow_is_never_blind_tapped(self):
+        import navigation
+        driver = TapDriver(FINISH_SCREEN_XML)
+        self.assertFalse(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, [])
+
+
 class TestTapNext(unittest.TestCase):
     def test_tap_next_retries_after_stale_click(self):
         el = FakeElement("Next", click_fails=1)
@@ -302,6 +415,45 @@ class TestStrategies(unittest.TestCase):
         self.assertEqual(lefts, ["The", "An", "A"])
         self.assertEqual(rights, ["letter he wrote", "apple", "cat"])
 
+    def test_build_pair_map_collects_pairs_from_matching_entries(self):
+        results = [
+            {
+                "question": "Moslashtiring.",
+                "type": "matching",
+                "result": "correct",
+                "correct_answer": [["Drive", "along the road"], ["Fly", "to Tashkent"]],
+            },
+            {"question": "Q1", "type": "multiple_choice", "correct_answer": ["an"]},
+            {"question": "Moslashtiring.", "type": "matching"},  # no pairs saved
+        ]
+        self.assertEqual(
+            qh.build_pair_map(results),
+            {"Drive": "along the road", "Fly": "to Tashkent"},
+        )
+
+    def test_build_answer_map_skips_matching_entries(self):
+        results = [{
+            "question": "Moslashtiring.",
+            "type": "matching",
+            "correct_answer": [["Drive", "along the road"]],
+        }]
+        self.assertEqual(qh.build_answer_map(results), {})
+
+    def test_pair_attempt_order_tries_known_partner_first(self):
+        remaining = ["to school", "along the road", "for a stroll"]
+        known = {"Drive": "along the road"}
+        self.assertEqual(
+            qh.pair_attempt_order("Drive", remaining, known),
+            ["along the road", "to school", "for a stroll"],
+        )
+        # unknown left card, or known partner already used: original order
+        self.assertEqual(
+            qh.pair_attempt_order("Go", remaining, known), remaining
+        )
+        self.assertEqual(
+            qh.pair_attempt_order("Drive", ["to school"], known), ["to school"]
+        )
+
     def test_xpath_literal_handles_apostrophes(self):
         self.assertEqual(qh.xpath_literal("the"), "'the'")
         self.assertEqual(qh.xpath_literal("He's"), '"He\'s"')
@@ -416,6 +568,54 @@ class TestPollOnce(unittest.TestCase):
         self.assertEqual(entry["result"], "incorrect")
         self.assertEqual(entry["correct_answer"], ["an"])
         self.assertEqual(state["incorrect"], 1)
+
+    def test_matching_sheet_saves_pairs_discovered_by_runner(self):
+        matching_sheet = """<hierarchy>
+          <node class="android.view.View" content-desc="Moslashtiring."/>
+          <node class="android.view.View" content-desc="Nicely done!"/>
+          <node class="android.widget.Button" content-desc="Next"/>
+        </hierarchy>"""
+
+        driver = XmlDriver(matching_sheet)
+        state = watcher.fresh_state()
+        state["question"] = "Moslashtiring."
+        state["options"] = ["Drive", "along the road", "Fly", "to Tashkent"]
+        state["pending_pairs"] = [["Drive", "along the road"], ["Fly", "to Tashkent"]]
+        results = []
+
+        class NextEl(FakeElement):
+            def click(inner):
+                driver.xml = QUESTION_XML
+
+        driver.next_el = NextEl("Next")
+        watcher.poll_once(driver, state, results)
+
+        entry = results[0]
+        self.assertEqual(entry["type"], "matching")
+        self.assertEqual(
+            entry["correct_answer"],
+            [["Drive", "along the road"], ["Fly", "to Tashkent"]],
+        )
+        self.assertNotIn("pending_pairs", state)
+
+    def test_stale_pending_pairs_discarded_on_non_matching_sheet(self):
+        driver = XmlDriver(QUESTION_XML)
+        state = watcher.fresh_state()
+        results = []
+        watcher.poll_once(driver, state, results)  # remember the MC question
+        state["pending_pairs"] = [["Drive", "along the road"]]  # leftover
+
+        class NextEl(FakeElement):
+            def click(inner):
+                driver.xml = QUESTION_XML
+
+        driver.next_el = NextEl("Next")
+        driver.xml = FEEDBACK_XML
+        watcher.poll_once(driver, state, results)
+
+        entry = results[0]
+        self.assertEqual(entry["correct_answer"], ["an"])  # diff, not pairs
+        self.assertNotIn("pending_pairs", state)
 
 
 class TestReconnect(unittest.TestCase):
