@@ -5557,5 +5557,2274 @@
       "Please write your address on \nthe\n line.",
       "the"
     ]
+  },
+  {
+    "time": "2026-08-02 02:07:20",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": null,
+    "options": [],
+    "correct_answer": [
+      "Hide player controls",
+      "When NOT to use \"the\" | 71-dars | Ingliz tilini 0 dan o'rganish",
+      "IBRAT FARZANDLARI",
+      "Mute",
+      "Playback Settings",
+      "Rewind 10 seconds",
+      "Pause video",
+      "Fast forward 10 seconds",
+      "Enter full screen",
+      "Copy link",
+      "More videos",
+      "Watch on YouTube",
+      "Dars 71 When NOT to use \"the\"",
+      "We do not use the with general nouns.",
+      "Examples:",
+      "1. I like music, especially classical music. (not “the music, the classical music”)",
+      "2. We don’t eat meat very often. (not “the meat”)",
+      "3. I love chocolate. (not \"I love the chocolate\")"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:08:26",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "The bank",
+      "pochta idorasi",
+      "The post office",
+      "armiya",
+      "The police",
+      "o‘t o‘chirish brigadasi",
+      "The army",
+      "bank",
+      "The fire-brigade",
+      "politsiya xodimlari"
+    ],
+    "correct_answer": [
+      [
+        "The bank",
+        "bank"
+      ],
+      [
+        "The police",
+        "armiya"
+      ],
+      [
+        "The fire-brigade",
+        "o‘t o‘chirish brigadasi"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 02:08:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ salt, please?",
+    "options": [
+      "-",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:08:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She works at university as ___ professor.",
+    "options": [
+      "an",
+      "-",
+      "a"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:08:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He needs to buy ___ furniture for his new apartment.",
+    "options": [
+      "an",
+      "of",
+      "-"
+    ],
+    "correct_answer": [
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:08:39",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My father went to ___ school for meeting.",
+    "options": [
+      "the",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "My father went to ___ school for meeting.",
+      "the",
+      "the",
+      "a",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:08:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We should visit |_| Louvre Museum when we're in Paris.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "We should visit \nthe\n Louvre Museum when we're in Paris.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:08:57",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Biz sut mahsulotlarini sotib olishimiz kerak.",
+    "options": [
+      "We",
+      "prefer",
+      "he",
+      "products.",
+      "to",
+      "needing",
+      "buy",
+      "meat",
+      "need",
+      "dairy"
+    ],
+    "correct_answer": [
+      "We",
+      "need",
+      "to",
+      "buy",
+      "dairy",
+      "products.",
+      "We need to buy dairy products."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:08:59",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They enjoy going to ___ beach.",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:09:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I don't like coffee, but I enjoy |_| tea.",
+    "options": [
+      "an",
+      "-",
+      "a"
+    ],
+    "correct_answer": [
+      "I don't like coffee, but I enjoy \n-\n tea.",
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:09:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We should go hiking in ___ beautiful country.",
+    "options": [
+      "of",
+      "an",
+      "a"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:09:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I need to buy ___ new laptop.",
+    "options": [
+      "an",
+      "a",
+      "-"
+    ],
+    "correct_answer": [
+      "I need to buy ___ new laptop.",
+      "an",
+      "a",
+      "a",
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:09:14",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They went to |_| cinema last night.",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "They went to \nthe\n cinema last night.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:09:28",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "U (bola) pianino chalishni o‘rganyapti.",
+    "options": [
+      "to",
+      "the",
+      "He",
+      "play",
+      "learning",
+      "is",
+      "an",
+      "learns",
+      "piano."
+    ],
+    "correct_answer": [
+      "He",
+      "is",
+      "learning",
+      "to",
+      "play",
+      "the",
+      "piano.",
+      "He is learning to play the piano."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:09:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I saw ___ interesting movie last night.",
+    "options": [
+      "-",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:09:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She works at the library as ___ librarian.",
+    "options": [
+      "an",
+      "a",
+      "the"
+    ],
+    "correct_answer": [
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:09:53",
+    "type": "matching",
+    "result": "correct",
+    "question": "So'zlarni moslashtiring.",
+    "options": [
+      "The sea",
+      "osmon",
+      "The sun",
+      "daryo",
+      "The river",
+      "oy",
+      "The moon",
+      "dengiz",
+      "The sky",
+      "quyosh"
+    ],
+    "correct_answer": [
+      [
+        "The sea",
+        "dengiz"
+      ],
+      [
+        "The sun",
+        "quyosh"
+      ],
+      [
+        "The river",
+        "daryo"
+      ],
+      [
+        "The moon",
+        "oy"
+      ],
+      [
+        "The sky",
+        "osmon"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 02:09:57",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have never been to |_| opera before.",
+    "options": [
+      "for",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "I have never been to |_| opera before.",
+      "I have never been to \nthe\n opera before.",
+      "for",
+      "the",
+      "the",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:10:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We should go to ___ theatre on Sundays.",
+    "options": [
+      "an",
+      "-",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:10:13",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Men kalitlarimni hech qayerdan topa olmayapman.",
+    "options": [
+      "can't",
+      "I",
+      "find",
+      "you",
+      "can",
+      "anywhere.",
+      "my",
+      "keys"
+    ],
+    "correct_answer": [
+      "I",
+      "can't",
+      "find",
+      "my",
+      "keys",
+      "anywhere.",
+      "I can't find my keys anywhere."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:10:16",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They live in a beautiful house in ___ mountains.",
+    "options": [
+      "a",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:10:33",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "U (qiz) bo‘sh vaqtlarida romanlar o‘qishni yaxshi ko‘radi.",
+    "options": [
+      "time.",
+      "her",
+      "free",
+      "novels",
+      "reading",
+      "on",
+      "enjoys",
+      "She",
+      "in"
+    ],
+    "correct_answer": [
+      "She",
+      "enjoys",
+      "reading",
+      "novels",
+      "in",
+      "her",
+      "free",
+      "time.",
+      "She enjoys reading novels in her free time."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:10:36",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She's going to |_| university to study medicine.",
+    "options": [
+      "a",
+      "-",
+      "an"
+    ],
+    "correct_answer": [
+      "She's going to \n-\n university to study medicine.",
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:10:49",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "U (qiz) shifoxonaga bordi.",
+    "options": [
+      "goes",
+      "school",
+      "She",
+      "to",
+      "the",
+      "hospital.",
+      "went",
+      "in"
+    ],
+    "correct_answer": [
+      "U (qiz) shifoxonaga bordi.",
+      "U (qiz) shifoxonaga bordi.",
+      "She",
+      "She",
+      "went",
+      "went",
+      "to",
+      "to",
+      "the",
+      "the",
+      "hospital.",
+      "hospital.",
+      "goes",
+      "school",
+      "in",
+      "She went to the hospital.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:10:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He's an expert in |_| history of ancient civilizations.",
+    "options": [
+      "the",
+      "an",
+      "-"
+    ],
+    "correct_answer": [
+      "He's an expert in \nthe\n history of ancient civilizations.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:10:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I can't find my ___ books anywhere.",
+    "options": [
+      "a",
+      "the",
+      "-"
+    ],
+    "correct_answer": [
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:10:59",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Ular yozda sohilga borishdan zavqlanadi.",
+    "options": [
+      "going",
+      "on",
+      "They",
+      "the summer.",
+      "we",
+      "an",
+      "enjoy ",
+      "for",
+      "the",
+      "beach",
+      "to",
+      "in"
+    ],
+    "correct_answer": [
+      "going",
+      "They enjoy going to the beach in the summer."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:11:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They went to ___ park and had ___ picnic.",
+    "options": [
+      "the, a",
+      "-, an",
+      "a, the"
+    ],
+    "correct_answer": [
+      "the, a"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:11:07",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Ular yozda sohilga borishdan zavqlanadi.",
+    "options": [
+      "in",
+      "to",
+      "They",
+      "going",
+      "the",
+      "on",
+      "beach",
+      "enjoy ",
+      "an",
+      "for",
+      "we",
+      "the summer."
+    ],
+    "correct_answer": [
+      "in",
+      "They enjoy going to the beach in the summer."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:11:18",
+    "type": "fill_the_blank",
+    "result": "other",
+    "question": "Ular yozda sohilga borishdan zavqlanadi.",
+    "options": [
+      "in",
+      "to",
+      "They",
+      "going",
+      "the",
+      "on",
+      "beach",
+      "enjoy ",
+      "an",
+      "for",
+      "we",
+      "the summer."
+    ],
+    "correct_answer": [
+      "Dars 72 Names of places",
+      "\"The\" is used when referring to a specific instance or location of a place. It helps to indicate that you are talking about a particular park, tower, beach, countryside, or canyon. However, it's important to note that not all place names require the definite article \"the\". It depends on the specific name and how it is commonly used.",
+      "In general, we do not use the + names of countries.",
+      "Examples:"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:11:35",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Biz o‘tgan hafta muzeyga bordik.",
+    "options": [
+      "last ",
+      "museum ",
+      "week.",
+      "We ",
+      "some",
+      "visited ",
+      "the "
+    ],
+    "correct_answer": [
+      "We ",
+      "visited ",
+      "the ",
+      "museum ",
+      "last ",
+      "week.",
+      "We visited the museum last week."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:11:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They were in ___ museum last weekend.",
+    "options": [
+      "an",
+      "-",
+      "the"
+    ],
+    "correct_answer": [
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:11:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Let's go to ___ theater this weekend.",
+    "options": [
+      "an",
+      "-",
+      "the"
+    ],
+    "correct_answer": [
+      "Let's go to ___ theater this weekend.",
+      "an",
+      "-",
+      "the",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:11:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The museum is closed on ___ Sundays.",
+    "options": [
+      "a",
+      "-",
+      "an"
+    ],
+    "correct_answer": [
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:32:11",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bu gullar chiroyli.",
+    "options": [
+      "beautiful.",
+      "This",
+      "These",
+      "are",
+      "flowers"
+    ],
+    "correct_answer": [
+      "beautiful.",
+      "These flowers are beautiful."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:32:14",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| is my favorite song.",
+    "options": [
+      "These",
+      "This",
+      "Those"
+    ],
+    "correct_answer": [
+      "These\n is my favorite song.",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:32:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ are my favorite fruits.",
+    "options": [
+      "This",
+      "That",
+      "These"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:32:54",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "Those",
+      "car is mine",
+      "That",
+      "books in my hand",
+      "This",
+      "star in the sky",
+      "These",
+      "birds in trees"
+    ],
+    "correct_answer": [
+      [
+        "Those",
+        "birds in trees"
+      ],
+      [
+        "That",
+        "star in the sky"
+      ],
+      [
+        "These",
+        "car is mine"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 02:32:57",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ flowers in the garden are beautiful.",
+    "options": [
+      "That",
+      "This",
+      "Those"
+    ],
+    "correct_answer": [
+      "Those"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:01",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Is ___ your pen on the table?",
+    "options": [
+      "this",
+      "these",
+      "those"
+    ],
+    "correct_answer": [
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:04",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Can you pass me ___ remote control?",
+    "options": [
+      "those",
+      "that",
+      "these"
+    ],
+    "correct_answer": [
+      "that"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ are my favorite books.",
+    "options": [
+      "These",
+      "This",
+      "That"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:10",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Bo'sh joylarni to'ldiring.",
+    "options": [
+      "That",
+      "These",
+      "This"
+    ],
+    "correct_answer": [
+      "That\n people are enjoying a picnic in the park.",
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:13",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She wants to buy |_| dress.",
+    "options": [
+      "those",
+      "this",
+      "these"
+    ],
+    "correct_answer": [
+      "She wants to buy \nthose\n dress.",
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:16",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ is a beautiful beach with palm trees.",
+    "options": [
+      "These",
+      "This",
+      "Those"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:20",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bu Jamshid, ishdagi hamkasbim.",
+    "options": [
+      "my",
+      "Jamshid,",
+      "colleague",
+      "This",
+      "Those",
+      "from",
+      "are",
+      "is",
+      "work."
+    ],
+    "correct_answer": [
+      "my",
+      "This is Jamshid, my colleague from work."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I don't like ___ type of weather.",
+    "options": [
+      "this",
+      "those",
+      "these"
+    ],
+    "correct_answer": [
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:26",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ is a new car.",
+    "options": [
+      "Those",
+      "This",
+      "These"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:29",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| is a delicious pizza.",
+    "options": [
+      "These",
+      "This",
+      "Those"
+    ],
+    "correct_answer": [
+      "These\n is a delicious pizza.",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| keys belong to the car.",
+    "options": [
+      "These",
+      "This",
+      "That"
+    ],
+    "correct_answer": [
+      "These\n keys belong to the car.",
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I don't like ___ type of music.",
+    "options": [
+      "this",
+      "those",
+      "these"
+    ],
+    "correct_answer": [
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:38",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| is my favorite restaurant in the town.",
+    "options": [
+      "These",
+      "This",
+      "Those"
+    ],
+    "correct_answer": [
+      "These\n is my favorite restaurant in the town.",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:41",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| are my favorite books.",
+    "options": [
+      "This",
+      "These",
+      "That"
+    ],
+    "correct_answer": [
+      "This\n are my favorite books.",
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:44",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ are colorful flowers in the garden.",
+    "options": [
+      "That",
+      "This",
+      "These"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:48",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I like |_| shoes you're wearing.",
+    "options": [
+      "this",
+      "that",
+      "these"
+    ],
+    "correct_answer": [
+      "I like \nthis\n shoes you're wearing.",
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:52",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bu mening bolalikdan eng yaqin do‘stim Marjona.",
+    "options": [
+      "my",
+      "are",
+      "Marjona,",
+      "childhood.",
+      "These",
+      "is",
+      "friend",
+      "This",
+      "since",
+      "best"
+    ],
+    "correct_answer": [
+      "my",
+      "This is Marjona, my best friend since childhood."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:33:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me |_| book on the table please?",
+    "options": [
+      "that",
+      "these",
+      "those"
+    ],
+    "correct_answer": [
+      "Can you pass me \nthat\n book on the table please?",
+      "that"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:00",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bular sening kalitlaringmi?",
+    "options": [
+      "this",
+      "these",
+      "Are",
+      "that",
+      "keys?",
+      "your"
+    ],
+    "correct_answer": [
+      "this",
+      "Are these your keys?"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:05",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bu kitob haqiqatan ham qiziq.",
+    "options": [
+      "really",
+      "is",
+      "Those",
+      "book",
+      "interesting.",
+      "These",
+      "This"
+    ],
+    "correct_answer": [
+      "really",
+      "This book is really interesting."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:14",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bu gullar chiroyli.",
+    "options": [
+      "are",
+      "beautiful.",
+      "flowers",
+      "These",
+      "This"
+    ],
+    "correct_answer": [
+      "These",
+      "flowers",
+      "are",
+      "beautiful.",
+      "These flowers are beautiful."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:17",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| is my favorite song.",
+    "options": [
+      "Those",
+      "These",
+      "This"
+    ],
+    "correct_answer": [
+      "This\n is my favorite song.",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ are my favorite fruits.",
+    "options": [
+      "This",
+      "That",
+      "These"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:25",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ flowers in the garden are beautiful.",
+    "options": [
+      "That",
+      "This",
+      "Those"
+    ],
+    "correct_answer": [
+      "___ flowers in the garden are beautiful.",
+      "That",
+      "This",
+      "Those",
+      "Those"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:28",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you pass me ___ remote control?",
+    "options": [
+      "those",
+      "that",
+      "these"
+    ],
+    "correct_answer": [
+      "that"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Bo'sh joylarni to'ldiring.",
+    "options": [
+      "These",
+      "That",
+      "This"
+    ],
+    "correct_answer": [
+      "These\n people are enjoying a picnic in the park.",
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She wants to buy |_| dress.",
+    "options": [
+      "those",
+      "these",
+      "this"
+    ],
+    "correct_answer": [
+      "She wants to buy \nthis\n dress.",
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ is a beautiful beach with palm trees.",
+    "options": [
+      "This",
+      "These",
+      "Those"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:52",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bu Jamshid, ishdagi hamkasbim.",
+    "options": [
+      "colleague",
+      "Those",
+      "are",
+      "is",
+      "my",
+      "This",
+      "Jamshid,",
+      "work.",
+      "from"
+    ],
+    "correct_answer": [
+      "This",
+      "is",
+      "Jamshid,",
+      "my",
+      "colleague",
+      "from",
+      "work.",
+      "This is Jamshid, my colleague from work."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:34:57",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ is a new car.",
+    "options": [
+      "Those",
+      "This",
+      "These"
+    ],
+    "correct_answer": [
+      "___ is a new car.",
+      "Those",
+      "This",
+      "This",
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:35:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| is a delicious pizza.",
+    "options": [
+      "This",
+      "Those",
+      "These"
+    ],
+    "correct_answer": [
+      "This\n is a delicious pizza.",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:35:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| is my favorite restaurant in the town.",
+    "options": [
+      "This",
+      "These",
+      "Those"
+    ],
+    "correct_answer": [
+      "This\n is my favorite restaurant in the town.",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:35:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| are my favorite books.",
+    "options": [
+      "These",
+      "This",
+      "That"
+    ],
+    "correct_answer": [
+      "These\n are my favorite books.",
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:35:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ are colorful flowers in the garden.",
+    "options": [
+      "These",
+      "This",
+      "That"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:35:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I like |_| shoes you're wearing.",
+    "options": [
+      "this",
+      "that",
+      "these"
+    ],
+    "correct_answer": [
+      "I like \nthese\n shoes you're wearing.",
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:35:30",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bu mening bolalikdan eng yaqin do‘stim Marjona.",
+    "options": [
+      "is",
+      "This",
+      "best",
+      "are",
+      "my",
+      "friend",
+      "childhood.",
+      "These",
+      "Marjona,",
+      "since"
+    ],
+    "correct_answer": [
+      "Bu mening bolalikdan eng yaqin do‘stim Marjona.",
+      "Bu mening bolalikdan eng yaqin do‘stim Marjona.",
+      "This",
+      "This",
+      "is",
+      "is",
+      "Marjona,",
+      "Marjona,",
+      "my",
+      "my",
+      "best",
+      "best",
+      "friend",
+      "friend",
+      "since",
+      "since",
+      "childhood.",
+      "childhood.",
+      "are",
+      "These",
+      "This is Marjona, my best friend since childhood.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:35:40",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bular sening kalitlaringmi?",
+    "options": [
+      "that",
+      "keys?",
+      "these",
+      "Are",
+      "your",
+      "this"
+    ],
+    "correct_answer": [
+      "Are",
+      "these",
+      "your",
+      "keys?",
+      "Are these your keys?"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:35:51",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bu kitob haqiqatan ham qiziq.",
+    "options": [
+      "This",
+      "interesting.",
+      "These",
+      "Those",
+      "book",
+      "really",
+      "is"
+    ],
+    "correct_answer": [
+      "This",
+      "book",
+      "is",
+      "really",
+      "interesting.",
+      "This book is really interesting."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:36:12",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bu stansiyaga boradigan yo‘l emas.",
+    "options": [
+      "the",
+      "are",
+      "the station.",
+      "way",
+      "not",
+      "This",
+      "is",
+      "to",
+      "those",
+      "for"
+    ],
+    "correct_answer": [
+      "the",
+      "This is not the way to the station."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:36:16",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Stol ustidagi anavi ko‘zoynaklar siznikimi?",
+    "options": [
+      "this",
+      "those",
+      "Are",
+      "table?",
+      "your",
+      "glasses",
+      "that",
+      "on",
+      "the"
+    ],
+    "correct_answer": [
+      "this",
+      "Are those your glasses on the table?"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:36:21",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kecha biz ovqatlangan restoran shu edi.",
+    "options": [
+      "are",
+      "ate",
+      "That",
+      "where",
+      "the",
+      "were",
+      "those",
+      "restaurant",
+      "yesterday.",
+      "we",
+      "is"
+    ],
+    "correct_answer": [
+      "are",
+      "That is the restaurant where we ate yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:36:24",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ is not my coat hanging there.",
+    "options": [
+      "These",
+      "That",
+      "Those"
+    ],
+    "correct_answer": [
+      "That"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:37:19",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "Curious",
+      "qiziquvchan",
+      "Delicious",
+      "tog‘",
+      "Mountain ",
+      "unutilmas",
+      "Unforgettable",
+      "mazali",
+      "Journey",
+      "sayohat"
+    ],
+    "correct_answer": [
+      [
+        "Delicious",
+        "mazali"
+      ],
+      [
+        "Journey",
+        "qiziquvchan"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 02:37:22",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ mountain is very tall.",
+    "options": [
+      "These",
+      "That",
+      "Those"
+    ],
+    "correct_answer": [
+      "That"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:37:25",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I think ___ is a bad idea.",
+    "options": [
+      "these",
+      "this",
+      "those"
+    ],
+    "correct_answer": [
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:37:28",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Are |_| your pens on the desk?",
+    "options": [
+      "this",
+      "these",
+      "that"
+    ],
+    "correct_answer": [
+      "Are \nthis\n your pens on the desk?",
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:01",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "Believe",
+      "ko‘rsatma",
+      "Together",
+      "birgalikda",
+      "Instruction",
+      "ishonmoq",
+      "Idea",
+      "hujjatlar",
+      "Documents",
+      "go‘ya"
+    ],
+    "correct_answer": [
+      [
+        "Believe",
+        "ishonmoq"
+      ],
+      [
+        "Together",
+        "birgalikda"
+      ],
+      [
+        "Idea",
+        "ko‘rsatma"
+      ],
+      [
+        "Documents",
+        "hujjatlar"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I can't believe |_| is true. ",
+    "options": [
+      "this",
+      "these",
+      "those"
+    ],
+    "correct_answer": [
+      "I can't believe \nthis\n is true. ",
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:07",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ is exactly what I was looking for.",
+    "options": [
+      "These",
+      "This",
+      "Those"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:11",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bu sizning mashinangizning kalitimi?",
+    "options": [
+      "of",
+      "car?",
+      "in",
+      "the",
+      "key",
+      "Is",
+      "this",
+      "your",
+      "these",
+      "those"
+    ],
+    "correct_answer": [
+      "of",
+      "Is this the key of your car?"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:14",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| were not the instructions I gave. ",
+    "options": [
+      "Those",
+      "That",
+      "This"
+    ],
+    "correct_answer": [
+      "Those\n were not the instructions I gave. ",
+      "Those"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ are the books which I was talking about.",
+    "options": [
+      "This",
+      "These",
+      "That"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:20",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Are |_| your glasses? ",
+    "options": [
+      "that",
+      "this",
+      "those"
+    ],
+    "correct_answer": [
+      "Are \nthat\n your glasses? ",
+      "those"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:24",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U ajoyib tajriba edi!",
+    "options": [
+      "a",
+      "was",
+      "That",
+      "those",
+      "were",
+      "an",
+      "experience!",
+      "amazing"
+    ],
+    "correct_answer": [
+      "a",
+      "That was an amazing experience!"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:27",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| is not my bag. ",
+    "options": [
+      "Those",
+      "This",
+      "These"
+    ],
+    "correct_answer": [
+      "Those\n is not my bag. ",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:30",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Look at |_| beautiful flowers. ",
+    "options": [
+      "this",
+      "these",
+      "that"
+    ],
+    "correct_answer": [
+      "Look at \nthis\n beautiful flowers. ",
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:33",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Do you know if ___ are the right documents?",
+    "options": [
+      "this",
+      "that",
+      "these"
+    ],
+    "correct_answer": [
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:36",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Are ___ the keys which you were looking for?",
+    "options": [
+      "that",
+      "these",
+      "this"
+    ],
+    "correct_answer": [
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:39",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Is |_| the book you mentioned? ",
+    "options": [
+      "those",
+      "these",
+      "this"
+    ],
+    "correct_answer": [
+      "Is \nthose\n the book you mentioned? ",
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:41",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ girls seem happy together.",
+    "options": [
+      "These",
+      "This",
+      "That"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:44",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ was a great movie.",
+    "options": [
+      "Those",
+      "That",
+      "These"
+    ],
+    "correct_answer": [
+      "That"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:47",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ is my friend’s house.",
+    "options": [
+      "Those",
+      "This",
+      "These"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:50",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ is not the way I would do it.",
+    "options": [
+      "These",
+      "This",
+      "Those"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:53",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ are the shoes which I bought yesterday.",
+    "options": [
+      "This",
+      "These",
+      "That"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:56",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Look at ___ flower.",
+    "options": [
+      "this",
+      "those",
+      "these"
+    ],
+    "correct_answer": [
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:38:59",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| cookies are delicious.",
+    "options": [
+      "That",
+      "These",
+      "This"
+    ],
+    "correct_answer": [
+      "That\n cookies are delicious.",
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:39:03",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bu stansiyaga boradigan yo‘l emas.",
+    "options": [
+      "not",
+      "to",
+      "are",
+      "those",
+      "for",
+      "the",
+      "the station.",
+      "This",
+      "is",
+      "way"
+    ],
+    "correct_answer": [
+      "not",
+      "This is not the way to the station."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:39:18",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Stol ustidagi anavi ko‘zoynaklar siznikimi?",
+    "options": [
+      "those",
+      "on",
+      "Are",
+      "this",
+      "your",
+      "table?",
+      "that",
+      "glasses",
+      "the"
+    ],
+    "correct_answer": [
+      "Are",
+      "those",
+      "your",
+      "glasses",
+      "on",
+      "the",
+      "table?",
+      "Are those your glasses on the table?"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:39:34",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Kecha biz ovqatlangan restoran shu edi.",
+    "options": [
+      "the",
+      "yesterday.",
+      "is",
+      "those",
+      "are",
+      "ate",
+      "restaurant",
+      "were",
+      "That",
+      "where",
+      "we"
+    ],
+    "correct_answer": [
+      "That",
+      "is",
+      "the",
+      "restaurant",
+      "where",
+      "we",
+      "ate",
+      "yesterday.",
+      "That is the restaurant where we ate yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 02:39:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ is not my coat hanging there.",
+    "options": [
+      "These",
+      "That",
+      "Those"
+    ],
+    "correct_answer": [
+      "That"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:39:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ mountain is very tall.",
+    "options": [
+      "These",
+      "Those",
+      "That"
+    ],
+    "correct_answer": [
+      "That"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:39:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I think ___ is a bad idea.",
+    "options": [
+      "those",
+      "this",
+      "these"
+    ],
+    "correct_answer": [
+      "I think ___ is a bad idea.",
+      "those",
+      "this",
+      "this",
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:39:47",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Are |_| your pens on the desk?",
+    "options": [
+      "these",
+      "this",
+      "that"
+    ],
+    "correct_answer": [
+      "Are \nthese\n your pens on the desk?",
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:39:50",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ is exactly what I was looking for.",
+    "options": [
+      "Those",
+      "These",
+      "This"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:05",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bu sizning mashinangizning kalitimi?",
+    "options": [
+      "those",
+      "in",
+      "the",
+      "these",
+      "key",
+      "your",
+      "Is",
+      "this",
+      "of",
+      "car?"
+    ],
+    "correct_answer": [
+      "Is",
+      "this",
+      "the",
+      "key",
+      "of",
+      "your",
+      "car?",
+      "Is this the key of your car?"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:08",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ are the books which I was talking about.",
+    "options": [
+      "This",
+      "These",
+      "That"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:11",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Are |_| your glasses? ",
+    "options": [
+      "that",
+      "this",
+      "those"
+    ],
+    "correct_answer": [
+      "Are \nthose\n your glasses? ",
+      "those"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:24",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "U ajoyib tajriba edi!",
+    "options": [
+      "was",
+      "were",
+      "experience!",
+      "amazing",
+      "those",
+      "That",
+      "a",
+      "an"
+    ],
+    "correct_answer": [
+      "U ajoyib tajriba edi!",
+      "U ajoyib tajriba edi!",
+      "That",
+      "That",
+      "was",
+      "was",
+      "an",
+      "an",
+      "amazing",
+      "amazing",
+      "experience!",
+      "experience!",
+      "were",
+      "those",
+      "a",
+      "That was an amazing experience!",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:27",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| is not my bag. ",
+    "options": [
+      "This",
+      "These",
+      "Those"
+    ],
+    "correct_answer": [
+      "This\n is not my bag. ",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Look at |_| beautiful flowers. ",
+    "options": [
+      "that",
+      "these",
+      "this"
+    ],
+    "correct_answer": [
+      "Look at \nthese\n beautiful flowers. ",
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Do you know if ___ are the right documents?",
+    "options": [
+      "these",
+      "that",
+      "this"
+    ],
+    "correct_answer": [
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Are ___ the keys which you were looking for?",
+    "options": [
+      "this",
+      "these",
+      "that"
+    ],
+    "correct_answer": [
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Is |_| the book you mentioned? ",
+    "options": [
+      "these",
+      "those",
+      "this"
+    ],
+    "correct_answer": [
+      "Is \nthis\n the book you mentioned? ",
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ was a great movie.",
+    "options": [
+      "Those",
+      "These",
+      "That"
+    ],
+    "correct_answer": [
+      "___ was a great movie.",
+      "Those",
+      "These",
+      "That",
+      "That"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ is my friend’s house.",
+    "options": [
+      "These",
+      "Those",
+      "This"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ is not the way I would do it.",
+    "options": [
+      "This",
+      "These",
+      "Those"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:51",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ are the shoes which I bought yesterday.",
+    "options": [
+      "These",
+      "That",
+      "This"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 02:40:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| cookies are delicious.",
+    "options": [
+      "That",
+      "These",
+      "This"
+    ],
+    "correct_answer": [
+      "These\n cookies are delicious.",
+      "These"
+    ]
   }
 ]
