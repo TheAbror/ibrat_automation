@@ -7,7 +7,9 @@ PROGRAM_CERTIFICATE = (AppiumBy.ACCESSIBILITY_ID, "2+6 Program Certificate")
 GET_CERTIFICATE = (AppiumBy.ACCESSIBILITY_ID, "Get certificate")
 START_TEST = (AppiumBy.ACCESSIBILITY_ID, "Start")
 
-NEXT_BUTTON = (AppiumBy.XPATH, "//android.widget.Button[@content-desc='Next']")
+# Accessibility ID matches any widget class. On the incorrect-answer sheet
+# "Next" is not an android.widget.Button, so a class-restricted XPath misses it.
+NEXT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Next")
 CONTINUE_BUTTON = (AppiumBy.XPATH, "//android.widget.Button[@content-desc='Continue']")
 
 NICELY_DONE = (AppiumBy.XPATH, "//*[@content-desc='Nicely done!']")

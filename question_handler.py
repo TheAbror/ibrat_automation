@@ -1,6 +1,7 @@
 import time
 
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import StaleElementReferenceException
 
 import locators as loc
 
@@ -11,8 +12,14 @@ def get_screen_type(driver):
 
 
 def get_question_text(driver):
+    # Reading an attribute is a second round trip after find_elements; if the
+    # UI rebuilds in between (screen transition), the reference goes stale.
+    # Treat that as "no readable question this cycle" — the caller re-polls.
     els = driver.find_elements(*loc.QUESTION_TEXT)
-    return els[0].get_attribute("content-desc") if els else None
+    try:
+        return els[0].get_attribute("content-desc") if els else None
+    except StaleElementReferenceException:
+        return None
 
 
 def check_answer_feedback(driver):
