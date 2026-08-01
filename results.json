@@ -141,5 +141,75 @@
       "the",
       "an"
     ]
+  },
+  {
+    "time": "2026-08-01 23:48:33",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "-",
+      "poems",
+      "The",
+      "café you recommended",
+      "A",
+      "bag",
+      "An",
+      "architect"
+    ],
+    "correct_answer": []
+  },
+  {
+    "time": "2026-08-01 23:48:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Dismiss",
+    "options": [],
+    "correct_answer": [
+      "He's reading ___ book you recommended.",
+      "the",
+      "the",
+      "an",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-01 23:49:17",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) ta'lim (o‘qitish) sohasida mutaxassis.",
+    "options": [
+      "She",
+      "an",
+      "teaching.",
+      "a",
+      "he",
+      "expert",
+      "teacher",
+      "field",
+      "in",
+      "of",
+      "is",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-01 23:49:23",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) siz tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "offer",
+      "is",
+      "reading",
+      "the",
+      "offer",
+      "book",
+      "a",
+      "recommended.",
+      "you",
+      "is",
+      "He"
+    ]
   }
 ]

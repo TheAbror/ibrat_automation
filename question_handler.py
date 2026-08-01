@@ -6,6 +6,25 @@ from selenium.common.exceptions import StaleElementReferenceException
 import locators as loc
 
 
+def detect_question_type(question, options):
+    """Classify a question screen: multiple_choice, fill_the_blank, or matching.
+
+    - multiple_choice: the sentence contains a "___" or "|_|" blank and the
+      options are a few words to choose from.
+    - matching: the screen is titled "Moslashtiring." — pair cards.
+    - fill_the_blank: the sentence is built from many word chips (no blank
+      in the prompt).
+    """
+    q = (question or "").strip().lower().rstrip(".")
+    if q in ("moslashtiring", "match"):
+        return "matching"
+    if "___" in q or "|_|" in q:
+        return "multiple_choice"
+    if len(options) >= 5:
+        return "fill_the_blank"
+    return "multiple_choice"
+
+
 def get_screen_type(driver):
     continue_btns = driver.find_elements(*loc.CONTINUE_BUTTON)
     return "ordering" if continue_btns else "multiple_choice"
