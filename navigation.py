@@ -171,8 +171,19 @@ def open_next_in_sequence(driver):
     return True
 
 
+def clear_launch_popups(driver, rounds=2):
+    """Close popups that cover the home screen right after app launch
+    (streak screen, offers) via their X icon or Continue button."""
+    for _ in range(rounds):
+        if dismiss_popup(driver) or tap_forward_button(driver):
+            time.sleep(1)
+        else:
+            return
+
+
 def navigate_to_test(driver, wait, wait_long):
     """Returns True when the question screen is reached, False otherwise."""
+    clear_launch_popups(driver)
     tap(driver, wait, loc.PROGRAM_CERTIFICATE, "Program Certificate")
     tap(driver, wait, loc.GET_CERTIFICATE, "Get certificate")
 

@@ -2468,5 +2468,222 @@
       "I saw \nthe\n movie last night.",
       "the"
     ]
+  },
+  {
+    "time": "2026-08-02 00:55:12",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kecha men qiziqarli kino ko‘rdim.",
+    "options": [
+      "an",
+      "movie",
+      "yesterday.",
+      "I",
+      "boring",
+      "watch",
+      "interesting",
+      "a",
+      "watched"
+    ],
+    "correct_answer": [
+      "watch",
+      "I watched an interesting movie yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:17",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (bola) siz tavsiya qilgan kitobni o‘qiyapti.",
+    "options": [
+      "you",
+      "is",
+      "recommended.",
+      "the",
+      "offer",
+      "He",
+      "a",
+      "reading",
+      "book"
+    ],
+    "correct_answer": [
+      "book",
+      "He is reading the book you recommended."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:22",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Iltimos, menga tuzni uzata olasizmi?",
+    "options": [
+      "a",
+      "salt,",
+      "me",
+      "Can",
+      "sugar",
+      "pass",
+      "the",
+      "please?",
+      "you",
+      "passing"
+    ],
+    "correct_answer": [
+      "salt,",
+      "Can you pass me the salt, please?"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:24",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We're going to |_| restaurant for dinner tonight.",
+    "options": [
+      "a",
+      "an",
+      "-"
+    ],
+    "correct_answer": [
+      "We're going to \na\n restaurant for dinner tonight.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:29",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz) ta'lim (o‘qitish) sohasida mutaxassis.",
+    "options": [
+      "She",
+      "teacher",
+      "teaching.",
+      "of",
+      "is",
+      "in",
+      "he",
+      "a",
+      "an",
+      "field",
+      "the",
+      "expert"
+    ],
+    "correct_answer": [
+      "an",
+      "She is an expert in the field of teaching."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:31",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He's reading |_| book you recommended.",
+    "options": [
+      "an",
+      "for",
+      "the"
+    ],
+    "correct_answer": [
+      "He's reading \nan\n book you recommended.",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:37",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kechki ovqat uchun restoranga bormoqchimiz.",
+    "options": [
+      "going",
+      "dinner.",
+      "for",
+      "is",
+      "goes",
+      "restaurant",
+      "to",
+      "an",
+      "are",
+      "We",
+      "a"
+    ],
+    "correct_answer": [
+      "We",
+      "We are going to a restaurant for dinner."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:39",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She's |_| expert in the field of medicine.",
+    "options": [
+      "an",
+      "a",
+      "-"
+    ],
+    "correct_answer": [
+      "She's \na\n expert in the field of medicine.",
+      "an"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:42",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I need to buy |_| new laptop.",
+    "options": [
+      "an",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "I need to buy \na\n new laptop.",
+      "a"
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:46",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kecha men qiziqarli kino ko‘rdim.",
+    "options": [
+      "interesting",
+      "a",
+      "movie",
+      "boring",
+      "watch",
+      "I",
+      "watched",
+      "an",
+      "yesterday."
+    ],
+    "correct_answer": [
+      "watch",
+      "I watched an interesting movie yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 00:55:55",
+    "type": "fill_the_blank",
+    "result": "other",
+    "question": "Kecha men qiziqarli kino ko‘rdim.",
+    "options": [
+      "interesting",
+      "a",
+      "movie",
+      "boring",
+      "watch",
+      "I",
+      "watched",
+      "an",
+      "yesterday."
+    ],
+    "correct_answer": [
+      "Dars 70 Go to work vs Go home",
+      "\"Go to\" is used to indicate movement towards a specific location or destination. It is followed by a noun that represents the place you are going to.",
+      "Examples:",
+      "1. They're going to school.",
+      "2. I want to go to the park.",
+      "3. They are going to the cinema tonight."
+    ]
   }
 ]
