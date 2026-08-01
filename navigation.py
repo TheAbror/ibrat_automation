@@ -301,14 +301,42 @@ def wait_for_lessons_list(driver, timeout=15):
     return None
 
 
+def fling_lessons_to_end(driver):
+    """Fling the lessons list to its very bottom.
+
+    A fresh course entry always opens the list at the top of the module,
+    so once progress moves past the first screenful every visible item
+    is already completed — tapping one reopens an old lesson with no
+    sequence reminder. Descs carry no locked/completed marker, so the
+    only safe tap target is the true last item, and it stays locked
+    until the course is finished. (flingToEnd, unlike scrollToEnd,
+    covers the whole list in a few seconds.)
+    """
+    try:
+        driver.find_element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            "new UiScrollable(new UiSelector().scrollable(true)).flingToEnd(40)",
+        )
+        time.sleep(0.5)
+        return True
+    except (NoSuchElementException, StaleElementReferenceException):
+        return False
+
+
 def open_next_in_sequence(driver):
     """Open whatever lesson/test the course sequence says is next.
 
-    Tapping a locked item triggers the "You must study the lessons in
-    sequence!" reminder; its "Next lesson" button opens the right item.
-    The last visible item is used because it is (almost) always locked.
+    The list is flung to its very end, and the last item tapped. Tapping
+    a locked item triggers the "You must study the lessons in sequence!"
+    reminder; its "Next lesson" button opens the right item.
     """
-    last = wait_for_lessons_list(driver)
+    if not wait_for_lessons_list(driver):
+        print("No lessons found in the list")
+        return False
+
+    if not fling_lessons_to_end(driver):
+        print("Could not fling the lessons list — using the visible items")
+    last = last_lesson_desc(parse_screen(driver.page_source))
     if not last:
         print("No lessons found in the list")
         return False

@@ -80,6 +80,65 @@ class TestLastLessonDesc(unittest.TestCase):
         self.assertIsNone(navigation.last_lesson_desc([("android.view.View", "Lessons")]))
 
 
+# A fresh course entry always opens the list at the top of the module.
+# Once progress moves past the first screenful, every visible item is
+# already completed — descs carry no locked/completed marker, so the only
+# safe target is the true last item, reached by flinging to the end.
+LESSONS_TOP_XML = """<hierarchy>
+  <node class="android.widget.ScrollView" bounds="[0,0][720,1600]" clickable="false" scrollable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[0,0][720,634]" clickable="true" content-desc="Lessons\n6 / \n86\n4 / \n88"/>
+  <node class="android.view.View" bounds="[0,634][720,781]" clickable="true" content-desc="Dars 68 A vs The | Articles\n9 minutes"/>
+  <node class="android.view.View" bounds="[0,1414][720,1558]" clickable="true" content-desc="Test 70.1  Go + prepositions"/>
+</hierarchy>"""
+
+LESSONS_END_XML = """<hierarchy>
+  <node class="android.widget.ScrollView" bounds="[0,0][720,1600]" clickable="false" scrollable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[0,1198][720,1345]" clickable="true" content-desc="Dars 153 At, on, in (time)\n7 minutes"/>
+  <node class="android.view.View" bounds="[0,1345][720,1488]" clickable="true" content-desc="Test 153 At, on, in (time)"/>
+</hierarchy>"""
+
+
+class TestOpenNextInSequence(unittest.TestCase):
+    def test_flings_to_list_end_before_tapping_last_item(self):
+        import navigation
+
+        taps = []
+
+        class ScrollDriver:
+            def __init__(self):
+                self.page_source = LESSONS_TOP_XML
+
+            def find_element(self, by, value):
+                if "flingToEnd" in value:
+                    self.page_source = LESSONS_END_XML
+                    return FakeElement("scrollable")
+                el = FakeElement("item")
+                el.click = lambda: taps.append(value)
+                return el
+
+        self.assertTrue(navigation.open_next_in_sequence(ScrollDriver()))
+        self.assertTrue(any("Test 153" in t for t in taps), taps)
+        self.assertFalse(any("Test 70.1" in t for t in taps), taps)
+
+    def test_falls_back_to_visible_last_item_when_fling_fails(self):
+        import navigation
+
+        taps = []
+
+        class NoScrollDriver:
+            page_source = LESSONS_TOP_XML
+
+            def find_element(self, by, value):
+                if "flingToEnd" in value:
+                    raise NoSuchElementException("no scrollable view")
+                el = FakeElement("item")
+                el.click = lambda: taps.append(value)
+                return el
+
+        self.assertTrue(navigation.open_next_in_sequence(NoScrollDriver()))
+        self.assertTrue(any("Test 70.1" in t for t in taps), taps)
+
+
 class TestRecoveryHelpers(unittest.TestCase):
     def test_find_close_icon(self):
         import navigation
