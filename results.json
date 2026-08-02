@@ -10106,5 +10106,4584 @@
     "correct_answer": [
       "all"
     ]
+  },
+  {
+    "time": "2026-08-02 12:44:52",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Barchamiz bu joy haqida bilamiz.",
+    "options": [
+      "know",
+      "We",
+      "place",
+      "this",
+      "palace",
+      "they",
+      "all",
+      "about",
+      "that"
+    ],
+    "correct_answer": [
+      "know",
+      "We all know about this place"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:44:55",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "It took me |_| day to finish.",
+    "options": [
+      "the",
+      "every",
+      "all"
+    ],
+    "correct_answer": [
+      "It took me \nthe\n day to finish.",
+      "all"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:44:59",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| child needs security.",
+    "options": [
+      "All",
+      "Any",
+      "Every"
+    ],
+    "correct_answer": [
+      "All\n child needs security.",
+      "Every"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:45:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She comes to our house ___ day.",
+    "options": [
+      "all",
+      "no",
+      "an",
+      "every"
+    ],
+    "correct_answer": [
+      "every"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:45:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I go there |_|.",
+    "options": [
+      "every days",
+      "all the day",
+      "every day."
+    ],
+    "correct_answer": [
+      "I go there \nevery day.\n.",
+      "every day."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:45:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There is a meeting ___ week.",
+    "options": [
+      "every",
+      "the",
+      "all",
+      "some"
+    ],
+    "correct_answer": [
+      "every"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:47:06",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Men uning barcha kitoblarini o‘qiganman.",
+    "options": [
+      "have",
+      "my",
+      "her",
+      "books.",
+      "book",
+      "every",
+      "all",
+      "I",
+      "read"
+    ],
+    "correct_answer": [
+      "I",
+      "have",
+      "read",
+      "all",
+      "her",
+      "books.",
+      "I have read all her books."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:47:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have given invitations to ___ my friends.",
+    "options": [
+      "the",
+      "any",
+      "all",
+      "every"
+    ],
+    "correct_answer": [
+      "all"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:47:25",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Barchamiz bu joy haqida bilamiz.",
+    "options": [
+      "place",
+      "that",
+      "all",
+      "they",
+      "about",
+      "this",
+      "We",
+      "know",
+      "palace"
+    ],
+    "correct_answer": [
+      "We",
+      "all",
+      "know",
+      "about",
+      "this",
+      "place",
+      "We all know about this place"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:47:28",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "It took me |_| day to finish.",
+    "options": [
+      "the",
+      "every",
+      "all"
+    ],
+    "correct_answer": [
+      "It took me \nall\n day to finish.",
+      "all"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:47:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| child needs security.",
+    "options": [
+      "All",
+      "Every",
+      "Any"
+    ],
+    "correct_answer": [
+      "Every\n child needs security.",
+      "Every"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:47:42",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "|_| child needs security.",
+    "options": [
+      "All",
+      "Every",
+      "Any"
+    ],
+    "correct_answer": [
+      "Dars 80 All/ Most/ Some/ Any",
+      "Compare:",
+      "1. Children like playing. (= children in general)",
+      "Where are the children? (= our children)",
+      "2. Money isn't everything. (= money in general)",
+      "I want to buy a car but I haven't got the money. (= money for a car)",
+      "3. I enjoy reading books."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:47:53",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ali has read |_| of his books.",
+    "options": [
+      "some",
+      "any",
+      "no",
+      "every"
+    ],
+    "correct_answer": [
+      "Ali has read \nsome\n of his books.",
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:47:56",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ cities have the same problems during winter.",
+    "options": [
+      "Any",
+      "Every",
+      "All"
+    ],
+    "correct_answer": [
+      "All"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:47:59",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| people have cars. I live with rich people.",
+    "options": [
+      "Every",
+      "Any",
+      "Some",
+      "Most"
+    ],
+    "correct_answer": [
+      "Every\n people have cars. I live with rich people.",
+      "Most"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:48:02",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ people work too hard.",
+    "options": [
+      "Any",
+      "Some",
+      "None ",
+      "All "
+    ],
+    "correct_answer": [
+      "Some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:48:32",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Work",
+      "Shahar",
+      "During",
+      "Davomida",
+      "City",
+      "Ishlamoq",
+      "Rich ",
+      "Boy"
+    ],
+    "correct_answer": [
+      [
+        "Work",
+        "Ishlamoq"
+      ],
+      [
+        "During",
+        "Davomida"
+      ],
+      [
+        "Rich ",
+        "Shahar"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:48:35",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She has eaten |_| cakes. She was too hungry.",
+    "options": [
+      "most",
+      "all",
+      "every"
+    ],
+    "correct_answer": [
+      "She has eaten \nmost\n cakes. She was too hungry.",
+      "all"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:48:40",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Ko‘p odamlar buni noto‘g‘ri deb o‘ylashadi.",
+    "options": [
+      "think",
+      "thinks",
+      "is",
+      "wrong.",
+      "person",
+      "people",
+      "those",
+      "correct",
+      "this ",
+      "Most"
+    ],
+    "correct_answer": [
+      "think",
+      "Most people think this is wrong."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:48:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I've got a lot of books. ___ of them are romantic and the rest of them are realistic.",
+    "options": [
+      "Most",
+      "All",
+      "Any"
+    ],
+    "correct_answer": [
+      "Most"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:48:48",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Talabalarning hech biri darsga kelmadi.",
+    "options": [
+      "to",
+      "of",
+      "the",
+      "came",
+      "None",
+      "the",
+      "lesson.",
+      "students"
+    ],
+    "correct_answer": [
+      "to",
+      "None of the students came to the lesson."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:48:51",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ of us are going out tonight. Why don't you come with us?",
+    "options": [
+      "Some",
+      "No",
+      "Any"
+    ],
+    "correct_answer": [
+      "Some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:48:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ cities have the same problems during winter.",
+    "options": [
+      "Any",
+      "Every",
+      "All"
+    ],
+    "correct_answer": [
+      "___ cities have the same problems during winter.",
+      "Any",
+      "Every",
+      "All",
+      "All"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:48:58",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| people have cars. I live with rich people.",
+    "options": [
+      "Any",
+      "Some",
+      "Most",
+      "Every"
+    ],
+    "correct_answer": [
+      "Most\n people have cars. I live with rich people.",
+      "Most"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:49:01",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ people work too hard.",
+    "options": [
+      "None ",
+      "Some",
+      "All ",
+      "Any"
+    ],
+    "correct_answer": [
+      "Some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:49:05",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She has eaten |_| cakes. She was too hungry.",
+    "options": [
+      "every",
+      "most",
+      "all"
+    ],
+    "correct_answer": [
+      "She has eaten \nall\n cakes. She was too hungry.",
+      "all"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:49:18",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Ko‘p odamlar buni noto‘g‘ri deb o‘ylashadi.",
+    "options": [
+      "person",
+      "thinks",
+      "is",
+      "this ",
+      "Most",
+      "people",
+      "wrong.",
+      "correct",
+      "think",
+      "those"
+    ],
+    "correct_answer": [
+      "Most",
+      "people",
+      "think",
+      "this ",
+      "is",
+      "wrong.",
+      "Most people think this is wrong."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:49:34",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Talabalarning hech biri darsga kelmadi.",
+    "options": [
+      "of",
+      "to",
+      "None",
+      "lesson.",
+      "came",
+      "the",
+      "students",
+      "the"
+    ],
+    "correct_answer": [
+      "None",
+      "of",
+      "students",
+      "came",
+      "to",
+      "lesson.",
+      "None of the students came to the lesson."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:49:44",
+    "type": "fill_the_blank",
+    "result": "other",
+    "question": "Talabalarning hech biri darsga kelmadi.",
+    "options": [
+      "of",
+      "to",
+      "None",
+      "lesson.",
+      "came",
+      "the",
+      "students",
+      "the"
+    ],
+    "correct_answer": [
+      "Dars 81 Both / Either / Neither",
+      "\"Both\", \"either\" and \"neither\" (= not + either) are words used to refer to two or more things or people in different ways.",
+      "Examples:",
+      "1. Rosemary has two children. Both are married. (Both = the two children)",
+      "2. Would you like tea or coffee? You can have either (= tea or coffee).",
+      "3. - Do you want to go to the cinema or the theatre?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:49:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My friend Kamol and his brother are playing football. ___ of them are in one team.",
+    "options": [
+      "Both",
+      "The",
+      "Any",
+      "Either"
+    ],
+    "correct_answer": [
+      "Both"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:28",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Language",
+      "Choy",
+      "Team",
+      "Tanlov",
+      "Choice",
+      "Til",
+      "Tea",
+      "Jamoa"
+    ],
+    "correct_answer": [
+      [
+        "Language",
+        "Til"
+      ],
+      [
+        "Team",
+        "Jamoa"
+      ],
+      [
+        "Choice",
+        "Tanlov"
+      ],
+      [
+        "Tea",
+        "Choy"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:31",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Who are those two people? I don't know |_| of them.",
+    "options": [
+      "neither of",
+      "neither",
+      "either of",
+      "either"
+    ],
+    "correct_answer": [
+      "Who are those two people? I don't know \nneither of\n of them.",
+      "either"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have two friends. |_| of them are very intelligent.",
+    "options": [
+      "Both",
+      "Some",
+      "Most",
+      "Every"
+    ],
+    "correct_answer": [
+      "I have two friends. \nBoth\n of them are very intelligent.",
+      "Both"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| choice was suitable to me.",
+    "options": [
+      "Either",
+      "Both",
+      "None"
+    ],
+    "correct_answer": [
+      "Either\n choice was suitable to me.",
+      "Either"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:41",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Darslarning ikkalasi ham oson edi.",
+    "options": [
+      "Both",
+      "are",
+      "Some",
+      "difficult",
+      "of",
+      "were",
+      "Most",
+      "easy",
+      "was",
+      "the lessons"
+    ],
+    "correct_answer": [
+      "Both",
+      "Both of the lessons were easy"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:44",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Mukhlisa has got two sisters. |_| of them are married.",
+    "options": [
+      "Every",
+      "Both",
+      "Either"
+    ],
+    "correct_answer": [
+      "Mukhlisa has got two sisters. \nEvery\n of them are married.",
+      "Both"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:47",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| of us could learn new words.",
+    "options": [
+      "No",
+      "Neither",
+      "Either",
+      "Any"
+    ],
+    "correct_answer": [
+      "No\n of us could learn new words.",
+      "Neither"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:50",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Who are those two people? I don't know ___ of them.",
+    "options": [
+      "neither",
+      "none",
+      "either"
+    ],
+    "correct_answer": [
+      "either"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:53",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Would you like tea or coffee?  You can have ___ .",
+    "options": [
+      "either",
+      "neither",
+      "none",
+      "the"
+    ],
+    "correct_answer": [
+      "either"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:50:56",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Who are those two people? I don't know |_| of them.",
+    "options": [
+      "either",
+      "neither of",
+      "neither",
+      "either of"
+    ],
+    "correct_answer": [
+      "Who are those two people? I don't know \neither\n of them.",
+      "either"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:00",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Darslarning ikkalasi ham oson edi.",
+    "options": [
+      "are",
+      "Some",
+      "Most",
+      "the lessons",
+      "difficult",
+      "were",
+      "Both",
+      "was",
+      "of",
+      "easy"
+    ],
+    "correct_answer": [
+      "are",
+      "Both of the lessons were easy"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Mukhlisa has got two sisters. |_| of them are married.",
+    "options": [
+      "Either",
+      "Every",
+      "Both"
+    ],
+    "correct_answer": [
+      "Mukhlisa has got two sisters. \nBoth\n of them are married.",
+      "Both"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| of us could learn new words.",
+    "options": [
+      "Neither",
+      "Either",
+      "No",
+      "Any"
+    ],
+    "correct_answer": [
+      "Neither\n of us could learn new words.",
+      "Neither"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Who are those two people? I don't know ___ of them.",
+    "options": [
+      "either",
+      "none",
+      "neither"
+    ],
+    "correct_answer": [
+      "either"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:19",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Who are those two people? I don't know ___ of them.",
+    "options": [
+      "either",
+      "none",
+      "neither"
+    ],
+    "correct_answer": [
+      "Dars 82 A lot / Much / Many",
+      "\"Much\", \"many\" and \"a lot of\" are quantifiers used to indicate the quantity or amount of something.",
+      "We use much with uncountable nouns.",
+      "Examples:",
+      "1. He doesn't have much time to spare.",
+      "2. We haven't got much luggage.",
+      "3. How much money do you want?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:28",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Your house is ___ better than mine.",
+    "options": [
+      "many",
+      "more",
+      "much",
+      "a lot of"
+    ],
+    "correct_answer": [
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:31",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Would you like |_| rice in order to make palov?",
+    "options": [
+      "a",
+      "an",
+      "any",
+      "some"
+    ],
+    "correct_answer": [
+      "Would you like \na\n rice in order to make palov?",
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:34",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There isn't ___ sand on that island.",
+    "options": [
+      "a lot of",
+      "much",
+      "many",
+      "few"
+    ],
+    "correct_answer": [
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "How ___ cherries do you want to eat?",
+    "options": [
+      "many",
+      "a lot of",
+      "much",
+      "any"
+    ],
+    "correct_answer": [
+      "many"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:40",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We have |_| of homework today.",
+    "options": [
+      "little",
+      "a lot",
+      "many",
+      "much"
+    ],
+    "correct_answer": [
+      "We have \nlittle\n of homework today.",
+      "a lot"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:42",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I want to buy a BMW. But I don’t have ___ money.",
+    "options": [
+      "few",
+      "much",
+      "little",
+      "many"
+    ],
+    "correct_answer": [
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:47",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Menda juda ham ko‘p vazifalar bor.",
+    "options": [
+      "You",
+      "much",
+      "to",
+      "homeworks",
+      "homework.",
+      "has",
+      "I",
+      "have",
+      "too"
+    ],
+    "correct_answer": [
+      "You",
+      "I have too much homework."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:50",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Do not drink too ___ beer.",
+    "options": [
+      "a lot",
+      "much",
+      "a few",
+      "many"
+    ],
+    "correct_answer": [
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:54",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Ba’zi joylarda suv yetarli emas.",
+    "options": [
+      "places.",
+      "the",
+      "some",
+      "in",
+      "aren't",
+      "It",
+      "There",
+      "isn't ",
+      "water",
+      "any",
+      "enough"
+    ],
+    "correct_answer": [
+      "places.",
+      "There isn't enough water in some places."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:51:57",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There are |_| oranges.",
+    "options": [
+      "lots",
+      "a lot of",
+      "a lot"
+    ],
+    "correct_answer": [
+      "There are \nlots\n oranges.",
+      "a lot of"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Your house is ___ better than mine.",
+    "options": [
+      "much",
+      "more",
+      "many",
+      "a lot of"
+    ],
+    "correct_answer": [
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Would you like |_| rice in order to make palov?",
+    "options": [
+      "any",
+      "a",
+      "some",
+      "an"
+    ],
+    "correct_answer": [
+      "Would you like \nsome\n rice in order to make palov?",
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There isn't ___ sand on that island.",
+    "options": [
+      "a lot of",
+      "many",
+      "much",
+      "few"
+    ],
+    "correct_answer": [
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:11",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We have |_| of homework today.",
+    "options": [
+      "little",
+      "many",
+      "a lot",
+      "much"
+    ],
+    "correct_answer": [
+      "We have |_| of homework today.",
+      "We have \na lot\n of homework today.",
+      "little",
+      "many",
+      "a lot",
+      "a lot",
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:14",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I want to buy a BMW. But I don’t have ___ money.",
+    "options": [
+      "much",
+      "many",
+      "little",
+      "few"
+    ],
+    "correct_answer": [
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:25",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Menda juda ham ko‘p vazifalar bor.",
+    "options": [
+      "I",
+      "to",
+      "has",
+      "much",
+      "homeworks",
+      "have",
+      "You",
+      "too",
+      "homework."
+    ],
+    "correct_answer": [
+      "I",
+      "have",
+      "too",
+      "much",
+      "homework.",
+      "I have too much homework."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:27",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Do not drink too ___ beer.",
+    "options": [
+      "much",
+      "a lot",
+      "many",
+      "a few"
+    ],
+    "correct_answer": [
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:42",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Ba’zi joylarda suv yetarli emas.",
+    "options": [
+      "water",
+      "It",
+      "aren't",
+      "some",
+      "There",
+      "in",
+      "enough",
+      "isn't ",
+      "any",
+      "places.",
+      "the"
+    ],
+    "correct_answer": [
+      "There",
+      "isn't ",
+      "enough",
+      "water",
+      "in",
+      "some",
+      "places.",
+      "There isn't enough water in some places."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There are |_| oranges.",
+    "options": [
+      "a lot of",
+      "lots",
+      "a lot"
+    ],
+    "correct_answer": [
+      "There are \na lot of\n oranges.",
+      "a lot of"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:52:56",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "There are |_| oranges.",
+    "options": [
+      "a lot of",
+      "lots",
+      "a lot"
+    ],
+    "correct_answer": [
+      "Dars 83 A little vs A few",
+      "\"A little\" and \"a few\" are used to express small quantities, but they are used with different types of nouns.",
+      "A little is used with uncountable nouns. It indicates a small amount or degree of something: a little = some but not much",
+      "Examples:",
+      "1. She didn't eat anything but she drank a little water."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:06",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Unfortunately, we have ___ problems at the moment.",
+    "options": [
+      "few",
+      "little",
+      "a few"
+    ],
+    "correct_answer": [
+      "a few"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There were ___ people in the park. It was nearly empty.",
+    "options": [
+      "few",
+      "a few",
+      "a little"
+    ],
+    "correct_answer": [
+      "few"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:11",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "They have ___ money. They are very poor.",
+    "options": [
+      "a few",
+      "little ",
+      "a little"
+    ],
+    "correct_answer": [
+      "little"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:14",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I have |_| friends. I'm not lonely.",
+    "options": [
+      "little",
+      "a few",
+      "a little"
+    ],
+    "correct_answer": [
+      "I have \nlittle\n friends. I'm not lonely.",
+      "a few"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:19",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men biroz o‘zbek tilida gapira olaman.",
+    "options": [
+      "I",
+      "little",
+      "can",
+      "speak",
+      "could",
+      "Uzbek",
+      "bit.",
+      "a little"
+    ],
+    "correct_answer": [
+      "I",
+      "I can speak Uzbek a little bit."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you wait ___ minutes till I arrive?",
+    "options": [
+      "a few",
+      "few",
+      "a little"
+    ],
+    "correct_answer": [
+      "a few"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:24",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There was |_| food in the fridge. It was nearly empty.",
+    "options": [
+      "few",
+      "a little",
+      "little"
+    ],
+    "correct_answer": [
+      "There was \nfew\n food in the fridge. It was nearly empty.",
+      "little"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:30",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Sayyora ingliz tilida juda kam xato qiladi.",
+    "options": [
+      "make",
+      "makes",
+      "mistake",
+      "on",
+      "little",
+      "in",
+      "mistakes",
+      "Sayyora",
+      "very",
+      "few",
+      "English."
+    ],
+    "correct_answer": [
+      "make",
+      "Sayyora makes very few mistakes in English."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:33",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They are very poor. Because they have |_| money.",
+    "options": [
+      "little",
+      "a little",
+      "few"
+    ],
+    "correct_answer": [
+      "They are very poor. Because they have \nlittle\n money.",
+      "little"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:36",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I have ___ money in my account. But I have to buy many things.",
+    "options": [
+      "few",
+      "little",
+      "a little"
+    ],
+    "correct_answer": [
+      "little"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Unfortunately, we have ___ problems at the moment.",
+    "options": [
+      "few",
+      "a few",
+      "little"
+    ],
+    "correct_answer": [
+      "a few"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They have ___ money. They are very poor.",
+    "options": [
+      "a few",
+      "little ",
+      "a little"
+    ],
+    "correct_answer": [
+      "They have ___ money. They are very poor.",
+      "a few",
+      "little ",
+      "a little",
+      "little"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have |_| friends. I'm not lonely.",
+    "options": [
+      "a little",
+      "little",
+      "a few"
+    ],
+    "correct_answer": [
+      "I have \na few\n friends. I'm not lonely.",
+      "a few"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:52",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men biroz o‘zbek tilida gapira olaman.",
+    "options": [
+      "a little",
+      "I",
+      "little",
+      "Uzbek",
+      "speak",
+      "could",
+      "bit.",
+      "can"
+    ],
+    "correct_answer": [
+      "a little",
+      "I can speak Uzbek a little bit."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:53:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There was |_| food in the fridge. It was nearly empty.",
+    "options": [
+      "little",
+      "a little",
+      "few"
+    ],
+    "correct_answer": [
+      "There was \nlittle\n food in the fridge. It was nearly empty.",
+      "little"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:09",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Sayyora ingliz tilida juda kam xato qiladi.",
+    "options": [
+      "mistakes",
+      "Sayyora",
+      "very",
+      "English.",
+      "makes",
+      "mistake",
+      "make",
+      "little",
+      "few",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "Sayyora",
+      "makes",
+      "very",
+      "few",
+      "mistakes",
+      "in",
+      "English.",
+      "Sayyora makes very few mistakes in English."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have ___ money in my account. But I have to buy many things.",
+    "options": [
+      "a little",
+      "few",
+      "little"
+    ],
+    "correct_answer": [
+      "little"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:21",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "I have ___ money in my account. But I have to buy many things.",
+    "options": [
+      "a little",
+      "few",
+      "little"
+    ],
+    "correct_answer": [
+      "Dars 84 Adjectives",
+      "Adjectives are primarily used to describe nouns (adjective + noun). They provide additional information about the noun or pronoun, such as its quality, quantity, size, color, or opinion.",
+      "Examples:",
+      "1. It's a nice day today.",
+      "2. Laura has got brown eyes.",
+      "3. There's a very old bridge in this village."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:30",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Don't cook this meal. This meal is not ___ .",
+    "options": [
+      "afraid",
+      "bad",
+      "famous",
+      "delicious"
+    ],
+    "correct_answer": [
+      "delicious"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:33",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "These lessons are too ___ to participate. Students are sleeping.",
+    "options": [
+      "interesting",
+      "bored",
+      "boring ",
+      "boringly"
+    ],
+    "correct_answer": [
+      "boring"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:36",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "These flowers are very |_|.",
+    "options": [
+      "more beautifully",
+      "beautiful",
+      "beautifully"
+    ],
+    "correct_answer": [
+      "These flowers are very \nmore beautifully\n.",
+      "beautiful"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:39",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Have a |_| day!",
+    "options": [
+      "nice",
+      "blue",
+      "bad"
+    ],
+    "correct_answer": [
+      "Have a \nnice\n day!",
+      "nice"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:43",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Palov juda mazali taom.",
+    "options": [
+      "food",
+      "meal.",
+      "Palov",
+      "make",
+      "a",
+      "is",
+      "delicious",
+      "very"
+    ],
+    "correct_answer": [
+      "food",
+      "Palov is a very delicious meal."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The film wasn't very ___ . It was boring.",
+    "options": [
+      "interesting",
+      "good",
+      "badly"
+    ],
+    "correct_answer": [
+      "interesting"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:54:51",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Ko‘p o‘zbek qizlarida qora soch bor.",
+    "options": [
+      "hair",
+      "Many",
+      "girls",
+      "black",
+      "boys",
+      "uzbek",
+      "got",
+      "have",
+      "hairs",
+      "much"
+    ],
+    "correct_answer": [
+      "hair",
+      "Many uzbek girls have got black hair"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:56:24",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Beautiful",
+      "Qiziqarli",
+      "Interesting",
+      "Mazali",
+      "Nice",
+      "Yaxshi",
+      "Delicious",
+      "Chiroyli"
+    ],
+    "correct_answer": [
+      [
+        "Beautiful",
+        "Chiroyli"
+      ],
+      [
+        "Nice",
+        "Qiziqarli"
+      ],
+      [
+        "Delicious",
+        "Mazali"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:56:27",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The math is a bit ___ to understand.",
+    "options": [
+      "more",
+      "old",
+      "difficult",
+      "easier"
+    ],
+    "correct_answer": [
+      "difficult"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:56:54",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Blue",
+      "sky",
+      "Ancient",
+      "house",
+      "Modern",
+      "girl",
+      "Beautiful",
+      "city"
+    ],
+    "correct_answer": [
+      [
+        "Ancient",
+        "sky"
+      ],
+      [
+        "Beautiful",
+        "house"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:56:59",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Don't cook this meal. This meal is not ___ .",
+    "options": [
+      "delicious",
+      "afraid",
+      "famous",
+      "bad"
+    ],
+    "correct_answer": [
+      "Don't cook this meal. This meal is not ___ .",
+      "delicious",
+      "delicious",
+      "afraid",
+      "famous",
+      "bad"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:57:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "These lessons are too ___ to participate. Students are sleeping.",
+    "options": [
+      "boringly",
+      "boring ",
+      "interesting",
+      "bored"
+    ],
+    "correct_answer": [
+      "boring"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:57:05",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "These flowers are very |_|.",
+    "options": [
+      "beautiful",
+      "more beautifully",
+      "beautifully"
+    ],
+    "correct_answer": [
+      "These flowers are very \nbeautiful\n.",
+      "beautiful"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:57:18",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Palov juda mazali taom.",
+    "options": [
+      "Palov",
+      "meal.",
+      "make",
+      "a",
+      "is",
+      "food",
+      "very",
+      "delicious"
+    ],
+    "correct_answer": [
+      "Palov",
+      "is",
+      "a",
+      "very",
+      "delicious",
+      "meal.",
+      "Palov is a very delicious meal."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:57:34",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Ko‘p o‘zbek qizlarida qora soch bor.",
+    "options": [
+      "black",
+      "uzbek",
+      "hair",
+      "girls",
+      "got",
+      "boys",
+      "Many",
+      "hairs",
+      "much",
+      "have"
+    ],
+    "correct_answer": [
+      "Many",
+      "uzbek",
+      "girls",
+      "have",
+      "got",
+      "black",
+      "hair",
+      "Many uzbek girls have got black hair"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:57:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The math is a bit ___ to understand.",
+    "options": [
+      "more",
+      "old",
+      "easier",
+      "difficult"
+    ],
+    "correct_answer": [
+      "difficult"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:57:47",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "The math is a bit ___ to understand.",
+    "options": [
+      "more",
+      "old",
+      "easier",
+      "difficult"
+    ],
+    "correct_answer": [
+      "Dars 85 Adverbs",
+      "An adverb is a word that modifies or describes a verb, an adjective, or another adverb. It provides additional information about how an action is performed, the manner in which something is done, or the degree or intensity of an adjective or adverb.",
+      "In many cases, you can form an adverb by adding the suffix \"-ly\" to an adjective: adjective + - ly → adverb. This transformation changes the adjective into an adverb, indicating how an action is performed or modifying the verb or adjective in a sentence - simply explaining, adverbs tell you how something happens or how somebody does something."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:09",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Rushana sings very ___ . She doesn't know how to sing.",
+    "options": [
+      "bad",
+      "badly",
+      "worst"
+    ],
+    "correct_answer": [
+      "badly"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:12",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Keep |_|! You are talking too much.",
+    "options": [
+      "more silent",
+      "silently",
+      "silent"
+    ],
+    "correct_answer": [
+      "Keep \nmore silent\n! You are talking too much.",
+      "silent"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I and my friend are close-friends. We know each other ___ .",
+    "options": [
+      "easily",
+      "easy",
+      "easier"
+    ],
+    "correct_answer": [
+      "easily"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Listen to me ___ .",
+    "options": [
+      "carefully",
+      "careful",
+      "carely",
+      "suddenly"
+    ],
+    "correct_answer": [
+      "carefully"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:21",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Sen ingliz tilida juda yaxshi gapirasan.",
+    "options": [
+      "You speak English perfect.",
+      "You speak English very well.",
+      "You speak English very good.",
+      "Your English is good."
+    ],
+    "correct_answer": [
+      "You speak English very well."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:23",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I can read books very |_|.",
+    "options": [
+      "fastly",
+      "fast",
+      "more fast"
+    ],
+    "correct_answer": [
+      "I can read books very \nfastly\n.",
+      "fast"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:26",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "You don't have to wake up |_|. Because today is Sunday.",
+    "options": [
+      "early",
+      "fast",
+      "hard",
+      "late"
+    ],
+    "correct_answer": [
+      "You don't have to wake up \nearly\n. Because today is Sunday.",
+      "early"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:29",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I understood the new topic ___ . Because I have seen it.",
+    "options": [
+      "slow",
+      "clearly",
+      "carefully"
+    ],
+    "correct_answer": [
+      "clearly"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:34",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Xorijlik do‘stlarim ba’zi o‘zbekcha so‘zlarni juda osonlik bilan o‘rganib olishdi.",
+    "options": [
+      "the",
+      "My",
+      "easy",
+      "learn",
+      "easily.",
+      "uzbek",
+      "Your",
+      "word",
+      "words",
+      "any",
+      "learned",
+      "foreign",
+      "some",
+      "very",
+      "friend",
+      "friends"
+    ],
+    "correct_answer": [
+      "the",
+      "My foreign friends learned some uzbek words very easily."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:38",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Iskandar won the race, he ran ___ .",
+    "options": [
+      "slowly",
+      "fastly",
+      "fast"
+    ],
+    "correct_answer": [
+      "fast"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Rushana sings very ___ . She doesn't know how to sing.",
+    "options": [
+      "bad",
+      "worst",
+      "badly"
+    ],
+    "correct_answer": [
+      "badly"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Keep |_|! You are talking too much.",
+    "options": [
+      "more silent",
+      "silent",
+      "silently"
+    ],
+    "correct_answer": [
+      "Keep |_|! You are talking too much.",
+      "Keep \nsilent\n! You are talking too much.",
+      "more silent",
+      "silent",
+      "silent",
+      "silently"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Sen ingliz tilida juda yaxshi gapirasan.",
+    "options": [
+      "You speak English very good.",
+      "You speak English perfect.",
+      "Your English is good.",
+      "You speak English very well."
+    ],
+    "correct_answer": [
+      "You speak English very well."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I can read books very |_|.",
+    "options": [
+      "fastly",
+      "fast",
+      "more fast"
+    ],
+    "correct_answer": [
+      "I can read books very \nfast\n.",
+      "fast"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:58:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I understood the new topic ___ . Because I have seen it.",
+    "options": [
+      "clearly",
+      "slow",
+      "carefully"
+    ],
+    "correct_answer": [
+      "clearly"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:59:14",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Xorijlik do‘stlarim ba’zi o‘zbekcha so‘zlarni juda osonlik bilan o‘rganib olishdi.",
+    "options": [
+      "friend",
+      "some",
+      "the",
+      "words",
+      "Your",
+      "very",
+      "learned",
+      "easily.",
+      "foreign",
+      "friends",
+      "any",
+      "easy",
+      "learn",
+      "My",
+      "uzbek",
+      "word"
+    ],
+    "correct_answer": [
+      "My",
+      "foreign",
+      "friends",
+      "learned",
+      "some",
+      "uzbek",
+      "words",
+      "very",
+      "easily.",
+      "My foreign friends learned some uzbek words very easily."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:59:17",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Iskandar won the race, he ran ___ .",
+    "options": [
+      "fast",
+      "fastly",
+      "slowly"
+    ],
+    "correct_answer": [
+      "fast"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:59:27",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Iskandar won the race, he ran ___ .",
+    "options": [
+      "fast",
+      "fastly",
+      "slowly"
+    ],
+    "correct_answer": [
+      "Dars 86 Old vs older",
+      "Adjectives in the comparative degree are used to compare two things or people. They indicate that one thing has a higher degree of a certain quality or characteristic compared to the other. The comparative degree is formed by adding \"-er\" to the end of the adjective or by using the word \"more\" before the adjective.",
+      "Examples:",
+      "old → older"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:59:39",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Miraziz Fazliddindan katta.",
+    "options": [
+      "Miraziz",
+      "old",
+      "is",
+      "Fazliddin.",
+      "are",
+      "a",
+      "than",
+      "older"
+    ],
+    "correct_answer": [
+      "Miraziz",
+      "Miraziz is older than Fazliddin."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:59:44",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Shahrizoda akasidan ko‘ra aqlliroq.",
+    "options": [
+      "smarter",
+      "his",
+      "than",
+      "her",
+      "sister",
+      "stupid",
+      "brother.",
+      "are",
+      "is",
+      "a",
+      "Shakhrizoda"
+    ],
+    "correct_answer": [
+      "smarter",
+      "Shakhrizoda is smarter than her brother."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:00:14",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Beautiful",
+      "More expensive",
+      "Expensive",
+      "More beautiful",
+      "Bad",
+      "Worse",
+      "Good",
+      "Better"
+    ],
+    "correct_answer": [
+      [
+        "Beautiful",
+        "More beautiful"
+      ],
+      [
+        "Good",
+        "More expensive"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:00:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Samarkand is an ___ city.",
+    "options": [
+      "large",
+      "beautiful",
+      "old",
+      "older"
+    ],
+    "correct_answer": [
+      "old"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:00:22",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Salim sinfdagi boshqa o‘quvchilardan aqlliroq.",
+    "options": [
+      "Salim",
+      "in",
+      "clever",
+      "was",
+      "pupils",
+      "class.",
+      "than",
+      "more clever",
+      "other",
+      "a",
+      "the ",
+      "others",
+      "is"
+    ],
+    "correct_answer": [
+      "Salim",
+      "Salim is more clever than other pupils in the class."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:00:25",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "This car is |_| than mine.",
+    "options": [
+      "more old",
+      "old",
+      "older"
+    ],
+    "correct_answer": [
+      "This car is \nmore old\n than mine.",
+      "older"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:00:27",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "My room is |_| than yours. Because there are still some space for furniture.",
+    "options": [
+      "large",
+      "bigger",
+      "smaller"
+    ],
+    "correct_answer": [
+      "My room is \nlarge\n than yours. Because there are still some space for furniture.",
+      "bigger"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:00:32",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Alisherning uyi mening hovlimdan katta.",
+    "options": [
+      "is",
+      "bigger",
+      "smaller",
+      "your",
+      "yard.",
+      "my",
+      "than",
+      "house ",
+      "older",
+      "Alisher's"
+    ],
+    "correct_answer": [
+      "is",
+      "Alisher's house is bigger than my yard."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:00:36",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bizning bog‘imiz chiroyli.",
+    "options": [
+      "nice",
+      "garden",
+      "Their",
+      "a",
+      "station",
+      "is",
+      "beautiful.",
+      "Our",
+      "are"
+    ],
+    "correct_answer": [
+      "nice",
+      "Our garden is beautiful."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:00:39",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "That book was |_| than this story.",
+    "options": [
+      "interestingly",
+      "interesting",
+      "more interesting"
+    ],
+    "correct_answer": [
+      "That book was \ninterestingly\n than this story.",
+      "more interesting"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:00:51",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Miraziz Fazliddindan katta.",
+    "options": [
+      "older",
+      "is",
+      "than",
+      "are",
+      "old",
+      "Fazliddin.",
+      "a",
+      "Miraziz"
+    ],
+    "correct_answer": [
+      "Miraziz",
+      "is",
+      "older",
+      "than",
+      "Fazliddin.",
+      "Miraziz is older than Fazliddin."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:01:03",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Shahrizoda akasidan ko‘ra aqlliroq.",
+    "options": [
+      "is",
+      "are",
+      "Shakhrizoda",
+      "brother.",
+      "his",
+      "stupid",
+      "a",
+      "smarter",
+      "sister",
+      "her",
+      "than"
+    ],
+    "correct_answer": [
+      "Shakhrizoda",
+      "is",
+      "smarter",
+      "than",
+      "her",
+      "brother.",
+      "Shakhrizoda is smarter than her brother."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:01:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Samarkand is an ___ city.",
+    "options": [
+      "large",
+      "beautiful",
+      "old",
+      "older"
+    ],
+    "correct_answer": [
+      "old"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:01:11",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Salim sinfdagi boshqa o‘quvchilardan aqlliroq.",
+    "options": [
+      "than",
+      "a",
+      "pupils",
+      "other",
+      "clever",
+      "is",
+      "in",
+      "class.",
+      "was",
+      "the ",
+      "others",
+      "Salim",
+      "more clever"
+    ],
+    "correct_answer": [
+      "than",
+      "Salim is more clever than other pupils in the class."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:01:14",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "This car is |_| than mine.",
+    "options": [
+      "old",
+      "older",
+      "more old"
+    ],
+    "correct_answer": [
+      "This car is \nolder\n than mine.",
+      "older"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:01:17",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My room is |_| than yours. Because there are still some space for furniture.",
+    "options": [
+      "large",
+      "smaller",
+      "bigger"
+    ],
+    "correct_answer": [
+      "My room is \nbigger\n than yours. Because there are still some space for furniture.",
+      "bigger"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:01:33",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Alisherning uyi mening hovlimdan katta.",
+    "options": [
+      "bigger",
+      "smaller",
+      "your",
+      "house ",
+      "my",
+      "than",
+      "is",
+      "Alisher's",
+      "yard.",
+      "older"
+    ],
+    "correct_answer": [
+      "Alisher's",
+      "house ",
+      "is",
+      "bigger",
+      "than",
+      "my",
+      "yard.",
+      "Alisher's house is bigger than my yard."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:01:42",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bizning bog‘imiz chiroyli.",
+    "options": [
+      "station",
+      "Our",
+      "is",
+      "garden",
+      "Their",
+      "are",
+      "beautiful.",
+      "a",
+      "nice"
+    ],
+    "correct_answer": [
+      "Our",
+      "garden",
+      "is",
+      "beautiful.",
+      "Our garden is beautiful."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:01:47",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "That book was |_| than this story.",
+    "options": [
+      "interestingly",
+      "interesting",
+      "more interesting"
+    ],
+    "correct_answer": [
+      "That book was |_| than this story.",
+      "That book was \nmore interesting\n than this story.",
+      "interestingly",
+      "interesting",
+      "more interesting",
+      "more interesting"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:01:56",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "That book was |_| than this story.",
+    "options": [
+      "interestingly",
+      "interesting",
+      "more interesting"
+    ],
+    "correct_answer": [
+      "Dars 87 Older / More expensive than...",
+      "Than is used after comparatives to indicate a comparison between two things. It shows that one thing has a higher degree or quality than the other.",
+      "Examples:",
+      "1. She's taller than me.",
+      "2. Are oranges more expensive than bananas?",
+      "3. - How much did your shoes cost? £30?"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:02:06",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He lost his wallet. His wallet is ___ than ours.",
+    "options": [
+      "more big",
+      "bigger",
+      "big",
+      "biggest"
+    ],
+    "correct_answer": [
+      "bigger"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:02:09",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Sardor is ___ than other students in the class.",
+    "options": [
+      "cleverest",
+      "cleverer",
+      "smart",
+      "crazy"
+    ],
+    "correct_answer": [
+      "cleverer"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:02:14",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Qalam menga ruchkadan ko‘ra qulayroq.",
+    "options": [
+      "more ",
+      "a pen.",
+      "comfortable",
+      "Pen",
+      "than ",
+      "is ",
+      "was",
+      "A pencil"
+    ],
+    "correct_answer": [
+      "more ",
+      "A pencil is more comfortable than a pen."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:02:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She has a |_| plan than yours.",
+    "options": [
+      "big",
+      "bigger",
+      "biggest"
+    ],
+    "correct_answer": [
+      "She has a \nbig\n plan than yours.",
+      "bigger"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:02:21",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Rus tili qolgan tillardan ko‘ra qiyinroq.",
+    "options": [
+      "difficult",
+      "then",
+      "other",
+      "was",
+      "is",
+      "languages.",
+      "others",
+      "more",
+      "an",
+      "difficulty",
+      "than",
+      "Russian"
+    ],
+    "correct_answer": [
+      "difficult",
+      "Russian is more difficult than other languages."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:02:24",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "You look ___ than your friends.",
+    "options": [
+      "young",
+      "younger",
+      "the youngest",
+      "very young"
+    ],
+    "correct_answer": [
+      "younger"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:02:27",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ali is taller ___ his brothers.",
+    "options": [
+      "than",
+      "among",
+      "of",
+      "that"
+    ],
+    "correct_answer": [
+      "than"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:02:30",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I won't buy this bag. It is ___ than your bag.",
+    "options": [
+      "cheap",
+      "more expensive",
+      "the most",
+      "expensive"
+    ],
+    "correct_answer": [
+      "more expensive"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:05",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Near",
+      "Nearer",
+      "Comfortable",
+      "More comfortable",
+      "Tall",
+      "Bigger",
+      "Big",
+      "Taller"
+    ],
+    "correct_answer": [
+      [
+        "Tall",
+        "Nearer"
+      ],
+      [
+        "Big",
+        "Bigger"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:08",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Jalil has |_| money than I do.",
+    "options": [
+      "any",
+      "much",
+      "more",
+      "many"
+    ],
+    "correct_answer": [
+      "Jalil has \nany\n money than I do.",
+      "more"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He lost his wallet. His wallet is ___ than ours.",
+    "options": [
+      "bigger",
+      "more big",
+      "big",
+      "biggest"
+    ],
+    "correct_answer": [
+      "bigger"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:13",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Sardor is ___ than other students in the class.",
+    "options": [
+      "smart",
+      "crazy",
+      "cleverest",
+      "cleverer"
+    ],
+    "correct_answer": [
+      "cleverer"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:18",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Qalam menga ruchkadan ko‘ra qulayroq.",
+    "options": [
+      "more ",
+      "comfortable",
+      "was",
+      "a pen.",
+      "Pen",
+      "than ",
+      "A pencil",
+      "is "
+    ],
+    "correct_answer": [
+      "more ",
+      "A pencil is more comfortable than a pen."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:21",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She has a |_| plan than yours.",
+    "options": [
+      "bigger",
+      "biggest",
+      "big"
+    ],
+    "correct_answer": [
+      "She has a \nbigger\n plan than yours.",
+      "bigger"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:36",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Rus tili qolgan tillardan ko‘ra qiyinroq.",
+    "options": [
+      "languages.",
+      "Russian",
+      "than",
+      "then",
+      "is",
+      "more",
+      "other",
+      "difficulty",
+      "difficult",
+      "was",
+      "others",
+      "an"
+    ],
+    "correct_answer": [
+      "Russian",
+      "is",
+      "more",
+      "difficult",
+      "than",
+      "other",
+      "languages.",
+      "Russian is more difficult than other languages."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "You look ___ than your friends.",
+    "options": [
+      "the youngest",
+      "young",
+      "very young",
+      "younger"
+    ],
+    "correct_answer": [
+      "younger"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:41",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I won't buy this bag. It is ___ than your bag.",
+    "options": [
+      "the most",
+      "more expensive",
+      "cheap",
+      "expensive"
+    ],
+    "correct_answer": [
+      "more expensive"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Jalil has |_| money than I do.",
+    "options": [
+      "more",
+      "many",
+      "much",
+      "any"
+    ],
+    "correct_answer": [
+      "Jalil has |_| money than I do.",
+      "Jalil has \nmore\n money than I do.",
+      "more",
+      "more",
+      "many",
+      "much",
+      "any"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:03:57",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Jalil has |_| money than I do.",
+    "options": [
+      "more",
+      "many",
+      "much",
+      "any"
+    ],
+    "correct_answer": [
+      "Dars 88 Not as... as",
+      "The phrase \"not as... as\" is used to compare two things and indicate that the first thing is less or not equal to the second thing in the specified quality or degree.",
+      "Examples:",
+      "1. Box A isn't as big as Box B.",
+      "2. Rome is not as old as Athens (= Athens is older).",
+      "3. This restaurant is not as popular as the one downtown."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:04:06",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Tashkent is not |_| as Samarkand.",
+    "options": [
+      "newest",
+      "oldest",
+      "older",
+      "old"
+    ],
+    "correct_answer": [
+      "Tashkent is not \nnewest\n as Samarkand.",
+      "old"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:04:09",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Ali is |_| than you.",
+    "options": [
+      "tall",
+      "more tall",
+      "taller"
+    ],
+    "correct_answer": [
+      "Ali is \ntall\n than you.",
+      "taller"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:04:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am not as ___ as my teacher. He knows everything.",
+    "options": [
+      "clever",
+      "cleverer",
+      "more clever"
+    ],
+    "correct_answer": [
+      "clever"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:04:16",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Mening sochim senikidek emas.",
+    "options": [
+      "My",
+      "aren't",
+      "your",
+      "yours",
+      "hair",
+      "hairs",
+      "as",
+      "isn't"
+    ],
+    "correct_answer": [
+      "My",
+      "My hair isn't as yours"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:04:19",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We are not as ___ as your brothers.",
+    "options": [
+      "strong",
+      "more strong",
+      "strongly"
+    ],
+    "correct_answer": [
+      "strong"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:04:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There aren't |_| many students as our university.",
+    "options": [
+      "so",
+      "than",
+      "a lot ",
+      "much"
+    ],
+    "correct_answer": [
+      "There aren't \nso\n many students as our university.",
+      "so"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:04:25",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She is as ___ as angels.",
+    "options": [
+      "more beautiful",
+      "beautifully",
+      "beautiful"
+    ],
+    "correct_answer": [
+      "beautiful"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:04:28",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "This book was not so ___ as the last one.",
+    "options": [
+      "more interesting",
+      "most interesting",
+      "interesting"
+    ],
+    "correct_answer": [
+      "interesting"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:05:22",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Expensive",
+      "More expensive",
+      "Smart",
+      "Older",
+      "Young",
+      "Smarter",
+      "Old",
+      "Younger"
+    ],
+    "correct_answer": [
+      [
+        "Smart",
+        "Smarter"
+      ],
+      [
+        "Young",
+        "Younger"
+      ],
+      [
+        "Old",
+        "Older"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:05:25",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Bukhara is as ___ as Samarkand.",
+    "options": [
+      "more historic",
+      "historical",
+      "historical than"
+    ],
+    "correct_answer": [
+      "historical"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:05:30",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Tashkent is not |_| as Samarkand.",
+    "options": [
+      "oldest",
+      "old",
+      "newest",
+      "older"
+    ],
+    "correct_answer": [
+      "Tashkent is not |_| as Samarkand.",
+      "Tashkent is not \nold\n as Samarkand.",
+      "oldest",
+      "old",
+      "old",
+      "newest",
+      "older"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:05:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ali is |_| than you.",
+    "options": [
+      "tall",
+      "more tall",
+      "taller"
+    ],
+    "correct_answer": [
+      "Ali is \ntaller\n than you.",
+      "taller"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:05:43",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Mening sochim senikidek emas.",
+    "options": [
+      "hair",
+      "aren't",
+      "yours",
+      "isn't",
+      "as",
+      "hairs",
+      "your",
+      "My"
+    ],
+    "correct_answer": [
+      "My",
+      "hair",
+      "isn't",
+      "as",
+      "yours",
+      "My hair isn't as yours"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:05:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She is as ___ as angels.",
+    "options": [
+      "beautiful",
+      "more beautiful",
+      "beautifully"
+    ],
+    "correct_answer": [
+      "beautiful"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:05:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "This book was not so ___ as the last one.",
+    "options": [
+      "most interesting",
+      "more interesting",
+      "interesting"
+    ],
+    "correct_answer": [
+      "interesting"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:05:51",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Bukhara is as ___ as Samarkand.",
+    "options": [
+      "historical than",
+      "historical",
+      "more historic"
+    ],
+    "correct_answer": [
+      "historical"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:01",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Bukhara is as ___ as Samarkand.",
+    "options": [
+      "historical than",
+      "historical",
+      "more historic"
+    ],
+    "correct_answer": [
+      "Dars 89 The oldest / The most expensive",
+      "Bigger / older / more expensive etc. are comparative forms.",
+      "Biggest / oldest / most expensive etc. are superlative forms.",
+      "Superlative adjectives are used to compare three or more things or people and indicate the highest degree or quality of a particular characteristic. They are formed by adding the suffix \"-est\" to the base form of the adjective or by using the word \"most\" before the adjective."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:12",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Salima basketbolni yaxshi o‘ynaydi. Lekin u jamoadagi eng zo‘ri emas.",
+    "options": [
+      "in",
+      "plays",
+      "well.",
+      "the ",
+      "best",
+      "basketball",
+      "she",
+      "the team.",
+      "Salima ",
+      "But",
+      "isn't"
+    ],
+    "correct_answer": [
+      "in",
+      "Salima plays basketball well. But she isn't the best in the team."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:15",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Tahoe is ___ car in Uzbekistan.",
+    "options": [
+      "expensive",
+      "the most expensive",
+      "more expensive"
+    ],
+    "correct_answer": [
+      "the most expensive"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:18",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Boxing is ___ sport in the world.",
+    "options": [
+      "more dangerous",
+      "the most dangerous ",
+      "easy"
+    ],
+    "correct_answer": [
+      "the most dangerous"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:21",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "What is the ___ film you've ever seen?",
+    "options": [
+      "better",
+      "best",
+      "good"
+    ],
+    "correct_answer": [
+      "best"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:24",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "My grandmother is very old. She is the |_| member of our family.",
+    "options": [
+      "old",
+      "smart",
+      "oldest",
+      "older"
+    ],
+    "correct_answer": [
+      "My grandmother is very old. She is the \nold\n member of our family.",
+      "oldest"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:28",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Kamol is ___ than me.",
+    "options": [
+      "the tallest",
+      "taller",
+      "tall "
+    ],
+    "correct_answer": [
+      "taller"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Eng yaxshi -",
+    "options": [
+      "The best",
+      "The goodest",
+      "The worst",
+      "The better"
+    ],
+    "correct_answer": [
+      "The best"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:34",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "This boy is very rude. I think he is ___ guy in this class.",
+    "options": [
+      "bad",
+      "the worst",
+      "better"
+    ],
+    "correct_answer": [
+      "the worst"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:39",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Samarqand O‘zbekistondagi eng chiroyli shahar.",
+    "options": [
+      "place",
+      "beautiful",
+      "is",
+      "in",
+      "was",
+      "most",
+      "Samarkand",
+      "the ",
+      "city",
+      "more",
+      "Uzbekistan.",
+      "an"
+    ],
+    "correct_answer": [
+      "place",
+      "Samarkand is the most beautiful city in Uzbekistan."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:42",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The \"Ipak yo‘li \" hotel is |_| expensive than all other hotels in Samarkand.",
+    "options": [
+      "many",
+      "most",
+      "more"
+    ],
+    "correct_answer": [
+      "The \"Ipak yo‘li \" hotel is \nmany\n expensive than all other hotels in Samarkand.",
+      "more"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:46",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Salima basketbolni yaxshi o‘ynaydi. Lekin u jamoadagi eng zo‘ri emas.",
+    "options": [
+      "Salima ",
+      "in",
+      "the team.",
+      "best",
+      "plays",
+      "isn't",
+      "the ",
+      "she",
+      "basketball",
+      "But",
+      "well."
+    ],
+    "correct_answer": [
+      "Salima ",
+      "Salima plays basketball well. But she isn't the best in the team."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:49",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Tahoe is ___ car in Uzbekistan.",
+    "options": [
+      "more expensive",
+      "the most expensive",
+      "expensive"
+    ],
+    "correct_answer": [
+      "the most expensive"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Boxing is ___ sport in the world.",
+    "options": [
+      "the most dangerous ",
+      "more dangerous",
+      "easy"
+    ],
+    "correct_answer": [
+      "the most dangerous"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "What is the ___ film you've ever seen?",
+    "options": [
+      "good",
+      "better",
+      "best"
+    ],
+    "correct_answer": [
+      "best"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:06:58",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My grandmother is very old. She is the |_| member of our family.",
+    "options": [
+      "smart",
+      "oldest",
+      "older",
+      "old"
+    ],
+    "correct_answer": [
+      "My grandmother is very old. She is the \noldest\n member of our family.",
+      "oldest"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:07:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Kamol is ___ than me.",
+    "options": [
+      "the tallest",
+      "taller",
+      "tall "
+    ],
+    "correct_answer": [
+      "Kamol is ___ than me.",
+      "the tallest",
+      "taller",
+      "taller",
+      "tall "
+    ]
+  },
+  {
+    "time": "2026-08-02 13:07:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "This boy is very rude. I think he is ___ guy in this class.",
+    "options": [
+      "bad",
+      "better",
+      "the worst"
+    ],
+    "correct_answer": [
+      "the worst"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:07:22",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Samarqand O‘zbekistondagi eng chiroyli shahar.",
+    "options": [
+      "Uzbekistan.",
+      "most",
+      "place",
+      "Samarkand",
+      "was",
+      "in",
+      "an",
+      "city",
+      "more",
+      "the ",
+      "is",
+      "beautiful"
+    ],
+    "correct_answer": [
+      "Samarkand",
+      "is",
+      "the ",
+      "most",
+      "beautiful",
+      "city",
+      "in",
+      "Uzbekistan.",
+      "Samarkand is the most beautiful city in Uzbekistan."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:07:25",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The \"Ipak yo‘li \" hotel is |_| expensive than all other hotels in Samarkand.",
+    "options": [
+      "most",
+      "more",
+      "many"
+    ],
+    "correct_answer": [
+      "The \"Ipak yo‘li \" hotel is \nmore\n expensive than all other hotels in Samarkand.",
+      "more"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:07:35",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "The \"Ipak yo‘li \" hotel is |_| expensive than all other hotels in Samarkand.",
+    "options": [
+      "most",
+      "more",
+      "many"
+    ],
+    "correct_answer": [
+      "Dars 90 Enough",
+      "Enough is an adverb that is used to indicate sufficiency or adequacy of something. It implies that a particular quantity, degree, or amount is satisfactory or suitable for a particular purpose or need. It can also convey the idea of reaching a certain threshold or limit.",
+      "Examples:",
+      "1. I've only got 1$ → She can't buy a sandwich. She hasn't got enough money."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:07:48",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Sardor yetarlicha uzun.",
+    "options": [
+      "short",
+      "tall",
+      "enough.",
+      "Sardor",
+      "not",
+      "a",
+      "is"
+    ],
+    "correct_answer": [
+      "short",
+      "Sardor is tall enough."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:07:51",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "It is not |_| . We need more and more ideas.",
+    "options": [
+      "such",
+      "enough",
+      "too"
+    ],
+    "correct_answer": [
+      "It is not \nsuch\n . We need more and more ideas.",
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:07:55",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Sizning ingliz tilingiz muloqot qilishga yetadimi?",
+    "options": [
+      "have",
+      "Is",
+      "your",
+      "a",
+      "conversation?",
+      "to",
+      "well",
+      "enough",
+      "yours",
+      "English",
+      "too",
+      "an",
+      "mine"
+    ],
+    "correct_answer": [
+      "have",
+      "Is your English enough to have a conversation?"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:07:58",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I have ___ knowledge to get IELTS.",
+    "options": [
+      "many",
+      "enough",
+      "few",
+      "too"
+    ],
+    "correct_answer": [
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:08:01",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She was prudent |_| to lock the car.",
+    "options": [
+      "too",
+      "much",
+      "enough",
+      "many"
+    ],
+    "correct_answer": [
+      "She was prudent \ntoo\n to lock the car.",
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:08:04",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "These studens are really passive, they don't have |_| money.",
+    "options": [
+      "many",
+      "enough",
+      "too"
+    ],
+    "correct_answer": [
+      "These studens are really passive, they don't have \nmany\n money.",
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:08:07",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I don't have enough ___ to finish my housechores..",
+    "options": [
+      "knowledge",
+      "money",
+      "time"
+    ],
+    "correct_answer": [
+      "time"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:08:42",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Yetarli stul",
+      "Enough money",
+      "Yetarlicha baland",
+      "Good enough",
+      "Yetarli pul",
+      "Tall enough",
+      "Yetarlicha yaxshi",
+      "Enough chair"
+    ],
+    "correct_answer": [
+      [
+        "Yetarli stul",
+        "Enough chair"
+      ],
+      [
+        "Yetarlicha baland",
+        "Tall enough"
+      ],
+      [
+        "Yetarlicha yaxshi",
+        "Enough money"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:08:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I  don't have |_| money to buy a new phone because of my low salary.",
+    "options": [
+      "enough",
+      "too",
+      "many",
+      "such"
+    ],
+    "correct_answer": [
+      "I  don't have \nenough\n money to buy a new phone because of my low salary.",
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:08:48",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I need |_| time to do my hometasks.",
+    "options": [
+      "many",
+      "too",
+      "enough",
+      "a"
+    ],
+    "correct_answer": [
+      "I need \nmany\n time to do my hometasks.",
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:08:57",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Sardor yetarlicha uzun.",
+    "options": [
+      "Sardor",
+      "short",
+      "tall",
+      "is",
+      "a",
+      "not",
+      "enough."
+    ],
+    "correct_answer": [
+      "Sardor",
+      "is",
+      "tall",
+      "enough.",
+      "Sardor is tall enough."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "It is not |_| . We need more and more ideas.",
+    "options": [
+      "enough",
+      "such",
+      "too"
+    ],
+    "correct_answer": [
+      "It is not \nenough\n . We need more and more ideas.",
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:19",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Sizning ingliz tilingiz muloqot qilishga yetadimi?",
+    "options": [
+      "yours",
+      "Is",
+      "a",
+      "English",
+      "an",
+      "mine",
+      "to",
+      "enough",
+      "have",
+      "well",
+      "too",
+      "conversation?",
+      "your"
+    ],
+    "correct_answer": [
+      "Sizning ingliz tilingiz muloqot qilishga yetadimi?",
+      "Sizning ingliz tilingiz muloqot qilishga yetadimi?",
+      "Is",
+      "Is",
+      "your",
+      "your",
+      "English",
+      "English",
+      "enough",
+      "enough",
+      "to",
+      "to",
+      "have",
+      "have",
+      "a",
+      "a",
+      "conversation?",
+      "conversation?",
+      "yours",
+      "an",
+      "mine",
+      "well",
+      "too",
+      "Is your English enough to have a conversation?",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have ___ knowledge to get IELTS.",
+    "options": [
+      "few",
+      "too",
+      "many",
+      "enough"
+    ],
+    "correct_answer": [
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:25",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She was prudent |_| to lock the car.",
+    "options": [
+      "many",
+      "enough",
+      "too",
+      "much"
+    ],
+    "correct_answer": [
+      "She was prudent \nenough\n to lock the car.",
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:28",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "These studens are really passive, they don't have |_| money.",
+    "options": [
+      "enough",
+      "too",
+      "many"
+    ],
+    "correct_answer": [
+      "These studens are really passive, they don't have \nenough\n money.",
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I don't have enough ___ to finish my housechores..",
+    "options": [
+      "time",
+      "money",
+      "knowledge"
+    ],
+    "correct_answer": [
+      "time"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:33",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I need |_| time to do my hometasks.",
+    "options": [
+      "a",
+      "many",
+      "enough",
+      "too"
+    ],
+    "correct_answer": [
+      "I need \nenough\n time to do my hometasks.",
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:43",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "I need |_| time to do my hometasks.",
+    "options": [
+      "a",
+      "many",
+      "enough",
+      "too"
+    ],
+    "correct_answer": [
+      "Dars 91 Too",
+      "Too is used to indicate an excessive or excessive degree of something. It is typically followed by an adjective or adverb.",
+      "Examples:",
+      "1. His shoes are too big for him.",
+      "2. Can you turn the radio down? It's too loud (= louder than I want).",
+      "3. I can't work. I'm too tired.",
+      "4. I think you work too hard."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I don't feel very well. I ate |_| much.",
+    "options": [
+      "too",
+      "enough",
+      "than",
+      "more"
+    ],
+    "correct_answer": [
+      "I don't feel very well. I ate \ntoo\n much.",
+      "too"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:55",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The tea was ___ hot to drink. We had to drink fizzy drinks.",
+    "options": [
+      "such",
+      "too",
+      "enough"
+    ],
+    "correct_answer": [
+      "too"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:09:58",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ali is not fit ___ . He is very thin.",
+    "options": [
+      "enough",
+      "too",
+      "such"
+    ],
+    "correct_answer": [
+      "enough"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:10:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am ___ young to think these problems.",
+    "options": [
+      "too",
+      "enough",
+      "for"
+    ],
+    "correct_answer": [
+      "too"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:10:26",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Shoes are ",
+      "too difficult",
+      "You work",
+      "too big",
+      "The tasks were",
+      "too hard",
+      "It rained ",
+      "too much"
+    ],
+    "correct_answer": [
+      [
+        "Shoes are ",
+        "too big"
+      ],
+      [
+        "You work",
+        "too hard"
+      ],
+      [
+        "It rained ",
+        "too difficult"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:10:29",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We are ___ clever ___ do this work.",
+    "options": [
+      "for/ at",
+      "enough/ for",
+      "too/ to"
+    ],
+    "correct_answer": [
+      "too/ to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:10:34",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Charchagan ko‘rinasan. Menimcha sen juda qattiq ishlagansan.",
+    "options": [
+      "thinks",
+      "too",
+      "look",
+      "works",
+      "You",
+      "hardly",
+      "hard.",
+      "much",
+      "I",
+      "tired.",
+      "worked",
+      "think",
+      "you"
+    ],
+    "correct_answer": [
+      "thinks",
+      "You look tired. I think you worked too hard."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:10:37",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "This wallet is ___ big to put in my pocket.",
+    "options": [
+      "enough",
+      "too",
+      "such"
+    ],
+    "correct_answer": [
+      "too"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:10:40",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I can't work.",
+    "options": [
+      "I am too smart",
+      "I am enough tired",
+      "I am too tired"
+    ],
+    "correct_answer": [
+      "I am too tired"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:10:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "You are very fat. You eat more |_| enough.",
+    "options": [
+      "than",
+      "much",
+      "not",
+      "too"
+    ],
+    "correct_answer": [
+      "You are very fat. You eat more \nthan\n enough.",
+      "than"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:10:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The tea was ___ hot to drink. We had to drink fizzy drinks.",
+    "options": [
+      "too",
+      "such",
+      "enough"
+    ],
+    "correct_answer": [
+      "too"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:10:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We are ___ clever ___ do this work.",
+    "options": [
+      "enough/ for",
+      "too/ to",
+      "for/ at"
+    ],
+    "correct_answer": [
+      "too/ to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:11:07",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Charchagan ko‘rinasan. Menimcha sen juda qattiq ishlagansan.",
+    "options": [
+      "think",
+      "hard.",
+      "hardly",
+      "you",
+      "works",
+      "You",
+      "look",
+      "tired.",
+      "much",
+      "I",
+      "worked",
+      "too",
+      "thinks"
+    ],
+    "correct_answer": [
+      "You",
+      "look",
+      "tired.",
+      "I",
+      "think",
+      "you",
+      "worked",
+      "too",
+      "hard.",
+      "You look tired. I think you worked too hard."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:11:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "This wallet is ___ big to put in my pocket.",
+    "options": [
+      "such",
+      "too",
+      "enough"
+    ],
+    "correct_answer": [
+      "too"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:11:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I can't work.",
+    "options": [
+      "I am enough tired",
+      "I am too smart",
+      "I am too tired"
+    ],
+    "correct_answer": [
+      "I am too tired"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:11:23",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "I can't work.",
+    "options": [
+      "I am enough tired",
+      "I am too smart",
+      "I am too tired"
+    ],
+    "correct_answer": [
+      "Dars 92 Word order 1",
+      "In English, the verb usually comes after the subject and before the object: subject + verb + object.",
+      "Rule. The verb and the object are usually together.",
+      "Examples:",
+      "1. Sitora reads a newspaper every day (not \"Sitora reads every day a newspaper\").",
+      "2. He speaks English very well. (not \"He speaks very well English\")."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:11:34",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Meni ertaga imtihonim bor.",
+    "options": [
+      "tomorrow.",
+      "today",
+      "a",
+      "I",
+      "an ",
+      "have",
+      "exam",
+      "having"
+    ],
+    "correct_answer": [
+      "tomorrow.",
+      "I have an exam tomorrow."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:07",
+    "type": "matching",
+    "result": "correct",
+    "question": "Moslashtiring.",
+    "options": [
+      "Bad",
+      "Big",
+      "Ugly",
+      "Old",
+      "Small",
+      "Good",
+      "New",
+      "Beautiful"
+    ],
+    "correct_answer": [
+      [
+        "Bad",
+        "Good"
+      ],
+      [
+        "Ugly",
+        "Beautiful"
+      ],
+      [
+        "New",
+        "Big"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:09",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "My teacher is very strict. He |_| asks all tasks.",
+    "options": [
+      "now",
+      "recently",
+      "yet",
+      "always"
+    ],
+    "correct_answer": [
+      "My teacher is very strict. He \nnow\n asks all tasks.",
+      "always"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:14",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Mening talabalarim ingliz tilida juda yaxshi gapirishadi.",
+    "options": [
+      "good",
+      "well.",
+      "speak",
+      "English",
+      "very",
+      "pupils",
+      "speaks",
+      "students",
+      "My"
+    ],
+    "correct_answer": [
+      "good",
+      "My students speak English very well."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I |_| just come to school.",
+    "options": [
+      "was",
+      "is",
+      "has",
+      "have"
+    ],
+    "correct_answer": [
+      "I \nwas\n just come to school.",
+      "have"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I |_| go for a walk in the evenings.",
+    "options": [
+      "usually",
+      "just",
+      "already"
+    ],
+    "correct_answer": [
+      "I \nusually\n go for a walk in the evenings.",
+      "usually"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:24",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "I have got two brothers and a sister.",
+    "options": [
+      "bitta",
+      "ikkita ",
+      "yo'q",
+      "akam ",
+      "Meni",
+      "bor",
+      "va",
+      "uchta",
+      "singlim "
+    ],
+    "correct_answer": [
+      "bitta",
+      "Meni ikkita akam va bitta singlim bor"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:28",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Akrom har kuni xonasini tozalaydi.",
+    "options": [
+      "an",
+      "rooms",
+      "always",
+      "day.",
+      "room",
+      "his ",
+      "cleans",
+      "every",
+      "Akrom",
+      "her"
+    ],
+    "correct_answer": [
+      "an",
+      "Akrom cleans his room every day."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:31",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I like uzbek palov very |_|.",
+    "options": [
+      "most",
+      "more",
+      "much",
+      "many"
+    ],
+    "correct_answer": [
+      "I like uzbek palov very \nmost\n.",
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:34",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We went ___ a cafe to meet our old friends.",
+    "options": [
+      "too",
+      "to",
+      "for",
+      "-"
+    ],
+    "correct_answer": [
+      "to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:45",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Meni ertaga imtihonim bor.",
+    "options": [
+      "exam",
+      "tomorrow.",
+      "have",
+      "an ",
+      "a",
+      "I",
+      "today",
+      "having"
+    ],
+    "correct_answer": [
+      "I",
+      "have",
+      "an ",
+      "exam",
+      "tomorrow.",
+      "I have an exam tomorrow."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:12:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My teacher is very strict. He |_| asks all tasks.",
+    "options": [
+      "recently",
+      "now",
+      "yet",
+      "always"
+    ],
+    "correct_answer": [
+      "My teacher is very strict. He \nalways\n asks all tasks.",
+      "always"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:13:03",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Mening talabalarim ingliz tilida juda yaxshi gapirishadi.",
+    "options": [
+      "speak",
+      "English",
+      "good",
+      "pupils",
+      "very",
+      "well.",
+      "My",
+      "speaks",
+      "students"
+    ],
+    "correct_answer": [
+      "Mening talabalarim ingliz tilida juda yaxshi gapirishadi.",
+      "Mening talabalarim ingliz tilida juda yaxshi gapirishadi.",
+      "My",
+      "My",
+      "students",
+      "students",
+      "speak",
+      "speak",
+      "English",
+      "English",
+      "very",
+      "very",
+      "well.",
+      "well.",
+      "good",
+      "pupils",
+      "speaks",
+      "My students speak English very well.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:13:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I |_| just come to school.",
+    "options": [
+      "is",
+      "have",
+      "was",
+      "has"
+    ],
+    "correct_answer": [
+      "I \nhave\n just come to school.",
+      "have"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:13:20",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "I have got two brothers and a sister.",
+    "options": [
+      "bor",
+      "uchta",
+      "ikkita ",
+      "Meni",
+      "va",
+      "yo'q",
+      "bitta",
+      "akam ",
+      "singlim "
+    ],
+    "correct_answer": [
+      "Meni",
+      "ikkita ",
+      "akam ",
+      "va",
+      "bitta",
+      "singlim ",
+      "bor",
+      "Meni ikkita akam va bitta singlim bor"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:13:33",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Akrom har kuni xonasini tozalaydi.",
+    "options": [
+      "her",
+      "room",
+      "day.",
+      "Akrom",
+      "every",
+      "cleans",
+      "his ",
+      "an",
+      "always",
+      "rooms"
+    ],
+    "correct_answer": [
+      "Akrom",
+      "cleans",
+      "his ",
+      "room",
+      "every",
+      "day.",
+      "Akrom cleans his room every day."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:13:36",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I like uzbek palov very |_|.",
+    "options": [
+      "many",
+      "most",
+      "much",
+      "more"
+    ],
+    "correct_answer": [
+      "I like uzbek palov very \nmuch\n.",
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:13:39",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We went ___ a cafe to meet our old friends.",
+    "options": [
+      "too",
+      "for",
+      "-",
+      "to"
+    ],
+    "correct_answer": [
+      "to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:13:49",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "We went ___ a cafe to meet our old friends.",
+    "options": [
+      "too",
+      "for",
+      "-",
+      "to"
+    ],
+    "correct_answer": [
+      "Dars 93 Word order 2",
+      "always - har doim",
+      "often - ko‘pincha",
+      "ever - qachonlardir",
+      "rarely -kamdan-kam",
+      "also - ham",
+      "already - allaqachon",
+      "all - hammasi",
+      "usually - odatda"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:13:58",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She ___ just gone out.",
+    "options": [
+      "has",
+      "is",
+      "are",
+      "have"
+    ],
+    "correct_answer": [
+      "has"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:14:02",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Where ___ now?",
+    "options": [
+      "she was",
+      "is she",
+      "was she",
+      "she is"
+    ],
+    "correct_answer": [
+      "is she"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:14:29",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Ever",
+      "Odatda",
+      "Usually",
+      "Hozirgina",
+      "Rarely",
+      "Hech",
+      "Just",
+      "Kamdan-kam"
+    ],
+    "correct_answer": [
+      [
+        "Ever",
+        "Hech"
+      ],
+      [
+        "Rarely",
+        "Odatda"
+      ],
+      [
+        "Just",
+        "Hozirgina"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:14:33",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Meni ikkita singlim bor.",
+    "options": [
+      "two",
+      "three",
+      "brothers",
+      "have",
+      "I",
+      "got",
+      "sisters."
+    ],
+    "correct_answer": [
+      "two",
+      "I have got two sisters."
+    ]
   }
 ]
