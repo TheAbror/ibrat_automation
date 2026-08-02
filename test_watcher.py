@@ -1273,6 +1273,30 @@ class TestAppLostRecovery(unittest.TestCase):
         self.assertEqual(len(sessions), 2, "a fresh app launch after the crash")
         self.assertEqual(outcomes, [], "answering resumed on the new session")
 
+    def test_connect_retries_after_clearing_stale_instrumentation(self):
+        import main as main_mod
+        attempts = []
+
+        def flaky_connect(attach=False):
+            attempts.append(1)
+            if len(attempts) == 1:
+                raise WebDriverException("instrumentation cannot be initialized")
+            return "session"
+
+        killed = []
+        saved = (watcher.connect, main_mod.adb_shell, main_mod.time)
+        watcher.connect = flaky_connect
+        main_mod.adb_shell = lambda *args: killed.append(args) or True
+        main_mod.time = FakeTime()
+        try:
+            self.assertEqual(main_mod.connect_fresh_session(), "session")
+        finally:
+            watcher.connect, main_mod.adb_shell, main_mod.time = saved
+        self.assertEqual(len(attempts), 2)
+        self.assertTrue(
+            any("io.appium.uiautomator2.server" in a for k in killed for a in k), killed
+        )
+
 
 # The lesson page the course sequence often lands on: a video player up
 # top, the lesson text, and a "Next" button. While the video is still

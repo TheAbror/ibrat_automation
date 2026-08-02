@@ -298,6 +298,24 @@ def wake_device():
     return True
 
 
+def connect_fresh_session():
+    """Start the app session, recovering from a stale device-side server.
+
+    A leftover UiAutomator2 instrumentation (e.g. from an attach session
+    that dumped a screen) fails new sessions with 'The instrumentation
+    process cannot be initialized' — killing the server processes and
+    retrying once fixes it.
+    """
+    try:
+        return watcher.connect(attach=False)
+    except watcher.CONNECTION_ERRORS:
+        print("Session failed to start — clearing stale instrumentation and retrying...")
+        adb_shell("am", "force-stop", "io.appium.uiautomator2.server")
+        adb_shell("am", "force-stop", "io.appium.uiautomator2.server.test")
+        time.sleep(2)
+        return watcher.connect(attach=False)
+
+
 def force_stop_app():
     """Kill the app via adb so every run starts from the app's home screen.
 
@@ -317,7 +335,7 @@ def main():
     relaunches = APP_RELAUNCHES
     while True:
         force_stop_app()
-        driver = watcher.connect(attach=False)
+        driver = connect_fresh_session()
 
         # Always close the session: an orphaned session wedges the Appium
         # server and breaks the next script that talks to the same device.
