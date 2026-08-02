@@ -54,6 +54,14 @@ lands on the screen the promo covered (e.g. a quiz Start page) and
 continues. Promo buttons ("IELTSGA GOO!", "Subscribe", plan cards) are
 never tapped.
 
+## If the runner prints "test finished (or stuck)"
+
+Before giving up on a screen it doesn't recognize, the runner saves that
+screen's UI tree to `stuck_screen.xml` and tries tapping the screen center
+(the reward-chest position) once. If it still exits while the phone shows
+some unhandled screen, keep `stuck_screen.xml` — it shows exactly what the
+runner saw and is how the screen gets supported.
+
 ## Manual adb commands
 
 Plain `adb shell ...` works since there is just one device.

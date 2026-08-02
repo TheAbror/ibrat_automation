@@ -40,9 +40,13 @@ HOME_NAV_DESCS = {"Main", "Learn", "Profile"}
 STUCK_POLL = 2          # seconds between screen checks
 STUCK_RETAP_EVERY = 10  # seconds between retries of the forward button
 STUCK_REMIND_EVERY = 60 # seconds between reminders to tap manually
-# Caption of the task-reward screen whose chest image must be tapped —
-# that screen has no buttons and no X at all.
-CHEST_TAP_MARKER = "Tap on the chest!"
+# Texts identifying the task-reward chest screens, which have no buttons
+# and no X at all. Matched as substrings: the real screens' labels have
+# never been captured in a dump, and the 2026-08-02 stranding proved they
+# do not equal the expected strings exactly — merged descs and
+# text-attribute rendering are both still possible.
+CHEST_TAP_MARKER = "Tap on the chest"
+CHEST_SCREEN_MARKERS = (CHEST_TAP_MARKER, "Get your reward", "Open chest")
 
 
 def tap(driver, waiter, locator, label):
@@ -63,6 +67,18 @@ def find_close_icon(nodes):
     return next((d for _, d in nodes if d in CLOSE_ICON_DESCS), None)
 
 
+def on_chest_screen(nodes):
+    """True when any chest-reward marker appears, even inside a merged desc."""
+    return any(m in d for _, d in nodes for m in CHEST_SCREEN_MARKERS)
+
+
+def chest_tap_caption(nodes):
+    """True on the tap-the-chest screen itself (not the tasks screen)."""
+    return any(
+        CHEST_TAP_MARKER in d or "Get your reward" in d for _, d in nodes
+    )
+
+
 def blind_close_unsafe(nodes):
     """True on screens where tapping an unlabeled top-left icon would
     navigate away rather than close a popup: the home screen (its gear
@@ -72,7 +88,7 @@ def blind_close_unsafe(nodes):
     descs = [d for _, d in nodes if d]
     if HOME_NAV_DESCS.issubset(descs):
         return True
-    if "Open chest" in descs or CHEST_TAP_MARKER in descs:
+    if on_chest_screen(nodes):
         return True
     return any(d == "Start" or d.lower().startswith("next") for d in descs)
 
@@ -142,7 +158,9 @@ def find_forward_button(nodes):
     for label in ("Start", "Continue", "Open chest"):
         if any(d == label for _, d in nodes):
             return label
-    return None
+    # "Open chest" merged into a longer desc: return the full desc so the
+    # content-desc xpath still finds the node to tap.
+    return next((d for _, d in nodes if "Open chest" in d), None)
 
 
 def tap_chest(driver):
@@ -151,10 +169,12 @@ def tap_chest(driver):
     That screen has no buttons and no X — the chest image mid-screen is
     the only way forward. The chest spans roughly the 47–62% band of the
     screen height, centered horizontally, so tap the center column at
-    those heights until the caption goes away.
+    those heights until the screen changes. (Compared as raw trees: the
+    caption desc can't be trusted to exist on the real screen.)
     """
+    before = driver.page_source
     width = height = 0
-    for el in ET.fromstring(driver.page_source).iter():
+    for el in ET.fromstring(before).iter():
         m = BOUNDS_RE.fullmatch(el.get("bounds") or "")
         if m:
             width = max(width, int(m.group(3)))
@@ -166,7 +186,7 @@ def tap_chest(driver):
         driver.tap([center])
         print(f"Tapped the reward chest at {center}")
         time.sleep(1.5)
-        if not any(d == CHEST_TAP_MARKER for _, d in parse_screen(driver.page_source)):
+        if driver.page_source != before:
             return True
     return False
 
@@ -176,7 +196,7 @@ def tap_forward_button(driver):
     nodes = parse_screen(driver.page_source)
     label = find_forward_button(nodes)
     if not label:
-        if any(d == CHEST_TAP_MARKER for _, d in nodes):
+        if chest_tap_caption(nodes):
             return tap_chest(driver)
         return False
     try:
@@ -269,7 +289,7 @@ def forward_tap_label(nodes):
     for label in ("Start", "Continue", "Open chest"):
         if any(d == label for _, d in nodes):
             return label
-    return None
+    return next((d for _, d in nodes if "Open chest" in d), None)
 
 
 def retap_forward(driver, nodes):

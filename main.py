@@ -26,7 +26,7 @@ from selenium.common.exceptions import (
 import config
 import locators as loc
 import watcher
-from navigation import dismiss_popup, navigate_to_test, tap_forward_button
+from navigation import dismiss_popup, navigate_to_test, tap_chest, tap_forward_button
 from question_handler import (
     OPTION_IGNORE,
     build_answer_map,
@@ -43,6 +43,8 @@ from question_handler import (
 
 IDLE_LIMIT = 20      # seconds with no question and no sheet -> assume finished
 MAX_QUESTIONS = 500
+# Where the tree of an unrecognized screen is saved before giving up on it
+STUCK_SCREEN_FILE = "stuck_screen.xml"
 
 
 def tap_text(driver, text):
@@ -146,6 +148,21 @@ def answer_matching(driver, cards, state, known_pairs):
     return True
 
 
+def rescue_stuck_screen(driver):
+    """Last resort before giving up on an unrecognized screen.
+
+    Saves the tree for diagnosis (the chest-reward screens have never
+    been captured in a real dump — the saved file is how the next
+    stranding gets explained), then tries the chest-style center-column
+    taps: the known stranding screen is the reward chest, whose only tap
+    target is mid-screen. Rescued only if the screen actually changed.
+    """
+    with open(STUCK_SCREEN_FILE, "w", encoding="utf-8") as f:
+        f.write(driver.page_source)
+    print(f"Unrecognized screen — tree saved to {STUCK_SCREEN_FILE}, trying center taps...")
+    return tap_chest(driver)
+
+
 def answer_until_done(driver):
     """auto_answer_loop plus reconnect when a command stalls or drops.
 
@@ -226,6 +243,9 @@ def auto_answer_loop(driver):
             continue
 
         if time.time() - idle_since > IDLE_LIMIT:
+            if rescue_stuck_screen(driver):
+                idle_since = time.time()
+                continue
             print(f"\nNo questions or feedback for {IDLE_LIMIT}s — test finished (or stuck).")
             break
         time.sleep(0.5)

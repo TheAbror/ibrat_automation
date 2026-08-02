@@ -31,9 +31,15 @@ def looks_like_promo(descs):
 
 
 def parse_screen(xml):
-    """One atomic snapshot of the UI tree as [(class, content-desc), ...]."""
+    """One atomic snapshot of the UI tree as [(class, label), ...].
+
+    The label is the content-desc (how this Flutter app exposes nearly all
+    its text), falling back to the text attribute for screens that render
+    natively — the chest-reward screens strand the runner if their texts
+    are only readable there.
+    """
     return [
-        (el.get("class") or "", el.get("content-desc") or "")
+        (el.get("class") or "", el.get("content-desc") or el.get("text") or "")
         for el in ET.fromstring(xml).iter()
     ]
 

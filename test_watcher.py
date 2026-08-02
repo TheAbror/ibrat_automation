@@ -1091,6 +1091,123 @@ class TestChestRewardFlow(unittest.TestCase):
         self.assertIsNone(state["question"])
 
 
+# The 2026-08-02 stranding proved the real chest screen exposes none of
+# the descs CHEST_TAP_XML expects (no chest tap, no question, no dismiss
+# attempt in the idle window — and no dump was ever captured). These two
+# fixtures model how it may actually render: texts merged/padded into
+# larger descs, or (native rendering) in text attributes with no descs.
+CHEST_TAP_MERGED_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[100,290][620,470]" clickable="false" content-desc="Get your reward\n5 ta turli darsni yakunlang\n+50"/>
+  <node class="android.view.View" bounds="[200,1230][520,1280]" clickable="false" content-desc="Tap on the chest! "/>
+</hierarchy>"""
+
+CHEST_TAP_TEXT_ATTR_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true"/>
+  <node class="android.widget.TextView" bounds="[180,290][540,350]" clickable="false" text="Get your reward"/>
+  <node class="android.widget.TextView" bounds="[200,1230][520,1280]" clickable="false" text="Tap on the chest!"/>
+</hierarchy>"""
+
+
+class TestChestScreenVariants(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_parse_screen_falls_back_to_text_attribute(self):
+        nodes = qh.parse_screen(CHEST_TAP_TEXT_ATTR_XML)
+        self.assertIn(("android.widget.TextView", "Tap on the chest!"), nodes)
+
+    def test_parse_screen_prefers_desc_over_text(self):
+        xml = '<hierarchy><node class="c" content-desc="desc" text="text"/></hierarchy>'
+        self.assertIn(("c", "desc"), qh.parse_screen(xml))
+
+    def test_variant_chest_screens_are_tapped_by_position(self):
+        import navigation
+        for xml in (CHEST_TAP_MERGED_XML, CHEST_TAP_TEXT_ATTR_XML):
+            driver = TapDriver(xml)
+            navigation.tap_forward_button(driver)
+            self.assertEqual(driver.taps[0], (360, 880), xml)
+
+    def test_variant_chest_screens_never_dismissed_or_backed_out_of(self):
+        import navigation
+        for xml in (CHEST_TAP_MERGED_XML, CHEST_TAP_TEXT_ATTR_XML):
+            driver = TapDriver(xml)
+            self.assertFalse(navigation.dismiss_popup(driver))
+            self.assertEqual(driver.taps, [], xml)
+            self.assertEqual(driver.back_presses, 0, xml)
+
+    def test_open_chest_inside_merged_desc_is_the_forward_button(self):
+        # The full desc is returned so the content-desc xpath finds it.
+        import navigation
+        nodes = [("android.view.View", "Bugungi vazifalar\nOpen chest")]
+        self.assertEqual(
+            navigation.find_forward_button(nodes), "Bugungi vazifalar\nOpen chest"
+        )
+
+
+class TestRescueStuckScreen(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+        os.chdir(self._cwd)
+
+    def test_saves_tree_and_reports_a_frozen_screen(self):
+        import main as main_mod
+        driver = TapDriver(CHEST_TAP_MERGED_XML)
+        self.assertFalse(main_mod.rescue_stuck_screen(driver))
+        with open(main_mod.STUCK_SCREEN_FILE, encoding="utf-8") as f:
+            self.assertEqual(f.read(), CHEST_TAP_MERGED_XML)
+        self.assertEqual(len(driver.taps), 3, "all three chest heights tried")
+
+    def test_rescued_when_a_center_tap_moves_the_screen(self):
+        import main as main_mod
+
+        class UnstickDriver(TapDriver):
+            def tap(self, positions, duration=None):
+                super().tap(positions, duration)
+                self.xml = HOME_SCREEN_XML
+
+        driver = UnstickDriver(CHEST_TAP_TEXT_ATTR_XML)
+        self.assertTrue(main_mod.rescue_stuck_screen(driver))
+        self.assertEqual(driver.taps, [(360, 880)])
+
+    def test_auto_loop_tries_rescue_before_the_idle_exit(self):
+        import main as main_mod
+        import navigation
+        self._main_time = main_mod.time
+        main_mod.time = FakeTime()
+        self._nav_time = navigation.time
+        navigation.time = FakeTime()
+        calls = []
+
+        def fake_rescue(driver):
+            calls.append(1)
+            return False
+
+        saved = main_mod.rescue_stuck_screen
+        main_mod.rescue_stuck_screen = fake_rescue
+        try:
+            main_mod.auto_answer_loop(TapDriver(CHEST_TAP_MERGED_XML))
+        finally:
+            main_mod.rescue_stuck_screen = saved
+            main_mod.time = self._main_time
+            navigation.time = self._nav_time
+        self.assertEqual(len(calls), 1, "rescue attempted once, then the loop gave up")
+
+
 # The lesson page the course sequence often lands on: a video player up
 # top, the lesson text, and a "Next" button. While the video is still
 # loading, taps on Next are swallowed and the screen stays exactly like
