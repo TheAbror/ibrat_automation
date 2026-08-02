@@ -189,6 +189,7 @@ def run(worker_cmd=None):
     signal.signal(signal.SIGTERM, _raise_keyboard_interrupt)
     appium_proc, owned, streak = None, False, 0
     child = None
+    run_started = time.time()
     try:
         while True:
             device = ensure_device()
@@ -240,6 +241,11 @@ def run(worker_cmd=None):
                 child.kill()
         return 130
     finally:
+        # The workers' own wall-time lines reset on every respawn; this
+        # one covers the whole supervised run.
+        elapsed = time.time() - run_started
+        print(f"[supervisor] total run time: {elapsed / 60:.1f} minutes "
+              f"({elapsed / 3600:.2f} hours)")
         # Only a server the supervisor itself started is shut down.
         if owned and appium_proc is not None and appium_proc.poll() is None:
             appium_proc.terminate()
