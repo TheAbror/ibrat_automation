@@ -1391,6 +1391,30 @@ class TestReconnect(unittest.TestCase):
         self.assertEqual(len(made), 2, "initial connect + one reconnect, then give up")
 
 
+class TestSessionSettings(unittest.TestCase):
+    """Every session must disable UiAutomator2's wait-for-idle: animated
+    screens (the chest reward's bouncing chest) never go idle, so each
+    command stalls for the full 10s idle timeout before executing."""
+
+    def test_connect_disables_wait_for_idle(self):
+        captured = {}
+
+        class FakeRemote:
+            def __init__(self, server, options=None, client_config=None):
+                pass
+
+            def update_settings(self, settings):
+                captured.update(settings)
+
+        original = watcher.webdriver.Remote
+        watcher.webdriver.Remote = FakeRemote
+        try:
+            watcher.connect(attach=True)
+        finally:
+            watcher.webdriver.Remote = original
+        self.assertEqual(captured.get("waitForIdleTimeout"), 0)
+
+
 class TestConnectionResilience(unittest.TestCase):
     """A command lost over Wi-Fi adb must raise within a bounded time and
     trigger a reconnect — never block the runner forever."""
@@ -1408,6 +1432,9 @@ class TestConnectionResilience(unittest.TestCase):
         class FakeRemote:
             def __init__(self, server, options=None, client_config=None):
                 captured["client_config"] = client_config
+
+            def update_settings(self, settings):
+                pass
 
         original = watcher.webdriver.Remote
         watcher.webdriver.Remote = FakeRemote

@@ -91,9 +91,16 @@ def connect(attach=True):
     client_config = AppiumClientConfig(
         remote_server_addr=config.APPIUM_SERVER, timeout=COMMAND_TIMEOUT
     )
-    return webdriver.Remote(
+    driver = webdriver.Remote(
         config.APPIUM_SERVER, options=options, client_config=client_config
     )
+    # UiAutomator2 waits (up to 10s) for the UI thread to go idle before
+    # every command; animated screens (the chest reward) never go idle, so
+    # each find/dump/tap there stalls the full 10s. This app is Flutter —
+    # something is always animating — and the runner does its own polling,
+    # so skip the idle wait entirely.
+    driver.update_settings({"waitForIdleTimeout": 0})
+    return driver
 
 
 def safe_quit(driver):
