@@ -45,11 +45,11 @@ from navigation import (
 from question_handler import (
     build_answer_map,
     build_pair_map,
-    card_signature,
     chip_sequence,
     choose_mc_option,
     classify_sheet,
     detect_question_type,
+    judge_pair_attempt,
     pair_attempt_order,
     parse_cards,
     parse_screen,
@@ -214,6 +214,15 @@ MATCH_ATTEMPTS = 40
 # so trimming these risks a wasted attempt, never a stranding.
 PAIR_TAP_PAUSE = 0.2
 MATCH_SETTLE = 0.4
+# Judging one attempt: poll the board until it reaches a state the
+# attempt explains (reset or the tapped pair locked), give up into
+# "moved" after VERDICT_TIMEOUT. A lock only counts once it has held for
+# MATCHED_HOLD — a wrong-pair flash also takes the tapped cards out of
+# play for a few frames, but a flash always ends in a reset while a real
+# lock persists.
+VERDICT_TIMEOUT = 2.5
+VERDICT_POLL = 0.25
+MATCHED_HOLD = 1.0
 
 
 def tap_pair(driver, first, second):
@@ -242,6 +251,46 @@ def tap_pair(driver, first, second):
         driver.tap([second])
 
 
+def pair_verdict(driver, before_cards, left_label, right_label):
+    """Judge one matching attempt by polling the board until it settles.
+
+    'sheet' — the feedback sheet is up (this attempt completed the board),
+    'matched' — the tapped pair locked, 'reset' — not a pair, 'moved' —
+    the board changed in a way this attempt can't explain (a lock
+    rendering late, an animation that never settled): coordinates are
+    stale, re-read the board and start a fresh round.
+
+    A reset is accepted at once. A lock only counts after holding for
+    MATCHED_HOLD: the wrong-pair flash also takes the tapped cards out
+    of play for a few frames — judging on a single frame is what
+    recorded 16 phantom pairs on one board (results.json n=986,
+    2026-08-03) and re-tried the same wrong cards until the attempt
+    budget died.
+    """
+    deadline = time.time() + VERDICT_TIMEOUT
+    matched_since = None
+    while True:
+        xml = driver.page_source
+        if classify_sheet([d for _, d in parse_screen(xml) if d]) is not None:
+            return "sheet"
+        verdict = judge_pair_attempt(
+            before_cards, parse_cards(xml), left_label, right_label
+        )
+        now = time.time()
+        if verdict == "reset":
+            return "reset"
+        if verdict == "matched":
+            if matched_since is None:
+                matched_since = now
+            elif now - matched_since >= MATCHED_HOLD:
+                return "matched"
+        else:
+            matched_since = None
+        if now >= deadline:
+            return "matched" if verdict == "matched" else "moved"
+        time.sleep(VERDICT_POLL)
+
+
 def answer_matching(driver, state, known_pairs):
     """Match pairs one attempt at a time, tapping cards by position.
 
@@ -249,19 +298,20 @@ def answer_matching(driver, state, known_pairs):
     each), so text taps are ambiguous — they land on the first tree
     instance with that label, including an already-locked card, which
     swallows the tap (the 2026-08-02 category-board stranding). Cards
-    are therefore tapped by their coordinates, the columns are told
-    apart by geometry, and progress is judged by the full (label,
-    position, clickable) board signature — a locked pair can keep its
-    labels and position, so the label list alone can miss a match. The
-    board is re-read after every attempt because locking rearranges it.
-    Discovered pairs are left in state["pending_pairs"] so the sheet
-    logger saves them for next time.
+    are therefore tapped by their coordinates and the columns told apart
+    by geometry. Each attempt is judged by pair_verdict against the
+    board read at the start of the round — safe because the round only
+    continues through verified resets, and abandoned for a fresh read on
+    anything else. Pairs judged wrong go to the back of the try order
+    for the rest of the board. Discovered pairs are left in
+    state["pending_pairs"] so the sheet logger saves them for next time.
     """
     found = []
     state["pending_pairs"] = found
     budget = MATCH_ATTEMPTS
     skip = 0
     announced = False
+    failed = set()
 
     while budget > 0:
         xml = driver.page_source
@@ -279,22 +329,25 @@ def answer_matching(driver, state, known_pairs):
                   f"{[c['label'] for c in lefts]} x {[c['label'] for c in rights]}")
 
         left = lefts[skip % len(lefts)]
-        before = card_signature(cards)
         matched = False
-        for right in pair_attempt_order(left["label"], rights, known_pairs):
+        for right in pair_attempt_order(left["label"], rights, known_pairs, failed):
             budget -= 1
             tap_pair(driver, (left["x"], left["y"]), (right["x"], right["y"]))
             time.sleep(MATCH_SETTLE)
-            xml = driver.page_source
-            if classify_sheet([d for _, d in parse_screen(xml) if d]) is not None:
+            verdict = pair_verdict(driver, cards, left["label"], right["label"])
+            if verdict == "sheet":
                 found.append([left["label"], right["label"]])
                 return True
-            if card_signature(parse_cards(xml)) != before:
+            if verdict == "matched":
                 print(f"  matched: {left['label']} + {right['label']}")
                 found.append([left["label"], right["label"]])
                 matched = True
                 break
+            if verdict == "moved":
+                print("  board moved mid-attempt — re-reading")
+                break
             print(f"  not a pair: {left['label']} + {right['label']}")
+            failed.add((left["label"], right["label"]))
             if budget <= 0:
                 break
         # a left whose rights all failed is skipped next round — the board

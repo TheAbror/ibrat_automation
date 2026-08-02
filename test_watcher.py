@@ -935,6 +935,154 @@ class GeoMatchingDriver:
         # wrong pair: the board silently resets
 
 
+class FlashingMatchingDriver(GeoMatchingDriver):
+    """GeoMatchingDriver plus the wrong-pair flash animation: after a
+    missed attempt, the next N dumps show the two tapped cards
+    clickable="false" (input frozen mid-flash) before the board resets.
+    This is the transient that made the runner record phantom matches —
+    results.json n=986 (2026-08-03 01:00) holds 16 fake pairs, all on
+    the same left card, from one 4-pair board."""
+
+    def __init__(self, flash_reads=1):
+        super().__init__()
+        self.flash_reads_per_miss = flash_reads
+        self._flash_labels = ()
+        self._flash_reads = 0
+
+    def tap(self, positions, duration=None):
+        pre_selected, pre_locks = self.selected, len(self.locked)
+        hit = next((row for row in self._board()
+                    if row[3] <= positions[0][1] <= row[4]), None)
+        super().tap(positions, duration)
+        completed_wrong = (
+            pre_selected is not None and self.selected is None
+            and len(self.locked) == pre_locks
+        )
+        if completed_wrong and hit is not None:
+            side, row = pre_selected
+            first = self.ROWS[row][0] if side == "L" else self.ROWS[row][1]
+            _, lrow, rrow, _, _ = hit
+            second = (self.ROWS[lrow][0] if positions[0][0] < 360
+                      else self.ROWS[rrow][1])
+            self._flash_labels = (first, second)
+            self._flash_reads = self.flash_reads_per_miss
+
+    @property
+    def page_source(self):
+        xml = GeoMatchingDriver.page_source.fget(self)
+        if self._flash_reads > 0:
+            self._flash_reads -= 1
+            for label in self._flash_labels:
+                xml = xml.replace(
+                    f'clickable="true" content-desc="{label}"',
+                    f'clickable="false" content-desc="{label}"', 1)
+        return xml
+
+
+class TestJudgePairAttempt(unittest.TestCase):
+    BEFORE = [
+        {"label": "Story", "x": 194, "y": 435, "clickable": True},
+        {"label": "Jeans", "x": 194, "y": 732, "clickable": True},
+        {"label": "Plural", "x": 526, "y": 435, "clickable": True},
+        {"label": "Singular", "x": 526, "y": 732, "clickable": True},
+    ]
+
+    @staticmethod
+    def _without(cards, *labels):
+        remaining = list(labels)
+        out = []
+        for c in cards:
+            if c["label"] in remaining:
+                remaining.remove(c["label"])
+                out.append({**c, "clickable": False})
+            else:
+                out.append(c)
+        return out
+
+    def test_unchanged_board_is_a_reset(self):
+        self.assertEqual(
+            qh.judge_pair_attempt(self.BEFORE, self.BEFORE, "Story", "Plural"),
+            "reset",
+        )
+
+    def test_rearranged_reset_is_still_a_reset(self):
+        # A wrong pair never rearranges cards, but the judge must compare
+        # active labels, not positions — locking DOES rearrange, so a
+        # position-sensitive reset check would misread settled boards.
+        shuffled = [dict(c, y=c["y"] + 297) for c in reversed(self.BEFORE)]
+        self.assertEqual(
+            qh.judge_pair_attempt(self.BEFORE, shuffled, "Story", "Plural"),
+            "reset",
+        )
+
+    def test_exactly_the_tapped_two_leaving_play_is_a_match(self):
+        after = self._without(self.BEFORE, "Story", "Plural")
+        self.assertEqual(
+            qh.judge_pair_attempt(self.BEFORE, after, "Story", "Plural"),
+            "matched",
+        )
+
+    def test_flash_frame_freezing_all_cards_is_unsettled(self):
+        after = [{**c, "clickable": False} for c in self.BEFORE]
+        self.assertEqual(
+            qh.judge_pair_attempt(self.BEFORE, after, "Story", "Plural"),
+            "unsettled",
+        )
+
+    def test_two_other_cards_leaving_play_is_unsettled(self):
+        # Some pair locked, but not the tapped one (a late-rendering lock
+        # from a previous attempt) — nothing to learn about THIS attempt.
+        after = self._without(self.BEFORE, "Jeans", "Singular")
+        self.assertEqual(
+            qh.judge_pair_attempt(self.BEFORE, after, "Story", "Plural"),
+            "unsettled",
+        )
+
+    def test_duplicate_labels_lose_one_instance_each(self):
+        before = self.BEFORE + [
+            {"label": "Story", "x": 194, "y": 1029, "clickable": True},
+            {"label": "Plural", "x": 526, "y": 1029, "clickable": True},
+        ]
+        after = self._without(before, "Story", "Plural")
+        self.assertEqual(
+            qh.judge_pair_attempt(before, after, "Story", "Plural"),
+            "matched",
+        )
+
+
+class TestPairAttemptOrderFailed(unittest.TestCase):
+    RIGHTS = [
+        {"label": "Plural", "x": 526, "y": 435, "clickable": True},
+        {"label": "Singular", "x": 526, "y": 732, "clickable": True},
+        {"label": "Plural", "x": 526, "y": 1029, "clickable": True},
+    ]
+
+    def test_failed_pairs_sink_to_the_back(self):
+        ordered = qh.pair_attempt_order(
+            "Jeans", self.RIGHTS, {}, failed={("Jeans", "Plural")}
+        )
+        self.assertEqual(
+            [c["y"] for c in ordered], [732, 435, 1029],
+            "fresh combinations first, failed ones last but never dropped",
+        )
+
+    def test_failed_known_partner_no_longer_goes_first(self):
+        # The answer book can be wrong (a phantom pair learned by the
+        # 2026-08-03 bug) — once its pair fails on this board, fresh
+        # cards must come first or the board loops on the bad "known".
+        ordered = qh.pair_attempt_order(
+            "Jeans", self.RIGHTS, {"Jeans": "Plural"},
+            failed={("Jeans", "Plural")},
+        )
+        self.assertEqual([c["y"] for c in ordered], [732, 435, 1029])
+
+    def test_other_lefts_failures_do_not_reorder(self):
+        ordered = qh.pair_attempt_order(
+            "Jeans", self.RIGHTS, {}, failed={("Story", "Plural")}
+        )
+        self.assertEqual([c["y"] for c in ordered], [435, 732, 1029])
+
+
 class TestTapPair(unittest.TestCase):
     def test_both_taps_ride_in_one_actions_request(self):
         import main as main_mod
@@ -1006,6 +1154,35 @@ class TestAnswerMatchingFlow(unittest.TestCase):
         self.assertTrue(main_mod.answer_matching(driver, {}, known))
         self.assertEqual(driver.active_lefts, [])
         self.assertEqual(len(driver.taps), 8, "two taps per pair, no misses")
+
+    def test_wrong_pair_flash_is_not_a_match(self):
+        # The 2026-08-03 01:00 field failure: a dump mid wrong-pair flash
+        # differs from the pre-attempt board, the old any-change check
+        # declared "matched", and the round reset to the same left card —
+        # re-trying the same wrong rights until the attempt budget died
+        # (16 phantom pairs on one board in results.json n=986).
+        import main as main_mod
+        driver = FlashingMatchingDriver(flash_reads=1)
+        state = {}
+        self.assertTrue(main_mod.answer_matching(driver, state, {}))
+        self.assertEqual(driver.active_lefts, [], "board completed")
+        self.assertEqual(state["pending_pairs"], [
+            ["Story", "Singular"], ["Jeans", "Plural"],
+            ["Apple", "Singular"], ["People", "Plural"],
+        ], "only real locks recorded — no phantom pairs")
+
+    def test_longer_flash_is_still_not_a_match(self):
+        # Two consecutive dumps can both land inside one flash — a match
+        # verdict must outlast any flash, not just a single frame.
+        import main as main_mod
+        driver = FlashingMatchingDriver(flash_reads=2)
+        state = {}
+        self.assertTrue(main_mod.answer_matching(driver, state, {}))
+        self.assertEqual(driver.active_lefts, [], "board completed")
+        self.assertEqual(state["pending_pairs"], [
+            ["Story", "Singular"], ["Jeans", "Plural"],
+            ["Apple", "Singular"], ["People", "Plural"],
+        ])
 
 
 QUESTION_XML = """<hierarchy>

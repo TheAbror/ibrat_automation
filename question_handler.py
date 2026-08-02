@@ -1,6 +1,7 @@
 """Shared screen-reading and answering logic for watcher.py and main.py."""
 import re
 import xml.etree.ElementTree as ET
+from collections import Counter
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -283,14 +284,48 @@ def card_signature(cards):
     return [(c["label"], c["x"], c["y"], c["clickable"]) for c in cards]
 
 
-def pair_attempt_order(left_label, rights, known_pairs):
+def judge_pair_attempt(before_cards, after_cards, left_label, right_label):
+    """Verdict on one matching attempt, from board snapshots around it.
+
+    - 'reset': the active cards are exactly the pre-attempt ones — not a
+      pair (the app resets a wrong selection).
+    - 'matched': exactly one <left_label> and one <right_label> card left
+      play — the tapped pair locked.
+    - 'unsettled': anything else — a mid-animation frame or a rearrange
+      this attempt can't explain; read the board again, don't judge.
+
+    Compared by label multiset of the ACTIVE cards only. Positions can't
+    be trusted (locking rearranges the board), and treating ANY dump
+    difference as a lock is the 2026-08-03 phantom-match bug: dumps
+    caught mid wrong-pair flash recorded 16 fake pairs on one 4-pair
+    board and kept re-trying the same wrong cards.
+    """
+    before = Counter(c["label"] for c in before_cards if c["clickable"])
+    after = Counter(c["label"] for c in after_cards if c["clickable"])
+    if after == before:
+        return "reset"
+    expected = before - Counter([left_label, right_label])
+    if after == expected and sum(before.values()) - sum(after.values()) == 2:
+        return "matched"
+    return "unsettled"
+
+
+def pair_attempt_order(left_label, rights, known_pairs, failed=frozenset()):
     """Order to try right cards for a left card: every instance of the
-    known partner label first (labels repeat), each group top to bottom."""
+    known partner label first (labels repeat), each group top to bottom.
+
+    Pairs already judged "not a pair" on this board (failed, as
+    (left_label, right_label)) sink to the back — even a failed "known"
+    partner, since the answer book can be wrong. Never dropped outright:
+    a swallowed tap fakes a failure, so they stay as the last resort.
+    """
     known = known_pairs.get(left_label)
     if known is None:
-        return list(rights)
-    return ([r for r in rights if r["label"] == known]
-            + [r for r in rights if r["label"] != known])
+        ordered = list(rights)
+    else:
+        ordered = ([r for r in rights if r["label"] == known]
+                   + [r for r in rights if r["label"] != known])
+    return sorted(ordered, key=lambda r: (left_label, r["label"]) in failed)
 
 
 def choose_mc_option(question, options, known, attempted):
