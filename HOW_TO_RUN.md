@@ -62,6 +62,13 @@ screen's UI tree to `stuck_screen.xml` and tries tapping the screen center
 some unhandled screen, keep `stuck_screen.xml` — it shows exactly what the
 runner saw and is how the screen gets supported.
 
+## If the app crashes mid-run
+
+A crash drops the phone to the Android launcher. The runner notices that
+the app is no longer in the foreground, relaunches it, navigates back to
+the course, and continues — up to 5 relaunches per run. It never taps
+around on the launcher or any other app's screen.
+
 ## Manual adb commands
 
 Plain `adb shell ...` works since there is just one device.

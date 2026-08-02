@@ -306,6 +306,8 @@ FINISH_SCREEN_XML = """<hierarchy>
 class TapDriver:
     """Fake driver for dismiss_popup: static XML, records coordinate taps."""
 
+    current_package = "uz.ibrat.farzandlari"
+
     def __init__(self, xml):
         self.xml = xml
         self.taps = []
@@ -1206,6 +1208,70 @@ class TestRescueStuckScreen(unittest.TestCase):
             main_mod.time = self._main_time
             navigation.time = self._nav_time
         self.assertEqual(len(calls), 1, "rescue attempted once, then the loop gave up")
+
+
+# Trimmed from the real stuck_screen.xml captured 2026-08-02: the app had
+# crashed mid-question and the "unrecognized screen" was the Android
+# launcher. Blind taps there can open unrelated apps, so the runner must
+# detect the foreign foreground package and relaunch instead.
+LAUNCHER_XML = """<hierarchy>
+  <node class="android.widget.TextView" bounds="[14,703][187,1002]" clickable="true" content-desc="WhatsApp" text="WhatsApp"/>
+  <node class="android.view.View" bounds="[0,77][720,1516]" clickable="false" content-desc="Home"/>
+  <node class="android.widget.TextView" bounds="[360,1344][533,1481]" clickable="true" content-desc="Chrome" text="Chrome"/>
+</hierarchy>"""
+
+
+class TestAppLostRecovery(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+
+    def tearDown(self):
+        os.chdir(self._cwd)
+
+    def test_launcher_in_foreground_aborts_the_loop_without_taps(self):
+        import main as main_mod
+        driver = TapDriver(LAUNCHER_XML)
+        driver.current_package = "com.android.launcher3"
+        with self.assertRaises(main_mod.AppLostError):
+            main_mod.auto_answer_loop(driver)
+        self.assertEqual(driver.taps, [], "never blind-tap another app's screen")
+        self.assertEqual(driver.back_presses, 0)
+
+    def test_main_relaunches_the_app_after_a_crash(self):
+        import main as main_mod
+        sessions = []
+
+        class FakeSession:
+            def quit(self):
+                pass
+
+        def fake_connect(attach=False):
+            sessions.append(attach)
+            return FakeSession()
+
+        outcomes = [main_mod.AppLostError("com.android.launcher3"), None]
+
+        def fake_answer(driver):
+            outcome = outcomes.pop(0)
+            if outcome:
+                raise outcome
+
+        saved = (main_mod.wake_device, main_mod.force_stop_app, watcher.connect,
+                 main_mod.navigate_to_test, main_mod.answer_until_done, main_mod.time)
+        main_mod.wake_device = lambda: True
+        main_mod.force_stop_app = lambda: True
+        watcher.connect = fake_connect
+        main_mod.navigate_to_test = lambda d, w, wl: True
+        main_mod.answer_until_done = fake_answer
+        main_mod.time = FakeTime()
+        try:
+            main_mod.main()
+        finally:
+            (main_mod.wake_device, main_mod.force_stop_app, watcher.connect,
+             main_mod.navigate_to_test, main_mod.answer_until_done, main_mod.time) = saved
+        self.assertEqual(len(sessions), 2, "a fresh app launch after the crash")
+        self.assertEqual(outcomes, [], "answering resumed on the new session")
 
 
 # The lesson page the course sequence often lands on: a video player up

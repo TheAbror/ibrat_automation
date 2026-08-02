@@ -43,8 +43,13 @@ from question_handler import (
 
 IDLE_LIMIT = 20      # seconds with no question and no sheet -> assume finished
 MAX_QUESTIONS = 500
+APP_RELAUNCHES = 5   # crash-relaunches per run before giving up
 # Where the tree of an unrecognized screen is saved before giving up on it
 STUCK_SCREEN_FILE = "stuck_screen.xml"
+
+
+class AppLostError(Exception):
+    """The app is no longer in the foreground (crashed or was closed)."""
 
 
 def tap_text(driver, text):
@@ -233,8 +238,15 @@ def auto_answer_loop(driver):
             idle_since = time.time()
             continue
 
-        # Unrecognized screen: an offer popup may be in the way, or it's a
-        # finish screen (Retry / Next ...) or the next quiz's Start page.
+        # Unrecognized screen: first make sure it is still the app at all.
+        # A crash drops the phone to the launcher, where blind popup taps
+        # or the chest-position rescue could open unrelated apps (found
+        # the hard way — see stuck_screen.xml from 2026-08-02).
+        if driver.current_package != config.APP_PACKAGE:
+            raise AppLostError(driver.current_package)
+
+        # An offer popup may be in the way, or it's a finish screen
+        # (Retry / Next ...) or the next quiz's Start page.
         if dismiss_popup(driver):
             idle_since = time.time()
             continue
@@ -302,22 +314,32 @@ def force_stop_app():
 
 def main():
     wake_device()
-    force_stop_app()
-    driver = watcher.connect(attach=False)
+    relaunches = APP_RELAUNCHES
+    while True:
+        force_stop_app()
+        driver = watcher.connect(attach=False)
 
-    # Always close the session: an orphaned session wedges the Appium server
-    # and breaks the next script that talks to the same device.
-    try:
-        time.sleep(3)
+        # Always close the session: an orphaned session wedges the Appium
+        # server and breaks the next script that talks to the same device.
+        try:
+            time.sleep(3)
 
-        wait = WebDriverWait(driver, 20)
-        wait_long = WebDriverWait(driver, 30)
-        if navigate_to_test(driver, wait, wait_long):
-            answer_until_done(driver)
-    except KeyboardInterrupt:
-        print("\nStopped by user.")
-    finally:
-        watcher.safe_quit(driver)
+            wait = WebDriverWait(driver, 20)
+            wait_long = WebDriverWait(driver, 30)
+            if navigate_to_test(driver, wait, wait_long):
+                answer_until_done(driver)
+            return
+        except AppLostError as e:
+            if relaunches == 0:
+                print("The app keeps leaving the foreground — giving up.")
+                return
+            relaunches -= 1
+            print(f"The app left the foreground ({e}) — relaunching it...")
+        except KeyboardInterrupt:
+            print("\nStopped by user.")
+            return
+        finally:
+            watcher.safe_quit(driver)
 
 
 if __name__ == "__main__":

@@ -8420,5 +8420,1691 @@
       "That\n book on the table is mine.",
       "That"
     ]
+  },
+  {
+    "time": "2026-08-02 12:27:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I'm looking for a book to read. Do you have any good |_| ?",
+    "options": [
+      "one",
+      "ones",
+      "two",
+      "these"
+    ],
+    "correct_answer": [
+      "I'm looking for a book to read. Do you have any good \none\n ?",
+      "one"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:27:08",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She bought a new red pen and some black ___ .",
+    "options": [
+      "ones",
+      "the",
+      "two",
+      "one"
+    ],
+    "correct_answer": [
+      "ones"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:27:14",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bu chashka kir. Tozasini olsam maylimi?",
+    "options": [
+      "I",
+      "is",
+      "a",
+      "?",
+      "bowl",
+      "This",
+      "clean",
+      "use",
+      "Can ",
+      "That",
+      "dirty,",
+      "dirty.",
+      "have",
+      "cup",
+      "one"
+    ],
+    "correct_answer": [
+      "I",
+      "This cup is dirty. Can I have a clean one ?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:27:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I need a phone. Can you give me |_| ?",
+    "options": [
+      "ones",
+      "the",
+      "one"
+    ],
+    "correct_answer": [
+      "I need a phone. Can you give me \nones\n ?",
+      "one"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:27:21",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I have a headache. Can you give me |_| of those remedies?",
+    "options": [
+      "the",
+      "a",
+      "one"
+    ],
+    "correct_answer": [
+      "I have a headache. Can you give me \nthe\n of those remedies?",
+      "one"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:27:24",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "In the pencil box, there are two green pens and four red ___ .",
+    "options": [
+      "these",
+      "ones",
+      "that",
+      "one"
+    ],
+    "correct_answer": [
+      "ones"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:27:27",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Her car is old. She is going to buy a new ___ soon.",
+    "options": [
+      "ones",
+      "that",
+      "one",
+      "two"
+    ],
+    "correct_answer": [
+      "one"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:05",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Red",
+      "Ruchka",
+      "Pen",
+      "Yashil",
+      "Pencil",
+      "Qalam",
+      "Green",
+      "Qizil"
+    ],
+    "correct_answer": [
+      [
+        "Red",
+        "Qizil"
+      ],
+      [
+        "Pencil",
+        "Ruchka"
+      ],
+      [
+        "Green",
+        "Yashil"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:08",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "My shoes are very old. I'm going to buy some new |_|.",
+    "options": [
+      "one",
+      "ones",
+      "these"
+    ],
+    "correct_answer": [
+      "My shoes are very old. I'm going to buy some new \none\n.",
+      "ones"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:12",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "My birthday party is my favourite ___ .",
+    "options": [
+      "two",
+      "one",
+      "the",
+      "ones"
+    ],
+    "correct_answer": [
+      "one"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:36",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bu chashka kir. Tozasini olsam maylimi?",
+    "options": [
+      "I",
+      "cup",
+      "is",
+      "one",
+      "use",
+      "clean",
+      "That",
+      "dirty.",
+      "Can ",
+      "?",
+      "have",
+      "dirty,",
+      "This",
+      "bowl",
+      "a"
+    ],
+    "correct_answer": [
+      "This",
+      "cup",
+      "is",
+      "dirty.",
+      "Can ",
+      "I",
+      "have",
+      "a",
+      "clean",
+      "one",
+      "?",
+      "This cup is dirty. Can I have a clean one ?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:41",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I need a phone. Can you give me |_| ?",
+    "options": [
+      "the",
+      "ones",
+      "one"
+    ],
+    "correct_answer": [
+      "I need a phone. Can you give me |_| ?",
+      "I need a phone. Can you give me \none\n ?",
+      "the",
+      "ones",
+      "one",
+      "one"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have a headache. Can you give me |_| of those remedies?",
+    "options": [
+      "one",
+      "the",
+      "a"
+    ],
+    "correct_answer": [
+      "I have a headache. Can you give me \none\n of those remedies?",
+      "one"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "In the pencil box, there are two green pens and four red ___ .",
+    "options": [
+      "that",
+      "ones",
+      "one",
+      "these"
+    ],
+    "correct_answer": [
+      "ones"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Her car is old. She is going to buy a new ___ soon.",
+    "options": [
+      "that",
+      "one",
+      "ones",
+      "two"
+    ],
+    "correct_answer": [
+      "one"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My shoes are very old. I'm going to buy some new |_|.",
+    "options": [
+      "these",
+      "ones",
+      "one"
+    ],
+    "correct_answer": [
+      "My shoes are very old. I'm going to buy some new \nones\n.",
+      "ones"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:28:58",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My birthday party is my favourite ___ .",
+    "options": [
+      "one",
+      "the",
+      "two",
+      "ones"
+    ],
+    "correct_answer": [
+      "one"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:29:08",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "My birthday party is my favourite ___ .",
+    "options": [
+      "one",
+      "the",
+      "two",
+      "ones"
+    ],
+    "correct_answer": [
+      "Dars 75 Some vs Any",
+      "\"Some\" is used in positive statements when the speaker wants to refer to an unspecified or indefinite quantity or number of something.",
+      "Examples:",
+      "1. I'm going to buy some clothes.",
+      "2. There's some ice in the fridge.",
+      "3. We did some exercises.",
+      "\"Any\" is used in negative statements or questions when the speaker wants to refer to an indefinite or unspecified quantity or number of something. Particularly, in questions and negative statements, \"any\" is commonly used instead of \"some\" to indicate an absence or non-specificity."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:29:19",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Can I have |_| water, please?",
+    "options": [
+      "any",
+      "some",
+      "an",
+      "the"
+    ],
+    "correct_answer": [
+      "Can I have \nany\n water, please?",
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:29:22",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We don't need |_| flour.",
+    "options": [
+      "some",
+      "many",
+      "any"
+    ],
+    "correct_answer": [
+      "We don't need \nsome\n flour.",
+      "any"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:29:28",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bizda biroz muammolar bor.",
+    "options": [
+      "We",
+      "problems",
+      "any",
+      "probs",
+      "They",
+      "some ",
+      "have"
+    ],
+    "correct_answer": [
+      "We",
+      "We have some problems"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:29:32",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She doesn't have |_| money. Can you lend her some money?",
+    "options": [
+      "the",
+      "some",
+      "any",
+      "a"
+    ],
+    "correct_answer": [
+      "She doesn't have \nthe\n money. Can you lend her some money?",
+      "any"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:00",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Fridge",
+      "Suv",
+      "Water",
+      "Olma",
+      "Juice",
+      "Muzlatgich",
+      "Apple",
+      "Sharbat"
+    ],
+    "correct_answer": [
+      [
+        "Fridge",
+        "Muzlatgich"
+      ],
+      [
+        "Juice",
+        "Suv"
+      ],
+      [
+        "Apple",
+        "Olma"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If ___ asks you about that person, do not say a word. ",
+    "options": [
+      "someone",
+      "something",
+      "anything",
+      "anyone"
+    ],
+    "correct_answer": [
+      "someone"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you give |_| information about the museum?",
+    "options": [
+      "some",
+      "an",
+      "the",
+      "any"
+    ],
+    "correct_answer": [
+      "Can you give \nsome\n information about the museum?",
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:09",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There is ___ juice in the fridge.",
+    "options": [
+      "any",
+      "a",
+      "some",
+      "many"
+    ],
+    "correct_answer": [
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:12",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Are there ___ apples in the fridge?",
+    "options": [
+      "many",
+      "any",
+      "some",
+      "an"
+    ],
+    "correct_answer": [
+      "any"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:15",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I need to buy ___ milk for the recipe.",
+    "options": [
+      "these",
+      "any",
+      "some",
+      "a"
+    ],
+    "correct_answer": [
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can I have |_| water, please?",
+    "options": [
+      "an",
+      "any",
+      "the",
+      "some"
+    ],
+    "correct_answer": [
+      "Can I have \nsome\n water, please?",
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We don't need |_| flour.",
+    "options": [
+      "many",
+      "any",
+      "some"
+    ],
+    "correct_answer": [
+      "We don't need |_| flour.",
+      "We don't need \nany\n flour.",
+      "many",
+      "any",
+      "any",
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:33",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bizda biroz muammolar bor.",
+    "options": [
+      "probs",
+      "They",
+      "some ",
+      "any",
+      "have",
+      "We",
+      "problems"
+    ],
+    "correct_answer": [
+      "We",
+      "have",
+      "some ",
+      "problems",
+      "We have some problems"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:36",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She doesn't have |_| money. Can you lend her some money?",
+    "options": [
+      "any",
+      "the",
+      "some",
+      "a"
+    ],
+    "correct_answer": [
+      "She doesn't have \nany\n money. Can you lend her some money?",
+      "any"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There is ___ juice in the fridge.",
+    "options": [
+      "many",
+      "some",
+      "a",
+      "any"
+    ],
+    "correct_answer": [
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Are there ___ apples in the fridge?",
+    "options": [
+      "any",
+      "many",
+      "an",
+      "some"
+    ],
+    "correct_answer": [
+      "any"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:30:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I need to buy ___ milk for the recipe.",
+    "options": [
+      "a",
+      "some",
+      "these",
+      "any"
+    ],
+    "correct_answer": [
+      "some"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:31:48",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "I need to buy ___ milk for the recipe.",
+    "options": [
+      "a",
+      "some",
+      "these",
+      "any"
+    ],
+    "correct_answer": [
+      "Dars 76 No + any/ No/ None",
+      "No",
+      "The car park is empty.",
+      "There aren't any cars.",
+      "There are no cars in the car park.",
+      "How many cars are there in the car park?",
+      "None"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:31:57",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My mother had two brothers. My father had |_|.",
+    "options": [
+      "none",
+      "some",
+      "any",
+      "no"
+    ],
+    "correct_answer": [
+      "My mother had two brothers. My father had \nnone\n.",
+      "none"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:00",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There are ___ cars in the car park. The area is empty.",
+    "options": [
+      "no one",
+      "no",
+      "lot",
+      "much"
+    ],
+    "correct_answer": [
+      "no"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We don't have ___ money.",
+    "options": [
+      "much",
+      "many",
+      "no one",
+      "no"
+    ],
+    "correct_answer": [
+      "much"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:07",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Sarvinoz doesn't speak |_| foreign languages.",
+    "options": [
+      "no",
+      "some",
+      "any"
+    ],
+    "correct_answer": [
+      "Sarvinoz doesn't speak \nno\n foreign languages.",
+      "any"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:09",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I am always alone. I have ___ friends.",
+    "options": [
+      "any",
+      "much",
+      "lot",
+      "no"
+    ],
+    "correct_answer": [
+      "no"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Do you know where Robia is ? No, I've  got ___ idea.",
+    "options": [
+      "no",
+      "the",
+      "some",
+      "not"
+    ],
+    "correct_answer": [
+      "no"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:16",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "How much money have you got? I have ___ money.",
+    "options": [
+      "no one",
+      "no",
+      "many",
+      "lot"
+    ],
+    "correct_answer": [
+      "no"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:19",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I'm afraid she is ___ here.",
+    "options": [
+      "no",
+      "the",
+      "any",
+      "not"
+    ],
+    "correct_answer": [
+      "not"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:23",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kitobda mundarija yo‘q.",
+    "options": [
+      "book.",
+      "contents",
+      "is",
+      "There",
+      "in ",
+      "hook",
+      "no ",
+      "plans",
+      "content",
+      "the "
+    ],
+    "correct_answer": [
+      "book.",
+      "There is no contents in the book."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:26",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There are |_| ways to go home.",
+    "options": [
+      "no",
+      "not",
+      "the",
+      "an"
+    ],
+    "correct_answer": [
+      "There are \nno\n ways to go home.",
+      "no"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There are ___ cars in the car park. The area is empty.",
+    "options": [
+      "no one",
+      "no",
+      "much",
+      "lot"
+    ],
+    "correct_answer": [
+      "There are ___ cars in the car park. The area is empty.",
+      "no one",
+      "no",
+      "no",
+      "much",
+      "lot"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Sarvinoz doesn't speak |_| foreign languages.",
+    "options": [
+      "any",
+      "no",
+      "some"
+    ],
+    "correct_answer": [
+      "Sarvinoz doesn't speak \nany\n foreign languages.",
+      "any"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am always alone. I have ___ friends.",
+    "options": [
+      "any",
+      "lot",
+      "no",
+      "much"
+    ],
+    "correct_answer": [
+      "no"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "How much money have you got? I have ___ money.",
+    "options": [
+      "lot",
+      "no",
+      "many",
+      "no one"
+    ],
+    "correct_answer": [
+      "no"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I'm afraid she is ___ here.",
+    "options": [
+      "the",
+      "not",
+      "no",
+      "any"
+    ],
+    "correct_answer": [
+      "not"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:32:57",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Kitobda mundarija yo‘q.",
+    "options": [
+      "the ",
+      "content",
+      "no ",
+      "contents",
+      "hook",
+      "book.",
+      "in ",
+      "There",
+      "plans",
+      "is"
+    ],
+    "correct_answer": [
+      "There is no contents in the book."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:33:08",
+    "type": "fill_the_blank",
+    "result": "other",
+    "question": "Kitobda mundarija yo‘q.",
+    "options": [
+      "the ",
+      "content",
+      "no ",
+      "contents",
+      "hook",
+      "book.",
+      "in ",
+      "There",
+      "plans",
+      "is"
+    ],
+    "correct_answer": [
+      "Dars 77 Not+anybody vs Nobody",
+      "While \"not + anything\" and \"nothing\" are negative forms used to express the absence of things or objects, \"not + anybody / anyone\" and \"nobody / no one\" are used to express the absence of people or individuals.",
+      "Examples with \"not + anything\" and \"nothing\":",
+      "1. - What's in the bag?",
+      "- There isn't anything in the bag."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:33:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There isn't |_| in the fridge to eat.",
+    "options": [
+      "nothing",
+      "anything",
+      "something"
+    ],
+    "correct_answer": [
+      "There isn't \nnothing\n in the fridge to eat.",
+      "anything"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:33:20",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I don't know |_| in this class.",
+    "options": [
+      "nobody",
+      "anybody",
+      "somebody"
+    ],
+    "correct_answer": [
+      "I don't know \nnobody\n in this class.",
+      "anybody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:33:24",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There is ___ here now. People are coming later.",
+    "options": [
+      "nobody",
+      "anything",
+      "somebody"
+    ],
+    "correct_answer": [
+      "nobody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:33:27",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ came to the party.",
+    "options": [
+      "Nothing",
+      "No",
+      "Nowhere",
+      "Noone"
+    ],
+    "correct_answer": [
+      "Noone"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:33:31",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Sumkada hech nima yo‘q.",
+    "options": [
+      "anything",
+      "pocket",
+      "It",
+      "in ",
+      "is",
+      "bag.",
+      "nothing",
+      "There ",
+      "has",
+      "the "
+    ],
+    "correct_answer": [
+      "anything",
+      "There is nothing in the bag."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:33:34",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Has ___ got a pencil?",
+    "options": [
+      "no one",
+      "someone",
+      "anyone"
+    ],
+    "correct_answer": [
+      "anyone"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:33:37",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I don't know ___ who likes cheese.",
+    "options": [
+      "everybody",
+      "anybody",
+      "nobody"
+    ],
+    "correct_answer": [
+      "anybody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:33:57",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Find",
+      "Aytmoq",
+      "Say",
+      "Kutmoq",
+      "Eat",
+      "Topmoq",
+      "Wait",
+      "Yemoq"
+    ],
+    "correct_answer": [
+      [
+        "Find",
+        "Topmoq"
+      ],
+      [
+        "Eat",
+        "Aytmoq"
+      ],
+      [
+        "Wait",
+        "Kutmoq"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:34:01",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Jamshid didn't say |_| to me.",
+    "options": [
+      "something",
+      "anything",
+      "nothing"
+    ],
+    "correct_answer": [
+      "Jamshid didn't say \nsomething\n to me.",
+      "anything"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:34:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I can't find my bag |_|.",
+    "options": [
+      "anywhere",
+      "everywhere",
+      "nowhere"
+    ],
+    "correct_answer": [
+      "I can't find my bag \nanywhere\n.",
+      "anywhere"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:34:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There isn't |_| in the fridge to eat.",
+    "options": [
+      "nothing",
+      "anything",
+      "something"
+    ],
+    "correct_answer": [
+      "There isn't \nanything\n in the fridge to eat.",
+      "anything"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:34:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I don't know |_| in this class.",
+    "options": [
+      "nobody",
+      "anybody",
+      "somebody"
+    ],
+    "correct_answer": [
+      "I don't know |_| in this class.",
+      "I don't know \nanybody\n in this class.",
+      "nobody",
+      "anybody",
+      "anybody",
+      "somebody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:34:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ came to the party.",
+    "options": [
+      "Nowhere",
+      "No",
+      "Nothing",
+      "Noone"
+    ],
+    "correct_answer": [
+      "Noone"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:34:26",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Sumkada hech nima yo‘q.",
+    "options": [
+      "It",
+      "in ",
+      "has",
+      "bag.",
+      "pocket",
+      "nothing",
+      "There ",
+      "anything",
+      "is",
+      "the "
+    ],
+    "correct_answer": [
+      "There ",
+      "is",
+      "nothing",
+      "in ",
+      "the ",
+      "bag.",
+      "There is nothing in the bag."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:34:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Has ___ got a pencil?",
+    "options": [
+      "someone",
+      "no one",
+      "anyone"
+    ],
+    "correct_answer": [
+      "anyone"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:34:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I don't know ___ who likes cheese.",
+    "options": [
+      "nobody",
+      "everybody",
+      "anybody"
+    ],
+    "correct_answer": [
+      "anybody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:34:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Jamshid didn't say |_| to me.",
+    "options": [
+      "nothing",
+      "anything",
+      "something"
+    ],
+    "correct_answer": [
+      "Jamshid didn't say \nanything\n to me.",
+      "anything"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:35:37",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Jamshid didn't say |_| to me.",
+    "options": [
+      "nothing",
+      "anything",
+      "something"
+    ],
+    "correct_answer": [
+      "Dars 78 Somebody/ Anything/ Nowhere",
+      "\"Somebody\" and \"someone\" are used interchangeably to refer to an unspecified person. Similarly, \"anybody\" and \"anyone\" can be used interchangeably to refer to any person in a general sense. On the other hand, \"nobody\" and \"no one\" are also interchangeable and indicate the absence of any person.",
+      "Examples:",
+      "1. - Is there anybody (or anyone) in the garden?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:35:47",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Ali hasn't got ___ to play with.",
+    "options": [
+      "somebody",
+      "nobody",
+      "anybody"
+    ],
+    "correct_answer": [
+      "anybody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:35:52",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Nimadir yeyishni xohlayman.",
+    "options": [
+      "wants",
+      "I ",
+      "to",
+      "eats",
+      "want",
+      "He",
+      "anything",
+      "eat",
+      "something"
+    ],
+    "correct_answer": [
+      "wants",
+      "I want to eat something"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:35:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I can't find my glasses. I always put them ___ and then look for them everywhere.",
+    "options": [
+      "somewhere",
+      "everywhere",
+      "nowhere"
+    ],
+    "correct_answer": [
+      "somewhere"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:16",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words",
+    "options": [
+      "Write",
+      "Sodda",
+      "With",
+      "Yozmoq",
+      "Afraid",
+      "Bilan",
+      "Simple",
+      "Qo‘rqmoq"
+    ],
+    "correct_answer": [
+      [
+        "Write",
+        "Yozmoq"
+      ],
+      [
+        "With",
+        "Bilan"
+      ],
+      [
+        "Afraid",
+        "Qo‘rqmoq"
+      ],
+      [
+        "Simple",
+        "Sodda"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:19",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They live |_| in Namangan.",
+    "options": [
+      "somewhere",
+      "everywhere",
+      "anywhere"
+    ],
+    "correct_answer": [
+      "They live \nsomewhere\n in Namangan.",
+      "somewhere"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:22",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Have you meet |_| interesting in the class?",
+    "options": [
+      "something",
+      "anybody",
+      "anywhere"
+    ],
+    "correct_answer": [
+      "Have you meet \nsomething\n interesting in the class?",
+      "anybody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:26",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "My pen is broken. I have got ___ to write with.",
+    "options": [
+      "anything",
+      "nothing",
+      "something"
+    ],
+    "correct_answer": [
+      "nothing"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:30",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Meni hech qayerga borgim kelmayapti.",
+    "options": [
+      "wants",
+      "go",
+      "to",
+      "don't",
+      "anywhere.",
+      "I",
+      "walk",
+      "somewhere",
+      "want to"
+    ],
+    "correct_answer": [
+      "wants",
+      "I don't want to go to anywhere."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:33",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "What did you say? -|_|.",
+    "options": [
+      "Nobody",
+      "Nowhere",
+      "Nothing"
+    ],
+    "correct_answer": [
+      "What did you say? -\nNobody\n.",
+      "Nothing"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:36",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There is ___ in the office now, I'm afraid. It is lunch hour.",
+    "options": [
+      "anybody",
+      "nobody",
+      "somebody",
+      "anything"
+    ],
+    "correct_answer": [
+      "nobody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:39",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ali hasn't got ___ to play with.",
+    "options": [
+      "nobody",
+      "somebody",
+      "anybody"
+    ],
+    "correct_answer": [
+      "anybody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:50",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Nimadir yeyishni xohlayman.",
+    "options": [
+      "anything",
+      "I ",
+      "eats",
+      "eat",
+      "something",
+      "He",
+      "wants",
+      "want",
+      "to"
+    ],
+    "correct_answer": [
+      "Nimadir yeyishni xohlayman.",
+      "Nimadir yeyishni xohlayman.",
+      "I ",
+      "I ",
+      "want",
+      "want",
+      "to",
+      "to",
+      "eat",
+      "eat",
+      "something",
+      "something",
+      "anything",
+      "eats",
+      "He",
+      "wants",
+      "I want to eat something",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Have you meet |_| interesting in the class?",
+    "options": [
+      "something",
+      "anywhere",
+      "anybody"
+    ],
+    "correct_answer": [
+      "Have you meet \nanybody\n interesting in the class?",
+      "anybody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:36:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My pen is broken. I have got ___ to write with.",
+    "options": [
+      "something",
+      "nothing",
+      "anything"
+    ],
+    "correct_answer": [
+      "nothing"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:37:00",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Meni hech qayerga borgim kelmayapti.",
+    "options": [
+      "wants",
+      "walk",
+      "don't",
+      "go",
+      "somewhere",
+      "to",
+      "anywhere.",
+      "I",
+      "want to"
+    ],
+    "correct_answer": [
+      "I don't want to go to anywhere."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:37:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "What did you say? -|_|.",
+    "options": [
+      "Nothing",
+      "Nowhere",
+      "Nobody"
+    ],
+    "correct_answer": [
+      "What did you say? -\nNothing\n.",
+      "Nothing"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:37:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There is ___ in the office now, I'm afraid. It is lunch hour.",
+    "options": [
+      "anything",
+      "somebody",
+      "nobody",
+      "anybody"
+    ],
+    "correct_answer": [
+      "nobody"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:37:17",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "There is ___ in the office now, I'm afraid. It is lunch hour.",
+    "options": [
+      "anything",
+      "somebody",
+      "nobody",
+      "anybody"
+    ],
+    "correct_answer": [
+      "Dars 79 Every vs All",
+      "\"Every\" is a determiner used to refer to each individual item or person in a group, considering them separately and is used with singular nouns.",
+      "Examples:",
+      "1. Alice has been to every country in Europe.",
+      "2. Every summer we have a holiday by the sea.",
+      "3. She looks different every time I see her."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:37:26",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She comes to our house ___ day.",
+    "options": [
+      "no",
+      "an",
+      "all",
+      "every"
+    ],
+    "correct_answer": [
+      "every"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:37:29",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I go there |_|.",
+    "options": [
+      "all the day",
+      "every days",
+      "every day."
+    ],
+    "correct_answer": [
+      "I go there \nall the day\n.",
+      "every day."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:37:31",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There is a meeting ___ week.",
+    "options": [
+      "all",
+      "the",
+      "some",
+      "every"
+    ],
+    "correct_answer": [
+      "every"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:37:55",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Finish",
+      "Uchrashuv",
+      "Give",
+      "Bermoq",
+      "Meeting",
+      "Tugatmoq",
+      "Party",
+      "Bazm"
+    ],
+    "correct_answer": [
+      [
+        "Finish",
+        "Tugatmoq"
+      ],
+      [
+        "Give",
+        "Bermoq"
+      ],
+      [
+        "Party",
+        "Uchrashuv"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:37:58",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Salim called |_| his neighbours to his wedding party.",
+    "options": [
+      "every",
+      "all",
+      "some",
+      "any"
+    ],
+    "correct_answer": [
+      "Salim called \nevery\n his neighbours to his wedding party.",
+      "all"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:38:03",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men uning barcha kitoblarini o‘qiganman.",
+    "options": [
+      "book",
+      "I",
+      "her",
+      "all",
+      "my",
+      "read",
+      "books.",
+      "every",
+      "have"
+    ],
+    "correct_answer": [
+      "book",
+      "I have read all her books."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:38:06",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I have given invitations to ___ my friends.",
+    "options": [
+      "the",
+      "any",
+      "every",
+      "all"
+    ],
+    "correct_answer": [
+      "all"
+    ]
   }
 ]
