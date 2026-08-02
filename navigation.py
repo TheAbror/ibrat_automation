@@ -13,7 +13,12 @@ from selenium.common.exceptions import (
 
 import locators as loc
 import config
-from question_handler import OPTION_IGNORE, parse_screen, xpath_literal
+from question_handler import (
+    OPTION_IGNORE,
+    looks_like_promo,
+    parse_screen,
+    xpath_literal,
+)
 
 # Labels a close (X) icon may carry on offer/promo popups
 CLOSE_ICON_DESCS = ("X", "x", "✕", "×", "Close", "close")
@@ -21,6 +26,10 @@ CLOSE_ICON_DESCS = ("X", "x", "✕", "×", "Close", "close")
 # backwards navigation, popup closers, the report icon, and Retry — which
 # restarts an already-finished test instead of moving forward
 SKIP_BUTTONS = ("Go back", "Back", "null", "Retry") + CLOSE_ICON_DESCS
+# Paywall/promo call-to-action buttons ("IELTSGA GOO!", "Subscribe ·
+# 318 000 soums", the Yillik/Oylik plan cards): tapping one leads deeper
+# into the subscription flow, never forward through the course.
+PROMO_CTA_MARKERS = ("IELTSGA", "VAQT TOPILAVERADI", "Subscribe", "soums")
 
 BOUNDS_RE = re.compile(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]")
 # The home screen's bottom navigation — its top-left gear icon is also an
@@ -95,11 +104,16 @@ def find_unlabeled_close_center(xml):
     return None
 
 
+def is_promo_cta(desc):
+    return any(m in desc for m in PROMO_CTA_MARKERS)
+
+
 def candidate_buttons(nodes):
     """Buttons worth tapping when pushing through an unknown screen."""
     return [
         d for cls, d in nodes
-        if cls == "android.widget.Button" and d and d not in SKIP_BUTTONS
+        if cls == "android.widget.Button" and d
+        and d not in SKIP_BUTTONS and not is_promo_cta(d)
     ]
 
 
@@ -181,6 +195,9 @@ def dismiss_popup(driver):
     A labeled icon is found by name. The streak and Pro-offer popups' X
     has no label, so it is tapped by position instead — except on screens
     where a blind top-left tap would navigate away (home, finish/start).
+    The full-screen IELTS promo interstitial has no X at all (in any
+    form), so a promo screen with no X left to try is dismissed with the
+    Android back button — verified to land back on the covered screen.
     """
     xml = driver.page_source
     nodes = parse_screen(xml)
@@ -197,12 +214,17 @@ def dismiss_popup(driver):
     if blind_close_unsafe(nodes):
         return False
     center = find_unlabeled_close_center(xml)
-    if not center:
-        return False
-    driver.tap([center])
-    print(f"Dismissed popup via unlabeled X at {center}")
-    time.sleep(1)
-    return True
+    if center:
+        driver.tap([center])
+        print(f"Dismissed popup via unlabeled X at {center}")
+        time.sleep(1)
+        return True
+    if looks_like_promo([d for _, d in nodes if d]):
+        driver.back()
+        print("Promo screen with no X — pressed the Android back button")
+        time.sleep(1)
+        return True
+    return False
 
 
 def tap_through_buttons(driver):

@@ -259,6 +259,21 @@ PRO_OFFER_XML = """<hierarchy>
   <node class="android.widget.Button" bounds="[42,1440][678,1520]" clickable="true" content-desc="Subscribe · 318 000 soums"/>
 </hierarchy>"""
 
+# The full-screen IELTS promo interstitial ("O'ychi o'yini o'ylaguncha
+# boshqalar IELTS olib ketadi"): no X icon in any form — not labeled, not
+# an unlabeled top-left clickable. Its two CTAs are real Buttons, so it
+# clears the 2-option question floor; only the promo markers keep the
+# runner from tapping "IELTSGA GOO!" as option A. The Android back button
+# is the only safe way out (verified by hand: it lands on the screen the
+# promo covered, e.g. a quiz Start page).
+PROMO_INTERSTITIAL_XML = """<hierarchy>
+  <node class="android.widget.FrameLayout" bounds="[0,0][720,1600]" clickable="false" content-desc=""/>
+  <node class="android.view.View" bounds="[55,60][300,125]" clickable="true" content-desc="35 130+ subscribers"/>
+  <node class="android.view.View" bounds="[100,650][620,960]" clickable="false" content-desc="O'ychi o'yini o'ylaguncha boshqalar IELTS olib ketadi"/>
+  <node class="android.widget.Button" bounds="[42,1220][678,1305]" clickable="true" content-desc="IELTSGA GOO!"/>
+  <node class="android.widget.Button" bounds="[42,1340][678,1400]" clickable="true" content-desc="VAQT TOPILAVERADI"/>
+</hierarchy>"""
+
 # A question screen's only unlabeled clickables are the full-screen
 # scrim and the full-width top bar (the quit-X row) — never icon-sized.
 QUESTION_BOUNDS_XML = """<hierarchy>
@@ -294,6 +309,7 @@ class TapDriver:
     def __init__(self, xml):
         self.xml = xml
         self.taps = []
+        self.back_presses = 0
 
     @property
     def page_source(self):
@@ -304,6 +320,9 @@ class TapDriver:
 
     def tap(self, positions, duration=None):
         self.taps.append(positions[0])
+
+    def back(self):
+        self.back_presses += 1
 
 
 class TestUnlabeledClose(unittest.TestCase):
@@ -350,6 +369,66 @@ class TestUnlabeledClose(unittest.TestCase):
         driver = TapDriver(FINISH_SCREEN_XML)
         self.assertFalse(navigation.dismiss_popup(driver))
         self.assertEqual(driver.taps, [])
+
+
+class TestPromoInterstitial(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_dismissed_via_android_back_button(self):
+        # No X of any kind on this screen — back is the only way out.
+        import navigation
+        driver = TapDriver(PROMO_INTERSTITIAL_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.back_presses, 1)
+        self.assertEqual(driver.taps, [], "nothing to blind-tap on this screen")
+
+    def test_pro_offer_still_dismissed_via_its_x_not_back(self):
+        import navigation
+        driver = TapDriver(PRO_OFFER_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, [(75, 145)])
+        self.assertEqual(driver.back_presses, 0)
+
+    def test_ordinary_screens_are_never_backed_out_of(self):
+        # Back on a non-promo screen would abandon the course flow — the
+        # fallback must stay promo-only.
+        import navigation
+        for xml in (HOME_SCREEN_XML, FINISH_SCREEN_XML, LESSON_SCREEN_XML, QUIZ_START_XML):
+            driver = TapDriver(xml)
+            navigation.dismiss_popup(driver)
+            self.assertEqual(driver.back_presses, 0, xml)
+
+    def test_promo_ctas_are_never_tap_through_candidates(self):
+        import navigation
+        for xml in (PROMO_INTERSTITIAL_XML, PRO_OFFER_XML):
+            self.assertEqual(
+                navigation.candidate_buttons(qh.parse_screen(xml)), [], xml
+            )
+
+    def test_promo_interstitial_is_not_a_question(self):
+        # Its two CTA Buttons clear the 2-option floor — without the promo
+        # guard the runner would tap "IELTSGA GOO!" as option A, straight
+        # into the paywall.
+        driver = XmlDriver(PROMO_INTERSTITIAL_XML)
+        state = watcher.fresh_state()
+        results = []
+        self.assertIsNone(watcher.poll_once(driver, state, results))
+        self.assertIsNone(state["question"])
+        self.assertEqual(results, [])
+
+    def test_pro_offer_is_not_a_question(self):
+        # Same trap: three subscription-plan Buttons look like options.
+        driver = XmlDriver(PRO_OFFER_XML)
+        state = watcher.fresh_state()
+        self.assertIsNone(watcher.poll_once(driver, state, []))
+        self.assertIsNone(state["question"])
 
 
 class TestTapNext(unittest.TestCase):

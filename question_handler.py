@@ -17,6 +17,18 @@ NEXT_LABELS = ("Next",)
 # the whole test.
 OPTION_IGNORE = NEXT_LABELS + ("Continue", "null", "Retry")
 
+# Full-screen promo/upsell screens: the Pro subscription offer and the
+# IELTS interstitial ("O'ychi o'yini ..." / IELTSGA GOO!). Both carry the
+# "35 130+ subscribers" pill; the interstitial also has its own CTA texts.
+# Their buttons must never count as answer options — option A would be a
+# paywall CTA.
+PROMO_MARKERS = ("+ subscribers", "IELTSGA", "VAQT TOPILAVERADI")
+
+
+def looks_like_promo(descs):
+    """True when the screen is a promo/upsell, judged by its marker texts."""
+    return any(m in d for d in descs for m in PROMO_MARKERS)
+
 
 def parse_screen(xml):
     """One atomic snapshot of the UI tree as [(class, content-desc), ...]."""

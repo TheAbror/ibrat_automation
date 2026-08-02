@@ -45,6 +45,15 @@ and keeps re-tapping Next every few seconds. You can also just tap **Next**
 on the phone yourself — as soon as the screen changes, the automation
 continues on its own.
 
+## If a full-screen promo appears (IELTSGA GOO! / Pro offer)
+
+The app sometimes shows full-screen promo/upsell screens mid-run. The ones
+with an X are closed via the X; the IELTS interstitial ("O'ychi o'yini...")
+has no X at all, so the runner presses the Android **back** button, which
+lands on the screen the promo covered (e.g. a quiz Start page) and
+continues. Promo buttons ("IELTSGA GOO!", "Subscribe", plan cards) are
+never tapped.
+
 ## Manual adb commands
 
 Plain `adb shell ...` works since there is just one device.

@@ -28,6 +28,7 @@ from question_handler import (
     OPTION_IGNORE,
     classify_sheet,
     detect_question_type,
+    looks_like_promo,
     parse_screen,
     tap_next,
 )
@@ -112,8 +113,9 @@ def poll_once(driver, state, results):
         ]
         # A real question always offers 2+ option buttons; without this
         # floor the mid-run streak popup ("3" / "Day" / Continue) counts
-        # as a question and the runner never tries to dismiss it.
-        if question and len(options) >= 2:
+        # as a question and the runner never tries to dismiss it. Promo
+        # screens clear that floor with paywall CTAs — never a question.
+        if question and len(options) >= 2 and not looks_like_promo(descs):
             state["question"] = question
             state["options"] = options
             state["descs"] = descs
