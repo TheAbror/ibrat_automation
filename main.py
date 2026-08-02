@@ -219,10 +219,11 @@ MATCH_SETTLE = 0.4
 # "moved" after VERDICT_TIMEOUT. A lock only counts once it has held for
 # MATCHED_HOLD — a wrong-pair flash also takes the tapped cards out of
 # play for a few frames, but a flash always ends in a reset while a real
-# lock persists.
+# lock persists. The hold costs ~2 extra dumps per REAL match only;
+# wrong attempts (the majority) return on their first settled read.
 VERDICT_TIMEOUT = 2.5
 VERDICT_POLL = 0.25
-MATCHED_HOLD = 1.0
+MATCHED_HOLD = 0.5
 
 
 def tap_pair(driver, first, second):
@@ -287,7 +288,11 @@ def pair_verdict(driver, before_cards, left_label, right_label):
         else:
             matched_since = None
         if now >= deadline:
-            return "matched" if verdict == "matched" else "moved"
+            # even a matched frame is untrusted without its hold: a
+            # phantom pair recorded here would poison the answer book,
+            # while "moved" merely re-reads the board — a real lock
+            # shows up in that fresh read.
+            return "moved"
         time.sleep(VERDICT_POLL)
 
 
