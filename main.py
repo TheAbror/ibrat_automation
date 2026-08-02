@@ -5,6 +5,9 @@ Navigates to the test, then answers every question:
   by this runner itself — every correct answer makes the next run smarter)
 - unknown multiple_choice: option A first; the next untried option when the
   same question repeats
+- word_translation (a few chips + a Continue button): chosen like
+  multiple_choice, but submitted with Continue — the chip tap alone
+  submits nothing
 - unknown fill_the_blank: tap all chips first-to-last, then Continue
 - matching: direct neighbour first, then every other combination — wrong
   pairs reset harmlessly, correct pairs lock in, so the screen always
@@ -92,6 +95,17 @@ def answer_multiple_choice(driver, question, options, known, attempted):
     return True
 
 
+def tap_continue(driver):
+    try:
+        btn = WebDriverWait(driver, 3).until(
+            lambda d: d.find_element(*loc.CONTINUE_BUTTON)
+        )
+        btn.click()
+        print("  tapped Continue")
+    except (WebDriverException, NoSuchElementException):
+        pass  # some screens submit automatically after the last chip
+
+
 def answer_fill_the_blank(driver, question, options, known):
     sequence = chip_sequence(question, options, known)
     print(f"  tapping {len(sequence)} chips")
@@ -101,14 +115,28 @@ def answer_fill_the_blank(driver, question, options, known):
         except (NoSuchElementException, StaleElementReferenceException):
             continue
         time.sleep(0.1)
-    try:
-        btn = WebDriverWait(driver, 3).until(
-            lambda d: d.find_element(*loc.CONTINUE_BUTTON)
-        )
-        btn.click()
-        print("  tapped Continue")
-    except (WebDriverException, NoSuchElementException):
-        pass  # some screens submit automatically after the last chip
+    tap_continue(driver)
+    return True
+
+
+def answer_word_translation(driver, question, options, known, attempted, state):
+    """A multiple choice built from chips: tap the chip, then submit.
+
+    The Continue button starts disabled and the chip tap alone changes
+    nothing — without the Continue press no feedback sheet ever comes and
+    the runner restarts in a loop (the 2026-08-02 "Clever -" stranding).
+
+    The pre-sheet snapshot is refreshed between the chip tap and Continue:
+    the tapped chip moved into the answer area, and with a stale baseline
+    the sheet diff echoes it next to the revealed word — an ambiguous
+    entry that teaches nothing (watcher mode gets the fresh baseline for
+    free from its continuous polling).
+    """
+    if not answer_multiple_choice(driver, question, options, known, attempted):
+        return False
+    time.sleep(0.1)  # let the chip land so Continue enables
+    state["descs"] = [d for _, d in parse_screen(driver.page_source) if d]
+    tap_continue(driver)
     return True
 
 
@@ -235,12 +263,14 @@ def auto_answer_loop(driver):
 
         if status == "question":
             question, options = state["question"], state["options"]
-            qtype = detect_question_type(question, options)
+            qtype = detect_question_type(question, options, state["descs"])
             answered += 1
             print(f"\n[{answered}] {qtype}: {question}")
             try:
                 if qtype == "multiple_choice":
                     answer_multiple_choice(driver, question, options, known, attempted)
+                elif qtype == "word_translation":
+                    answer_word_translation(driver, question, options, known, attempted, state)
                 elif qtype == "fill_the_blank":
                     answer_fill_the_blank(driver, question, options, known)
                 else:

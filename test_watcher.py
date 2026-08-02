@@ -504,6 +504,55 @@ class TestDetectQuestionType(unittest.TestCase):
             "multiple_choice",
         )
 
+    def test_few_chips_with_continue_is_word_translation(self):
+        # The vocabulary screens ("Clever -" + 4 chips, 2026-08-02) sit
+        # under the fill_the_blank chip floor; only the Continue button on
+        # screen tells them apart from tap-to-submit multiple choice.
+        self.assertEqual(
+            qh.detect_question_type(
+                "Clever -",
+                ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
+                descs=["Clever -", "Nohaq ", "Qizg’anchiq", "Aqlli ",
+                       "Mehribon", "Continue"],
+            ),
+            "word_translation",
+        )
+
+    def test_few_options_without_continue_stays_multiple_choice(self):
+        self.assertEqual(
+            qh.detect_question_type(
+                "Under -",
+                ["ustida", "ostida", "ichida", "yonida"],
+                descs=["Under -", "ustida", "ostida", "ichida", "yonida"],
+            ),
+            "multiple_choice",
+        )
+
+    def test_chip_count_beats_continue_button(self):
+        # Sentence builders carry a Continue button too — the chip count
+        # must keep them fill_the_blank, or a known multi-word answer
+        # would be tapped as a single "option".
+        self.assertEqual(
+            qh.detect_question_type(
+                "Men darsga kechikdim.",
+                ["for", "I", "was", "am", "lesson.", "late", "the "],
+                descs=["Men darsga kechikdim.", "for", "I", "was", "am",
+                       "lesson.", "late", "the ", "Continue"],
+            ),
+            "fill_the_blank",
+        )
+
+    def test_moslashtiring_beats_continue_button(self):
+        self.assertEqual(
+            qh.detect_question_type(
+                "Moslashtiring.",
+                ["The", "letter he wrote", "An", "apple"],
+                descs=["Moslashtiring.", "The", "letter he wrote", "An",
+                       "apple", "Continue"],
+            ),
+            "matching",
+        )
+
 
 class TestStrategies(unittest.TestCase):
     def test_build_answer_map_uses_any_entry_with_captured_answer(self):
@@ -582,6 +631,52 @@ class TestStrategies(unittest.TestCase):
             "correct_answer": ["Some unrelated sheet text"],
         }
         self.assertIsNone(qh.pick_revealed_answer(entry))
+
+    def test_word_translation_answer_matches_option_despite_chip_padding(self):
+        # The sheet reveals the bare word ("Aqlli") while the chip label
+        # carries a trailing space ("Aqlli ") — the match must strip.
+        entry = {
+            "question": "Clever -",
+            "type": "word_translation",
+            "options": ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
+            "correct_answer": ["Aqlli"],
+        }
+        self.assertEqual(qh.pick_revealed_answer(entry), "Aqlli")
+
+    def test_word_translation_answer_untrusted_when_nothing_matches(self):
+        # A noisy diff (e.g. the filled-in bubble text) must not be
+        # mistaken for the answer — longest-element would grab it.
+        entry = {
+            "question": "Clever -",
+            "type": "word_translation",
+            "options": ["Nohaq ", "Aqlli "],
+            "correct_answer": ["Clever - Aqlli"],
+        }
+        self.assertIsNone(qh.pick_revealed_answer(entry))
+
+    def test_word_translation_ambiguous_echo_teaches_nothing(self):
+        # The live 2026-08-02 15:05 entry: the diff caught the tapped chip
+        # ("Nohaq " moved into the answer area) NEXT TO the revealed word.
+        # Both match options and nothing says which is which — learning
+        # the first would repeat the wrong guess forever, so learn nothing.
+        entry = {
+            "question": "Clever -",
+            "type": "word_translation",
+            "options": ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
+            "correct_answer": ["Nohaq ", "Aqlli"],
+        }
+        self.assertIsNone(qh.pick_revealed_answer(entry))
+
+    def test_word_translation_echo_of_the_right_chip_still_learned(self):
+        # When the tapped chip WAS the answer, the echo and the reveal
+        # agree — one distinct option, safe to learn.
+        entry = {
+            "question": "Clever -",
+            "type": "word_translation",
+            "options": ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
+            "correct_answer": ["Aqlli ", "Aqlli"],
+        }
+        self.assertEqual(qh.pick_revealed_answer(entry).strip(), "Aqlli")
 
     def test_chip_sequence_matches_chips_with_trailing_spaces(self):
         known = {"Q1": "They often go swimming."}
@@ -1580,6 +1675,215 @@ class TestPollOnceStuckLesson(unittest.TestCase):
 
         self.assertEqual(status, "other")
         self.assertEqual(len(clicks), 2, "should re-tap Next after the retry interval")
+
+
+# Trimmed from the real stuck_screen.xml captured 2026-08-02 14:46: the
+# vocabulary screen ("Clever -" + 4 word chips). Its Continue button is in
+# the tree but disabled until a chip is picked; tapping a chip alone
+# submits nothing, so treating this as multiple choice waits forever for
+# a feedback sheet and restarts the app in a loop.
+WORD_TRANSLATION_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[42,189][678,245]" clickable="false" content-desc="Clever -"/>
+  <node class="android.view.View" bounds="[236,326][337,368]" clickable="false" content-desc="Clever -"/>
+  <node class="android.widget.Button" bounds="[58,1177][180,1261]" clickable="true" content-desc="Nohaq "/>
+  <node class="android.widget.Button" bounds="[197,1177][375,1261]" clickable="true" content-desc="Qizg’anchiq"/>
+  <node class="android.widget.Button" bounds="[393,1177][492,1261]" clickable="true" content-desc="Aqlli "/>
+  <node class="android.widget.Button" bounds="[510,1177][662,1261]" clickable="true" content-desc="Mehribon"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="false" enabled="false" content-desc="Continue"/>
+</hierarchy>"""
+
+# The screen after a chip tap: the tapped chip's text ALSO appears in
+# the answer area, so its desc is now on screen twice. A pre-sheet
+# snapshot taken before the tap makes the sheet diff echo the tapped
+# chip next to the revealed word (the live 2026-08-02 15:05 entry).
+def word_translation_tapped_xml(chip="Nohaq "):
+    echo = (f'<node class="android.view.View" bounds="[42,700][678,760]"'
+            f' clickable="false" content-desc="{chip}"/>')
+    return WORD_TRANSLATION_XML.replace("</hierarchy>", echo + "</hierarchy>")
+
+
+def word_translation_feedback_xml(chip="Nohaq "):
+    sheet = (
+        '<node class="android.view.View" bounds="[42,1050][678,1110]"'
+        ' clickable="false" content-desc="Incorrect Answer!"/>'
+        '<node class="android.view.View" bounds="[42,1130][678,1180]"'
+        ' clickable="false" content-desc="Aqlli"/>'
+        '<node class="android.widget.Button" bounds="[42,1418][678,1502]"'
+        ' clickable="true" content-desc="Next"/>'
+    )
+    return word_translation_tapped_xml(chip).replace("</hierarchy>", sheet + "</hierarchy>")
+
+
+class WordTranslationFlowDriver:
+    """The vocabulary screen as the runner meets it: a chip tap moves the
+    chip into the answer area but submits nothing, Continue (dead until a
+    chip is picked) brings the sheet, Next lands on an unrecognized
+    screen that ends the test."""
+
+    current_package = "uz.ibrat.farzandlari"
+
+    def __init__(self):
+        self.phase = "question"
+        self.clicked = []
+        self.chip_tapped = None
+        self.taps = []
+        self.back_presses = 0
+
+    @property
+    def page_source(self):
+        if self.phase == "question":
+            if self.chip_tapped:
+                return word_translation_tapped_xml(self.chip_tapped)
+            return WORD_TRANSLATION_XML
+        if self.phase == "sheet":
+            return word_translation_feedback_xml(self.chip_tapped)
+        return UNKNOWN_AD_XML
+
+    def find_element(self, by, value):
+        if self.phase == "done":
+            raise NoSuchElementException(value)
+        el = FakeElement("btn")
+        el.click = lambda: self._click(value)
+        return el
+
+    def _click(self, value):
+        self.clicked.append(value)
+        if "'Continue'" in value:
+            if self.chip_tapped:  # disabled until a chip is picked
+                self.phase = "sheet"
+        elif "'Next'" in value:
+            self.phase = "done"
+        else:
+            self.chip_tapped = value.split("'")[1]
+
+    def tap(self, positions, duration=None):
+        self.taps.append(positions[0])
+
+    def back(self):
+        self.back_presses += 1
+
+
+class TestAnswerWordTranslation(unittest.TestCase):
+    def test_taps_known_chip_then_continue(self):
+        import main as main_mod
+        driver = WordTranslationFlowDriver()
+        state = {"descs": []}
+        # known answer is the bare word; the chip label has a trailing space
+        self.assertTrue(main_mod.answer_word_translation(
+            driver, "Clever -",
+            ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
+            {"Clever -": "Aqlli"}, {}, state,
+        ))
+        self.assertIn("Aqlli ", driver.clicked[0])
+        self.assertIn("Continue", driver.clicked[1])
+        # the pre-sheet snapshot was refreshed AFTER the chip landed, so
+        # the echo in the answer area is part of the baseline
+        self.assertEqual(state["descs"].count("Aqlli "), 2)
+
+    def test_unknown_taps_first_chip_and_rotates_on_repeat(self):
+        import main as main_mod
+        attempted = {}
+        options = ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"]
+        first = WordTranslationFlowDriver()
+        main_mod.answer_word_translation(first, "Clever -", options, {}, attempted, {})
+        second = WordTranslationFlowDriver()
+        main_mod.answer_word_translation(second, "Clever -", options, {}, attempted, {})
+        self.assertIn("Nohaq ", first.clicked[0])
+        self.assertIn("Qizg’anchiq", second.clicked[0])
+        self.assertTrue(any("Continue" in v for v in second.clicked))
+
+
+class TestPollOnceWordTranslation(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+
+    def tearDown(self):
+        os.chdir(self._cwd)
+
+    def test_sheet_logs_word_translation_type_and_revealed_word(self):
+        driver = XmlDriver(WORD_TRANSLATION_XML)
+        state = watcher.fresh_state()
+        results = []
+        self.assertEqual(watcher.poll_once(driver, state, results), "question")
+        self.assertEqual(state["question"], "Clever -")
+        self.assertEqual(
+            state["options"], ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"]
+        )
+
+        # watcher mode: a poll lands between the human's chip tap and
+        # Continue, so the baseline holds the chip's echo already
+        driver.xml = word_translation_tapped_xml("Nohaq ")
+        self.assertEqual(watcher.poll_once(driver, state, results), "question")
+
+        class NextEl(FakeElement):
+            def click(inner):
+                driver.xml = WORD_TRANSLATION_XML
+
+        driver.next_el = NextEl("Next")
+        driver.xml = word_translation_feedback_xml("Nohaq ")
+        watcher.poll_once(driver, state, results)
+
+        entry = results[0]
+        self.assertEqual(entry["type"], "word_translation")
+        self.assertEqual(entry["result"], "incorrect")
+        self.assertEqual(entry["correct_answer"], ["Aqlli"])
+
+
+class TestWordTranslationFlow(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        import navigation
+        self._main_time = main_mod.time
+        main_mod.time = FakeTime()
+        self._nav_sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import main as main_mod
+        import navigation
+        main_mod.time = self._main_time
+        navigation.time.sleep = self._nav_sleep
+        os.chdir(self._cwd)
+
+    def test_first_encounter_submits_with_continue_and_learns(self):
+        import json
+        import main as main_mod
+        driver = WordTranslationFlowDriver()
+        with self.assertRaises(main_mod.StuckScreenError):
+            main_mod.auto_answer_loop(driver)
+
+        chip, cont, nxt = driver.clicked[:3]
+        self.assertIn("Nohaq ", chip)
+        self.assertIn("Continue", cont)
+        self.assertIn("Next", nxt)
+
+        with open("results.json", encoding="utf-8") as f:
+            results = json.load(f)
+        entry = results[0]
+        self.assertEqual(entry["type"], "word_translation")
+        self.assertEqual(entry["result"], "incorrect")
+        self.assertEqual(entry["correct_answer"], ["Aqlli"])
+        # the wrong first guess still teaches the next encounter
+        self.assertEqual(qh.build_answer_map(results), {"Clever -": "Aqlli"})
+
+    def test_known_answer_taps_the_right_chip(self):
+        import main as main_mod
+        watcher.save_results([{
+            "question": "Clever -",
+            "type": "word_translation",
+            "result": "incorrect",
+            "options": ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
+            "correct_answer": ["Aqlli"],
+        }])
+        driver = WordTranslationFlowDriver()
+        with self.assertRaises(main_mod.StuckScreenError):
+            main_mod.auto_answer_loop(driver)
+        self.assertIn("Aqlli ", driver.clicked[0])
+        self.assertTrue(any("Continue" in v for v in driver.clicked))
 
 
 if __name__ == "__main__":

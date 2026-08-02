@@ -57,8 +57,9 @@ def classify_sheet(descs):
     return None
 
 
-def detect_question_type(question, options):
-    """Classify a question screen: multiple_choice, fill_the_blank, or matching.
+def detect_question_type(question, options, descs=()):
+    """Classify a question screen: multiple_choice, word_translation,
+    fill_the_blank, or matching.
 
     - matching: the title contains "moslashtiring" ("Moslashtiring.",
       "So'zlarni moslashtiring.", ...) — pair cards.
@@ -68,13 +69,21 @@ def detect_question_type(question, options):
       it. ___." + 8 chips) carry a blank too, and treating them as
       multiple choice taps one chip, never presses Continue, and waits
       forever for a feedback sheet.
-    - multiple_choice: everything else — a few words to choose from.
+    - word_translation: the vocabulary screens ("Clever -" + 4 chips) sit
+      under the chip floor, so only the Continue button on screen (passed
+      in via descs) tells them apart from multiple_choice — the chip tap
+      alone submits nothing, exactly the fill_the_blank trap again
+      (2026-08-02, stuck_screen.xml).
+    - multiple_choice: everything else — a few words to choose from, where
+      tapping the option submits by itself.
     """
     q = (question or "").strip().lower().rstrip(".")
     if "moslashtiring" in q or q.startswith("match"):
         return "matching"
     if len(options) >= 5:
         return "fill_the_blank"
+    if any(d.strip() == "Continue" for d in descs):
+        return "word_translation"
     return "multiple_choice"
 
 
@@ -101,19 +110,28 @@ def pick_revealed_answer(entry):
     multiple_choice sheets show the sentence with the blank filled in
     (sometimes with the WRONG word) plus the answer word — so the answer
     is the element that matches one of the question's options, and when
-    the diff echoes it twice, the most frequent match. fill_the_blank
-    sheets show the full correct sentence — the longest element — with
-    stray chip texts as noise. Returns None when nothing trustworthy.
+    the diff echoes it twice, the most frequent match. word_translation
+    sheets reveal the correct word the same way, but their diff can also
+    echo the TAPPED chip (it moved into the answer area after the
+    pre-sheet snapshot) — when two distinct options match, nothing says
+    which is the answer, and guessing would repeat a wrong tap forever,
+    so such an entry teaches nothing. fill_the_blank sheets show the
+    full correct sentence — the longest element — with stray chip texts
+    as noise. Returns None when nothing trustworthy.
     """
     answers = entry.get("correct_answer") or []
     if not answers:
         return None
+    options = entry.get("options") or []
+    matches = [
+        a for a in answers
+        if any(a.strip().lower() == o.strip().lower() for o in options)
+    ]
+    if entry.get("type") == "word_translation":
+        if len({m.strip().lower() for m in matches}) == 1:
+            return matches[0]
+        return None
     if entry.get("type") == "multiple_choice":
-        options = entry.get("options") or []
-        matches = [
-            a for a in answers
-            if any(a.strip().lower() == o.strip().lower() for o in options)
-        ]
         if matches:
             return max(matches, key=matches.count)
         return None

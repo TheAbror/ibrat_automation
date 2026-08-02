@@ -1,8 +1,8 @@
 """Watch the screen while you answer questions manually.
 
 Detects each correct/incorrect feedback bottom sheet, records the result to
-results.json with the question type (multiple_choice / fill_the_blank /
-matching), and auto-taps Next. When the answer was correct, the answer the
+results.json with the question type (multiple_choice / word_translation /
+fill_the_blank / matching), and auto-taps Next. When the answer was correct, the answer the
 sheet reveals is saved as "correct_answer".
 
 Usage: navigate to the question screen on the phone yourself, then run
@@ -124,7 +124,7 @@ def poll_once(driver, state, results):
 
     entry = {
         "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "type": detect_question_type(state["question"], state["options"]),
+        "type": detect_question_type(state["question"], state["options"], state["descs"]),
         "result": sheet,
         "question": state["question"],
         "options": state["options"],
