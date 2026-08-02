@@ -477,6 +477,18 @@ class TestDetectQuestionType(unittest.TestCase):
             "matching",
         )
 
+    def test_blank_prompt_with_many_chips_is_fill_the_blank(self):
+        # The sentence-building questions carry a "___" blank AND a chip
+        # tray; the chip count must win, or the runner taps one chip as an
+        # "option" and waits forever for a feedback sheet (2026-08-02).
+        self.assertEqual(
+            qh.detect_question_type(
+                "The phone rang, but I didn't hear it. ___.",
+                ["must", "I", "slept", "asleep", "sleeping", "been", "can", "have "],
+            ),
+            "fill_the_blank",
+        )
+
     def test_many_chips_is_fill_the_blank(self):
         self.assertEqual(
             qh.detect_question_type(

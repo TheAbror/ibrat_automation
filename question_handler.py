@@ -60,18 +60,19 @@ def classify_sheet(descs):
 def detect_question_type(question, options):
     """Classify a question screen: multiple_choice, fill_the_blank, or matching.
 
-    - multiple_choice: the sentence contains a "___" or "|_|" blank and the
-      options are a few words to choose from.
     - matching: the title contains "moslashtiring" ("Moslashtiring.",
       "So'zlarni moslashtiring.", ...) — pair cards.
-    - fill_the_blank: the sentence is built from many word chips (no blank
-      in the prompt).
+    - fill_the_blank: the sentence is built from many word chips. The chip
+      count decides BEFORE any "___"/"|_|" blank in the prompt: the
+      sentence-building questions ("The phone rang, but I didn't hear
+      it. ___." + 8 chips) carry a blank too, and treating them as
+      multiple choice taps one chip, never presses Continue, and waits
+      forever for a feedback sheet.
+    - multiple_choice: everything else — a few words to choose from.
     """
     q = (question or "").strip().lower().rstrip(".")
     if "moslashtiring" in q or q.startswith("match"):
         return "matching"
-    if "___" in q or "|_|" in q:
-        return "multiple_choice"
     if len(options) >= 5:
         return "fill_the_blank"
     return "multiple_choice"
