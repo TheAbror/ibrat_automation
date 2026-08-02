@@ -1480,6 +1480,71 @@ CHEST_TAP_TEXT_ATTR_XML = """<hierarchy>
 </hierarchy>"""
 
 
+# The full-screen chest overlay as it renders since the 2026-08-02 app
+# update (live dump): ALL texts merged into one desc on one clickable
+# full-screen View. It can pop over any screen mid-navigation.
+CHEST_OVERLAY_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc="Get your reward\nDaily streak\n+10\nLesson completed\n+5\nTotal\n+15\nTap on the chest!"/>
+</hierarchy>"""
+
+
+class TestTapClearsOverlay(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._saved = (navigation.dismiss_popup, navigation.tap_forward_button,
+                       navigation.time.sleep)
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        (navigation.dismiss_popup, navigation.tap_forward_button,
+         navigation.time.sleep) = self._saved
+
+    def test_tap_clears_a_covering_overlay_and_retries(self):
+        import navigation
+        from selenium.common.exceptions import TimeoutException
+
+        attempts = []
+
+        class Waiter:
+            def until(self, cond):
+                attempts.append(1)
+                if len(attempts) == 1:
+                    raise TimeoutException("covered by the chest overlay")
+                return FakeElement("target")
+
+        cleared = []
+        navigation.dismiss_popup = lambda d: False
+        navigation.tap_forward_button = lambda d: cleared.append(1) or True
+        navigation.tap(None, Waiter(), ("xpath", "x"), "Get certificate")
+        self.assertEqual(cleared, [1])
+        self.assertEqual(len(attempts), 2, "must retry after clearing")
+
+    def test_tap_reraises_when_nothing_clears(self):
+        import navigation
+        from selenium.common.exceptions import TimeoutException
+
+        class Waiter:
+            def until(self, cond):
+                raise TimeoutException("nothing there")
+
+        navigation.dismiss_popup = lambda d: False
+        navigation.tap_forward_button = lambda d: False
+        with self.assertRaises(TimeoutException):
+            navigation.tap(None, Waiter(), ("xpath", "x"), "Get certificate")
+
+    def test_full_screen_merged_overlay_is_recognized_as_chest(self):
+        import navigation
+        nodes = qh.parse_screen(CHEST_OVERLAY_XML)
+        self.assertTrue(navigation.on_chest_screen(nodes))
+        self.assertTrue(navigation.chest_tap_caption(nodes))
+        driver = TapDriver(CHEST_OVERLAY_XML)
+        self.assertFalse(navigation.dismiss_popup(driver),
+                         "never blind-tapped — the tap-chest path handles it")
+        self.assertEqual(driver.taps, [])
+
+
 class TestChestScreenVariants(unittest.TestCase):
     def setUp(self):
         import navigation

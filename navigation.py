@@ -60,7 +60,17 @@ class StuckScreenError(Exception):
 
 
 def tap(driver, waiter, locator, label):
-    el = waiter.until(EC.presence_of_element_located(locator))
+    try:
+        el = waiter.until(EC.presence_of_element_located(locator))
+    except TimeoutException:
+        # An overlay may be covering the target — the chest-reward screen
+        # pops at ANY point since the 2026-08-02 app update (seen right
+        # after "Program Certificate", full-screen, all texts merged into
+        # one desc). Clear it and retry once; re-raise if nothing cleared.
+        if not (dismiss_popup(driver) or tap_forward_button(driver)):
+            raise
+        print(f"Cleared an overlay covering '{label}' — retrying")
+        el = waiter.until(EC.presence_of_element_located(locator))
     el.click()
     print(f"Tapped: {label}")
     time.sleep(0.5)
