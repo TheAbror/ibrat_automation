@@ -1275,6 +1275,44 @@ class TestAppLostRecovery(unittest.TestCase):
         self.assertEqual(len(sessions), 3, "a fresh app launch after each restart cause")
         self.assertEqual(outcomes, [], "answering resumed on the final session")
 
+    def test_main_restarts_after_connection_error_during_navigation(self):
+        # The device-side instrumentation can die while navigating (e.g. a
+        # second runner on the same phone restarts it) — that must restart
+        # the cycle with a fresh session, not kill the process.
+        import main as main_mod
+        sessions = []
+
+        class FakeSession:
+            def quit(self):
+                pass
+
+        outcomes = [WebDriverException("instrumentation is not running"), None]
+
+        def fake_navigate(driver, wait, wait_long):
+            outcome = outcomes.pop(0)
+            if outcome:
+                raise outcome
+            return True
+
+        saved = (main_mod.wake_device, main_mod.force_stop_app, main_mod.adb_shell,
+                 watcher.connect, main_mod.navigate_to_test,
+                 main_mod.answer_until_done, main_mod.time)
+        main_mod.wake_device = lambda: True
+        main_mod.force_stop_app = lambda: True
+        main_mod.adb_shell = lambda *args: True
+        watcher.connect = lambda attach=False: sessions.append(1) or FakeSession()
+        main_mod.navigate_to_test = fake_navigate
+        main_mod.answer_until_done = lambda driver: None
+        main_mod.time = FakeTime()
+        try:
+            main_mod.main()
+        finally:
+            (main_mod.wake_device, main_mod.force_stop_app, main_mod.adb_shell,
+             watcher.connect, main_mod.navigate_to_test,
+             main_mod.answer_until_done, main_mod.time) = saved
+        self.assertEqual(len(sessions), 2, "a fresh session after the dropped one")
+        self.assertEqual(outcomes, [], "navigation succeeded on the retry")
+
     def test_connect_retries_after_clearing_stale_instrumentation(self):
         import main as main_mod
         attempts = []

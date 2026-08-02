@@ -311,21 +311,26 @@ def wake_device():
     return True
 
 
-def connect_fresh_session():
-    """Start the app session, recovering from a stale device-side server.
+def clear_stale_instrumentation():
+    """Kill the device-side UiAutomator2 server processes.
 
-    A leftover UiAutomator2 instrumentation (e.g. from an attach session
-    that dumped a screen) fails new sessions with 'The instrumentation
-    process cannot be initialized' — killing the server processes and
-    retrying once fixes it.
+    A dead or leftover instrumentation (another session restarted it, an
+    attach session dumped a screen, ...) fails commands with 'the
+    instrumentation process is not running' and new sessions with 'The
+    instrumentation process cannot be initialized'.
     """
+    adb_shell("am", "force-stop", "io.appium.uiautomator2.server")
+    adb_shell("am", "force-stop", "io.appium.uiautomator2.server.test")
+    time.sleep(2)
+
+
+def connect_fresh_session():
+    """Start the app session, recovering from a stale device-side server."""
     try:
         return watcher.connect(attach=False)
     except watcher.CONNECTION_ERRORS:
         print("Session failed to start — clearing stale instrumentation and retrying...")
-        adb_shell("am", "force-stop", "io.appium.uiautomator2.server")
-        adb_shell("am", "force-stop", "io.appium.uiautomator2.server.test")
-        time.sleep(2)
+        clear_stale_instrumentation()
         return watcher.connect(attach=False)
 
 
@@ -344,15 +349,16 @@ def force_stop_app():
 
 
 def main():
-    wake_device()
     relaunches = APP_RELAUNCHES
     while True:
-        force_stop_app()
-        driver = connect_fresh_session()
+        driver = None
 
         # Always close the session: an orphaned session wedges the Appium
         # server and breaks the next script that talks to the same device.
         try:
+            wake_device()
+            force_stop_app()
+            driver = connect_fresh_session()
             time.sleep(3)
 
             wait = WebDriverWait(driver, 20)
@@ -360,19 +366,27 @@ def main():
             if navigate_to_test(driver, wait, wait_long):
                 answer_until_done(driver)
             return
-        except (AppLostError, StuckScreenError) as e:
+        except (AppLostError, StuckScreenError) + watcher.CONNECTION_ERRORS as e:
             if relaunches == 0:
                 print("Still stuck after several app restarts — giving up.")
                 return
             relaunches -= 1
-            reason = ("left the foreground" if isinstance(e, AppLostError)
-                      else "is stuck")
+            if isinstance(e, AppLostError):
+                reason = "left the foreground"
+            elif isinstance(e, StuckScreenError):
+                reason = "is stuck"
+            else:
+                # e.g. the device-side instrumentation died mid-navigation
+                # (another runner on the same phone restarts it too).
+                reason = f"lost the device connection ({type(e).__name__})"
+                clear_stale_instrumentation()
             print(f"The app {reason} ({e}) — restarting it...")
         except KeyboardInterrupt:
             print("\nStopped by user.")
             return
         finally:
-            watcher.safe_quit(driver)
+            if driver is not None:
+                watcher.safe_quit(driver)
 
 
 if __name__ == "__main__":

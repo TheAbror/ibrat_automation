@@ -32,6 +32,12 @@ python3 main.py
 
 Stop it anytime with `Ctrl+C` — it cleans up its session on exit.
 
+**Only one runner at a time.** Two `main.py` (or `watcher.py`) processes on
+the same phone kill each other: every new session restarts the device-side
+automation server, which drops the other runner's connection. If runs keep
+dying with "instrumentation process is not running", check for a second
+runner still going (another terminal, a background task) and stop it.
+
 ## If a lesson video loads slowly
 
 Lesson pages with a video swallow the **Next** tap until the video has loaded.
