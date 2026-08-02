@@ -15,7 +15,8 @@ Navigates to the test, then answers every question:
 - anything else that yields no feedback sheet: one desperate attempt of
   first option + Continue before the app is restarted
 
-Usage: python3 main.py   (Ctrl+C to stop early)
+Usage: python3 main.py — supervised, self-healing run (via supervisor.py).
+       python3 main.py --worker — this bare runner (needs your own Appium).
 """
 import math
 import subprocess

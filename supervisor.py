@@ -9,6 +9,7 @@ then spawns the worker and babysits it: a worker that dies or goes
 silent is killed, Appium is restarted, and the worker is respawned —
 forever, with a growing delay while nothing is making progress.
 """
+import http.client
 import os
 import signal
 import subprocess
@@ -20,11 +21,14 @@ from urllib.parse import urlsplit
 
 import config
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 DELAYS = (5, 15, 30, 60, 120, 300)  # respawn delay ladder, seconds
 RESET_AFTER = 60      # a worker alive this long resets the ladder
 SILENCE_LIMIT = 300   # no worker output for this long = hung
 KILL_GRACE = 10       # seconds between SIGTERM and SIGKILL
 APPIUM_LOG = "appium.log"
+APPIUM_LOG_PATH = os.path.join(BASE_DIR, APPIUM_LOG)
 APPIUM_WAIT = 30      # seconds for a fresh server to answer /status
 
 
@@ -92,7 +96,7 @@ def appium_alive():
         with urllib.request.urlopen(config.APPIUM_SERVER + "/status",
                                     timeout=3) as resp:
             return resp.status == 200
-    except OSError:
+    except (OSError, http.client.HTTPException):
         return False
 
 
@@ -100,7 +104,7 @@ def _kill_port_owner():
     port = str(urlsplit(config.APPIUM_SERVER).port or 4723)
     listed = None
     try:
-        listed = subprocess.run(["lsof", "-ti", f":{port}"],
+        listed = subprocess.run(["lsof", "-ti", f"tcp:{port}", "-sTCP:LISTEN"],
                                 capture_output=True, text=True, timeout=15)
     except (OSError, subprocess.SubprocessError):
         return
@@ -123,8 +127,8 @@ def restart_appium(proc=None):
     _kill_port_owner()
     time.sleep(1)
     print(f"[supervisor] starting appium (output -> {APPIUM_LOG})")
-    log = open(APPIUM_LOG, "a")
     try:
+        log = open(APPIUM_LOG_PATH, "a")
         fresh = subprocess.Popen(["appium"], stdout=log,
                                  stderr=subprocess.STDOUT)
     except OSError as e:
@@ -144,8 +148,9 @@ def restart_appium(proc=None):
 def spawn_worker(device, worker_cmd=None):
     cmd = worker_cmd or [sys.executable, "-u", "main.py", "--worker"]
     env = dict(os.environ, IBRAT_DEVICE=device)
-    return subprocess.Popen(cmd, env=env, stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT, text=True)
+    return subprocess.Popen(cmd, env=env, cwd=BASE_DIR, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT, encoding="utf-8",
+                            errors="replace")
 
 
 def _pump(child, last_output):
@@ -173,7 +178,15 @@ def babysit(child):
     return child.wait()
 
 
+def _raise_keyboard_interrupt(signum, frame):
+    raise KeyboardInterrupt
+
+
 def run(worker_cmd=None):
+    # A bare `kill <pid>` (SIGTERM) would otherwise skip straight past
+    # this function, orphaning the worker and any Appium we own — route
+    # it through the same graceful-stop path as Ctrl+C.
+    signal.signal(signal.SIGTERM, _raise_keyboard_interrupt)
     appium_proc, owned, streak = None, False, 0
     child = None
     try:
@@ -214,10 +227,13 @@ def run(worker_cmd=None):
             owned = True
             time.sleep(delay)
     except KeyboardInterrupt:
-        # Ctrl+C reached the worker too (same process group); give it a
-        # moment to save its session, then make sure it is gone.
+        # Ctrl+C reaches the worker too (same process group), but a
+        # SIGTERM to just this process does not — terminate it directly
+        # (harmless if it is already on its way out) and give it a
+        # moment to save its session before making sure it is gone.
         print("\n[supervisor] stopped by user")
         if child is not None and child.poll() is None:
+            child.terminate()
             try:
                 child.wait(timeout=KILL_GRACE)
             except subprocess.TimeoutExpired:
