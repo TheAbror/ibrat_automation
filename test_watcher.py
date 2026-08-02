@@ -651,6 +651,67 @@ class TestStrategies(unittest.TestCase):
         self.assertTrue(qh.xpath_literal("He's \"x\"").startswith("concat("))
 
 
+class MatchingFlowDriver:
+    """Matching screen: a correct pair reorders the cards (locks in), and
+    the feedback sheet appears once every pair is matched."""
+
+    PAIRS = {"Exam": "Imtihon", "Boring": "Zerikarli"}
+
+    def __init__(self):
+        self.cards = ["Exam", "Zerikarli", "Boring", "Imtihon"]
+        self.selected = None
+        self.matched = []
+
+    @property
+    def page_source(self):
+        header = '<node class="android.view.View" content-desc="So‘zlarni moslashtiring."/>'
+        if len(self.matched) == len(self.PAIRS):
+            return (f"<hierarchy>{header}"
+                    '<node class="android.view.View" content-desc="Nicely done!"/>'
+                    '<node class="android.widget.Button" content-desc="Next"/></hierarchy>')
+        buttons = "".join(
+            f'<node class="android.widget.Button" content-desc="{c}"/>' for c in self.cards
+        )
+        return f"<hierarchy>{header}{buttons}</hierarchy>"
+
+    def find_element(self, by, value):
+        el = FakeElement("card")
+        el.click = lambda: self._tap(value)
+        return el
+
+    def _tap(self, xpath):
+        card = next(c for c in self.cards if f"'{c}'" in xpath)
+        if self.selected is None:
+            self.selected = card
+            return
+        left, self.selected = self.selected, None
+        if self.PAIRS.get(left) == card:
+            self.matched.append([left, card])
+            # locked pairs float to the top — the visible order changes
+            self.cards.remove(left)
+            self.cards.remove(card)
+            self.cards = [left, card] + self.cards
+
+
+class TestAnswerMatchingFlow(unittest.TestCase):
+    def test_completes_all_pairs_and_leaves_them_for_the_logger(self):
+        import main as main_mod
+        self._time = main_mod.time
+        main_mod.time = FakeTime()
+        driver = MatchingFlowDriver()
+        state = {}
+        try:
+            self.assertTrue(main_mod.answer_matching(
+                driver, ["Exam", "Zerikarli", "Boring", "Imtihon"], state, {}
+            ))
+        finally:
+            main_mod.time = self._time
+        self.assertEqual(driver.matched, [["Exam", "Imtihon"], ["Boring", "Zerikarli"]])
+        self.assertEqual(
+            state["pending_pairs"], [["Exam", "Imtihon"], ["Boring", "Zerikarli"]]
+        )
+
+
 QUESTION_XML = """<hierarchy>
   <node class="android.view.View" content-desc="He's reading ___ interesting book."/>
   <node class="android.widget.Button" content-desc="null"/>

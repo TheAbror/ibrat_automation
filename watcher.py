@@ -34,7 +34,7 @@ from question_handler import (
 )
 
 RESULTS_FILE = "results.json"
-POLL_INTERVAL = 0.4
+POLL_INTERVAL = 0.2
 RECONNECT_DELAY = 2
 MAX_RECONNECTS = 3
 # Wi-Fi adb can silently swallow an in-flight command (the device never
@@ -160,7 +160,7 @@ def poll_once(driver, state, results):
     # keep re-tapping Next — a manual tap on the phone also moves it on.
     stuck_since = time.time()
     while classify_sheet([d for _, d in parse_screen(driver.page_source) if d]) is not None:
-        time.sleep(0.5)
+        time.sleep(0.25)
         if time.time() - stuck_since >= STUCK_RETAP_EVERY:
             stuck_since = time.time()
             print("Screen not moving — re-tapping Next (a tap on the phone works too)...")

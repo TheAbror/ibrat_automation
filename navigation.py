@@ -53,7 +53,7 @@ def tap(driver, waiter, locator, label):
     el = waiter.until(EC.presence_of_element_located(locator))
     el.click()
     print(f"Tapped: {label}")
-    time.sleep(1)
+    time.sleep(0.5)
 
 
 def last_lesson_desc(nodes):
@@ -203,7 +203,7 @@ def tap_forward_button(driver):
         xpath = f"//*[@content-desc={xpath_literal(label)}]"
         driver.find_element(AppiumBy.XPATH, xpath).click()
         print(f"Tapped: {label}")
-        time.sleep(1.5)
+        time.sleep(1)
         return True
     except (NoSuchElementException, StaleElementReferenceException):
         return False

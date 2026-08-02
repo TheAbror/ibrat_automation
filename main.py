@@ -79,7 +79,7 @@ def wait_for_sheet(driver, state, timeout=12):
         if classify_sheet(descs) is not None:
             return True
         state["descs"] = descs
-        time.sleep(0.4)
+        time.sleep(0.2)
     return False
 
 
@@ -100,7 +100,7 @@ def answer_fill_the_blank(driver, question, options, known):
             tap_text(driver, word)
         except (NoSuchElementException, StaleElementReferenceException):
             continue
-        time.sleep(0.3)
+        time.sleep(0.1)
     try:
         btn = WebDriverWait(driver, 3).until(
             lambda d: d.find_element(*loc.CONTINUE_BUTTON)
@@ -112,12 +112,16 @@ def answer_fill_the_blank(driver, question, options, known):
     return True
 
 
-def card_state(driver):
-    """Ordered card texts — changes when a correct pair locks and moves."""
+def cards_from(nodes):
+    """Ordered card texts — they change when a correct pair locks and moves."""
     return [
-        d for cls, d in parse_screen(driver.page_source)
+        d for cls, d in nodes
         if cls == "android.widget.Button" and d and d not in OPTION_IGNORE
     ]
+
+
+def card_state(driver):
+    return cards_from(parse_screen(driver.page_source))
 
 
 def answer_matching(driver, cards, state, known_pairs):
@@ -142,15 +146,19 @@ def answer_matching(driver, cards, state, known_pairs):
             before = card_state(driver)
             try:
                 tap_text(driver, left)
-                time.sleep(0.4)
+                time.sleep(0.25)
                 tap_text(driver, right)
             except (NoSuchElementException, StaleElementReferenceException):
                 continue
-            time.sleep(0.8)
-            if sheet_is_up(driver):
+            time.sleep(0.6)
+            # One snapshot answers both questions: is the feedback sheet
+            # up (all pairs done), and did the cards rearrange (pair
+            # locked in)?
+            nodes = parse_screen(driver.page_source)
+            if classify_sheet([d for _, d in nodes if d]) is not None:
                 found.append([left, right])
                 return True
-            if card_state(driver) != before:
+            if cards_from(nodes) != before:
                 print(f"  matched: {left} + {right}")
                 found.append([left, right])
                 remaining.remove(right)
