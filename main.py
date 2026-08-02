@@ -26,7 +26,7 @@ from selenium.common.exceptions import (
 import config
 import locators as loc
 import watcher
-from navigation import dismiss_popup, navigate_to_test, tap_chest, tap_forward_button
+from navigation import dismiss_popup, navigate_to_test, tap_forward_button
 from question_handler import (
     OPTION_IGNORE,
     build_answer_map,
@@ -41,15 +41,21 @@ from question_handler import (
     xpath_literal,
 )
 
-IDLE_LIMIT = 20      # seconds with no question and no sheet -> assume finished
+IDLE_LIMIT = 10      # seconds on an unrecognized screen -> restart the app
 MAX_QUESTIONS = 500
-APP_RELAUNCHES = 5   # crash-relaunches per run before giving up
-# Where the tree of an unrecognized screen is saved before giving up on it
+APP_RELAUNCHES = 5   # app restarts per run before giving up
+# Where the tree of an unrecognized screen is saved before restarting
 STUCK_SCREEN_FILE = "stuck_screen.xml"
 
 
 class AppLostError(Exception):
     """The app is no longer in the foreground (crashed or was closed)."""
+
+
+class StuckScreenError(Exception):
+    """The app sat on a screen the runner can't move past (a chest/ad
+    variant with unreadable labels, or a fake question whose answers
+    change nothing). Restarting the app skips it."""
 
 
 def tap_text(driver, text):
@@ -153,19 +159,16 @@ def answer_matching(driver, cards, state, known_pairs):
     return True
 
 
-def rescue_stuck_screen(driver):
-    """Last resort before giving up on an unrecognized screen.
+def save_stuck_screen(driver):
+    """Save the tree of a screen the runner can't handle.
 
-    Saves the tree for diagnosis (the chest-reward screens have never
-    been captured in a real dump — the saved file is how the next
-    stranding gets explained), then tries the chest-style center-column
-    taps: the known stranding screen is the reward chest, whose only tap
-    target is mid-screen. Rescued only if the screen actually changed.
+    The saved file is how a new stranding screen gets explained and then
+    supported (it identified the 2026-08-02 launcher crash). No taps are
+    tried here: blind taps on an unknown ad screen could open the ad.
     """
     with open(STUCK_SCREEN_FILE, "w", encoding="utf-8") as f:
         f.write(driver.page_source)
-    print(f"Unrecognized screen — tree saved to {STUCK_SCREEN_FILE}, trying center taps...")
-    return tap_chest(driver)
+    print(f"Unrecognized screen — tree saved to {STUCK_SCREEN_FILE}")
 
 
 def answer_until_done(driver):
@@ -203,6 +206,10 @@ def auto_answer_loop(driver):
     state = watcher.fresh_state()
     answered = 0
     idle_since = time.time()
+    # An ad styled like a question (a text plus 2+ buttons) dodges the
+    # idle timer: answering it looks like progress but no feedback sheet
+    # ever comes. Two sheetless attempts on the same question = restart.
+    sheetless_question, sheetless_count = None, 0
 
     while answered < MAX_QUESTIONS:
         try:
@@ -233,8 +240,17 @@ def auto_answer_loop(driver):
             except (NoSuchElementException, StaleElementReferenceException) as e:
                 print(f"  tap failed ({type(e).__name__}), retrying next cycle")
                 continue
-            if not wait_for_sheet(driver, state):
+            if wait_for_sheet(driver, state):
+                sheetless_question, sheetless_count = None, 0
+            else:
                 print("  no feedback sheet appeared within 12s")
+                if question == sheetless_question:
+                    sheetless_count += 1
+                else:
+                    sheetless_question, sheetless_count = question, 1
+                if sheetless_count >= 2:
+                    save_stuck_screen(driver)
+                    raise StuckScreenError(f"answers change nothing on: {question!r}")
             idle_since = time.time()
             continue
 
@@ -255,11 +271,8 @@ def auto_answer_loop(driver):
             continue
 
         if time.time() - idle_since > IDLE_LIMIT:
-            if rescue_stuck_screen(driver):
-                idle_since = time.time()
-                continue
-            print(f"\nNo questions or feedback for {IDLE_LIMIT}s — test finished (or stuck).")
-            break
+            save_stuck_screen(driver)
+            raise StuckScreenError(f"unrecognized screen for over {IDLE_LIMIT}s")
         time.sleep(0.5)
 
     print(f"\nDone. {state['correct']} correct, {state['incorrect']} incorrect this run.")
@@ -347,12 +360,14 @@ def main():
             if navigate_to_test(driver, wait, wait_long):
                 answer_until_done(driver)
             return
-        except AppLostError as e:
+        except (AppLostError, StuckScreenError) as e:
             if relaunches == 0:
-                print("The app keeps leaving the foreground — giving up.")
+                print("Still stuck after several app restarts — giving up.")
                 return
             relaunches -= 1
-            print(f"The app left the foreground ({e}) — relaunching it...")
+            reason = ("left the foreground" if isinstance(e, AppLostError)
+                      else "is stuck")
+            print(f"The app {reason} ({e}) — restarting it...")
         except KeyboardInterrupt:
             print("\nStopped by user.")
             return

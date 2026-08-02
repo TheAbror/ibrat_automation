@@ -1153,61 +1153,59 @@ class TestChestScreenVariants(unittest.TestCase):
         )
 
 
-class TestRescueStuckScreen(unittest.TestCase):
+# Ad screens the app may add at any time, in the two shapes the answer
+# loop can meet: an unrecognized screen (below the 2-option question
+# floor), and a fake question — a text plus 2+ buttons whose "answers"
+# never produce a feedback sheet. Both must lead to an app restart with
+# the tree saved, and the ad's buttons must never be tapped blindly.
+UNKNOWN_AD_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[100,600][620,760]" clickable="false" content-desc="Yangi imkoniyat!"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Ochish"/>
+</hierarchy>"""
+
+AD_QUESTION_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[100,600][620,760]" clickable="false" content-desc="Ibrat Pro — 50% chegirma!"/>
+  <node class="android.widget.Button" bounds="[42,1200][678,1290]" clickable="true" content-desc="Ochish"/>
+  <node class="android.widget.Button" bounds="[42,1320][678,1410]" clickable="true" content-desc="Keyinroq"/>
+</hierarchy>"""
+
+
+class TestStuckScreenRestart(unittest.TestCase):
     def setUp(self):
         self._cwd = os.getcwd()
         os.chdir(tempfile.mkdtemp())
-        import navigation
-        self._sleep = navigation.time.sleep
-        navigation.time.sleep = lambda s: None
-
-    def tearDown(self):
-        import navigation
-        navigation.time.sleep = self._sleep
-        os.chdir(self._cwd)
-
-    def test_saves_tree_and_reports_a_frozen_screen(self):
         import main as main_mod
-        driver = TapDriver(CHEST_TAP_MERGED_XML)
-        self.assertFalse(main_mod.rescue_stuck_screen(driver))
-        with open(main_mod.STUCK_SCREEN_FILE, encoding="utf-8") as f:
-            self.assertEqual(f.read(), CHEST_TAP_MERGED_XML)
-        self.assertEqual(len(driver.taps), 3, "all three chest heights tried")
-
-    def test_rescued_when_a_center_tap_moves_the_screen(self):
-        import main as main_mod
-
-        class UnstickDriver(TapDriver):
-            def tap(self, positions, duration=None):
-                super().tap(positions, duration)
-                self.xml = HOME_SCREEN_XML
-
-        driver = UnstickDriver(CHEST_TAP_TEXT_ATTR_XML)
-        self.assertTrue(main_mod.rescue_stuck_screen(driver))
-        self.assertEqual(driver.taps, [(360, 880)])
-
-    def test_auto_loop_tries_rescue_before_the_idle_exit(self):
-        import main as main_mod
-        import navigation
         self._main_time = main_mod.time
         main_mod.time = FakeTime()
-        self._nav_time = navigation.time
-        navigation.time = FakeTime()
-        calls = []
 
-        def fake_rescue(driver):
-            calls.append(1)
-            return False
+    def tearDown(self):
+        import main as main_mod
+        main_mod.time = self._main_time
+        os.chdir(self._cwd)
 
-        saved = main_mod.rescue_stuck_screen
-        main_mod.rescue_stuck_screen = fake_rescue
-        try:
-            main_mod.auto_answer_loop(TapDriver(CHEST_TAP_MERGED_XML))
-        finally:
-            main_mod.rescue_stuck_screen = saved
-            main_mod.time = self._main_time
-            navigation.time = self._nav_time
-        self.assertEqual(len(calls), 1, "rescue attempted once, then the loop gave up")
+    def test_unrecognized_screen_saves_tree_and_restarts_after_10s(self):
+        import main as main_mod
+        driver = TapDriver(UNKNOWN_AD_XML)
+        with self.assertRaises(main_mod.StuckScreenError):
+            main_mod.auto_answer_loop(driver)
+        with open(main_mod.STUCK_SCREEN_FILE, encoding="utf-8") as f:
+            self.assertEqual(f.read(), UNKNOWN_AD_XML)
+        self.assertEqual(driver.taps, [], "an unknown ad must never be tapped")
+        self.assertEqual(driver.back_presses, 0)
+
+    def test_fake_question_restarts_after_two_sheetless_attempts(self):
+        import main as main_mod
+
+        class AdDriver(TapDriver):
+            def find_element(self, by, value):
+                return FakeElement("ad button")
+
+        driver = AdDriver(AD_QUESTION_XML)
+        with self.assertRaises(main_mod.StuckScreenError):
+            main_mod.auto_answer_loop(driver)
+        self.assertTrue(os.path.exists(main_mod.STUCK_SCREEN_FILE))
 
 
 # Trimmed from the real stuck_screen.xml captured 2026-08-02: the app had
@@ -1250,7 +1248,11 @@ class TestAppLostRecovery(unittest.TestCase):
             sessions.append(attach)
             return FakeSession()
 
-        outcomes = [main_mod.AppLostError("com.android.launcher3"), None]
+        outcomes = [
+            main_mod.AppLostError("com.android.launcher3"),
+            main_mod.StuckScreenError("unrecognized screen for over 10s"),
+            None,
+        ]
 
         def fake_answer(driver):
             outcome = outcomes.pop(0)
@@ -1270,8 +1272,8 @@ class TestAppLostRecovery(unittest.TestCase):
         finally:
             (main_mod.wake_device, main_mod.force_stop_app, watcher.connect,
              main_mod.navigate_to_test, main_mod.answer_until_done, main_mod.time) = saved
-        self.assertEqual(len(sessions), 2, "a fresh app launch after the crash")
-        self.assertEqual(outcomes, [], "answering resumed on the new session")
+        self.assertEqual(len(sessions), 3, "a fresh app launch after each restart cause")
+        self.assertEqual(outcomes, [], "answering resumed on the final session")
 
     def test_connect_retries_after_clearing_stale_instrumentation(self):
         import main as main_mod

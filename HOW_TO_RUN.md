@@ -54,20 +54,23 @@ lands on the screen the promo covered (e.g. a quiz Start page) and
 continues. Promo buttons ("IELTSGA GOO!", "Subscribe", plan cards) are
 never tapped.
 
-## If the runner prints "test finished (or stuck)"
+## If the app gets stuck on a screen (ads, rewards, crashes)
 
-Before giving up on a screen it doesn't recognize, the runner saves that
-screen's UI tree to `stuck_screen.xml` and tries tapping the screen center
-(the reward-chest position) once. If it still exits while the phone shows
-some unhandled screen, keep `stuck_screen.xml` — it shows exactly what the
-runner saw and is how the screen gets supported.
+The runner restarts the app and navigates back into the course whenever
+it can't make progress — up to 5 restarts per run:
 
-## If the app crashes mid-run
+- an unrecognized screen (a new ad, an unreadable reward screen) sits
+  there for more than 10 seconds;
+- a "question" is answered twice but no feedback sheet ever appears
+  (an ad styled like a question);
+- the app crashes to the Android launcher or otherwise leaves the
+  foreground.
 
-A crash drops the phone to the Android launcher. The runner notices that
-the app is no longer in the foreground, relaunches it, navigates back to
-the course, and continues — up to 5 relaunches per run. It never taps
-around on the launcher or any other app's screen.
+Before each restart the offending screen's UI tree is saved to
+`stuck_screen.xml` — if some screen keeps forcing restarts, keep that
+file: it shows exactly what the runner saw and is how the screen gets
+supported. The runner never taps blindly on screens it doesn't know,
+so ad buttons and other apps are never opened.
 
 ## Manual adb commands
 
