@@ -1424,7 +1424,7 @@ class TestChestRewardFlow(unittest.TestCase):
         driver = ChestFlowDriver()
         driver.xml = CHEST_TAP_XML
         self.assertTrue(navigation.tap_forward_button(driver))
-        self.assertEqual(driver.coord_taps, [(360, 880)])
+        self.assertEqual(driver.coord_taps, [(360, 992)])
 
     def test_chest_tap_walks_nearby_heights_until_screen_changes(self):
         # If the first tap misses the chest (screen unchanged), nearby
@@ -1432,7 +1432,7 @@ class TestChestRewardFlow(unittest.TestCase):
         import navigation
         driver = TapDriver(CHEST_TAP_XML)
         self.assertFalse(navigation.tap_forward_button(driver))
-        self.assertEqual(driver.taps, [(360, 880), (360, 752), (360, 992)])
+        self.assertEqual(driver.taps, [(360, 992), (360, 880), (360, 1088)])
 
     def test_full_flow_open_chest_then_tap_then_continue(self):
         import navigation
@@ -1440,7 +1440,7 @@ class TestChestRewardFlow(unittest.TestCase):
         for _ in range(3):
             self.assertTrue(navigation.tap_forward_button(driver))
         self.assertTrue(any("Open chest" in v for v in driver.clicked), driver.clicked)
-        self.assertEqual(driver.coord_taps, [(360, 880)])
+        self.assertEqual(driver.coord_taps, [(360, 992)])
         self.assertTrue(any("Continue" in v for v in driver.clicked), driver.clicked)
 
     def test_chest_screens_are_never_blind_tapped(self):
@@ -1568,7 +1568,7 @@ class TestChestScreenVariants(unittest.TestCase):
         for xml in (CHEST_TAP_MERGED_XML, CHEST_TAP_TEXT_ATTR_XML):
             driver = TapDriver(xml)
             navigation.tap_forward_button(driver)
-            self.assertEqual(driver.taps[0], (360, 880), xml)
+            self.assertEqual(driver.taps[0], (360, 992), xml)
 
     def test_variant_chest_screens_never_dismissed_or_backed_out_of(self):
         import navigation

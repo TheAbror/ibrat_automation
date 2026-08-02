@@ -59,18 +59,23 @@ class StuckScreenError(Exception):
     skips it."""
 
 
-def tap(driver, waiter, locator, label):
-    try:
-        el = waiter.until(EC.presence_of_element_located(locator))
-    except TimeoutException:
-        # An overlay may be covering the target — the chest-reward screen
-        # pops at ANY point since the 2026-08-02 app update (seen right
-        # after "Program Certificate", full-screen, all texts merged into
-        # one desc). Clear it and retry once; re-raise if nothing cleared.
-        if not (dismiss_popup(driver) or tap_forward_button(driver)):
-            raise
-        print(f"Cleared an overlay covering '{label}' — retrying")
-        el = waiter.until(EC.presence_of_element_located(locator))
+def tap(driver, waiter, locator, label, clear_rounds=3):
+    """Tap the located element, clearing overlays that cover it.
+
+    The chest-reward flow pops at ANY point since the 2026-08-02 app
+    update, and it is a multi-screen sequence (chest → stars → Continue)
+    — one clear is not enough, so clearing loops until the target
+    appears or nothing clears anymore.
+    """
+    while True:
+        try:
+            el = waiter.until(EC.presence_of_element_located(locator))
+            break
+        except TimeoutException:
+            if clear_rounds <= 0 or not (dismiss_popup(driver) or tap_forward_button(driver)):
+                raise
+            clear_rounds -= 1
+            print(f"Cleared an overlay covering '{label}' — retrying")
     el.click()
     print(f"Tapped: {label}")
     time.sleep(0.5)
@@ -206,10 +211,11 @@ def tap_chest(driver):
     """Open the chest on the "Tap on the chest!" reward screen.
 
     That screen has no buttons and no X — the chest image mid-screen is
-    the only way forward. The chest spans roughly the 47–62% band of the
-    screen height, centered horizontally, so tap the center column at
-    those heights until the screen changes. (Compared as raw trees: the
-    caption desc can't be trusted to exist on the real screen.)
+    the only way forward. Measured from the 2026-08-02 screenshot, the
+    chest is centered at ~62% of the screen height (spanning ~55–70%),
+    centered horizontally, so tap the center column at those heights
+    until the screen changes. (Compared as raw trees: the caption desc
+    can't be trusted to exist on the real screen.)
     """
     before = driver.page_source
     width = height = 0
@@ -220,7 +226,7 @@ def tap_chest(driver):
             height = max(height, int(m.group(4)))
     if not width or not height:
         return False
-    for frac in (0.55, 0.47, 0.62):
+    for frac in (0.62, 0.55, 0.68):
         center = (width // 2, int(height * frac))
         driver.tap([center])
         print(f"Tapped the reward chest at {center}")
