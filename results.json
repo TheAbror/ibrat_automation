@@ -14685,5 +14685,8121 @@
       "two",
       "I have got two sisters."
     ]
+  },
+  {
+    "time": "2026-08-02 13:14:36",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Have you |_| learned any foreign languages?",
+    "options": [
+      "now",
+      "ever",
+      "yet",
+      "today"
+    ],
+    "correct_answer": [
+      "Have you \nnow\n learned any foreign languages?",
+      "ever"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:14:39",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I am |_| late for school.",
+    "options": [
+      "yet",
+      "today",
+      "yesterday",
+      "always"
+    ],
+    "correct_answer": [
+      "I am \nyet\n late for school.",
+      "always"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:14:43",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men darsga kechikdim.",
+    "options": [
+      "for",
+      "I",
+      "was",
+      "am",
+      "lesson.",
+      "late",
+      "the "
+    ],
+    "correct_answer": [
+      "for",
+      "I am late for the lesson."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:14:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They |_| go to the cinema.",
+    "options": [
+      "often",
+      "already",
+      "now"
+    ],
+    "correct_answer": [
+      "They \noften\n go to the cinema.",
+      "often"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:14:49",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Lola has |_| done her homework.",
+    "options": [
+      "yet",
+      "ever",
+      "now",
+      "already"
+    ],
+    "correct_answer": [
+      "Lola has \nyet\n done her homework.",
+      "already"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:14:51",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Anvar is |_| at home in the evenings.",
+    "options": [
+      "both",
+      "usual",
+      "usually",
+      "now"
+    ],
+    "correct_answer": [
+      "Anvar is \nboth\n at home in the evenings.",
+      "usually"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:14:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Where ___ now?",
+    "options": [
+      "she was",
+      "she is",
+      "was she",
+      "is she"
+    ],
+    "correct_answer": [
+      "is she"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:07",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Meni ikkita singlim bor.",
+    "options": [
+      "got",
+      "brothers",
+      "three",
+      "have",
+      "two",
+      "I",
+      "sisters."
+    ],
+    "correct_answer": [
+      "Meni ikkita singlim bor.",
+      "Meni ikkita singlim bor.",
+      "I",
+      "I",
+      "have",
+      "have",
+      "got",
+      "got",
+      "two",
+      "two",
+      "sisters.",
+      "sisters.",
+      "brothers",
+      "three",
+      "I have got two sisters.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Have you |_| learned any foreign languages?",
+    "options": [
+      "today",
+      "yet",
+      "ever",
+      "now"
+    ],
+    "correct_answer": [
+      "Have you \never\n learned any foreign languages?",
+      "ever"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am |_| late for school.",
+    "options": [
+      "yet",
+      "always",
+      "yesterday",
+      "today"
+    ],
+    "correct_answer": [
+      "I am \nalways\n late for school.",
+      "always"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:25",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Men darsga kechikdim.",
+    "options": [
+      "the ",
+      "I",
+      "lesson.",
+      "am",
+      "was",
+      "late",
+      "for"
+    ],
+    "correct_answer": [
+      "I",
+      "am",
+      "late",
+      "for",
+      "the ",
+      "lesson.",
+      "I am late for the lesson."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:28",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Lola has |_| done her homework.",
+    "options": [
+      "yet",
+      "already",
+      "ever",
+      "now"
+    ],
+    "correct_answer": [
+      "Lola has \nalready\n done her homework.",
+      "already"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:30",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Anvar is |_| at home in the evenings.",
+    "options": [
+      "usual",
+      "both",
+      "now",
+      "usually"
+    ],
+    "correct_answer": [
+      "Anvar is \nusually\n at home in the evenings.",
+      "usually"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:40",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Anvar is |_| at home in the evenings.",
+    "options": [
+      "usual",
+      "both",
+      "now",
+      "usually"
+    ],
+    "correct_answer": [
+      "Dars 94 Still vs Yet",
+      "Still = Avvalgidek, hali ham:",
+      "I had a lot to eat but I'm still hungry. (=I was hungry before and I'm hungry now)",
+      "Did you sell your car? No, I've still got it.",
+      "Do you still live in Bukhara? No, I live in Tashkent now.",
+      "Yet = hozirgacha:",
+      "We use yet in negative sentences. (He hasn't come yet.) and in questions (Has he come yet?)."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:50",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I haven't learned English |_| .",
+    "options": [
+      "never",
+      "yet",
+      "always"
+    ],
+    "correct_answer": [
+      "I haven't learned English \nnever\n .",
+      "yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:54",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Aziz allaqachon bu filmni ko‘rib bo‘ldi.",
+    "options": [
+      "theatre",
+      "this",
+      "already",
+      "has",
+      "seen",
+      "Aziz",
+      "film.",
+      "see",
+      "have"
+    ],
+    "correct_answer": [
+      "theatre",
+      "Aziz has already seen this film."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:15:57",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "My friends haven't come to the party |_|.",
+    "options": [
+      "never",
+      "yet",
+      "sometimes",
+      "often"
+    ],
+    "correct_answer": [
+      "My friends haven't come to the party \nnever\n.",
+      "yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:00",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She has |_| seen the film.",
+    "options": [
+      "often",
+      "already",
+      "yet"
+    ],
+    "correct_answer": [
+      "She has \noften\n seen the film.",
+      "already"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:03",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I haven't phoned to my friend |_|.",
+    "options": [
+      "never",
+      "yet",
+      "often"
+    ],
+    "correct_answer": [
+      "I haven't phoned to my friend \nnever\n.",
+      "yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:06",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She hasn't gone ___. She is still here.",
+    "options": [
+      "since",
+      "still",
+      "already",
+      "yet"
+    ],
+    "correct_answer": [
+      "yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:10",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Siz hali ham yosh ko‘rinasiz.",
+    "options": [
+      "young.",
+      "look",
+      "looks",
+      "You",
+      "younger",
+      "still"
+    ],
+    "correct_answer": [
+      "young.",
+      "You look still young."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:12",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Lobar is |_| cooking.",
+    "options": [
+      "yet",
+      "still",
+      "ever"
+    ],
+    "correct_answer": [
+      "Lobar is \nyet\n cooking.",
+      "still"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:15",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Are you ready to go? ___. Wait a moment.",
+    "options": [
+      "No still",
+      "Not still",
+      "Not yet",
+      "No yet"
+    ],
+    "correct_answer": [
+      "Not yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:18",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She isn't here ___.",
+    "options": [
+      "just",
+      "already",
+      "yet",
+      "still"
+    ],
+    "correct_answer": [
+      "yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:21",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I haven't learned English |_| .",
+    "options": [
+      "always",
+      "never",
+      "yet"
+    ],
+    "correct_answer": [
+      "I haven't learned English \nyet\n .",
+      "yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:33",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Aziz allaqachon bu filmni ko‘rib bo‘ldi.",
+    "options": [
+      "see",
+      "have",
+      "seen",
+      "this",
+      "film.",
+      "theatre",
+      "has",
+      "already",
+      "Aziz"
+    ],
+    "correct_answer": [
+      "Aziz",
+      "has",
+      "already",
+      "seen",
+      "this",
+      "film.",
+      "Aziz has already seen this film."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:36",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My friends haven't come to the party |_|.",
+    "options": [
+      "yet",
+      "often",
+      "sometimes",
+      "never"
+    ],
+    "correct_answer": [
+      "My friends haven't come to the party \nyet\n.",
+      "yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:39",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She has |_| seen the film.",
+    "options": [
+      "often",
+      "already",
+      "yet"
+    ],
+    "correct_answer": [
+      "She has \nalready\n seen the film.",
+      "already"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:44",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I haven't phoned to my friend |_|.",
+    "options": [
+      "yet",
+      "often",
+      "never"
+    ],
+    "correct_answer": [
+      "I haven't phoned to my friend |_|.",
+      "I haven't phoned to my friend \nyet\n.",
+      "yet",
+      "yet",
+      "often",
+      "never"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:47",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She hasn't gone ___. She is still here.",
+    "options": [
+      "already",
+      "yet",
+      "still",
+      "since"
+    ],
+    "correct_answer": [
+      "yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:16:57",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Siz hali ham yosh ko‘rinasiz.",
+    "options": [
+      "looks",
+      "look",
+      "still",
+      "young.",
+      "You",
+      "younger"
+    ],
+    "correct_answer": [
+      "You",
+      "look",
+      "still",
+      "young.",
+      "You look still young."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:17:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Lobar is |_| cooking.",
+    "options": [
+      "yet",
+      "still",
+      "ever"
+    ],
+    "correct_answer": [
+      "Lobar is \nstill\n cooking.",
+      "still"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:17:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Are you ready to go? ___. Wait a moment.",
+    "options": [
+      "Not yet",
+      "Not still",
+      "No still",
+      "No yet"
+    ],
+    "correct_answer": [
+      "Not yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:17:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She isn't here ___.",
+    "options": [
+      "yet",
+      "just",
+      "still",
+      "already"
+    ],
+    "correct_answer": [
+      "yet"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:17:15",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "She isn't here ___.",
+    "options": [
+      "yet",
+      "just",
+      "still",
+      "already"
+    ],
+    "correct_answer": [
+      "Dars 95 Give me.. / Give it to...",
+      "Give lend pass send show",
+      "After these verbs (give/lend etc.). there are two possible structures:",
+      "(give) something to somebody:",
+      "I gave the keys to Laziza.",
+      "(give) somebody something:",
+      "I gave Laziza the keys. (give) something to somebody something."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:17:25",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Please, |_| the salt to me.",
+    "options": [
+      "passing",
+      "to pass",
+      "passes",
+      "pass"
+    ],
+    "correct_answer": [
+      "Please, \npassing\n the salt to me.",
+      "pass"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:17:27",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I want to |_| a letter to my mother.",
+    "options": [
+      "send",
+      "lend",
+      "borrow",
+      "to let"
+    ],
+    "correct_answer": [
+      "I want to \nsend\n a letter to my mother.",
+      "send"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:17:30",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Nimanidir qarzga berib turmoq -",
+    "options": [
+      "Bring",
+      "Lend",
+      "Take",
+      "Give"
+    ],
+    "correct_answer": [
+      "Lend"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:17:32",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I |_| my mother some flowers for her birthday.",
+    "options": [
+      "give to",
+      "give",
+      "gave",
+      "gave to"
+    ],
+    "correct_answer": [
+      "I \ngive to\n my mother some flowers for her birthday.",
+      "give"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:02",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Speak",
+      "Gapirmoq",
+      "Show",
+      "Ko‘rsatmoq",
+      "Let",
+      "Bermoq",
+      "Give",
+      "Ruxsat bermoq"
+    ],
+    "correct_answer": [
+      [
+        "Let",
+        "Gapirmoq"
+      ],
+      [
+        "Give",
+        "Bermoq"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:05",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ you give me the keys yesterday?",
+    "options": [
+      "Have",
+      "Do",
+      "Had",
+      "Did"
+    ],
+    "correct_answer": [
+      "Did"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:10",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Onamga bir qancha gullar sotib oldim.",
+    "options": [
+      "buy",
+      "I",
+      "any",
+      "mother.",
+      "for",
+      "flowers",
+      "some",
+      "flower",
+      "bought",
+      "my"
+    ],
+    "correct_answer": [
+      "buy",
+      "I bought some flowers for my mother."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:12",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Shodiyona |_| him her house yesterday.",
+    "options": [
+      "shows to",
+      "showed",
+      "show",
+      "showed to"
+    ],
+    "correct_answer": [
+      "Shodiyona \nshows to\n him her house yesterday.",
+      "showed"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:17",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Buni menga bera olasizmi?",
+    "options": [
+      "to",
+      "me",
+      "Can",
+      "give",
+      "the",
+      "your",
+      "you",
+      "gives",
+      "?",
+      "I",
+      "it"
+    ],
+    "correct_answer": [
+      "to",
+      "Can you give it to me ?"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I |_| some books to my pupils to read last month.",
+    "options": [
+      "gave",
+      "giving",
+      "given",
+      "give"
+    ],
+    "correct_answer": [
+      "I \ngave\n some books to my pupils to read last month.",
+      "gave"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Please, |_| the salt to me.",
+    "options": [
+      "to pass",
+      "passes",
+      "pass",
+      "passing"
+    ],
+    "correct_answer": [
+      "Please, \npass\n the salt to me.",
+      "pass"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:27",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Nimanidir qarzga berib turmoq -",
+    "options": [
+      "Bring",
+      "Give",
+      "Take",
+      "Lend"
+    ],
+    "correct_answer": [
+      "Nimanidir qarzga berib turmoq -",
+      "Bring",
+      "Give",
+      "Take",
+      "Lend",
+      "Lend"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:30",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I |_| my mother some flowers for her birthday.",
+    "options": [
+      "give",
+      "give to",
+      "gave",
+      "gave to"
+    ],
+    "correct_answer": [
+      "I \ngive\n my mother some flowers for her birthday.",
+      "give"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ you give me the keys yesterday?",
+    "options": [
+      "Do",
+      "Had",
+      "Did",
+      "Have"
+    ],
+    "correct_answer": [
+      "Did"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:46",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Onamga bir qancha gullar sotib oldim.",
+    "options": [
+      "flowers",
+      "I",
+      "bought",
+      "mother.",
+      "for",
+      "some",
+      "any",
+      "flower",
+      "my",
+      "buy"
+    ],
+    "correct_answer": [
+      "I",
+      "bought",
+      "some",
+      "flowers",
+      "for",
+      "my",
+      "mother.",
+      "I bought some flowers for my mother."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:18:49",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Shodiyona |_| him her house yesterday.",
+    "options": [
+      "showed to",
+      "showed",
+      "show",
+      "shows to"
+    ],
+    "correct_answer": [
+      "Shodiyona \nshowed\n him her house yesterday.",
+      "showed"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:19:03",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Buni menga bera olasizmi?",
+    "options": [
+      "?",
+      "gives",
+      "your",
+      "I",
+      "you",
+      "me",
+      "it",
+      "the",
+      "to",
+      "Can",
+      "give"
+    ],
+    "correct_answer": [
+      "Can",
+      "you",
+      "give",
+      "it",
+      "to",
+      "me",
+      "?",
+      "Can you give it to me ?"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:19:13",
+    "type": "fill_the_blank",
+    "result": "other",
+    "question": "Buni menga bera olasizmi?",
+    "options": [
+      "?",
+      "gives",
+      "your",
+      "I",
+      "you",
+      "me",
+      "it",
+      "the",
+      "to",
+      "Can",
+      "give"
+    ],
+    "correct_answer": [
+      "Dars 96 At / On / In",
+      "At",
+      "10:30",
+      "midnight",
+      "I start work at 8 o'clock.",
+      "The shops close at 5.30.",
+      "Sunday(s) / Monday(s) etc...",
+      "On",
+      "25 April / 6 June etc."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:19:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Anvar was born |_| 5th June.",
+    "options": [
+      "on",
+      "at",
+      "in"
+    ],
+    "correct_answer": [
+      "Anvar was born \non\n 5th June.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:19:56",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "In",
+      "night",
+      "On",
+      "Alisher",
+      "With",
+      "the morning",
+      "At",
+      "monday"
+    ],
+    "correct_answer": [
+      [
+        "In",
+        "the morning"
+      ],
+      [
+        "On",
+        "monday"
+      ],
+      [
+        "With",
+        "Alisher"
+      ],
+      [
+        "At",
+        "night"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:00",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Alisher Navoiy 1441-yilda tug‘ilgan.",
+    "options": [
+      "in",
+      "born",
+      "1441.",
+      "Alisher",
+      "on",
+      "was",
+      "at",
+      "Navoiy",
+      "were"
+    ],
+    "correct_answer": [
+      "in",
+      "Alisher Navoiy was born in 1441."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We are going to start the lesson ___.",
+    "options": [
+      "this week",
+      "at this week",
+      "on this week",
+      "in this week"
+    ],
+    "correct_answer": [
+      "this week"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:06",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ 8 o'clock.",
+    "options": [
+      "on",
+      "the",
+      "at",
+      "in"
+    ],
+    "correct_answer": [
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:08",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I am going to Tashkent |_| the end of September.",
+    "options": [
+      "on",
+      "at",
+      "in"
+    ],
+    "correct_answer": [
+      "I am going to Tashkent \non\n the end of September.",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:11",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I am going |_| a holiday next Monday.",
+    "options": [
+      "in",
+      "away",
+      "on",
+      "to"
+    ],
+    "correct_answer": [
+      "I am going \nin\n a holiday next Monday.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:14",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I will be there ___ five minutes.",
+    "options": [
+      "-",
+      "on",
+      "in",
+      "at"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:18",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Dushanba kuni ertalab shahardan chiqib ketamiz.",
+    "options": [
+      "on",
+      "will",
+      "the ",
+      "city",
+      "leave",
+      "We ",
+      "Monday",
+      "morning."
+    ],
+    "correct_answer": [
+      "on",
+      "We will leave the city on Monday morning."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:21",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Most people don't work |_| Sundays.",
+    "options": [
+      "in",
+      "on",
+      "at"
+    ],
+    "correct_answer": [
+      "Most people don't work \nin\n Sundays.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:34",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Alisher Navoiy 1441-yilda tug‘ilgan.",
+    "options": [
+      "at",
+      "was",
+      "born",
+      "were",
+      "Alisher",
+      "Navoiy",
+      "on",
+      "1441.",
+      "in"
+    ],
+    "correct_answer": [
+      "Alisher",
+      "Navoiy",
+      "was",
+      "born",
+      "in",
+      "1441.",
+      "Alisher Navoiy was born in 1441."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:39",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ 8 o'clock.",
+    "options": [
+      "in",
+      "on",
+      "at",
+      "the"
+    ],
+    "correct_answer": [
+      "___ 8 o'clock.",
+      "in",
+      "on",
+      "at",
+      "at",
+      "the"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:42",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am going to Tashkent |_| the end of September.",
+    "options": [
+      "at",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "I am going to Tashkent \nat\n the end of September.",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am going |_| a holiday next Monday.",
+    "options": [
+      "away",
+      "in",
+      "to",
+      "on"
+    ],
+    "correct_answer": [
+      "I am going \non\n a holiday next Monday.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:20:47",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I will be there ___ five minutes.",
+    "options": [
+      "on",
+      "-",
+      "at",
+      "in"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:03",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Dushanba kuni ertalab shahardan chiqib ketamiz.",
+    "options": [
+      "the ",
+      "morning.",
+      "will",
+      "We ",
+      "Monday",
+      "leave",
+      "city",
+      "on"
+    ],
+    "correct_answer": [
+      "We ",
+      "will",
+      "leave",
+      "the ",
+      "city",
+      "on",
+      "Monday",
+      "morning.",
+      "We will leave the city on Monday morning."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Most people don't work |_| Sundays.",
+    "options": [
+      "at",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "Most people don't work \non\n Sundays.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:15",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Most people don't work |_| Sundays.",
+    "options": [
+      "at",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "Dars 97 From... to, Until, Since, For",
+      "from... to",
+      "We lived in Bukhara from 1982 to 1990.",
+      "You can also say from ... until",
+      "We lived in Samarkand from 1982 until 1990.",
+      "Since and for we have learned."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:27",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men dushanbadan jumagacha ishlayman.",
+    "options": [
+      "from",
+      "Monday",
+      "to",
+      "for",
+      "sunday",
+      "I",
+      "Friday.",
+      "work"
+    ],
+    "correct_answer": [
+      "from",
+      "I work from Monday to Friday."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:31",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bolaligimdan beri pishloqni yomon ko‘raman.",
+    "options": [
+      "I",
+      "likes",
+      "childhood.",
+      "child",
+      "since",
+      "like",
+      "orange",
+      "don't",
+      "my",
+      "cheese"
+    ],
+    "correct_answer": [
+      "I",
+      "I don't like cheese since my childhood."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have been living here ___ 2 years.",
+    "options": [
+      "for",
+      "since",
+      "from",
+      "to"
+    ],
+    "correct_answer": [
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Salima hasn't gone to school, ___ she got sick.",
+    "options": [
+      "since",
+      "to",
+      "for",
+      "from"
+    ],
+    "correct_answer": [
+      "since"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:41",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Jasur has made music |_| more than 25 years. ",
+    "options": [
+      "since",
+      "for",
+      "in",
+      "on"
+    ],
+    "correct_answer": [
+      "Jasur has made music \nsince\n more than 25 years. ",
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:44",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Wait for me, ___ I call you.",
+    "options": [
+      "from",
+      "for",
+      "until",
+      "since"
+    ],
+    "correct_answer": [
+      "until"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:47",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We have had this car   |_| three weeks.",
+    "options": [
+      "for",
+      "in",
+      "ago",
+      "since"
+    ],
+    "correct_answer": [
+      "We have had this car   \nfor\n three weeks.",
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:49",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She has been in hospital |_| this morning.",
+    "options": [
+      "in",
+      "for",
+      "since"
+    ],
+    "correct_answer": [
+      "She has been in hospital \nin\n this morning.",
+      "since"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:52",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I haven't met my high school friends |_| I became a doctor.",
+    "options": [
+      "ago",
+      "in",
+      "since",
+      "for"
+    ],
+    "correct_answer": [
+      "I haven't met my high school friends \nago\n I became a doctor.",
+      "since"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:21:55",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We have known each other |_| June 2000.",
+    "options": [
+      "in",
+      "ago",
+      "for",
+      "since"
+    ],
+    "correct_answer": [
+      "We have known each other \nin\n June 2000.",
+      "since"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:22:08",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Men dushanbadan jumagacha ishlayman.",
+    "options": [
+      "I",
+      "sunday",
+      "to",
+      "from",
+      "work",
+      "for",
+      "Monday",
+      "Friday."
+    ],
+    "correct_answer": [
+      "I",
+      "work",
+      "from",
+      "Monday",
+      "to",
+      "Friday.",
+      "I work from Monday to Friday."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:22:23",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bolaligimdan beri pishloqni yomon ko‘raman.",
+    "options": [
+      "my",
+      "likes",
+      "child",
+      "childhood.",
+      "I",
+      "don't",
+      "since",
+      "cheese",
+      "orange",
+      "like"
+    ],
+    "correct_answer": [
+      "Bolaligimdan beri pishloqni yomon ko‘raman.",
+      "Bolaligimdan beri pishloqni yomon ko‘raman.",
+      "I",
+      "I",
+      "don't",
+      "don't",
+      "like",
+      "like",
+      "cheese",
+      "cheese",
+      "since",
+      "since",
+      "my",
+      "my",
+      "childhood.",
+      "childhood.",
+      "likes",
+      "child",
+      "orange",
+      "I don't like cheese since my childhood.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:22:26",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Jasur has made music |_| more than 25 years. ",
+    "options": [
+      "on",
+      "in",
+      "since",
+      "for"
+    ],
+    "correct_answer": [
+      "Jasur has made music \nfor\n more than 25 years. ",
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:22:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Wait for me, ___ I call you.",
+    "options": [
+      "until",
+      "for",
+      "from",
+      "since"
+    ],
+    "correct_answer": [
+      "until"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:22:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She has been in hospital |_| this morning.",
+    "options": [
+      "for",
+      "since",
+      "in"
+    ],
+    "correct_answer": [
+      "She has been in hospital \nsince\n this morning.",
+      "since"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:22:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I haven't met my high school friends |_| I became a doctor.",
+    "options": [
+      "for",
+      "ago",
+      "since",
+      "in"
+    ],
+    "correct_answer": [
+      "I haven't met my high school friends \nsince\n I became a doctor.",
+      "since"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:22:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We have known each other |_| June 2000.",
+    "options": [
+      "in",
+      "since",
+      "ago",
+      "for"
+    ],
+    "correct_answer": [
+      "We have known each other \nsince\n June 2000.",
+      "since"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:22:47",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "We have known each other |_| June 2000.",
+    "options": [
+      "in",
+      "since",
+      "ago",
+      "for"
+    ],
+    "correct_answer": [
+      "Dars 98 Before, After, During, While",
+      "before - oldin",
+      "after - keyin",
+      "during - paytda",
+      "while - mobaynida",
+      "before / during / after",
+      "Everybody is nervous before exams. I went to sleep during the film.",
+      "We were tired after our visit to the museum. Don't forget to close the window before you go out."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:22:57",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We will discuss the plans ___ he gives the presentation.",
+    "options": [
+      "during",
+      "after",
+      "before",
+      "for"
+    ],
+    "correct_answer": [
+      "after"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:00",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ I was a child, I used to go to kindergarten.",
+    "options": [
+      "For",
+      "After",
+      "When",
+      "Before"
+    ],
+    "correct_answer": [
+      "When"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:05",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Dars davomida gaplashmang.",
+    "options": [
+      "after",
+      "while",
+      "Do",
+      "the",
+      "an",
+      "Don't",
+      "talk",
+      "during",
+      "lesson"
+    ],
+    "correct_answer": [
+      "after",
+      "Don't talk during the lesson"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:08",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "They want to throw a party ___ the Super Bowl is on TV.",
+    "options": [
+      "during",
+      "when",
+      "after",
+      "for"
+    ],
+    "correct_answer": [
+      "when"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:10",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We didn't speak |_| we were eating.",
+    "options": [
+      "for",
+      "during",
+      "when",
+      "while"
+    ],
+    "correct_answer": [
+      "We didn't speak \nfor\n we were eating.",
+      "while"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:13",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Wash your teeth and face |_| you wake up.",
+    "options": [
+      "when",
+      "during",
+      "while",
+      "after"
+    ],
+    "correct_answer": [
+      "Wash your teeth and face \nwhen\n you wake up.",
+      "after"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:16",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I take a shower ___ I go to work.",
+    "options": [
+      "before",
+      "when",
+      "for",
+      "while"
+    ],
+    "correct_answer": [
+      "before"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:20",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men kecha dars davomida uxladim.",
+    "options": [
+      "You",
+      "after",
+      "slept",
+      "I",
+      "during",
+      "while",
+      "sleep",
+      "yesterday.",
+      "lesson",
+      "the"
+    ],
+    "correct_answer": [
+      "You",
+      "I slept during the lesson yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:44",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "During",
+      "Oldin",
+      "While",
+      "Davomida",
+      "Before",
+      "Keyin",
+      "After",
+      "Da (davomida)"
+    ],
+    "correct_answer": [
+      [
+        "During",
+        "Davomida"
+      ],
+      [
+        "While",
+        "Da (davomida)"
+      ],
+      [
+        "After",
+        "Oldin"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:47",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| we go to the party, we put on our costumes.",
+    "options": [
+      "Before",
+      "When",
+      "After"
+    ],
+    "correct_answer": [
+      "Before\n we go to the party, we put on our costumes.",
+      "Before"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:50",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We will discuss the plans ___ he gives the presentation.",
+    "options": [
+      "during",
+      "for",
+      "after",
+      "before"
+    ],
+    "correct_answer": [
+      "after"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:23:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ I was a child, I used to go to kindergarten.",
+    "options": [
+      "When",
+      "After",
+      "For",
+      "Before"
+    ],
+    "correct_answer": [
+      "___ I was a child, I used to go to kindergarten.",
+      "When",
+      "When",
+      "After",
+      "For",
+      "Before"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:24:06",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Dars davomida gaplashmang.",
+    "options": [
+      "an",
+      "the",
+      "during",
+      "after",
+      "Do",
+      "Don't",
+      "lesson",
+      "while",
+      "talk"
+    ],
+    "correct_answer": [
+      "Don't",
+      "talk",
+      "during",
+      "the",
+      "lesson",
+      "Don't talk during the lesson"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:24:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They want to throw a party ___ the Super Bowl is on TV.",
+    "options": [
+      "for",
+      "after",
+      "during",
+      "when"
+    ],
+    "correct_answer": [
+      "when"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:24:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We didn't speak |_| we were eating.",
+    "options": [
+      "during",
+      "while",
+      "when",
+      "for"
+    ],
+    "correct_answer": [
+      "We didn't speak \nwhile\n we were eating.",
+      "while"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:24:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Wash your teeth and face |_| you wake up.",
+    "options": [
+      "during",
+      "after",
+      "while",
+      "when"
+    ],
+    "correct_answer": [
+      "Wash your teeth and face \nafter\n you wake up.",
+      "after"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:24:28",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Men kecha dars davomida uxladim.",
+    "options": [
+      "yesterday.",
+      "after",
+      "while",
+      "sleep",
+      "lesson",
+      "during",
+      "slept",
+      "I",
+      "the",
+      "You"
+    ],
+    "correct_answer": [
+      "I",
+      "slept",
+      "during",
+      "the",
+      "lesson",
+      "yesterday.",
+      "I slept during the lesson yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:24:37",
+    "type": "fill_the_blank",
+    "result": "other",
+    "question": "Men kecha dars davomida uxladim.",
+    "options": [
+      "yesterday.",
+      "after",
+      "while",
+      "sleep",
+      "lesson",
+      "during",
+      "slept",
+      "I",
+      "the",
+      "You"
+    ],
+    "correct_answer": [
+      "Dars 99 In / At (Places)",
+      "in",
+      "in a room",
+      "in a shop",
+      "in a car",
+      "in the water",
+      "in a garden",
+      "in a town",
+      "in the city center"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:24:51",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Aziza  kecha Qarshiga bordi.",
+    "options": [
+      "yesterday.",
+      "Karshi",
+      "gone",
+      "Aziza",
+      "went",
+      "to",
+      "go",
+      "going",
+      "from",
+      "in"
+    ],
+    "correct_answer": [
+      "yesterday.",
+      "Aziza went to Karshi yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:24:55",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Mening akam Toshkentda yashaydi.",
+    "options": [
+      "lives",
+      "Your",
+      "sister",
+      "at",
+      "Tashkent.",
+      "a",
+      "in",
+      "brother",
+      "My"
+    ],
+    "correct_answer": [
+      "lives",
+      "My brother lives in Tashkent."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:24:59",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Diyora do‘konda ishlaydi.",
+    "options": [
+      "work",
+      "on",
+      "at",
+      "Diyora",
+      "shop.",
+      "works",
+      "the",
+      "bazar"
+    ],
+    "correct_answer": [
+      "work",
+      "Diyora works at the shop."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:25:02",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Write your surname |_| the top of the page.",
+    "options": [
+      "to",
+      "in",
+      "at",
+      "on"
+    ],
+    "correct_answer": [
+      "Write your surname \nto\n the top of the page.",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:25:05",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I can swim ___ the middle of the river.",
+    "options": [
+      "to",
+      "at",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:25:24",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "On",
+      "the subway station",
+      "In",
+      "the wall",
+      "At",
+      "a garden"
+    ],
+    "correct_answer": [
+      [
+        "On",
+        "the wall"
+      ],
+      [
+        "In",
+        "a garden"
+      ],
+      [
+        "At",
+        "the subway station"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:25:28",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Meni avtobus bekatida kuting.",
+    "options": [
+      "for",
+      "car",
+      "at",
+      "a",
+      "Wait",
+      "the",
+      "bus",
+      "me ",
+      "you",
+      "stop."
+    ],
+    "correct_answer": [
+      "for",
+      "Wait for me at the bus stop."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:25:32",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There is a new book ___ the shelf ___ the living room.",
+    "options": [
+      "in/ on",
+      "at/ in",
+      "in/ in",
+      "on/ in"
+    ],
+    "correct_answer": [
+      "on/ in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:25:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There are some pictures ___ the wall.",
+    "options": [
+      "on",
+      "in",
+      "at",
+      "to"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:25:38",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Turn left |_| the traffic lights.",
+    "options": [
+      "to",
+      "on",
+      "in",
+      "at"
+    ],
+    "correct_answer": [
+      "Turn left \nto\n the traffic lights.",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:25:49",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Aziza  kecha Qarshiga bordi.",
+    "options": [
+      "in",
+      "to",
+      "Aziza",
+      "gone",
+      "go",
+      "went",
+      "from",
+      "Karshi",
+      "yesterday.",
+      "going"
+    ],
+    "correct_answer": [
+      "Aziza",
+      "went",
+      "to",
+      "Karshi",
+      "yesterday.",
+      "Aziza went to Karshi yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:25:59",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Mening akam Toshkentda yashaydi.",
+    "options": [
+      "a",
+      "at",
+      "in",
+      "lives",
+      "Tashkent.",
+      "sister",
+      "My",
+      "Your",
+      "brother"
+    ],
+    "correct_answer": [
+      "My",
+      "brother",
+      "lives",
+      "in",
+      "Tashkent.",
+      "My brother lives in Tashkent."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:26:12",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Diyora do‘konda ishlaydi.",
+    "options": [
+      "the",
+      "on",
+      "at",
+      "shop.",
+      "Diyora",
+      "work",
+      "works",
+      "bazar"
+    ],
+    "correct_answer": [
+      "Diyora do‘konda ishlaydi.",
+      "Diyora do‘konda ishlaydi.",
+      "Diyora",
+      "Diyora",
+      "works",
+      "works",
+      "at",
+      "at",
+      "the",
+      "the",
+      "shop.",
+      "shop.",
+      "on",
+      "work",
+      "bazar",
+      "Diyora works at the shop.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:26:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Write your surname |_| the top of the page.",
+    "options": [
+      "on",
+      "at",
+      "to",
+      "in"
+    ],
+    "correct_answer": [
+      "Write your surname \nat\n the top of the page.",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:26:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I can swim ___ the middle of the river.",
+    "options": [
+      "to",
+      "on",
+      "in",
+      "at"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:26:31",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Meni avtobus bekatida kuting.",
+    "options": [
+      "a",
+      "me ",
+      "Wait",
+      "bus",
+      "you",
+      "the",
+      "for",
+      "at",
+      "car",
+      "stop."
+    ],
+    "correct_answer": [
+      "Wait",
+      "for",
+      "me ",
+      "at",
+      "the",
+      "bus",
+      "stop.",
+      "Wait for me at the bus stop."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:26:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There is a new book ___ the shelf ___ the living room.",
+    "options": [
+      "on/ in",
+      "at/ in",
+      "in/ in",
+      "in/ on"
+    ],
+    "correct_answer": [
+      "on/ in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:26:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Turn left |_| the traffic lights.",
+    "options": [
+      "on",
+      "at",
+      "to",
+      "in"
+    ],
+    "correct_answer": [
+      "Turn left \nat\n the traffic lights.",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:26:47",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Turn left |_| the traffic lights.",
+    "options": [
+      "on",
+      "at",
+      "to",
+      "in"
+    ],
+    "correct_answer": [
+      "Dars 100 In / At / On (places 2)",
+      "In:",
+      "in bed",
+      "in hospital / in prison",
+      "Where's Komila? She's in bed.",
+      "in a street",
+      "in the sky",
+      "Davlat's father is ill. He's in hospital.",
+      "in the world",
+      "in a newspaper / in a book",
+      "I live in a small street near the station."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:00",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men Jasminani universitetga ketish yo‘lida ko‘rdim.",
+    "options": [
+      "at",
+      "on",
+      "see",
+      "I",
+      "university.",
+      "the way",
+      "saw",
+      "the",
+      "Jasmina",
+      "to",
+      "a"
+    ],
+    "correct_answer": [
+      "at",
+      "I saw Jasmina on the way to the university."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:04",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Sizning xonangiz uchinchi qavatda.",
+    "options": [
+      "My",
+      "at",
+      "flour",
+      "floor.",
+      "Your",
+      "room",
+      "house",
+      "third",
+      "is",
+      "on",
+      "the",
+      "in"
+    ],
+    "correct_answer": [
+      "My",
+      "Your room is on the third floor."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:07",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "In -",
+    "options": [
+      "ustida",
+      "o'rtasida",
+      "tepasida",
+      "ichida"
+    ],
+    "correct_answer": [
+      "ichida"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:10",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I met my teacher ___ the way to school.",
+    "options": [
+      "in",
+      "to",
+      "on",
+      "at"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:13",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My grandmother is coming to us by train. I am going to meet her |_| the station.",
+    "options": [
+      "at",
+      "on",
+      "in",
+      "to"
+    ],
+    "correct_answer": [
+      "My grandmother is coming to us by train. I am going to meet her \nat\n the station.",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:15",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "How many pages are there |_| this book?",
+    "options": [
+      "at",
+      "to",
+      "in",
+      "on"
+    ],
+    "correct_answer": [
+      "How many pages are there \nat\n this book?",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:31",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "At",
+      "the airport",
+      "On",
+      "the room",
+      "In",
+      "the first floor"
+    ],
+    "correct_answer": [
+      [
+        "On",
+        "the airport"
+      ],
+      [
+        "In",
+        "the room"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:35",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Ta’tilda qishloqda edim.",
+    "options": [
+      "were",
+      "on ",
+      "in",
+      "village",
+      "I",
+      "to",
+      "at",
+      "was",
+      "holiday.",
+      "the"
+    ],
+    "correct_answer": [
+      "were",
+      "I was in the village on holiday."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:38",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We stayed ___ a nice hotel.",
+    "options": [
+      "at",
+      "in",
+      "to",
+      "on"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:41",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There was a mysterious man ___ the middle of the garden.",
+    "options": [
+      "to",
+      "at",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:27:45",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men Jasminani universitetga ketish yo‘lida ko‘rdim.",
+    "options": [
+      "on",
+      "a",
+      "saw",
+      "see",
+      "Jasmina",
+      "to",
+      "I",
+      "the way",
+      "the",
+      "at",
+      "university."
+    ],
+    "correct_answer": [
+      "on",
+      "I saw Jasmina on the way to the university."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:00",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Sizning xonangiz uchinchi qavatda.",
+    "options": [
+      "My",
+      "floor.",
+      "in",
+      "on",
+      "flour",
+      "house",
+      "Your",
+      "at",
+      "is",
+      "the",
+      "room",
+      "third"
+    ],
+    "correct_answer": [
+      "Your",
+      "room",
+      "is",
+      "on",
+      "the",
+      "third",
+      "floor.",
+      "Your room is on the third floor."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "In -",
+    "options": [
+      "ustida",
+      "tepasida",
+      "ichida",
+      "o'rtasida"
+    ],
+    "correct_answer": [
+      "ichida"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I met my teacher ___ the way to school.",
+    "options": [
+      "at",
+      "to",
+      "in",
+      "on"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "How many pages are there |_| this book?",
+    "options": [
+      "to",
+      "at",
+      "in",
+      "on"
+    ],
+    "correct_answer": [
+      "How many pages are there \nin\n this book?",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:25",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Ta’tilda qishloqda edim.",
+    "options": [
+      "in",
+      "holiday.",
+      "the",
+      "was",
+      "were",
+      "at",
+      "I",
+      "village",
+      "on ",
+      "to"
+    ],
+    "correct_answer": [
+      "Ta’tilda qishloqda edim.",
+      "Ta’tilda qishloqda edim.",
+      "I",
+      "I",
+      "was",
+      "was",
+      "in",
+      "in",
+      "the",
+      "the",
+      "village",
+      "village",
+      "on ",
+      "on ",
+      "holiday.",
+      "holiday.",
+      "were",
+      "at",
+      "to",
+      "I was in the village on holiday.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:27",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We stayed ___ a nice hotel.",
+    "options": [
+      "on",
+      "at",
+      "to",
+      "in"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:30",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There was a mysterious man ___ the middle of the garden.",
+    "options": [
+      "at",
+      "to",
+      "in",
+      "on"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:39",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "There was a mysterious man ___ the middle of the garden.",
+    "options": [
+      "at",
+      "to",
+      "in",
+      "on"
+    ],
+    "correct_answer": [
+      "Dars 101 In / At / On (places 3)",
+      "In / at / on (places 3)",
+      "go / come / return / walk to…",
+      "We're going to London next week.",
+      "I want to go to Italy.",
+      "We walked from my house to the city centre."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:48",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "There is a stamp ___ the envelope.",
+    "options": [
+      "in",
+      "at",
+      "on"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:51",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I’ll be ___ home tonight so you can call me if you have questions.",
+    "options": [
+      "in",
+      "at",
+      "on"
+    ],
+    "correct_answer": [
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:28:55",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Zahiriddin Muhammad Bobur Andijonda tug‘ilgan.",
+    "options": [
+      "Andijan.",
+      "at",
+      "was",
+      "Zahiriddin",
+      "born",
+      "on",
+      "were",
+      "Muhammad ",
+      "Bobur",
+      "in"
+    ],
+    "correct_answer": [
+      "Andijan.",
+      "Zahiriddin Muhammad Bobur was born in Andijan."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:00",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Aziza Milliy Universitetda o‘qiydi.",
+    "options": [
+      "studying",
+      "University.",
+      "on",
+      "Aziza",
+      "in",
+      "National",
+      "studies",
+      "at"
+    ],
+    "correct_answer": [
+      "studying",
+      "Aziza studies at National University."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:03",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He always goes home ___ night.",
+    "options": [
+      "on",
+      "in",
+      "at"
+    ],
+    "correct_answer": [
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:06",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "You look sad |_| this photograph.",
+    "options": [
+      "on",
+      "in",
+      "at"
+    ],
+    "correct_answer": [
+      "You look sad \non\n this photograph.",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:09",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The school is |_| the end of this street.",
+    "options": [
+      "to",
+      "at",
+      "in"
+    ],
+    "correct_answer": [
+      "The school is \nto\n the end of this street.",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:11",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I missed the bus and I had to go ___ foot.",
+    "options": [
+      "in",
+      "on",
+      "by"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:16",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U 2004-yilda tug‘ilgan.",
+    "options": [
+      "born",
+      "at",
+      "She",
+      "on",
+      "was",
+      "in",
+      "were",
+      "2004."
+    ],
+    "correct_answer": [
+      "born",
+      "She was born in 2004."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:19",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "My new office is ___ the first floor.",
+    "options": [
+      "on",
+      "in",
+      "to"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "There is a stamp ___ the envelope.",
+    "options": [
+      "at",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:25",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I’ll be ___ home tonight so you can call me if you have questions.",
+    "options": [
+      "in",
+      "on",
+      "at"
+    ],
+    "correct_answer": [
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:39",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Zahiriddin Muhammad Bobur Andijonda tug‘ilgan.",
+    "options": [
+      "Andijan.",
+      "on",
+      "Zahiriddin",
+      "Muhammad ",
+      "Bobur",
+      "in",
+      "at",
+      "were",
+      "was",
+      "born"
+    ],
+    "correct_answer": [
+      "Zahiriddin",
+      "Muhammad ",
+      "Bobur",
+      "was",
+      "born",
+      "in",
+      "Andijan.",
+      "Zahiriddin Muhammad Bobur was born in Andijan."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:52",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Aziza Milliy Universitetda o‘qiydi.",
+    "options": [
+      "University.",
+      "National",
+      "Aziza",
+      "in",
+      "on",
+      "studies",
+      "studying",
+      "at"
+    ],
+    "correct_answer": [
+      "Aziza Milliy Universitetda o‘qiydi.",
+      "Aziza Milliy Universitetda o‘qiydi.",
+      "Aziza",
+      "Aziza",
+      "studies",
+      "studies",
+      "at",
+      "at",
+      "National",
+      "National",
+      "University.",
+      "University.",
+      "in",
+      "on",
+      "studying",
+      "Aziza studies at National University.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He always goes home ___ night.",
+    "options": [
+      "on",
+      "in",
+      "at"
+    ],
+    "correct_answer": [
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:29:58",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "You look sad |_| this photograph.",
+    "options": [
+      "on",
+      "at",
+      "in"
+    ],
+    "correct_answer": [
+      "You look sad \nin\n this photograph.",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:30:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The school is |_| the end of this street.",
+    "options": [
+      "in",
+      "at",
+      "to"
+    ],
+    "correct_answer": [
+      "The school is \nat\n the end of this street.",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:30:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I missed the bus and I had to go ___ foot.",
+    "options": [
+      "by",
+      "in",
+      "on"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:30:14",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "U 2004-yilda tug‘ilgan.",
+    "options": [
+      "was",
+      "were",
+      "born",
+      "on",
+      "She",
+      "in",
+      "at",
+      "2004."
+    ],
+    "correct_answer": [
+      "She",
+      "was",
+      "born",
+      "in",
+      "2004.",
+      "She was born in 2004."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:30:28",
+    "type": "fill_the_blank",
+    "result": "other",
+    "question": "U 2004-yilda tug‘ilgan.",
+    "options": [
+      "was",
+      "were",
+      "born",
+      "on",
+      "She",
+      "in",
+      "at",
+      "2004."
+    ],
+    "correct_answer": [
+      "Hide player controls",
+      "On / Under / Behind (prepositions) | 102-dars | Ingliz tilini 0 dan o'rganish",
+      "On / Under / Behind (prepositions) | 102-dars | Ingliz tilini 0 dan o'rganish",
+      "IBRAT FARZANDLARI",
+      "IBRAT FARZANDLARI",
+      "thumbnail-image",
+      "IBRAT FARZANDLARI1.03M subscribers",
+      "Mute",
+      "Playback Settings",
+      "Rewind 10 seconds",
+      "Pause video",
+      "Fast forward 10 seconds",
+      "Time elapsed 0 secondsTime duration 6 minutes, 8 seconds",
+      "Enter full screen",
+      "Copy link",
+      "More videos",
+      "Watch on YouTube",
+      "Dars 102 On / Under / Behind (prepositions)",
+      "under behind opposite (prepositions)",
+      "next to (or beside) / between / in front of / behind",
+      "BEHIND",
+      "BESIDE",
+      "ADOVE",
+      "BETWEEN"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:30:39",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U 2004-yilda tug‘ilgan.",
+    "options": [
+      "was",
+      "were",
+      "born",
+      "on",
+      "She",
+      "in",
+      "at",
+      "2004."
+    ],
+    "correct_answer": [
+      "The cat is ___ of the box.",
+      "behind",
+      "outside",
+      "next to",
+      "inside",
+      "inside"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:31:11",
+    "type": "matching",
+    "result": "correct",
+    "question": "Moslashtiring.",
+    "options": [
+      "Opposite",
+      "Orqasida",
+      "Behind",
+      "Yonida",
+      "Beside",
+      "Qarshisida",
+      "In front of",
+      "Oldida"
+    ],
+    "correct_answer": [
+      [
+        "Opposite",
+        "Qarshisida"
+      ],
+      [
+        "In front of",
+        "Orqasida"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:31:15",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Ko‘l yonida mehmonxona bor.",
+    "options": [
+      "There",
+      "river",
+      "by",
+      "a",
+      "the ",
+      "are",
+      "hotel",
+      "is ",
+      "behind",
+      "It",
+      "lake."
+    ],
+    "correct_answer": [
+      "There",
+      "There is a hotel by the lake."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:31:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The house is ___ the river.",
+    "options": [
+      "by",
+      "under",
+      "behind",
+      "next to"
+    ],
+    "correct_answer": [
+      "by"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:31:21",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The ball is ___ the dog.",
+    "options": [
+      "above",
+      "behind",
+      "in front of",
+      "beside"
+    ],
+    "correct_answer": [
+      "above"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:31:23",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Above -",
+    "options": [
+      "ostida",
+      "o‘rtasida",
+      "ustida",
+      "tepasida"
+    ],
+    "correct_answer": [
+      "tepasida"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:31:48",
+    "type": "matching",
+    "result": "correct",
+    "question": "Moslashtiring.",
+    "options": [
+      "Between",
+      "Yonida",
+      "Behind",
+      "O‘rtasida",
+      "Next to",
+      "Orqasida",
+      "Under",
+      "Tagida"
+    ],
+    "correct_answer": [
+      [
+        "Between",
+        "O‘rtasida"
+      ],
+      [
+        "Behind",
+        "Orqasida"
+      ],
+      [
+        "Under",
+        "Yonida"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:31:51",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Who is the man |_| the window?",
+    "options": [
+      "on",
+      "outside",
+      "by"
+    ],
+    "correct_answer": [
+      "Who is the man \non\n the window?",
+      "by"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:31:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The cat is ___ the chair.",
+    "options": [
+      "under",
+      "beside",
+      "behind",
+      "on"
+    ],
+    "correct_answer": [
+      "under"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:31:57",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Under -",
+    "options": [
+      "ustida",
+      "ostida",
+      "ichida",
+      "yonida"
+    ],
+    "correct_answer": [
+      "ostida"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:01",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The cat is ___ of the box.",
+    "options": [
+      "outside",
+      "next to",
+      "inside",
+      "behind"
+    ],
+    "correct_answer": [
+      "inside"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:15",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Ko‘l yonida mehmonxona bor.",
+    "options": [
+      "are",
+      "behind",
+      "the ",
+      "lake.",
+      "There",
+      "is ",
+      "by",
+      "a",
+      "It",
+      "river",
+      "hotel"
+    ],
+    "correct_answer": [
+      "There",
+      "is ",
+      "a",
+      "hotel",
+      "by",
+      "the ",
+      "lake.",
+      "There is a hotel by the lake."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Above -",
+    "options": [
+      "tepasida",
+      "ostida",
+      "o‘rtasida",
+      "ustida"
+    ],
+    "correct_answer": [
+      "tepasida"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Who is the man |_| the window?",
+    "options": [
+      "by",
+      "on",
+      "outside"
+    ],
+    "correct_answer": [
+      "Who is the man \nby\n the window?",
+      "by"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Under -",
+    "options": [
+      "ustida",
+      "yonida",
+      "ichida",
+      "ostida"
+    ],
+    "correct_answer": [
+      "ostida"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:34",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Under -",
+    "options": [
+      "ustida",
+      "yonida",
+      "ichida",
+      "ostida"
+    ],
+    "correct_answer": [
+      "Dars 103 Up / Over / Through (prepositions)",
+      "To…. => from…",
+      "Zamira is going to Andijan next week.",
+      "We walked from the hotel to the station.",
+      "A lot of English words come from Latin.",
+      "into (in) out of"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:42",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "How far is it ___ here ___ the bus stop?",
+    "options": [
+      "in / at",
+      "from / to",
+      "from / through",
+      "up / to"
+    ],
+    "correct_answer": [
+      "from / to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I'm going to hang some pictures |_| the wall.",
+    "options": [
+      "on",
+      "to",
+      "top",
+      "under"
+    ],
+    "correct_answer": [
+      "I'm going to hang some pictures \non\n the wall.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:48",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Be careful! Don't fall ___ the stairs. Otherwise, you may hurt your arm again.",
+    "options": [
+      "up",
+      "through",
+      "down",
+      "of"
+    ],
+    "correct_answer": [
+      "down"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:52",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kitobni sumkangizning ichidan oling.",
+    "options": [
+      "the",
+      "Take",
+      "out",
+      "of",
+      "books",
+      "in",
+      "bag",
+      "pocket",
+      "at",
+      "book",
+      "your"
+    ],
+    "correct_answer": [
+      "the",
+      "Take the book out of your bag"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:56",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Nega oynadan tashqariga qarayapsan?",
+    "options": [
+      "see",
+      "of",
+      "looking",
+      "you ",
+      "are",
+      "at",
+      "the",
+      "How",
+      "Why",
+      "out",
+      "window?"
+    ],
+    "correct_answer": [
+      "see",
+      "Why are you looking out of the window?"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:32:59",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Please, take your phone |_| the desk.",
+    "options": [
+      "of",
+      "off",
+      "in",
+      "on"
+    ],
+    "correct_answer": [
+      "Please, take your phone \nof\n the desk.",
+      "off"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:02",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We walked ___ the hotel to the station on foot.",
+    "options": [
+      "on",
+      "to",
+      "from",
+      "for"
+    ],
+    "correct_answer": [
+      "from"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:05",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We walked ___ to the hill.",
+    "options": [
+      "up",
+      "over",
+      "under",
+      "through"
+    ],
+    "correct_answer": [
+      "up"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:09",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Samolyot tog‘lar ustidan uchib o‘tdi.",
+    "options": [
+      "the ",
+      "The",
+      "over",
+      "under",
+      "flew ",
+      "mountains.",
+      "above",
+      "plane"
+    ],
+    "correct_answer": [
+      "the ",
+      "The plane flew over the mountains."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:12",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "You should |_| the road in order to get the bank faster.",
+    "options": [
+      "through",
+      "cross",
+      "along",
+      "up"
+    ],
+    "correct_answer": [
+      "You should \nthrough\n the road in order to get the bank faster.",
+      "cross"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "How far is it ___ here ___ the bus stop?",
+    "options": [
+      "from / through",
+      "up / to",
+      "in / at",
+      "from / to"
+    ],
+    "correct_answer": [
+      "from / to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:19",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Be careful! Don't fall ___ the stairs. Otherwise, you may hurt your arm again.",
+    "options": [
+      "down",
+      "through",
+      "of",
+      "up"
+    ],
+    "correct_answer": [
+      "down"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:35",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Kitobni sumkangizning ichidan oling.",
+    "options": [
+      "books",
+      "in",
+      "book",
+      "pocket",
+      "bag",
+      "the",
+      "your",
+      "Take",
+      "of",
+      "out",
+      "at"
+    ],
+    "correct_answer": [
+      "Kitobni sumkangizning ichidan oling.",
+      "Kitobni sumkangizning ichidan oling.",
+      "Take",
+      "Take",
+      "the",
+      "the",
+      "book",
+      "book",
+      "out",
+      "out",
+      "of",
+      "of",
+      "your",
+      "your",
+      "bag",
+      "bag",
+      "books",
+      "in",
+      "pocket",
+      "at",
+      "Take the book out of your bag",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:51",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Nega oynadan tashqariga qarayapsan?",
+    "options": [
+      "Why",
+      "at",
+      "looking",
+      "you ",
+      "the",
+      "out",
+      "How",
+      "are",
+      "of",
+      "see",
+      "window?"
+    ],
+    "correct_answer": [
+      "Why",
+      "are",
+      "you ",
+      "looking",
+      "out",
+      "of",
+      "the",
+      "window?",
+      "Why are you looking out of the window?"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:53",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Please, take your phone |_| the desk.",
+    "options": [
+      "on",
+      "of",
+      "off",
+      "in"
+    ],
+    "correct_answer": [
+      "Please, take your phone \noff\n the desk.",
+      "off"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:33:56",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We walked ___ the hotel to the station on foot.",
+    "options": [
+      "from",
+      "for",
+      "to",
+      "on"
+    ],
+    "correct_answer": [
+      "from"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:34:08",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Samolyot tog‘lar ustidan uchib o‘tdi.",
+    "options": [
+      "mountains.",
+      "under",
+      "over",
+      "flew ",
+      "above",
+      "the ",
+      "plane",
+      "The"
+    ],
+    "correct_answer": [
+      "The",
+      "plane",
+      "flew ",
+      "over",
+      "the ",
+      "mountains.",
+      "The plane flew over the mountains."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:34:11",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "You should |_| the road in order to get the bank faster.",
+    "options": [
+      "cross",
+      "up",
+      "along",
+      "through"
+    ],
+    "correct_answer": [
+      "You should \ncross\n the road in order to get the bank faster.",
+      "cross"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:34:21",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "You should |_| the road in order to get the bank faster.",
+    "options": [
+      "cross",
+      "up",
+      "along",
+      "through"
+    ],
+    "correct_answer": [
+      "Dars 104 At / By / With / Without/ About (prepositions)",
+      "on holiday Iroda isn't at work this week. She's on holiday.",
+      "on television We watched the news on television.",
+      "on the radio We listened to the news on the radio.",
+      "on the phone I spoke to Kamol on the phone last night.",
+      "on fire The house is on fire! Call the fire brigade."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:34:31",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The house is ___ fire. Call the fire brigade.",
+    "options": [
+      "by",
+      "on",
+      "at"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:34:34",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Xamsa was written ___ Alisher Navoi.",
+    "options": [
+      "from",
+      "about",
+      "by",
+      "over"
+    ],
+    "correct_answer": [
+      "by"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:34:38",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Mushuk stolning tagida.",
+    "options": [
+      "the ",
+      "were",
+      "table.",
+      "with",
+      "are",
+      "is",
+      "cat ",
+      "on",
+      "in",
+      "under ",
+      "The"
+    ],
+    "correct_answer": [
+      "the ",
+      "The cat is under the table."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:34:41",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Akbar is not at work this week. He is ___ holiday.",
+    "options": [
+      "at",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:34:44",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I spoke to my friend ___ the phone.",
+    "options": [
+      "on",
+      "at",
+      "over",
+      "in"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:15",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Wall",
+      "Stol",
+      "Careful",
+      "Ehtiyotkor",
+      "Dog",
+      "It",
+      "Table",
+      "Devor"
+    ],
+    "correct_answer": [
+      [
+        "Wall",
+        "Devor"
+      ],
+      [
+        "Careful",
+        "Ehtiyotkor"
+      ],
+      [
+        "Dog",
+        "It"
+      ],
+      [
+        "Table",
+        "Stol"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:18",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I am going to hang some family pictures |_| the wall.",
+    "options": [
+      "with",
+      "on",
+      "from",
+      "in"
+    ],
+    "correct_answer": [
+      "I am going to hang some family pictures \nwith\n the wall.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:21",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "When I was a child I was bitten ___ a dog.",
+    "options": [
+      "to",
+      "by",
+      "on",
+      "from"
+    ],
+    "correct_answer": [
+      "by"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:24",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We walked |_|  the hotel to the university with our friends.",
+    "options": [
+      "with",
+      "in",
+      "from",
+      "on"
+    ],
+    "correct_answer": [
+      "We walked \nwith\n  the hotel to the university with our friends.",
+      "from"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:27",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Be careful! Don't fall ___ the stairs.",
+    "options": [
+      "off",
+      "at",
+      "down"
+    ],
+    "correct_answer": [
+      "down"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:30",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The house is ___ fire. Call the fire brigade.",
+    "options": [
+      "at",
+      "on",
+      "by"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:33",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Xamsa was written ___ Alisher Navoi.",
+    "options": [
+      "over",
+      "by",
+      "about",
+      "from"
+    ],
+    "correct_answer": [
+      "by"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:48",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Mushuk stolning tagida.",
+    "options": [
+      "were",
+      "table.",
+      "the ",
+      "with",
+      "are",
+      "on",
+      "is",
+      "under ",
+      "cat ",
+      "in",
+      "The"
+    ],
+    "correct_answer": [
+      "Mushuk stolning tagida.",
+      "Mushuk stolning tagida.",
+      "The",
+      "The",
+      "cat ",
+      "cat ",
+      "is",
+      "is",
+      "under ",
+      "under ",
+      "the ",
+      "the ",
+      "table.",
+      "table.",
+      "were",
+      "with",
+      "are",
+      "on",
+      "in",
+      "The cat is under the table.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:51",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Akbar is not at work this week. He is ___ holiday.",
+    "options": [
+      "at",
+      "on",
+      "in"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am going to hang some family pictures |_| the wall.",
+    "options": [
+      "with",
+      "on",
+      "from",
+      "in"
+    ],
+    "correct_answer": [
+      "I am going to hang some family pictures \non\n the wall.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:35:57",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "When I was a child I was bitten ___ a dog.",
+    "options": [
+      "from",
+      "by",
+      "to",
+      "on"
+    ],
+    "correct_answer": [
+      "by"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We walked |_|  the hotel to the university with our friends.",
+    "options": [
+      "in",
+      "from",
+      "with",
+      "on"
+    ],
+    "correct_answer": [
+      "We walked \nfrom\n  the hotel to the university with our friends.",
+      "from"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Be careful! Don't fall ___ the stairs.",
+    "options": [
+      "at",
+      "down",
+      "off"
+    ],
+    "correct_answer": [
+      "down"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:13",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Be careful! Don't fall ___ the stairs.",
+    "options": [
+      "at",
+      "down",
+      "off"
+    ],
+    "correct_answer": [
+      "Dars 105 Afraid of... / On holiday (word + prepositions)",
+      "preposition + -ing (good at -ing etc.)",
+      "afraid of Are you afraid of dogs?",
+      "angry with somebody Why are you angry with me? What have I done?",
+      "angry about something Are you angry about last night?",
+      "different from... Aziza is very different from her sister.",
+      "fed up with... I'm fed up with my job. I want to do something"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:26",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men sportga qiziqaman. ",
+    "options": [
+      "interesting",
+      "in",
+      "I",
+      "am",
+      "interested",
+      "me",
+      "sport."
+    ],
+    "correct_answer": [
+      "interesting",
+      "I am interested in sport."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:29",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Lola is good ___ singing songs, she is a talented girl.",
+    "options": [
+      "from",
+      "in",
+      "at"
+    ],
+    "correct_answer": [
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:33",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Lola is |_| from her sister.",
+    "options": [
+      "full",
+      "different",
+      "angry",
+      "afraid"
+    ],
+    "correct_answer": [
+      "Lola is \nfull\n from her sister.",
+      "different"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:36",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I am sorry ___ getting angry ___ you yesterday.",
+    "options": [
+      "for/ to",
+      "for/ with",
+      "about/ to",
+      "about/ with"
+    ],
+    "correct_answer": [
+      "for/ with"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:38",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I didn't understand the meaning of your essay. It is full ___ mistakes.",
+    "options": [
+      "up",
+      "in",
+      "on",
+      "of"
+    ],
+    "correct_answer": [
+      "of"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:41",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The library is full ___ students.",
+    "options": [
+      "from",
+      "of",
+      "in"
+    ],
+    "correct_answer": [
+      "of"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:44",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ali left his work last year because he said he was fed ___ his job.",
+    "options": [
+      "up with",
+      "to",
+      "with"
+    ],
+    "correct_answer": [
+      "up with"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Two years ago Asila was married ___ a dentist.",
+    "options": [
+      "to",
+      "with",
+      "from"
+    ],
+    "correct_answer": [
+      "to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:51",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I am ___ with my neighbours. They always make some noise even in the midnight.",
+    "options": [
+      "angry about",
+      "afraid of",
+      "fed up",
+      "different from "
+    ],
+    "correct_answer": [
+      "fed up"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:36:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Her appearance is different |_| her childhood photos.",
+    "options": [
+      "from",
+      "with",
+      "along",
+      "to "
+    ],
+    "correct_answer": [
+      "Her appearance is different \nfrom\n her childhood photos.",
+      "from"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:37:06",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Men sportga qiziqaman. ",
+    "options": [
+      "in",
+      "interested",
+      "me",
+      "interesting",
+      "am",
+      "sport.",
+      "I"
+    ],
+    "correct_answer": [
+      "I",
+      "am",
+      "interested",
+      "in",
+      "sport.",
+      "I am interested in sport."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:37:11",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Lola is good ___ singing songs, she is a talented girl.",
+    "options": [
+      "from",
+      "in",
+      "at"
+    ],
+    "correct_answer": [
+      "Lola is good ___ singing songs, she is a talented girl.",
+      "from",
+      "in",
+      "at",
+      "at"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:37:14",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Lola is |_| from her sister.",
+    "options": [
+      "angry",
+      "full",
+      "afraid",
+      "different"
+    ],
+    "correct_answer": [
+      "Lola is \ndifferent\n from her sister.",
+      "different"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:37:17",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am sorry ___ getting angry ___ you yesterday.",
+    "options": [
+      "for/ to",
+      "about/ with",
+      "for/ with",
+      "about/ to"
+    ],
+    "correct_answer": [
+      "for/ with"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:37:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I didn't understand the meaning of your essay. It is full ___ mistakes.",
+    "options": [
+      "in",
+      "up",
+      "on",
+      "of"
+    ],
+    "correct_answer": [
+      "of"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:37:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The library is full ___ students.",
+    "options": [
+      "in",
+      "of",
+      "from"
+    ],
+    "correct_answer": [
+      "of"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:37:26",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am ___ with my neighbours. They always make some noise even in the midnight.",
+    "options": [
+      "different from ",
+      "afraid of",
+      "fed up",
+      "angry about"
+    ],
+    "correct_answer": [
+      "fed up"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:37:35",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "I am ___ with my neighbours. They always make some noise even in the midnight.",
+    "options": [
+      "different from ",
+      "afraid of",
+      "fed up",
+      "angry about"
+    ],
+    "correct_answer": [
+      "Dars 106 Look at / Listen to (verb + prepostions)",
+      "ask (somebody) for ...",
+      "A man stopped me and asked me for money.",
+      "belong to...",
+      "Does this book belong to you? (= Is this your book?)",
+      "happen to ...",
+      "I can't find my pen. What's happened to it?"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:37:45",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "They arrived ___ London early in the evening.",
+    "options": [
+      "at",
+      "in",
+      "to"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:41:03",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Believe",
+      "Ishonmoq",
+      "Think ",
+      "Yetib kelmoq",
+      "Worry",
+      "O‘ylamoq",
+      "Arrive",
+      "Xavotirlanmoq"
+    ],
+    "correct_answer": [
+      [
+        "Think ",
+        "O‘ylamoq"
+      ],
+      [
+        "Worry",
+        "Xavotirlanmoq"
+      ],
+      [
+        "Arrive",
+        "Yetib kelmoq"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:43:33",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Ish vaqtida menga yozmang.",
+    "options": [
+      "the",
+      "me",
+      "Do",
+      "you",
+      "write",
+      "during",
+      "work.",
+      "Do not",
+      "when",
+      "to"
+    ],
+    "correct_answer": [
+      "the",
+      "Do not write to me during the work."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:43:36",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Her parents didn't approve ___ her marriage to that man.",
+    "options": [
+      "frrom",
+      "of",
+      "with"
+    ],
+    "correct_answer": [
+      "of"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:43:39",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I really like listening ___ music when I am on the bus.",
+    "options": [
+      "with",
+      "about",
+      "by",
+      "to"
+    ],
+    "correct_answer": [
+      "to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:43:42",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He is trustworthy and reliable. You can depend ___ him.",
+    "options": [
+      "with",
+      "on",
+      "to"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:43:46",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Her dad lost his job. That's why he is looking |_| a vacancy in the bank.",
+    "options": [
+      "after",
+      "to",
+      "for"
+    ],
+    "correct_answer": [
+      "Her dad lost his job. That's why he is looking \nafter\n a vacancy in the bank.",
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:43:49",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Phone |_|  me after work.",
+    "options": [
+      "on",
+      "-",
+      "with",
+      "in"
+    ],
+    "correct_answer": [
+      "Phone \non\n  me after work.",
+      "-"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:43:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Do you believe  |_|  ghosts?",
+    "options": [
+      "in",
+      "on",
+      "with"
+    ],
+    "correct_answer": [
+      "Do you believe  \nin\n  ghosts?",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:43:55",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Have you thought __ going abroad ever?",
+    "options": [
+      "of",
+      "on",
+      "to",
+      "with"
+    ],
+    "correct_answer": [
+      "of"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:43:58",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They arrived ___ London early in the evening.",
+    "options": [
+      "at",
+      "to",
+      "in"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:03",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Ish vaqtida menga yozmang.",
+    "options": [
+      "when",
+      "me",
+      "Do not",
+      "the",
+      "work.",
+      "you",
+      "Do",
+      "write",
+      "to",
+      "during"
+    ],
+    "correct_answer": [
+      "when",
+      "Do not write to me during the work."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Her parents didn't approve ___ her marriage to that man.",
+    "options": [
+      "with",
+      "frrom",
+      "of"
+    ],
+    "correct_answer": [
+      "of"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I really like listening ___ music when I am on the bus.",
+    "options": [
+      "to",
+      "about",
+      "with",
+      "by"
+    ],
+    "correct_answer": [
+      "to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:13",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He is trustworthy and reliable. You can depend ___ him.",
+    "options": [
+      "to",
+      "on",
+      "with"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:16",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Her dad lost his job. That's why he is looking |_| a vacancy in the bank.",
+    "options": [
+      "to",
+      "for",
+      "after"
+    ],
+    "correct_answer": [
+      "Her dad lost his job. That's why he is looking \nfor\n a vacancy in the bank.",
+      "for"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:21",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Phone |_|  me after work.",
+    "options": [
+      "in",
+      "-",
+      "on",
+      "with"
+    ],
+    "correct_answer": [
+      "Phone |_|  me after work.",
+      "Phone \n-\n  me after work.",
+      "in",
+      "-",
+      "-",
+      "on",
+      "with"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:31",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Phone |_|  me after work.",
+    "options": [
+      "in",
+      "-",
+      "on",
+      "with"
+    ],
+    "correct_answer": [
+      "Dars 107 Go in / Fall off / Run away (phrasal verb 1)",
+      "A phrasal verb is a verb (go / look / be etc.) + in / out / up / down etc.",
+      "IN",
+      "Sakina opened the door of the car and got in. (= into the car)",
+      "I waited outside the house. I didn't go in.",
+      "OUT",
+      "The car stopped and a woman got out (= out of the car)."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:41",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I forgot the key of my office, so I can't get |_|.",
+    "options": [
+      "in",
+      "on",
+      "to"
+    ],
+    "correct_answer": [
+      "I forgot the key of my office, so I can't get \nin\n.",
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:44",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Do not fall ___. I have just mopped the floor.",
+    "options": [
+      "in",
+      "of",
+      "on",
+      "off"
+    ],
+    "correct_answer": [
+      "off"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:49",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Aziza Toshkentga ketdi.",
+    "options": [
+      "Tashkent.",
+      "at",
+      "Aziza",
+      "gone",
+      "to",
+      "have",
+      "has"
+    ],
+    "correct_answer": [
+      "Tashkent.",
+      "Aziza has gone to Tashkent."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:52",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Follow the rules! You must ___ in 10 minutes.",
+    "options": [
+      "fell down",
+      "go",
+      "listen to",
+      "go back"
+    ],
+    "correct_answer": [
+      "go back"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:55",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Get on the |_|.",
+    "options": [
+      "hotel",
+      "taxi",
+      "bus",
+      "car"
+    ],
+    "correct_answer": [
+      "Get on the \nhotel\n.",
+      "bus"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:44:58",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "They got |_| the car immediately after robbing the bank.",
+    "options": [
+      "on",
+      "into",
+      "up",
+      "out"
+    ],
+    "correct_answer": [
+      "They got \non\n the car immediately after robbing the bank.",
+      "into"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:01",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "To wake up -",
+    "options": [
+      "uyg'onmoq",
+      "o'rnidan turmoq",
+      "uxlamoq",
+      "turmoq"
+    ],
+    "correct_answer": [
+      "uyg'onmoq"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:04",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I was really tired yesterday. That's why I couldn't get ___ this morning.",
+    "options": [
+      "in",
+      "to",
+      "on",
+      "up"
+    ],
+    "correct_answer": [
+      "up"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:07",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The wall wasn't high, so we climbed ___ easily.",
+    "options": [
+      "to",
+      "up",
+      "over",
+      "through"
+    ],
+    "correct_answer": [
+      "over"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:10",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Come |_|, otherwise we will be late.",
+    "options": [
+      "over",
+      "to",
+      "up",
+      "on"
+    ],
+    "correct_answer": [
+      "Come \nover\n, otherwise we will be late.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:13",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Do not fall ___. I have just mopped the floor.",
+    "options": [
+      "off",
+      "in",
+      "on",
+      "of"
+    ],
+    "correct_answer": [
+      "off"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:24",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Aziza Toshkentga ketdi.",
+    "options": [
+      "Tashkent.",
+      "Aziza",
+      "gone",
+      "at",
+      "to",
+      "have",
+      "has"
+    ],
+    "correct_answer": [
+      "Aziza",
+      "has",
+      "gone",
+      "to",
+      "Tashkent.",
+      "Aziza has gone to Tashkent."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Follow the rules! You must ___ in 10 minutes.",
+    "options": [
+      "go",
+      "fell down",
+      "go back",
+      "listen to"
+    ],
+    "correct_answer": [
+      "Follow the rules! You must ___ in 10 minutes.",
+      "go",
+      "fell down",
+      "go back",
+      "go back",
+      "listen to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Get on the |_|.",
+    "options": [
+      "hotel",
+      "bus",
+      "car",
+      "taxi"
+    ],
+    "correct_answer": [
+      "Get on the \nbus\n.",
+      "bus"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "They got |_| the car immediately after robbing the bank.",
+    "options": [
+      "on",
+      "up",
+      "out",
+      "into"
+    ],
+    "correct_answer": [
+      "They got \ninto\n the car immediately after robbing the bank.",
+      "into"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I was really tired yesterday. That's why I couldn't get ___ this morning.",
+    "options": [
+      "to",
+      "up",
+      "in",
+      "on"
+    ],
+    "correct_answer": [
+      "up"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:41",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The wall wasn't high, so we climbed ___ easily.",
+    "options": [
+      "to",
+      "through",
+      "over",
+      "up"
+    ],
+    "correct_answer": [
+      "over"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:44",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Come |_|, otherwise we will be late.",
+    "options": [
+      "on",
+      "to",
+      "over",
+      "up"
+    ],
+    "correct_answer": [
+      "Come \non\n, otherwise we will be late.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:45:55",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Come |_|, otherwise we will be late.",
+    "options": [
+      "on",
+      "to",
+      "over",
+      "up"
+    ],
+    "correct_answer": [
+      "Dars 108 Put on your shoes / Put your shoes on (phrasal verb 1)",
+      "Sometimes a phrasal verb (put on / take off etc) has an object.",
+      "For example:",
+      "Verb + object",
+      "Verb + object",
+      "Put on your coat.",
+      "You can say: Put on your coat or put your coat on.",
+      "Take off your shoes."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:46:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Before buying any clothes at the shop, I always try to put them ___ me.",
+    "options": [
+      "on",
+      "in",
+      "off"
+    ],
+    "correct_answer": [
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:46:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have got Zarina's books. I must ___ to her.",
+    "options": [
+      "give them back",
+      "them give back",
+      "gave them back",
+      "give back them"
+    ],
+    "correct_answer": [
+      "give them back"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:46:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "When I looked ___ of the window, I saw a car with flowers.",
+    "options": [
+      "out",
+      "of",
+      "in"
+    ],
+    "correct_answer": [
+      "out"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:46:15",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "It will be easier to read if you switch |_| the lights.",
+    "options": [
+      "in",
+      "off",
+      "on",
+      "of"
+    ],
+    "correct_answer": [
+      "It will be easier to read if you switch \nin\n the lights.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:46:19",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Sviteringni kiyib ol. Bugun havo sovuq.",
+    "options": [
+      "on",
+      "off",
+      "was",
+      "is",
+      "The",
+      "Put",
+      "today.",
+      "weather",
+      "your",
+      "cold",
+      "sweater."
+    ],
+    "correct_answer": [
+      "on",
+      "Put on your sweater. The weather is cold today."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:46:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Since it was raining outside, I got ___ the house.",
+    "options": [
+      "in",
+      "of",
+      "out"
+    ],
+    "correct_answer": [
+      "in"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:46:25",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Could you ___ the music while I am on the phone?",
+    "options": [
+      "turn",
+      "turn off",
+      "turn around",
+      "turn round"
+    ],
+    "correct_answer": [
+      "turn off"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:46:57",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "keep up with",
+      "qochib ketmoq",
+      "come back",
+      "yechmoq",
+      "run away",
+      "yetib olmoq",
+      "take off",
+      "qaytib kelmoq"
+    ],
+    "correct_answer": [
+      [
+        "keep up with",
+        "yetib olmoq"
+      ],
+      [
+        "come back",
+        "qaytib kelmoq"
+      ],
+      [
+        "take off",
+        "qochib ketmoq"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:47:00",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Would you |_| my dog for me this weekend?",
+    "options": [
+      "look at",
+      "look after",
+      "look",
+      "look up"
+    ],
+    "correct_answer": [
+      "Would you \nlook at\n my dog for me this weekend?",
+      "look after"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:47:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "When I see strange people in the street, I always run ___.",
+    "options": [
+      "away",
+      "out",
+      "off"
+    ],
+    "correct_answer": [
+      "away"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:47:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "It will be easier to read if you switch |_| the lights.",
+    "options": [
+      "off",
+      "on",
+      "of",
+      "in"
+    ],
+    "correct_answer": [
+      "It will be easier to read if you switch \non\n the lights.",
+      "on"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:47:26",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Sviteringni kiyib ol. Bugun havo sovuq.",
+    "options": [
+      "The",
+      "weather",
+      "today.",
+      "off",
+      "your",
+      "was",
+      "on",
+      "Put",
+      "cold",
+      "is",
+      "sweater."
+    ],
+    "correct_answer": [
+      "Put",
+      "on",
+      "your",
+      "sweater.",
+      "The",
+      "weather",
+      "is",
+      "cold",
+      "today.",
+      "Put on your sweater. The weather is cold today."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:47:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Could you ___ the music while I am on the phone?",
+    "options": [
+      "turn",
+      "turn round",
+      "turn off",
+      "turn around"
+    ],
+    "correct_answer": [
+      "turn off"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:47:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Would you |_| my dog for me this weekend?",
+    "options": [
+      "look at",
+      "look",
+      "look after",
+      "look up"
+    ],
+    "correct_answer": [
+      "Would you \nlook after\n my dog for me this weekend?",
+      "look after"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:47:42",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Would you |_| my dog for me this weekend?",
+    "options": [
+      "look at",
+      "look",
+      "look after",
+      "look up"
+    ],
+    "correct_answer": [
+      "Dars 109 And / But / Or / So / Because",
+      "Biz ushbu so‘zlarni (bog‘lovchilarni) ikkita jumlani birlashtirish uchun ishlatamiz. Ular ikkita qisqa jumlani bitta uzun jumla qiladilar:",
+      "sentence A sentence B",
+      "The car stopped The driver got out",
+      "The car stopped and the driver got out."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:12",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "And",
+      "Yoki",
+      "Or",
+      "Va",
+      "So",
+      "Chunki ",
+      "Because",
+      "Shuning uchun"
+    ],
+    "correct_answer": [
+      [
+        "And",
+        "Va"
+      ],
+      [
+        "So",
+        "Yoki"
+      ],
+      [
+        "Because",
+        "Chunki "
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I am very tired ___ I am overworking these days.",
+    "options": [
+      "because",
+      "so",
+      "when",
+      "and"
+    ],
+    "correct_answer": [
+      "because"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:18",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I didn't go to the gym yesterday, |_| I was very tired.",
+    "options": [
+      "or",
+      "but",
+      "and",
+      "because"
+    ],
+    "correct_answer": [
+      "I didn't go to the gym yesterday, \nor\n I was very tired.",
+      "because"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:21",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I called Ali, ___ he didn't answer.",
+    "options": [
+      "but",
+      "when",
+      "and",
+      "so"
+    ],
+    "correct_answer": [
+      "but"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:24",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He sat down on the sofa |_| started to read a newspaper.",
+    "options": [
+      "so",
+      "but",
+      "and"
+    ],
+    "correct_answer": [
+      "He sat down on the sofa \nso\n started to read a newspaper.",
+      "and"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:29",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Xona juda issiq va kichkina.",
+    "options": [
+      "and",
+      "not",
+      "so",
+      "hot",
+      "small.",
+      "very",
+      "is ",
+      "The",
+      "room"
+    ],
+    "correct_answer": [
+      "and",
+      "The room is very hot and small."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Which dress is more beautiful? Green |_| white?",
+    "options": [
+      "or",
+      "and",
+      "so"
+    ],
+    "correct_answer": [
+      "Which dress is more beautiful? Green \nor\n white?",
+      "or"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:35",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I opened the window ___ the room was very hot.",
+    "options": [
+      "but",
+      "so",
+      "because",
+      "and"
+    ],
+    "correct_answer": [
+      "because"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:38",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I usually drive to work |_| I went by train this morning.",
+    "options": [
+      "because",
+      "but",
+      "and",
+      "so"
+    ],
+    "correct_answer": [
+      "I usually drive to work \nbecause\n I went by train this morning.",
+      "but"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:41",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "It was very late, ___ we took a taxi.",
+    "options": [
+      "but",
+      "and",
+      "both",
+      "so"
+    ],
+    "correct_answer": [
+      "so"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I didn't go to the gym yesterday, |_| I was very tired.",
+    "options": [
+      "but",
+      "or",
+      "because",
+      "and"
+    ],
+    "correct_answer": [
+      "I didn't go to the gym yesterday, |_| I was very tired.",
+      "I didn't go to the gym yesterday, \nbecause\n I was very tired.",
+      "but",
+      "or",
+      "because",
+      "because",
+      "and"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:48:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He sat down on the sofa |_| started to read a newspaper.",
+    "options": [
+      "so",
+      "and",
+      "but"
+    ],
+    "correct_answer": [
+      "He sat down on the sofa \nand\n started to read a newspaper.",
+      "and"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:03",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Xona juda issiq va kichkina.",
+    "options": [
+      "not",
+      "is ",
+      "hot",
+      "small.",
+      "room",
+      "so",
+      "The",
+      "very",
+      "and"
+    ],
+    "correct_answer": [
+      "The",
+      "room",
+      "is ",
+      "very",
+      "hot",
+      "and",
+      "small.",
+      "The room is very hot and small."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I opened the window ___ the room was very hot.",
+    "options": [
+      "but",
+      "because",
+      "and",
+      "so"
+    ],
+    "correct_answer": [
+      "because"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I usually drive to work |_| I went by train this morning.",
+    "options": [
+      "so",
+      "and",
+      "but",
+      "because"
+    ],
+    "correct_answer": [
+      "I usually drive to work \nbut\n I went by train this morning.",
+      "but"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "It was very late, ___ we took a taxi.",
+    "options": [
+      "both",
+      "but",
+      "so",
+      "and"
+    ],
+    "correct_answer": [
+      "so"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:21",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "It was very late, ___ we took a taxi.",
+    "options": [
+      "both",
+      "but",
+      "so",
+      "and"
+    ],
+    "correct_answer": [
+      "Dars 110 When?",
+      "When I went out, it was raining.",
+      "When I went out, it was raining.",
+      "When I went out, it was raining.",
+      "This sentence has two parts:",
+      "part A part B",
+      "You can begin with part A or part B:",
+      "It was raining when I went out.",
+      "We write a comma (,) if part A (When...) is before part B:"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Bonu will be in Karshi |_| I am at home.",
+    "options": [
+      "when",
+      "before",
+      "after"
+    ],
+    "correct_answer": [
+      "Bonu will be in Karshi \nwhen\n I am at home.",
+      "when"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:34",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Will you be in the class |_| I come back?",
+    "options": [
+      "during",
+      "when",
+      "while"
+    ],
+    "correct_answer": [
+      "Will you be in the class \nduring\n I come back?",
+      "when"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ I was waiting for the bus, it began to rain.",
+    "options": [
+      "While",
+      "After",
+      "During",
+      "Before"
+    ],
+    "correct_answer": [
+      "While"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| I was waiting for the bus, it began to rain.",
+    "options": [
+      "When",
+      "But",
+      "Before"
+    ],
+    "correct_answer": [
+      "When\n I was waiting for the bus, it began to rain.",
+      "When"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:43",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Can you turn off the lights ___ you finish your assignments.",
+    "options": [
+      "before",
+      "and",
+      "or",
+      "after"
+    ],
+    "correct_answer": [
+      "after"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:46",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Doston is going to use our books while we ___ in the exam.",
+    "options": [
+      "will be",
+      "will",
+      "are",
+      "were"
+    ],
+    "correct_answer": [
+      "are"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:50",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "It was raining |_| I was out.",
+    "options": [
+      "before",
+      "after",
+      "when"
+    ],
+    "correct_answer": [
+      "It was raining \nbefore\n I was out.",
+      "when"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:54",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Kecha ertalab uyg‘onganimda yomg‘ir yog‘ayotgan edi.",
+    "options": [
+      "was",
+      "up",
+      "morning",
+      "in",
+      "I",
+      "When",
+      "the ",
+      "it",
+      "raining.",
+      "woke",
+      "wake",
+      "yesterday,",
+      "rainy"
+    ],
+    "correct_answer": [
+      "was",
+      "When I woke up in the morning yesterday, it was raining."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:49:57",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I was doing my homework |_| my mom was cleaning the room.",
+    "options": [
+      "so",
+      "when",
+      "after",
+      "before"
+    ],
+    "correct_answer": [
+      "I was doing my homework \nso\n my mom was cleaning the room.",
+      "when"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:50:00",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| I was a child, I used to eat ice-cream very much.",
+    "options": [
+      "After",
+      "Before",
+      "When"
+    ],
+    "correct_answer": [
+      "After\n I was a child, I used to eat ice-cream very much.",
+      "When"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:50:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Will you be in the class |_| I come back?",
+    "options": [
+      "during",
+      "while",
+      "when"
+    ],
+    "correct_answer": [
+      "Will you be in the class \nwhen\n I come back?",
+      "when"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:50:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Can you turn off the lights ___ you finish your assignments.",
+    "options": [
+      "and",
+      "or",
+      "before",
+      "after"
+    ],
+    "correct_answer": [
+      "Can you turn off the lights ___ you finish your assignments.",
+      "and",
+      "or",
+      "before",
+      "after",
+      "after"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:50:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Doston is going to use our books while we ___ in the exam.",
+    "options": [
+      "are",
+      "were",
+      "will be",
+      "will"
+    ],
+    "correct_answer": [
+      "are"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:50:13",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "It was raining |_| I was out.",
+    "options": [
+      "when",
+      "after",
+      "before"
+    ],
+    "correct_answer": [
+      "It was raining \nwhen\n I was out.",
+      "when"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:50:35",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Kecha ertalab uyg‘onganimda yomg‘ir yog‘ayotgan edi.",
+    "options": [
+      "When",
+      "was",
+      "the ",
+      "rainy",
+      "it",
+      "in",
+      "yesterday,",
+      "up",
+      "wake",
+      "morning",
+      "raining.",
+      "I",
+      "woke"
+    ],
+    "correct_answer": [
+      "When",
+      "I",
+      "woke",
+      "up",
+      "in",
+      "the ",
+      "morning",
+      "yesterday,",
+      "it",
+      "was",
+      "raining.",
+      "When I woke up in the morning yesterday, it was raining."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:50:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I was doing my homework |_| my mom was cleaning the room.",
+    "options": [
+      "before",
+      "when",
+      "after",
+      "so"
+    ],
+    "correct_answer": [
+      "I was doing my homework \nwhen\n my mom was cleaning the room.",
+      "when"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:50:41",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| I was a child, I used to eat ice-cream very much.",
+    "options": [
+      "Before",
+      "When",
+      "After"
+    ],
+    "correct_answer": [
+      "When\n I was a child, I used to eat ice-cream very much.",
+      "When"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:50:50",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "|_| I was a child, I used to eat ice-cream very much.",
+    "options": [
+      "Before",
+      "When",
+      "After"
+    ],
+    "correct_answer": [
+      "Dars 111 If we go ... If you see ...",
+      "If can be at the beginning of a sentence or in the middle.",
+      "If... (If at the beginning)",
+      "If we go by bus, it will be cheaper.",
+      "If you don't hurry, you'll miss the train.",
+      "if (if at the beginning)",
+      "It will be cheaper if we go by bus. You'll miss the train if you don't hurry."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:04",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Agar darsga kech qolsang, ustozing  jazolaydi.",
+    "options": [
+      "are",
+      "I",
+      "lesson",
+      " the",
+      "teacher",
+      "When",
+      " late",
+      "for",
+      "your",
+      "punish.",
+      "If",
+      "will",
+      "you"
+    ],
+    "correct_answer": [
+      "are",
+      "If you are late for the lesson your teacher will punish."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:07",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| you don't study now, you won't pass the exam.",
+    "options": [
+      "When",
+      "While",
+      "If"
+    ],
+    "correct_answer": [
+      "When\n you don't study now, you won't pass the exam.",
+      "If"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:10",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Do you mind ___ I borrow your charger?",
+    "options": [
+      "during",
+      "while",
+      "when",
+      "if"
+    ],
+    "correct_answer": [
+      "if"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:12",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| I am late for the party, don't wait for me.",
+    "options": [
+      "While",
+      "During",
+      "When",
+      "If"
+    ],
+    "correct_answer": [
+      "While\n I am late for the party, don't wait for me.",
+      "If"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:15",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "If - ",
+    "options": [
+      "aslida",
+      "vaqtda",
+      "agar",
+      "davomida"
+    ],
+    "correct_answer": [
+      "agar"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:20",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Maktabni bitirganimdan keyin boshqalarga ingliz tilini o‘rgataman.",
+    "options": [
+      " I will ",
+      "teach",
+      "finish",
+      "others.",
+      "Before",
+      " to",
+      "school,",
+      "you",
+      " I ",
+      " English ",
+      "After"
+    ],
+    "correct_answer": [
+      " I will ",
+      "After I finish school, I will teach English to others."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "A: Are you going out tonight? B: Maybe, I am not sure. |_|, I will phone you.",
+    "options": [
+      "if I go out",
+      "when I go out"
+    ],
+    "correct_answer": [
+      "A: Are you going out tonight? B: Maybe, I am not sure. \nif I go out\n, I will phone you.",
+      "if I go out"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:25",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "If you don't hurry, you ___ the train.",
+    "options": [
+      "will",
+      "will be late",
+      "will get",
+      "will miss"
+    ],
+    "correct_answer": [
+      "will miss"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:29",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "If we wait for them here, we ___ late.",
+    "options": [
+      "do",
+      "to be",
+      "will be",
+      "are"
+    ],
+    "correct_answer": [
+      "will be"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:31",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ I come back, we can go to the park.",
+    "options": [
+      "While",
+      "When",
+      "If",
+      "During"
+    ],
+    "correct_answer": [
+      "When"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:54",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Agar darsga kech qolsang, ustozing  jazolaydi.",
+    "options": [
+      "punish.",
+      "When",
+      "you",
+      " the",
+      "will",
+      "I",
+      " late",
+      "teacher",
+      "your",
+      "If",
+      "lesson",
+      "for",
+      "are"
+    ],
+    "correct_answer": [
+      "If",
+      "you",
+      "are",
+      " late",
+      "for",
+      " the",
+      "lesson",
+      "your",
+      "teacher",
+      "will",
+      "punish.",
+      "If you are late for the lesson your teacher will punish."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:51:57",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| you don't study now, you won't pass the exam.",
+    "options": [
+      "If",
+      "When",
+      "While"
+    ],
+    "correct_answer": [
+      "If\n you don't study now, you won't pass the exam.",
+      "If"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Do you mind ___ I borrow your charger?",
+    "options": [
+      "if",
+      "while",
+      "when",
+      "during"
+    ],
+    "correct_answer": [
+      "if"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:05",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| I am late for the party, don't wait for me.",
+    "options": [
+      "If",
+      "While",
+      "During",
+      "When"
+    ],
+    "correct_answer": [
+      "|_| I am late for the party, don't wait for me.",
+      "If\n I am late for the party, don't wait for me.",
+      "If",
+      "If",
+      "While",
+      "During",
+      "When"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:08",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If - ",
+    "options": [
+      "vaqtda",
+      "aslida",
+      "davomida",
+      "agar"
+    ],
+    "correct_answer": [
+      "agar"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:13",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Maktabni bitirganimdan keyin boshqalarga ingliz tilini o‘rgataman.",
+    "options": [
+      "finish",
+      "others.",
+      "Before",
+      "school,",
+      "After",
+      " to",
+      "teach",
+      " I will ",
+      " I ",
+      " English ",
+      "you"
+    ],
+    "correct_answer": [
+      "finish",
+      "After I finish school, I will teach English to others."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:17",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If you don't hurry, you ___ the train.",
+    "options": [
+      "will be late",
+      "will",
+      "will get",
+      "will miss"
+    ],
+    "correct_answer": [
+      "will miss"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If we wait for them here, we ___ late.",
+    "options": [
+      "are",
+      "to be",
+      "do",
+      "will be"
+    ],
+    "correct_answer": [
+      "will be"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ I come back, we can go to the park.",
+    "options": [
+      "During",
+      "If",
+      "When",
+      "While"
+    ],
+    "correct_answer": [
+      "When"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:32",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "___ I come back, we can go to the park.",
+    "options": [
+      "During",
+      "If",
+      "When",
+      "While"
+    ],
+    "correct_answer": [
+      "Dars 112 If I had... If we went...",
+      "Usually had is past, but in this sentence had is not past. If he had the money = If he had the money now (but he doesn't have it).",
+      "IF",
+      "I / you / it / they",
+      "had / knew / lived / went (etc.)",
+      "didn't have / know / go (etc.)"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:43",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "You'll miss the train |_|  you don't hurry.",
+    "options": [
+      "since",
+      "if"
+    ],
+    "correct_answer": [
+      "You'll miss the train \nsince\n  you don't hurry.",
+      "if"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| I go out, I will close the window.",
+    "options": [
+      "If",
+      "After",
+      "When"
+    ],
+    "correct_answer": [
+      "If\n I go out, I will close the window.",
+      "If"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:49",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "If we go  home, we |_| help you tidy the house.",
+    "options": [
+      "would",
+      "will"
+    ],
+    "correct_answer": [
+      "If we go  home, we \nwould\n help you tidy the house.",
+      "will"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If they were rich, they |_|  not have any financial problems. ",
+    "options": [
+      "would",
+      "will"
+    ],
+    "correct_answer": [
+      "If they were rich, they \nwould\n  not have any financial problems. ",
+      "would"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:54",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "If I had the money, I |_| buy a car.",
+    "options": [
+      "will",
+      "would"
+    ],
+    "correct_answer": [
+      "If I had the money, I \nwill\n buy a car.",
+      "would"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:52:57",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "If the sun rises, we |_| go for a picnic with our course-mates.",
+    "options": [
+      "are",
+      "would",
+      "will"
+    ],
+    "correct_answer": [
+      "If the sun rises, we \nare\n go for a picnic with our course-mates.",
+      "will"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:00",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "If he tried harder, he |_| reach his goals.",
+    "options": [
+      "will",
+      "would"
+    ],
+    "correct_answer": [
+      "If he tried harder, he \nwill\n reach his goals.",
+      "would"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If she comes, I |_| call you.",
+    "options": [
+      "will",
+      "would"
+    ],
+    "correct_answer": [
+      "If she comes, I \nwill\n call you.",
+      "will"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:08",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Agar yomg‘ir yog‘sa, yangi maysalar o‘sib chiqadi.",
+    "options": [
+      "new",
+      "it",
+      "raining",
+      "If",
+      "grow.",
+      "will",
+      "rains",
+      "grass",
+      "grew",
+      "rained"
+    ],
+    "correct_answer": [
+      "new",
+      "If it rains new grass will grow."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:11",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "You'll miss the train |_|  you don't hurry.",
+    "options": [
+      "since",
+      "if"
+    ],
+    "correct_answer": [
+      "You'll miss the train \nif\n  you don't hurry.",
+      "if"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If we go  home, we |_| help you tidy the house.",
+    "options": [
+      "will",
+      "would"
+    ],
+    "correct_answer": [
+      "If we go  home, we |_| help you tidy the house.",
+      "If we go  home, we \nwill\n help you tidy the house.",
+      "will",
+      "will",
+      "would"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If I had the money, I |_| buy a car.",
+    "options": [
+      "would",
+      "will"
+    ],
+    "correct_answer": [
+      "If I had the money, I \nwould\n buy a car.",
+      "would"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:21",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If the sun rises, we |_| go for a picnic with our course-mates.",
+    "options": [
+      "would",
+      "are",
+      "will"
+    ],
+    "correct_answer": [
+      "If the sun rises, we \nwill\n go for a picnic with our course-mates.",
+      "will"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:24",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If he tried harder, he |_| reach his goals.",
+    "options": [
+      "will",
+      "would"
+    ],
+    "correct_answer": [
+      "If he tried harder, he \nwould\n reach his goals.",
+      "would"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:39",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Agar yomg‘ir yog‘sa, yangi maysalar o‘sib chiqadi.",
+    "options": [
+      "new",
+      "grass",
+      "rains",
+      "grew",
+      "raining",
+      "will",
+      "grow.",
+      "rained",
+      "If",
+      "it"
+    ],
+    "correct_answer": [
+      "If",
+      "it",
+      "rains",
+      "new",
+      "grass",
+      "will",
+      "grow.",
+      "If it rains new grass will grow."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:53:50",
+    "type": "fill_the_blank",
+    "result": "other",
+    "question": "Agar yomg‘ir yog‘sa, yangi maysalar o‘sib chiqadi.",
+    "options": [
+      "new",
+      "grass",
+      "rains",
+      "grew",
+      "raining",
+      "will",
+      "grow.",
+      "rained",
+      "If",
+      "it"
+    ],
+    "correct_answer": [
+      "Dars 113 A person who ... a thing that/which (relative clauses 1)",
+      "That is for things or people:",
+      "An airplane is a machine that flies.",
+      "Zamira lives in a house that is 500 years old.",
+      "The people that work in the office are very friendly.",
+      "Who is for people (not things):"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The book ___ was chosen by everyone was interesting.",
+    "options": [
+      "which",
+      "who",
+      "when"
+    ],
+    "correct_answer": [
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:03",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I have a friend |_| speaks four languages.",
+    "options": [
+      "which",
+      "where",
+      "who",
+      "what"
+    ],
+    "correct_answer": [
+      "I have a friend \nwhich\n speaks four languages.",
+      "who"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:05",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He got the job |_| surprised everyone.",
+    "options": [
+      "which",
+      "when",
+      "who"
+    ],
+    "correct_answer": [
+      "He got the job \nwhich\n surprised everyone.",
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:08",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We should only buy products |_| can be recycled.",
+    "options": [
+      "that",
+      "when",
+      "who",
+      "where"
+    ],
+    "correct_answer": [
+      "We should only buy products \nthat\n can be recycled.",
+      "that"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:11",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We use \"that\" -",
+    "options": [
+      "people",
+      "people and things",
+      "things"
+    ],
+    "correct_answer": [
+      "people and things"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:15",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Agar o'zim o'qiydigan maktabga borsam, do‘stlarim bilan uchrashaman.",
+    "options": [
+      "where I study,",
+      "go to",
+      "I will",
+      "If I",
+      "meet",
+      "school",
+      "my friends."
+    ],
+    "correct_answer": [
+      "where I study,",
+      "If I go to school where I study, I will meet my friends."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:19",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I want to see a film ___ everybody is talking about.",
+    "options": [
+      "whose",
+      "who",
+      "which"
+    ],
+    "correct_answer": [
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:21",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "A thief is a person ___ steals things and money.",
+    "options": [
+      "which",
+      "when",
+      "who"
+    ],
+    "correct_answer": [
+      "who"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:24",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We use \"who\" for -",
+    "options": [
+      "people",
+      "things",
+      "animals"
+    ],
+    "correct_answer": [
+      "people"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:27",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "What is the name of the man ___ lives next door?",
+    "options": [
+      "which",
+      "who",
+      "when"
+    ],
+    "correct_answer": [
+      "who"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I have a friend |_| speaks four languages.",
+    "options": [
+      "which",
+      "who",
+      "what",
+      "where"
+    ],
+    "correct_answer": [
+      "I have a friend |_| speaks four languages.",
+      "I have a friend \nwho\n speaks four languages.",
+      "which",
+      "who",
+      "who",
+      "what",
+      "where"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We use \"that\" -",
+    "options": [
+      "things",
+      "people and things",
+      "people"
+    ],
+    "correct_answer": [
+      "people and things"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:39",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Agar o'zim o'qiydigan maktabga borsam, do‘stlarim bilan uchrashaman.",
+    "options": [
+      "my friends.",
+      "meet",
+      "go to",
+      "school",
+      "If I",
+      "where I study,",
+      "I will"
+    ],
+    "correct_answer": [
+      "my friends.",
+      "If I go to school where I study, I will meet my friends."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:42",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I want to see a film ___ everybody is talking about.",
+    "options": [
+      "who",
+      "whose",
+      "which"
+    ],
+    "correct_answer": [
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "A thief is a person ___ steals things and money.",
+    "options": [
+      "when",
+      "which",
+      "who"
+    ],
+    "correct_answer": [
+      "who"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:49",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "What is the name of the man ___ lives next door?",
+    "options": [
+      "who",
+      "which",
+      "when"
+    ],
+    "correct_answer": [
+      "who"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:54:59",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "What is the name of the man ___ lives next door?",
+    "options": [
+      "who",
+      "which",
+      "when"
+    ],
+    "correct_answer": [
+      "Dars 114 The people we met the hotel you stayed at",
+      "The hotel you stayed at...",
+      "(relative clauses 2)",
+      "The woman is carrying a bag. 2 sentences",
+      "It's very heavy.",
+      "The bag (that) she is carrying is very heavy.",
+      "1 sentences",
+      "You can say:"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:55:08",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The company ___ I used to work for has closed down.",
+    "options": [
+      "which",
+      "-",
+      "who"
+    ],
+    "correct_answer": [
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:55:11",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Give him something |_|   will take away the pain.",
+    "options": [
+      "whose",
+      "when",
+      "which",
+      "who",
+      "then"
+    ],
+    "correct_answer": [
+      "Give him something \nwhose\n   will take away the pain.",
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:55:14",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The people ___ work in the office didn't give his name is very friendly.",
+    "options": [
+      "whose",
+      "who",
+      "which"
+    ],
+    "correct_answer": [
+      "who"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:55:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Is Aziza the girl ___ mother is an English teacher.",
+    "options": [
+      "who",
+      "whose",
+      "which"
+    ],
+    "correct_answer": [
+      "whose"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:55:20",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The car ___ he bought last month is fantastic.",
+    "options": [
+      "where",
+      "who",
+      "which"
+    ],
+    "correct_answer": [
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:55:24",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz bola) ko‘targan sumka og‘ir.",
+    "options": [
+      "is ",
+      " bag ",
+      "she",
+      "heavy.",
+      "when",
+      "who",
+      "which",
+      "The",
+      "he",
+      " is carrying ",
+      "whose"
+    ],
+    "correct_answer": [
+      "is ",
+      "The bag which she is carrying is heavy."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:55:52",
+    "type": "matching",
+    "result": "correct",
+    "question": "Match the words.",
+    "options": [
+      "Change",
+      "Hayvon",
+      "Heavy",
+      "Og‘ir",
+      "Animal",
+      "O‘zgartirmoq",
+      "Buy",
+      "Sotib olmoq"
+    ],
+    "correct_answer": [
+      [
+        "Change",
+        "O‘zgartirmoq"
+      ],
+      [
+        "Heavy",
+        "Og‘ir"
+      ],
+      [
+        "Buy",
+        "Hayvon"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:55:55",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We’ll show you the poem |_|  changed my life.",
+    "options": [
+      "when",
+      "where",
+      "which",
+      "who"
+    ],
+    "correct_answer": [
+      "We’ll show you the poem \nwhen\n  changed my life.",
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:55:58",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The man ___ has a white dog is my brother.",
+    "options": [
+      "that",
+      "whom",
+      "who"
+    ],
+    "correct_answer": [
+      "who"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The car |_|  he bought last month is fantastic.",
+    "options": [
+      "which",
+      "who",
+      "when",
+      "where"
+    ],
+    "correct_answer": [
+      "The car \nwhich\n  he bought last month is fantastic.",
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:05",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Give him something |_|   will take away the pain.",
+    "options": [
+      "whose",
+      "when",
+      "which",
+      "who",
+      "then"
+    ],
+    "correct_answer": [
+      "Give him something \nwhich\n   will take away the pain.",
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The people ___ work in the office didn't give his name is very friendly.",
+    "options": [
+      "who",
+      "whose",
+      "which"
+    ],
+    "correct_answer": [
+      "The people ___ work in the office didn't give his name is very friendly.",
+      "who",
+      "who",
+      "whose",
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:13",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Is Aziza the girl ___ mother is an English teacher.",
+    "options": [
+      "whose",
+      "which",
+      "who"
+    ],
+    "correct_answer": [
+      "whose"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:16",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The car ___ he bought last month is fantastic.",
+    "options": [
+      "who",
+      "where",
+      "which"
+    ],
+    "correct_answer": [
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:20",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U (qiz bola) ko‘targan sumka og‘ir.",
+    "options": [
+      " is carrying ",
+      "is ",
+      "he",
+      "The",
+      "who",
+      "heavy.",
+      "which",
+      " bag ",
+      "she",
+      "whose",
+      "when"
+    ],
+    "correct_answer": [
+      " is carrying ",
+      "The bag which she is carrying is heavy."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We’ll show you the poem |_|  changed my life.",
+    "options": [
+      "when",
+      "who",
+      "which",
+      "where"
+    ],
+    "correct_answer": [
+      "We’ll show you the poem \nwhich\n  changed my life.",
+      "which"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:26",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The man ___ has a white dog is my brother.",
+    "options": [
+      "whom",
+      "that",
+      "who"
+    ],
+    "correct_answer": [
+      "who"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:37",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "The man ___ has a white dog is my brother.",
+    "options": [
+      "whom",
+      "that",
+      "who"
+    ],
+    "correct_answer": [
+      "Dars 115 Can\\could and (be) able to",
+      "Can",
+      "Can o‘rnida be able to ni ham ishlatsa bo‘ladi. Be able to hozirgi, o‘tgan va kelasi zamonda ishlatiladi.",
+      "Ex: I could swim when I was a child = I was able to swim when I was a child.",
+      "Haqiqatda sodir bo‘lgan ish-harakat to‘g‘risida gap ketganda was (were) able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Yesterday, I lost my keys and I looked for them everywhere. But I |_| find them.",
+    "options": [
+      "couldn't",
+      "could",
+      "can't",
+      "can"
+    ],
+    "correct_answer": [
+      "Yesterday, I lost my keys and I looked for them everywhere. But I \ncouldn't\n find them.",
+      "couldn't"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:51",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men tog‘ga tirmashib chiqa olaman.",
+    "options": [
+      "rise",
+      "mountain.",
+      "can",
+      "climb",
+      "could",
+      "I",
+      "the"
+    ],
+    "correct_answer": [
+      "rise",
+      "I can climb the mountain."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:54",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "If you tell him your problem he might ___ help you.",
+    "options": [
+      "could",
+      "can",
+      "be able to",
+      "would"
+    ],
+    "correct_answer": [
+      "be able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:56:56",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "When I was a  child I used to |_| stand on my head.",
+    "options": [
+      "could",
+      "can",
+      "be able to",
+      "would"
+    ],
+    "correct_answer": [
+      "When I was a  child I used to \ncould\n stand on my head.",
+      "be able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:01",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Zarina kecha vazifalarini tugata olmadi.",
+    "options": [
+      "her",
+      "yesterday.",
+      "today",
+      "stop",
+      "finish",
+      "Zarina",
+      "couldn't",
+      "could",
+      "assignments"
+    ],
+    "correct_answer": [
+      "her",
+      "Zarina couldn't finish her assignments yesterday."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:04",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I will |_| help you later.",
+    "options": [
+      "can",
+      "would",
+      "could",
+      "be able to"
+    ],
+    "correct_answer": [
+      "I will \ncan\n help you later.",
+      "be able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:07",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "How long have you ___ drive?",
+    "options": [
+      "able to",
+      "could",
+      "can",
+      "been able to"
+    ],
+    "correct_answer": [
+      "been able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:11",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Zilola uchta tilda gapira oladi.",
+    "options": [
+      "can",
+      "speaks",
+      "speak",
+      "two",
+      "could",
+      "languages.",
+      "Zilola",
+      "three"
+    ],
+    "correct_answer": [
+      "can",
+      "Zilola can speak three languages."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:14",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I would like to ___ play the piano.",
+    "options": [
+      "can",
+      "could",
+      "be able to",
+      "will"
+    ],
+    "correct_answer": [
+      "be able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Samandar traveled a lot. He ___ speak 5 languages.",
+    "options": [
+      "could",
+      "can",
+      "couldn't",
+      "can't"
+    ],
+    "correct_answer": [
+      "can"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:29",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Men tog‘ga tirmashib chiqa olaman.",
+    "options": [
+      "I",
+      "mountain.",
+      "climb",
+      "rise",
+      "the",
+      "can",
+      "could"
+    ],
+    "correct_answer": [
+      "I",
+      "can",
+      "climb",
+      "the",
+      "mountain.",
+      "I can climb the mountain."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "If you tell him your problem he might ___ help you.",
+    "options": [
+      "be able to",
+      "can",
+      "would",
+      "could"
+    ],
+    "correct_answer": [
+      "be able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "When I was a  child I used to |_| stand on my head.",
+    "options": [
+      "could",
+      "can",
+      "would",
+      "be able to"
+    ],
+    "correct_answer": [
+      "When I was a  child I used to \nbe able to\n stand on my head.",
+      "be able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:50",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Zarina kecha vazifalarini tugata olmadi.",
+    "options": [
+      "could",
+      "today",
+      "yesterday.",
+      "couldn't",
+      "finish",
+      "assignments",
+      "stop",
+      "Zarina",
+      "her"
+    ],
+    "correct_answer": [
+      "Zarina kecha vazifalarini tugata olmadi.",
+      "Zarina kecha vazifalarini tugata olmadi.",
+      "Zarina",
+      "Zarina",
+      "couldn't",
+      "couldn't",
+      "finish",
+      "finish",
+      "her",
+      "her",
+      "assignments",
+      "assignments",
+      "yesterday.",
+      "yesterday.",
+      "could",
+      "today",
+      "stop",
+      "Zarina couldn't finish her assignments yesterday.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:53",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I will |_| help you later.",
+    "options": [
+      "could",
+      "be able to",
+      "would",
+      "can"
+    ],
+    "correct_answer": [
+      "I will \nbe able to\n help you later.",
+      "be able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:57:56",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "How long have you ___ drive?",
+    "options": [
+      "could",
+      "been able to",
+      "able to",
+      "can"
+    ],
+    "correct_answer": [
+      "been able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:58:07",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Zilola uchta tilda gapira oladi.",
+    "options": [
+      "two",
+      "speaks",
+      "speak",
+      "Zilola",
+      "languages.",
+      "can",
+      "three",
+      "could"
+    ],
+    "correct_answer": [
+      "Zilola",
+      "can",
+      "speak",
+      "three",
+      "languages.",
+      "Zilola can speak three languages."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:58:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I would like to ___ play the piano.",
+    "options": [
+      "could",
+      "will",
+      "can",
+      "be able to"
+    ],
+    "correct_answer": [
+      "be able to"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:58:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Samandar traveled a lot. He ___ speak 5 languages.",
+    "options": [
+      "can't",
+      "can",
+      "could",
+      "couldn't"
+    ],
+    "correct_answer": [
+      "can"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:58:22",
+    "type": "multiple_choice",
+    "result": "other",
+    "question": "Samandar traveled a lot. He ___ speak 5 languages.",
+    "options": [
+      "can't",
+      "can",
+      "could",
+      "couldn't"
+    ],
+    "correct_answer": [
+      "Dars 116 Could (do) and could have (done)",
+      "Sometimes could is the past of can.",
+      "Listen. I can hear something. (now)",
+      "I listened. I could hear something. (past)",
+      "Lekin \"could\" har doim ham o‘tgan zamonda emas. Biz hozir yoki kelajakda mumkin bo‘lgan ish-harakatlar uchun \"could\" dan foydalanamiz, ayniqsa takliflar berish uchun.",
+      "Example :"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:58:35",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Mohina pianino chala oladi.",
+    "options": [
+      " the piano.",
+      "play",
+      "not",
+      "Mohina",
+      "playing",
+      "can"
+    ],
+    "correct_answer": [
+      " the piano.",
+      "Mohina can play the piano."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:58:40",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Sen o‘tgan darsni eslay olasanmi?",
+    "options": [
+      "would",
+      "your",
+      "Can",
+      "lesson?",
+      "I",
+      "remember",
+      "the ",
+      "you",
+      "last "
+    ],
+    "correct_answer": [
+      "would",
+      "Can you remember the last lesson?"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:58:43",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We ___ go to the cinema.",
+    "options": [
+      "need",
+      "has to",
+      "could",
+      "must to"
+    ],
+    "correct_answer": [
+      "could"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:15",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "Exam",
+      "Zerikarli",
+      "Important",
+      "Sarflamoq",
+      "Boring",
+      "Imtihon",
+      "Spend",
+      "Muhim"
+    ],
+    "correct_answer": [
+      [
+        "Exam",
+        "Imtihon"
+      ],
+      [
+        "Important",
+        "Muhim"
+      ],
+      [
+        "Spend",
+        "Zerikarli"
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She ___ speak three languages.",
+    "options": [
+      "can",
+      "must",
+      "will",
+      "have to"
+    ],
+    "correct_answer": [
+      "can"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:21",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ you  open the door, please ?",
+    "options": [
+      "Might",
+      "Must",
+      "Could",
+      "Will"
+    ],
+    "correct_answer": [
+      "Could"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:26",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Men hozir senga yordam bera olmayman.",
+    "options": [
+      "help",
+      "can",
+      "helping",
+      "you",
+      "I",
+      "not",
+      "now.",
+      "done",
+      "would"
+    ],
+    "correct_answer": [
+      "help",
+      "I can not help you now."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:29",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Yordam! Men nafas ololmayapman.",
+    "options": [
+      "must",
+      "not",
+      "Help!",
+      "would",
+      "breathe.",
+      "can",
+      "I"
+    ],
+    "correct_answer": [
+      "must",
+      "Help! I can not breathe."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:32",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Life  |_| be very unfair.",
+    "options": [
+      "should",
+      "have to",
+      "can",
+      "will"
+    ],
+    "correct_answer": [
+      "Life  \nshould\n be very unfair.",
+      "can"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:37",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "U tez yugura oladi.",
+    "options": [
+      "I",
+      "fast.",
+      "fastly",
+      "He",
+      "can",
+      "run ",
+      "not"
+    ],
+    "correct_answer": [
+      "I",
+      "He can run fast."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:41",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Mohina pianino chala oladi.",
+    "options": [
+      " the piano.",
+      "play",
+      "not",
+      "Mohina",
+      "can",
+      "playing"
+    ],
+    "correct_answer": [
+      " the piano.",
+      "Mohina can play the piano."
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:54",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Sen o‘tgan darsni eslay olasanmi?",
+    "options": [
+      "your",
+      "would",
+      "Can",
+      "lesson?",
+      "you",
+      "the ",
+      "last ",
+      "remember",
+      "I"
+    ],
+    "correct_answer": [
+      "Can",
+      "you",
+      "remember",
+      "the ",
+      "last ",
+      "lesson?",
+      "Can you remember the last lesson?"
+    ]
+  },
+  {
+    "time": "2026-08-02 13:59:58",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We ___ go to the cinema.",
+    "options": [
+      "has to",
+      "could",
+      "must to",
+      "need"
+    ],
+    "correct_answer": [
+      "could"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:00:01",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ you  open the door, please ?",
+    "options": [
+      "Must",
+      "Might",
+      "Could",
+      "Will"
+    ],
+    "correct_answer": [
+      "Could"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:00:13",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Men hozir senga yordam bera olmayman.",
+    "options": [
+      "can",
+      "not",
+      "I",
+      "now.",
+      "you",
+      "would",
+      "helping",
+      "done",
+      "help"
+    ],
+    "correct_answer": [
+      "I",
+      "can",
+      "not",
+      "help",
+      "you",
+      "now.",
+      "I can not help you now."
+    ]
+  },
+  {
+    "time": "2026-08-02 14:00:26",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Yordam! Men nafas ololmayapman.",
+    "options": [
+      "can",
+      "must",
+      "Help!",
+      "not",
+      "breathe.",
+      "would",
+      "I"
+    ],
+    "correct_answer": [
+      "Yordam! Men nafas ololmayapman.",
+      "Yordam! Men nafas ololmayapman.",
+      "Help!",
+      "Help!",
+      "I",
+      "I",
+      "can",
+      "can",
+      "not",
+      "not",
+      "breathe.",
+      "breathe.",
+      "must",
+      "would",
+      "Help! I can not breathe.",
+      "Continue"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:00:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Life  |_| be very unfair.",
+    "options": [
+      "will",
+      "can",
+      "have to",
+      "should"
+    ],
+    "correct_answer": [
+      "Life  \ncan\n be very unfair.",
+      "can"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:00:38",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "U tez yugura oladi.",
+    "options": [
+      "can",
+      "fastly",
+      "not",
+      "run ",
+      "He",
+      "I",
+      "fast."
+    ],
+    "correct_answer": [
+      "He",
+      "can",
+      "run ",
+      "fast.",
+      "He can run fast."
+    ]
+  },
+  {
+    "time": "2026-08-02 14:00:47",
+    "type": "fill_the_blank",
+    "result": "other",
+    "question": "U tez yugura oladi.",
+    "options": [
+      "can",
+      "fastly",
+      "not",
+      "run ",
+      "He",
+      "I",
+      "fast."
+    ],
+    "correct_answer": [
+      "Dars 117 Must and can't",
+      "It must be very noisy.",
+      "Biz bir narsaning aniqligiga ishonganimizni aytish uchun must dan foydalanamiz:",
+      "Masalan:",
+      "You’ve been travelling all day. You must be tired. (travelling is tiring and you’ve been travelling all day, so you must be tired)",
+      "Sanjar is a hard worker. Sanjar? You must be joking.He doesn’t do anything."
+    ]
+  },
+  {
+    "time": "2026-08-02 14:00:58",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "You ___ have misunderstood. I never said that.",
+    "options": [
+      "mustn't",
+      "can't",
+      "must"
+    ],
+    "correct_answer": [
+      "must"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:13:47",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "The phone rang, but I didn't hear it. ___.",
+    "options": [
+      "been",
+      "can",
+      "must",
+      "asleep",
+      "sleeping",
+      "I",
+      "slept",
+      "have "
+    ],
+    "correct_answer": [
+      "been",
+      "I must have been asleep"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:13:52",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "She hasn't contacted me. She |_| got my message.",
+    "options": [
+      "must",
+      "mustn't have",
+      "can't have"
+    ],
+    "correct_answer": [
+      "She hasn't contacted me. She \nmust\n got my message.",
+      "can't have"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:13:56",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "He ___ have forgotten his keys at home because they're not in his pocket.",
+    "options": [
+      "can't",
+      "mustn't",
+      "must"
+    ],
+    "correct_answer": [
+      "must"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:01",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She ___ have been driving all night. She looks too rested.",
+    "options": [
+      "can't",
+      "must",
+      "mustn't"
+    ],
+    "correct_answer": [
+      "can't"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:05",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "The light was red, but the car didn't stop. The driver |_| have seen the red light.",
+    "options": [
+      "musn't",
+      "can",
+      "can't",
+      "must"
+    ],
+    "correct_answer": [
+      "The light was red, but the car didn't stop. The driver \nmusn't\n have seen the red light.",
+      "can't"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The jacket you bought is very good quality. It |_| been very expensive.",
+    "options": [
+      "must have",
+      "can have",
+      "can't have"
+    ],
+    "correct_answer": [
+      "The jacket you bought is very good quality. It \nmust have\n been very expensive.",
+      "must have"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I |_| forget to take my daughter from kindergarten.",
+    "options": [
+      "musn't",
+      "can't",
+      "must"
+    ],
+    "correct_answer": [
+      "I \nmusn't\n forget to take my daughter from kindergarten.",
+      "musn't"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I |_| remember to post it.",
+    "options": [
+      "must",
+      "have to",
+      "may"
+    ],
+    "correct_answer": [
+      "I \nmust\n remember to post it.",
+      "must"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:18",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Sardor always travels business class, so he |_| be short of money.",
+    "options": [
+      "mustn't",
+      "must",
+      "can't"
+    ],
+    "correct_answer": [
+      "Sardor always travels business class, so he \nmustn't\n be short of money.",
+      "can't"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "You ___ have misunderstood. I never said that.",
+    "options": [
+      "must",
+      "mustn't",
+      "can't"
+    ],
+    "correct_answer": [
+      "You ___ have misunderstood. I never said that.",
+      "must",
+      "must",
+      "mustn't",
+      "can't"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:37",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "The phone rang, but I didn't hear it. ___.",
+    "options": [
+      "asleep",
+      "been",
+      "slept",
+      "have ",
+      "sleeping",
+      "I",
+      "can",
+      "must"
+    ],
+    "correct_answer": [
+      "I",
+      "must",
+      "have ",
+      "been",
+      "asleep",
+      "I must have been asleep"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:40",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "She hasn't contacted me. She |_| got my message.",
+    "options": [
+      "must",
+      "mustn't have",
+      "can't have"
+    ],
+    "correct_answer": [
+      "She hasn't contacted me. She \ncan't have\n got my message.",
+      "can't have"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "He ___ have forgotten his keys at home because they're not in his pocket.",
+    "options": [
+      "can't",
+      "mustn't",
+      "must"
+    ],
+    "correct_answer": [
+      "must"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "The light was red, but the car didn't stop. The driver |_| have seen the red light.",
+    "options": [
+      "must",
+      "can",
+      "musn't",
+      "can't"
+    ],
+    "correct_answer": [
+      "The light was red, but the car didn't stop. The driver \ncan't\n have seen the red light.",
+      "can't"
+    ]
+  },
+  {
+    "time": "2026-08-02 14:14:50",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Sardor always travels business class, so he |_| be short of money.",
+    "options": [
+      "mustn't",
+      "can't",
+      "must"
+    ],
+    "correct_answer": [
+      "Sardor always travels business class, so he \ncan't\n be short of money.",
+      "can't"
+    ]
   }
 ]
