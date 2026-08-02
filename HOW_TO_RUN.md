@@ -1,42 +1,36 @@
 # How to run the automation
 
-The phone is used over Wi-Fi adb — no cable needed, it does not charge from the Mac.
-The device is pinned in `config.py` (`DEVICE_NAME = "192.168.1.16:5555"`), so there is
-nothing to select manually.
-
-## 1. Make sure the phone is connected
-
-Only needed after a Mac restart or if the connection drops:
-
-```bash
-adb connect 192.168.1.16:5555
-adb devices        # should show:  192.168.1.16:5555  device
-```
-
-## 2. Start the Appium server
-
-In one terminal, run it and leave it open:
-
-```bash
-appium
-```
-
-## 3. Run the automation
-
-In a second terminal:
+One command runs everything:
 
 ```bash
 cd ~/Desktop/ibrat-automation
 python3 main.py
 ```
 
-Stop it anytime with `Ctrl+C` — it cleans up its session on exit.
+That command supervises the whole stack by itself:
 
-**Only one runner at a time.** Two `main.py` (or `watcher.py`) processes on
-the same phone kill each other: every new session restarts the device-side
-automation server, which drops the other runner's connection. If runs keep
-dying with "instrumentation process is not running", check for a second
-runner still going (another terminal, a background task) and stop it.
+- **finds the phone** — the Wi-Fi adb target (`192.168.1.16:5555`) when it
+  is online (running `adb connect` itself), otherwise a phone plugged in
+  through a USB cable;
+- **runs the Appium server** — starts one if none is answering (output
+  goes to `appium.log`) and restarts it whenever the runner loses it;
+- **keeps the runner alive** — if the runner crashes, gives up, or prints
+  nothing for 5 minutes, it is killed, Appium is restarted, and the run
+  resumes. It never gives up: while the phone is unreachable it retries
+  with a growing pause (5 s up to 5 min) and picks the run back up the
+  moment the phone returns.
+
+Stop everything with `Ctrl+C`.
+
+The bare runner is still available the old way — start `appium` in one
+terminal yourself, then `python3 main.py --worker` in another.
+
+**Only one runner at a time.** Two runners on the same phone kill each
+other: every new session restarts the device-side automation server,
+which drops the other runner's connection. The supervisor spawns exactly
+one worker, but a second `python3 main.py` (or `watcher.py`) started by
+hand has the same effect. If runs keep dying with "instrumentation
+process is not running", check for a second runner still going.
 
 ## If a lesson video loads slowly
 
@@ -85,7 +79,12 @@ Explicit form: `adb -s 192.168.1.16:5555 shell ...`
 
 ## If the phone is offline (after a phone reboot or Wi-Fi change)
 
-The Wi-Fi adb listener stops when the phone reboots. To restore it:
+If the phone fell off Wi-Fi but a USB cable is plugged in, nothing needs
+restoring — `python3 main.py` finds and uses the cable connection by
+itself.
+
+To get back on Wi-Fi adb: the listener stops when the phone reboots. To
+restore it:
 
 1. Plug the phone in via USB cable once
 2. Run `./wifi_adb.sh`
