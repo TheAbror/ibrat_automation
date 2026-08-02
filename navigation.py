@@ -507,9 +507,25 @@ def push_through_to_start(driver, attempts=5):
             except TimeoutException:
                 pass
 
-            if looks_like_question(parse_screen(driver.page_source)):
+            nodes = parse_screen(driver.page_source)
+            if looks_like_question(nodes):
                 print("Questions already started")
                 return True
+
+            # Knocked back to the Assigned-courses list (the app does
+            # this on its own sometimes, e.g. after "Try again" on the
+            # 2026-08-02 account): re-enter the course and rejoin the
+            # sequence instead of dying as a dead screen.
+            if any(d == "Assigned courses" for _, d in nodes):
+                try:
+                    xpath = f"//*[@content-desc={xpath_literal(config.COURSE_DESCRIPTION)}]"
+                    driver.find_element(AppiumBy.XPATH, xpath).click()
+                    print("Re-entered the course from the Assigned-courses list")
+                    time.sleep(1)
+                    if open_next_in_sequence(driver):
+                        continue
+                except (NoSuchElementException, StaleElementReferenceException):
+                    pass
 
             # A finish/start/streak screen: its forward button (Next ... /
             # Start / Continue) beats blind-tapping in tree order.

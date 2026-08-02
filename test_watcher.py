@@ -1845,16 +1845,55 @@ class TestWaitForManualAdvance(unittest.TestCase):
         from selenium.common.exceptions import TimeoutException
 
         driver = TapDriver(COURSES_LIST_XML)
-        saved = (navigation.tap, navigation.wait_for_manual_advance)
+        saved = (navigation.tap, navigation.wait_for_manual_advance,
+                 navigation.open_next_in_sequence)
         navigation.tap = lambda d, w, locator, label: (_ for _ in ()).throw(
             TimeoutException(label)
         )
         navigation.wait_for_manual_advance = lambda d: False
+        navigation.open_next_in_sequence = lambda d: False
         try:
             with self.assertRaises(navigation.StuckScreenError):
                 navigation.push_through_to_start(driver, attempts=1)
         finally:
-            navigation.tap, navigation.wait_for_manual_advance = saved
+            (navigation.tap, navigation.wait_for_manual_advance,
+             navigation.open_next_in_sequence) = saved
+
+    def test_push_through_reenters_course_from_assigned_courses_list(self):
+        import navigation
+        import config
+        import locators as loc
+        from selenium.common.exceptions import TimeoutException
+
+        driver = TapDriver(COURSES_LIST_XML)
+        clicks = []
+
+        def course_click(by, value):
+            el = FakeElement("course")
+
+            def click():
+                clicks.append(value)
+                driver.xml = QUIZ_START_XML
+
+            el.click = click
+            return el
+
+        driver.find_element = course_click
+
+        def fake_tap(d, w, locator, label):
+            if locator == loc.START_TEST and "Start" in d.xml:
+                return
+            raise TimeoutException(label)
+
+        saved = (navigation.tap, navigation.open_next_in_sequence)
+        navigation.tap = fake_tap
+        navigation.open_next_in_sequence = lambda d: True
+        try:
+            self.assertTrue(navigation.push_through_to_start(driver, attempts=3))
+        finally:
+            navigation.tap, navigation.open_next_in_sequence = saved
+        self.assertTrue(any("Ingliz tili" in c for c in clicks),
+                        f"must tap the configured course: {clicks}")
 
 
 class TestPushThroughWaitsWhenStuck(unittest.TestCase):
@@ -2046,6 +2085,56 @@ class TestAnswerWordTranslation(unittest.TestCase):
         self.assertIn("Nohaq ", first.clicked[0])
         self.assertIn("Qizg’anchiq", second.clicked[0])
         self.assertTrue(any("Continue" in v for v in second.clicked))
+
+
+class TestAccuracyThrottle(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        import navigation
+        self._main_time = main_mod.time
+        self._miss = main_mod.MISS_EVERY
+        main_mod.time = FakeTime()
+        self._nav_sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import main as main_mod
+        import navigation
+        main_mod.time = self._main_time
+        main_mod.MISS_EVERY = self._miss
+        navigation.time.sleep = self._nav_sleep
+        os.chdir(self._cwd)
+
+    def test_answer_wrong_taps_a_non_answer_chip_and_continue(self):
+        import main as main_mod
+        driver = WordTranslationFlowDriver()
+        state = {}
+        self.assertTrue(main_mod.answer_wrong(
+            driver, "word_translation", "Clever -",
+            ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
+            {"Clever -": "Aqlli"}, state,
+        ))
+        self.assertIn("Nohaq ", driver.clicked[0], "must not tap the known answer")
+        self.assertTrue(any("Continue" in v for v in driver.clicked))
+
+    def test_loop_misses_every_nth_known_answer(self):
+        import main as main_mod
+        watcher.save_results([{
+            "question": "Clever -",
+            "type": "word_translation",
+            "result": "incorrect",
+            "options": ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
+            "correct_answer": ["Aqlli"],
+        }])
+        main_mod.MISS_EVERY = 1  # throttle every known answer
+        driver = WordTranslationFlowDriver()
+        with self.assertRaises(main_mod.StuckScreenError):
+            main_mod.auto_answer_loop(driver)
+        self.assertIn("Nohaq ", driver.clicked[0],
+                      "known answer must be deliberately missed")
+        self.assertTrue(any("Continue" in v for v in driver.clicked))
 
 
 class TestPollOnceWordTranslation(unittest.TestCase):

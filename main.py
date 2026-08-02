@@ -53,8 +53,13 @@ from question_handler import (
 )
 
 IDLE_LIMIT = 10      # seconds on an unrecognized screen -> restart the app
-MAX_QUESTIONS = 500
-APP_RELAUNCHES = 5   # app restarts per run before giving up
+MAX_QUESTIONS = 5000  # a whole course in one run (~88 quizzes + retakes)
+APP_RELAUNCHES = 50  # app restarts per run before giving up
+# Accuracy throttle: every Nth KNOWN answer is deliberately missed — a
+# perfect score across a whole course does not look human. 1-in-12 keeps
+# the score around 92% (natural misses on unseen questions pull it a bit
+# lower). Set to 0 to always answer as well as possible.
+MISS_EVERY = 12
 # Where the tree of an unrecognized screen is saved before restarting
 STUCK_SCREEN_FILE = "stuck_screen.xml"
 
@@ -114,6 +119,26 @@ def answer_fill_the_blank(driver, question, options, known):
             continue
         time.sleep(0.1)
     tap_continue(driver)
+    return True
+
+
+def answer_wrong(driver, qtype, question, options, known, state):
+    """Deliberately miss a question the runner knows (accuracy throttle).
+
+    Taps an option that is NOT the known answer; chip screens still get
+    their Continue. The feedback sheet reveals the right answer anyway,
+    so the answer book loses nothing.
+    """
+    answer = (known.get(question) or "").strip().lower()
+    wrong = next((o for o in options if o.strip().lower() != answer), None)
+    if wrong is None:
+        return False
+    print(f"  missing on purpose: {wrong}")
+    tap_text(driver, wrong)
+    if qtype in ("word_translation", "fill_the_blank"):
+        time.sleep(0.1)
+        state["descs"] = [d for _, d in parse_screen(driver.page_source) if d]
+        tap_continue(driver)
     return True
 
 
@@ -268,6 +293,7 @@ def auto_answer_loop(driver):
     state = watcher.fresh_state()
     answered = 0
     idle_since = time.time()
+    miss_countdown = MISS_EVERY
     # An ad styled like a question (a text plus 2+ buttons) dodges the
     # idle timer: answering it looks like progress but no feedback sheet
     # ever comes. Two sheetless attempts on the same question = restart.
@@ -292,12 +318,20 @@ def auto_answer_loop(driver):
             qtype = detect_question_type(question, options, state["descs"])
             answered += 1
             print(f"\n[{answered}] {qtype}: {question}")
+            throttle = False
+            if MISS_EVERY and question in known and qtype != "matching":
+                miss_countdown -= 1
+                if miss_countdown <= 0:
+                    miss_countdown = MISS_EVERY
+                    throttle = True
             try:
                 if question == sheetless_question:
                     # the typed handler already got no sheet out of this
                     # question — try the desperate generic move before the
                     # restart hammer falls
                     answer_unknown(driver, options, state)
+                elif throttle:
+                    answer_wrong(driver, qtype, question, options, known, state)
                 elif qtype == "multiple_choice":
                     answer_multiple_choice(driver, question, options, known, attempted)
                 elif qtype == "word_translation":
@@ -418,44 +452,52 @@ def force_stop_app():
 
 
 def main():
+    started = time.time()
     relaunches = APP_RELAUNCHES
-    while True:
-        driver = None
+    try:
+        while True:
+            driver = None
 
-        # Always close the session: an orphaned session wedges the Appium
-        # server and breaks the next script that talks to the same device.
-        try:
-            wake_device()
-            force_stop_app()
-            driver = connect_fresh_session()
-            time.sleep(3)
+            # Always close the session: an orphaned session wedges the
+            # Appium server and breaks the next script that talks to the
+            # same device.
+            try:
+                wake_device()
+                force_stop_app()
+                driver = connect_fresh_session()
+                time.sleep(3)
 
-            wait = WebDriverWait(driver, 20)
-            wait_long = WebDriverWait(driver, 30)
-            if navigate_to_test(driver, wait, wait_long):
-                answer_until_done(driver)
-            return
-        except (AppLostError, StuckScreenError) + watcher.CONNECTION_ERRORS as e:
-            if relaunches == 0:
-                print("Still stuck after several app restarts — giving up.")
+                wait = WebDriverWait(driver, 20)
+                wait_long = WebDriverWait(driver, 30)
+                if navigate_to_test(driver, wait, wait_long):
+                    answer_until_done(driver)
                 return
-            relaunches -= 1
-            if isinstance(e, AppLostError):
-                reason = "left the foreground"
-            elif isinstance(e, StuckScreenError):
-                reason = "is stuck"
-            else:
-                # e.g. the device-side instrumentation died mid-navigation
-                # (another runner on the same phone restarts it too).
-                reason = f"lost the device connection ({type(e).__name__})"
-                clear_stale_instrumentation()
-            print(f"The app {reason} ({e}) — restarting it...")
-        except KeyboardInterrupt:
-            print("\nStopped by user.")
-            return
-        finally:
-            if driver is not None:
-                watcher.safe_quit(driver)
+            except (AppLostError, StuckScreenError) + watcher.CONNECTION_ERRORS as e:
+                if relaunches == 0:
+                    print("Still stuck after several app restarts — giving up.")
+                    return
+                relaunches -= 1
+                if isinstance(e, AppLostError):
+                    reason = "left the foreground"
+                elif isinstance(e, StuckScreenError):
+                    reason = "is stuck"
+                else:
+                    # e.g. the device-side instrumentation died
+                    # mid-navigation (another runner on the same phone
+                    # restarts it too).
+                    reason = f"lost the device connection ({type(e).__name__})"
+                    clear_stale_instrumentation()
+                print(f"The app {reason} ({e}) — restarting it...")
+            except KeyboardInterrupt:
+                print("\nStopped by user.")
+                return
+            finally:
+                if driver is not None:
+                    watcher.safe_quit(driver)
+    finally:
+        elapsed = time.time() - started
+        print(f"Total wall time: {elapsed / 60:.1f} minutes "
+              f"({elapsed / 3600:.2f} hours)")
 
 
 if __name__ == "__main__":
