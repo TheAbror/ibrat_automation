@@ -207,6 +207,15 @@ class TestRecoveryHelpers(unittest.TestCase):
         ]
         self.assertEqual(navigation.find_forward_button(start_page), "Start")
 
+    def test_find_forward_button_retries_a_failed_test(self):
+        # "Try again" is the failed-test screen's only button — the way
+        # forward is retaking with the learned answers. Without it the
+        # runner burned an app restart on every first-attempt fail.
+        import navigation
+        nodes = qh.parse_screen(FAILED_QUIZ_XML)
+        self.assertEqual(navigation.find_forward_button(nodes), "Try again")
+        self.assertEqual(navigation.forward_tap_label(nodes), "Try again")
+
     def test_find_forward_button_continue_closes_streak_popup(self):
         import navigation
         streak_popup = [
@@ -272,6 +281,31 @@ PROMO_INTERSTITIAL_XML = """<hierarchy>
   <node class="android.view.View" bounds="[100,650][620,960]" clickable="false" content-desc="O'ychi o'yini o'ylaguncha boshqalar IELTS olib ketadi"/>
   <node class="android.widget.Button" bounds="[42,1220][678,1305]" clickable="true" content-desc="IELTSGA GOO!"/>
   <node class="android.widget.Button" bounds="[42,1340][678,1400]" clickable="true" content-desc="VAQT TOPILAVERADI"/>
+</hierarchy>"""
+
+# The Assigned-courses list (live dump 2026-08-02 16:40): its top-left
+# back arrow is an unlabeled icon-sized clickable exactly where a popup's
+# X would sit. Blind-tapping it walked the runner backwards out of the
+# whole course — only screens that LOOK like a known popup may have
+# their unlabeled X tapped.
+COURSES_LIST_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.widget.ImageView" bounds="[0,77][123,175]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[238,103][482,149]" clickable="false" content-desc="Assigned courses"/>
+  <node class="android.view.View" bounds="[42,336][678,476]" clickable="true" content-desc="Ingliz tili B2\nRustam Qoriyev"/>
+  <node class="android.view.View" bounds="[42,504][678,644]" clickable="true" content-desc="Nemis tili B1\nFeruza Uralova"/>
+</hierarchy>"""
+
+# The failed-test screen (live dump 2026-08-02 16:02): "Try again" is its
+# ONLY button — retaking with the freshly learned answers is the way
+# forward, unlike "Retry" on the pass-finish screen.
+FAILED_QUIZ_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[42,714][678,840]" clickable="false" content-desc="Sorry‚ your score is a little low!"/>
+  <node class="android.view.View" bounds="[63,861][657,903]" clickable="false" content-desc="You will definitely succeed in your next attempt"/>
+  <node class="android.view.View" bounds="[533,973][634,1008]" clickable="false" content-desc="Accuracy"/>
+  <node class="android.view.View" bounds="[554,1043][614,1085]" clickable="false" content-desc="30%"/>
+  <node class="android.widget.Button" bounds="[42,1376][678,1460]" clickable="true" content-desc="Try again"/>
 </hierarchy>"""
 
 # A question screen's only unlabeled clickables are the full-screen
@@ -365,6 +399,17 @@ class TestUnlabeledClose(unittest.TestCase):
         driver = TapDriver(HOME_SCREEN_XML)
         self.assertFalse(navigation.dismiss_popup(driver))
         self.assertEqual(driver.taps, [])
+
+    def test_courses_list_back_arrow_is_never_blind_tapped(self):
+        # Its back arrow is icon-sized, unlabeled, top-left — exactly a
+        # popup X's geometry. Tapping it walked the runner out of the
+        # course (2026-08-02); the screen shows no popup markers, so no
+        # blind tap is allowed.
+        import navigation
+        driver = TapDriver(COURSES_LIST_XML)
+        self.assertFalse(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, [])
+        self.assertEqual(driver.back_presses, 0)
 
     def test_finish_screen_back_arrow_is_never_blind_tapped(self):
         import navigation
@@ -963,6 +1008,53 @@ class TestSaveResults(unittest.TestCase):
         self.assertEqual([e["n"] for e in saved], [1, 2], "stale n gets renumbered")
         self.assertEqual(list(saved[0].keys())[0], "n", "n leads each entry")
         self.assertEqual(saved[1]["question"], "Q2")
+
+    def test_save_folds_repeats_into_one_entry_per_question(self):
+        results = [
+            {"question": "Q1", "type": "multiple_choice", "options": ["a", "b"],
+             "result": "incorrect", "correct_answer": ["b"]},
+            {"question": "Q2", "type": "multiple_choice", "options": ["x", "y"]},
+            {"question": "Q1", "type": "multiple_choice", "options": ["a", "b"],
+             "result": "correct", "correct_answer": ["b"]},
+        ]
+        watcher.save_results(results)
+        self.assertEqual([e["question"] for e in results], ["Q1", "Q2"])
+        self.assertEqual(results[0]["result"], "correct", "latest repeat wins")
+        self.assertEqual(results, watcher.load_results(),
+                         "in-memory list stays the saved list")
+
+    def test_dedupe_never_replaces_a_learned_answer_with_an_empty_reveal(self):
+        results = [
+            {"question": "Q1", "type": "multiple_choice", "options": ["a", "b"],
+             "result": "incorrect", "correct_answer": ["b"]},
+            {"question": "Q1", "type": "multiple_choice", "options": ["a", "b"],
+             "result": "other"},  # nothing revealed
+        ]
+        deduped = qh.dedupe_results(results)
+        self.assertEqual(len(deduped), 1)
+        self.assertEqual(deduped[0]["correct_answer"], ["b"])
+
+    def test_dedupe_keeps_matching_entries_per_board(self):
+        board_a = {"question": "Moslashtiring.", "type": "matching",
+                   "options": ["Drive", "along the road", "Fly", "to Tashkent"],
+                   "correct_answer": [["Drive", "along the road"]]}
+        board_b = {"question": "Moslashtiring.", "type": "matching",
+                   "options": ["Exam", "Imtihon", "Boring", "Zerikarli"],
+                   "correct_answer": [["Exam", "Imtihon"]]}
+        # board A re-served with shuffled cards: replaces the original A
+        board_a2 = {"question": "Moslashtiring.", "type": "matching",
+                    "options": ["Fly", "to Tashkent", "Drive", "along the road"],
+                    "correct_answer": [["Fly", "to Tashkent"], ["Drive", "along the road"]]}
+        deduped = qh.dedupe_results([board_a, board_b, board_a2])
+        self.assertEqual(len(deduped), 2, "different boards both kept")
+        self.assertIn(board_a2, deduped)
+        self.assertNotIn(board_a, deduped)
+
+    def test_dedupe_drops_entries_with_no_question(self):
+        # A feedback sheet met before any question (attach mid-sheet)
+        # logs question None — pure noise in the answer book.
+        deduped = qh.dedupe_results([{"question": None, "result": "incorrect"}])
+        self.assertEqual(deduped, [])
 
 
 class TestPollOnce(unittest.TestCase):
@@ -1732,6 +1824,37 @@ class TestWaitForManualAdvance(unittest.TestCase):
         import navigation
         nodes = qh.parse_screen(LESSON_SCREEN_XML)
         self.assertEqual(navigation.forward_tap_label(nodes), "Next")
+
+    def test_gives_up_on_a_dead_screen_with_nothing_to_tap(self):
+        # The Assigned-courses list: no forward button, nothing moving.
+        # Waiting forever stranded the runner (2026-08-02) — after the
+        # dead-screen limit it must give up so the app restart recovers.
+        import navigation
+
+        class DeadDriver:
+            page_source = COURSES_LIST_XML
+
+            def find_element(self, by, value):
+                raise NoSuchElementException(value)
+
+        self.assertFalse(navigation.wait_for_manual_advance(DeadDriver()))
+
+    def test_push_through_raises_stuck_when_the_wait_gives_up(self):
+        import navigation
+        import locators as loc
+        from selenium.common.exceptions import TimeoutException
+
+        driver = TapDriver(COURSES_LIST_XML)
+        saved = (navigation.tap, navigation.wait_for_manual_advance)
+        navigation.tap = lambda d, w, locator, label: (_ for _ in ()).throw(
+            TimeoutException(label)
+        )
+        navigation.wait_for_manual_advance = lambda d: False
+        try:
+            with self.assertRaises(navigation.StuckScreenError):
+                navigation.push_through_to_start(driver, attempts=1)
+        finally:
+            navigation.tap, navigation.wait_for_manual_advance = saved
 
 
 class TestPushThroughWaitsWhenStuck(unittest.TestCase):

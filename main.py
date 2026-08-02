@@ -31,7 +31,12 @@ from selenium.common.exceptions import (
 import config
 import locators as loc
 import watcher
-from navigation import dismiss_popup, navigate_to_test, tap_forward_button
+from navigation import (
+    StuckScreenError,
+    dismiss_popup,
+    navigate_to_test,
+    tap_forward_button,
+)
 from question_handler import (
     build_answer_map,
     build_pair_map,
@@ -56,12 +61,6 @@ STUCK_SCREEN_FILE = "stuck_screen.xml"
 
 class AppLostError(Exception):
     """The app is no longer in the foreground (crashed or was closed)."""
-
-
-class StuckScreenError(Exception):
-    """The app sat on a screen the runner can't move past (a chest/ad
-    variant with unreadable labels, or a fake question whose answers
-    change nothing). Restarting the app skips it."""
 
 
 def tap_text(driver, text):

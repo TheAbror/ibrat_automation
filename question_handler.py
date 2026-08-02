@@ -139,6 +139,39 @@ def pick_revealed_answer(entry):
     return max(answers, key=len)
 
 
+def _teaches(entry):
+    """True when the entry carries something the runner can learn from."""
+    if entry.get("type") == "matching":
+        return bool(entry.get("correct_answer"))
+    return pick_revealed_answer(entry) is not None
+
+
+def dedupe_results(results):
+    """One entry per question — the answer book, not the attempt log.
+
+    Repeats of a question replace their earlier entry, EXCEPT that an
+    entry with a usable answer is never replaced by one without: a later
+    encounter with a noisy or empty reveal must not erase a learned
+    answer. Matching entries all share one question text, so they are
+    kept per board (question + card set) instead. Entries with no
+    question text at all (a sheet met before any question) are dropped.
+    """
+    kept = {}
+    for entry in results:
+        question = entry.get("question")
+        if not question:
+            continue
+        if entry.get("type") == "matching":
+            key = (question, tuple(sorted(map(str, entry.get("options") or []))))
+        else:
+            key = question
+        old = kept.get(key)
+        if old is not None and _teaches(old) and not _teaches(entry):
+            continue
+        kept[key] = entry
+    return list(kept.values())
+
+
 def build_answer_map(results):
     """question -> known correct answer text.
 

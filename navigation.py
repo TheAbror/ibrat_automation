@@ -47,6 +47,16 @@ STUCK_REMIND_EVERY = 60 # seconds between reminders to tap manually
 # text-attribute rendering are both still possible.
 CHEST_TAP_MARKER = "Tap on the chest"
 CHEST_SCREEN_MARKERS = (CHEST_TAP_MARKER, "Get your reward", "Open chest")
+# A screen with no forward button that also isn't moving is dead — give
+# up on it (an app restart recovers) instead of waiting forever.
+DEAD_SCREEN_LIMIT = 90
+
+
+class StuckScreenError(Exception):
+    """The app sat on a screen the runner can't move past (a chest/ad
+    variant with unreadable labels, a fake question whose answers change
+    nothing, or a dead screen with nothing to tap). Restarting the app
+    skips it."""
 
 
 def tap(driver, waiter, locator, label):
@@ -124,6 +134,22 @@ def is_promo_cta(desc):
     return any(m in desc for m in PROMO_CTA_MARKERS)
 
 
+def looks_like_known_popup(descs):
+    """True only on the popups whose unlabeled X may be blind-tapped.
+
+    An icon-sized top-left unlabeled clickable is ambiguous: on the
+    streak and promo popups it is the X, on ordinary screens it is a
+    back arrow — blind-tapping one of those walked the runner out of the
+    course to the Assigned-courses list (2026-08-02). So the geometric X
+    is only trusted when the screen's texts identify a known popup.
+    """
+    if looks_like_promo(descs):
+        return True
+    if any(d == "Day" for d in descs):  # the streak popup's day counter
+        return True
+    return any("Parvoz" in d or "Last week" in d for d in descs)
+
+
 def candidate_buttons(nodes):
     """Buttons worth tapping when pushing through an unknown screen."""
     return [
@@ -146,8 +172,11 @@ def looks_like_question(nodes):
 def find_forward_button(nodes):
     """The button that moves forward on between-screens.
 
-    Test-finish screens offer "Retry" and "Next ..." — always the Next one.
-    A quiz Start page offers "Start". Popups whose X icon has no label
+    Test-finish screens offer "Retry" and "Next ..." — always the Next
+    one. The failed-test screen ("Sorry, your score is a little low!")
+    offers ONLY "Try again" — retaking with the freshly learned answers
+    IS the way forward there, unlike "Retry" next to a Next button. A
+    quiz Start page offers "Start". Popups whose X icon has no label
     (e.g. the streak popup) offer "Continue", and the task-reward screen
     offers "Open chest". Returns the label, or None.
     (The feedback sheet's exact "Next" is excluded — poll_once handles it.)
@@ -155,7 +184,7 @@ def find_forward_button(nodes):
     for _, d in nodes:
         if d.lower().startswith("next") and d != "Next":
             return d
-    for label in ("Start", "Continue", "Open chest"):
+    for label in ("Start", "Continue", "Open chest", "Try again"):
         if any(d == label for _, d in nodes):
             return label
     # "Open chest" merged into a longer desc: return the full desc so the
@@ -231,7 +260,8 @@ def dismiss_popup(driver):
             return True
         except (NoSuchElementException, StaleElementReferenceException):
             return False
-    if blind_close_unsafe(nodes):
+    descs = [d for _, d in nodes if d]
+    if blind_close_unsafe(nodes) or not looks_like_known_popup(descs):
         return False
     center = find_unlabeled_close_center(xml)
     if center:
@@ -239,7 +269,7 @@ def dismiss_popup(driver):
         print(f"Dismissed popup via unlabeled X at {center}")
         time.sleep(1)
         return True
-    if looks_like_promo([d for _, d in nodes if d]):
+    if looks_like_promo(descs):
         driver.back()
         print("Promo screen with no X — pressed the Android back button")
         time.sleep(1)
@@ -286,7 +316,7 @@ def forward_tap_label(nodes):
     for _, d in nodes:
         if d.lower().startswith("next"):
             return d
-    for label in ("Start", "Continue", "Open chest"):
+    for label in ("Start", "Continue", "Open chest", "Try again"):
         if any(d == label for _, d in nodes):
             return label
     return next((d for _, d in nodes if "Open chest" in d), None)
@@ -311,13 +341,17 @@ def wait_for_manual_advance(driver):
     Happens on lesson pages whose video is still loading — the Next tap
     is swallowed until the page is ready. The forward button is re-tapped
     every few seconds in case the page finished loading, and a manual tap
-    on the phone works too. Returns once the screen has changed; never
-    gives up (Ctrl+C to stop).
+    on the phone works too. Returns True once the screen has changed.
+
+    A screen with NO forward button at all that also isn't moving (e.g.
+    the Assigned-courses list after the 2026-08-02 back-arrow escape) is
+    dead — waiting can't help, so give up after DEAD_SCREEN_LIMIT and
+    let the app restart recover.
     """
     before = [d for _, d in parse_screen(driver.page_source) if d]
     print("Screen is not moving forward (video still loading?) — waiting.")
     print("Re-tapping it periodically; you can also tap the button on the phone...")
-    last_tap = last_remind = time.time()
+    started = last_tap = last_remind = time.time()
     while True:
         time.sleep(STUCK_POLL)
         nodes = parse_screen(driver.page_source)
@@ -325,6 +359,11 @@ def wait_for_manual_advance(driver):
             print("Screen changed — continuing")
             return True
         now = time.time()
+        if forward_tap_label(nodes) is None:
+            if now - started >= DEAD_SCREEN_LIMIT:
+                print("Nothing to tap and nothing moving — giving up on this screen")
+                return False
+            continue
         if now - last_tap >= STUCK_RETAP_EVERY:
             last_tap = now
             retap_forward(driver, nodes)
@@ -455,7 +494,8 @@ def push_through_to_start(driver, attempts=5):
     When a whole round of attempts moves nothing (e.g. a lesson page whose
     video is still loading and swallows every Next tap), the screen is
     waited out — re-tapped periodically, and a manual tap on the phone
-    works too — then pushing resumes. Never gives up.
+    works too — then pushing resumes. Only a dead screen (nothing to tap,
+    nothing moving) raises StuckScreenError so the app restart recovers.
     """
     while True:
         for _ in range(attempts):
@@ -479,4 +519,5 @@ def push_through_to_start(driver, attempts=5):
             print("No Start button — tapping through this screen...")
             tap_through_buttons(driver)
 
-        wait_for_manual_advance(driver)
+        if not wait_for_manual_advance(driver):
+            raise StuckScreenError("navigation stranded on a screen with nothing to tap")

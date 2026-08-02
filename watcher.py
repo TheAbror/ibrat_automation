@@ -27,6 +27,7 @@ from question_handler import (
     NEXT_LABELS,
     OPTION_IGNORE,
     classify_sheet,
+    dedupe_results,
     detect_question_type,
     looks_like_promo,
     parse_screen,
@@ -57,8 +58,12 @@ def load_results():
 
 
 def save_results(results):
-    # Number every entry on every save ("n", kept first in the JSON) so
-    # the file shows at a glance how many results it holds.
+    # The file is the answer book, not the attempt log: one entry per
+    # question (per board for matching), repeats folded in without ever
+    # replacing a learned answer with an empty reveal. Numbered ("n",
+    # kept first) so the file shows how many questions it holds. Mutated
+    # in place so the caller's list stays the saved list.
+    results[:] = dedupe_results(results)
     for i, entry in enumerate(results):
         results[i] = {"n": i + 1, **{k: v for k, v in entry.items() if k != "n"}}
     with open(RESULTS_FILE, "w", encoding="utf-8") as f:
