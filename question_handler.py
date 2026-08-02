@@ -31,6 +31,18 @@ def looks_like_promo(descs):
     return any(m in d for d in descs for m in PROMO_MARKERS)
 
 
+# Finish screens: "Test finished!" (with Retry / Next lesson) and the
+# 2026-08-02 "Test completed" stats screen, whose stat labels (Lessons /
+# Quizzes / Accuracy) are Buttons — enough to clear the 2-option question
+# floor and get "answered" (the runner tapped "Lessons" and walked out of
+# the flow). Never questions; the forward-button logic moves past them.
+FINISH_MARKERS = ("Test completed", "Test finished")
+
+
+def looks_like_finish(descs):
+    return any(m in d for d in descs for m in FINISH_MARKERS)
+
+
 def parse_screen(xml):
     """One atomic snapshot of the UI tree as [(class, label), ...].
 

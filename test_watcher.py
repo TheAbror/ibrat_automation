@@ -336,6 +336,18 @@ FINISH_SCREEN_XML = """<hierarchy>
   <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Next lesson"/>
 </hierarchy>"""
 
+# The pass-finish screen on the 2026-08-02 account ("Test completed" +
+# stats): the stat labels render as Buttons, so they clear the 2-option
+# question floor unless the finish marker vetoes it.
+TEST_COMPLETED_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[42,714][678,840]" clickable="false" content-desc="Test completed"/>
+  <node class="android.widget.Button" bounds="[91,973][181,1008]" clickable="true" content-desc="Lessons"/>
+  <node class="android.widget.Button" bounds="[317,973][403,1008]" clickable="true" content-desc="Quizzes"/>
+  <node class="android.widget.Button" bounds="[533,973][634,1008]" clickable="true" content-desc="Accuracy"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Next lesson"/>
+</hierarchy>"""
+
 
 class TapDriver:
     """Fake driver for dismiss_popup: static XML, records coordinate taps."""
@@ -1083,6 +1095,19 @@ class TestPollOnce(unittest.TestCase):
         state = watcher.fresh_state()
         self.assertIsNone(watcher.poll_once(driver, state, []))
         self.assertIsNone(state["question"])
+
+    def test_completed_stats_screen_is_not_a_question(self):
+        # The 2026-08-02 pass screen: its stat labels are Buttons, enough
+        # to clear the 2-option floor — the runner tapped "Lessons" as an
+        # answer and walked out of the flow. Never a question; its
+        # "Next lesson" is the way forward.
+        import navigation
+        driver = XmlDriver(TEST_COMPLETED_XML)
+        state = watcher.fresh_state()
+        self.assertIsNone(watcher.poll_once(driver, state, []))
+        self.assertIsNone(state["question"])
+        nodes = qh.parse_screen(TEST_COMPLETED_XML)
+        self.assertEqual(navigation.find_forward_button(nodes), "Next lesson")
 
     def test_streak_popup_is_not_a_question(self):
         # Its "3" View plus at most one candidate button ("Last week") must
