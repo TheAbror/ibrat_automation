@@ -2371,16 +2371,15 @@ class TestAccuracyThrottle(unittest.TestCase):
 
     def test_should_miss_keeps_accuracy_inside_the_band(self):
         import main as main_mod
-        # warm-up: answer honestly no matter how high the score is
-        self.assertFalse(main_mod.should_miss(19, 0))
-        # 40/40 correct — one more correct stays 100%, over the cap: miss
-        self.assertTrue(main_mod.should_miss(40, 0))
-        # 95%: another correct would nudge it above the cap: miss
-        self.assertTrue(main_mod.should_miss(95, 5))
-        # 93%: comfortably inside the band — play it straight
-        self.assertFalse(main_mod.should_miss(93, 7))
-        # below the band: never miss, the score must climb
-        self.assertFalse(main_mod.should_miss(45, 5))
+        # floor not secured: answer honestly no matter how high the score is
+        self.assertFalse(main_mod.should_miss(40, 0))
+        self.assertFalse(main_mod.should_miss(774, 0))
+        # 775 correct banked = 88% of 880 secured; 100% is over the cap: miss
+        self.assertTrue(main_mod.should_miss(775, 0))
+        # above the floor at 95%: another correct would nudge past the cap
+        self.assertTrue(main_mod.should_miss(807, 42))
+        # above the floor but under the cap: play it straight
+        self.assertFalse(main_mod.should_miss(775, 70))
 
     def test_loop_misses_a_known_answer_when_accuracy_is_too_high(self):
         import main as main_mod
@@ -2391,8 +2390,9 @@ class TestAccuracyThrottle(unittest.TestCase):
             "options": ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
             "correct_answer": ["Aqlli"],
         }])
-        # the run so far is perfect — the governor must throw this one
-        main_mod.RUN_STATS.update({"correct": 40, "incorrect": 0})
+        # floor secured and the run so far is perfect — the governor must
+        # throw this one
+        main_mod.RUN_STATS.update({"correct": 800, "incorrect": 0})
         driver = WordTranslationFlowDriver()
         with self.assertRaises(main_mod.StuckScreenError):
             main_mod.auto_answer_loop(driver)
@@ -2409,8 +2409,9 @@ class TestAccuracyThrottle(unittest.TestCase):
             "options": ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
             "correct_answer": ["Aqlli"],
         }])
-        # 94% so far — inside the band, the known answer is played straight
-        main_mod.RUN_STATS.update({"correct": 47, "incorrect": 3})
+        # floor secured, 94% so far — inside the band, the known answer is
+        # played straight
+        main_mod.RUN_STATS.update({"correct": 799, "incorrect": 51})
         driver = WordTranslationFlowDriver()
         with self.assertRaises(main_mod.StuckScreenError):
             main_mod.auto_answer_loop(driver)
