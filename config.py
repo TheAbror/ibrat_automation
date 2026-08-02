@@ -1,6 +1,10 @@
+import os
+
 # Wi-Fi adb target (USB serial was "ZY22GTXB9R"). After a phone reboot,
 # plug in the cable once and run ./wifi_adb.sh to restore this connection.
-DEVICE_NAME = "192.168.1.16:5555"
+# The supervisor overrides this per-run (IBRAT_DEVICE) when the phone is
+# reachable over a USB cable instead of the Wi-Fi target.
+DEVICE_NAME = os.environ.get("IBRAT_DEVICE") or "192.168.1.16:5555"
 APP_PACKAGE = "uz.ibrat.farzandlari"
 APP_ACTIVITY = ".MainActivity"
 

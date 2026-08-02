@@ -2503,5 +2503,19 @@ class TestWordTranslationFlow(unittest.TestCase):
         self.assertTrue(any("Continue" in v for v in driver.clicked))
 
 
+class TestConfigDeviceOverride(unittest.TestCase):
+    def test_env_var_overrides_pinned_device(self):
+        import importlib
+        import config
+        os.environ["IBRAT_DEVICE"] = "ZY22GTXB9R"
+        try:
+            importlib.reload(config)
+            self.assertEqual(config.DEVICE_NAME, "ZY22GTXB9R")
+        finally:
+            del os.environ["IBRAT_DEVICE"]
+            importlib.reload(config)
+        self.assertEqual(config.DEVICE_NAME, "192.168.1.16:5555")
+
+
 if __name__ == "__main__":
     unittest.main()
