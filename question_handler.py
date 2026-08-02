@@ -1,4 +1,5 @@
 """Shared screen-reading and answering logic for watcher.py and main.py."""
+import re
 import xml.etree.ElementTree as ET
 
 from selenium.webdriver.support.ui import WebDriverWait
@@ -172,12 +173,68 @@ def build_pair_map(results):
     return pairs
 
 
-def pair_attempt_order(left, remaining, known_pairs):
-    """Order to try right cards for a left card: the known partner first."""
-    known = known_pairs.get(left)
-    if known in remaining:
-        return [known] + [r for r in remaining if r != known]
-    return list(remaining)
+def parse_cards(xml):
+    """Matching cards with geometry: label, tap center, and clickability.
+
+    Card labels repeat on the category boards ("Singular"/"Plural" twice
+    each), so cards must be told apart — and tapped — by position, never
+    by text. Locked (already matched) pairs stay on screen with their
+    labels but clickable="false".
+    """
+    cards = []
+    for el in ET.fromstring(xml).iter():
+        if (el.get("class") or "") != "android.widget.Button":
+            continue
+        label = el.get("content-desc") or el.get("text") or ""
+        if not label or label in OPTION_IGNORE:
+            continue
+        m = re.match(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", el.get("bounds") or "")
+        if not m:
+            continue
+        x1, y1, x2, y2 = map(int, m.groups())
+        cards.append({
+            "label": label,
+            "x": (x1 + x2) // 2,
+            "y": (y1 + y2) // 2,
+            "clickable": el.get("clickable") == "true",
+        })
+    return cards
+
+
+def split_matching_columns(cards):
+    """(lefts, rights) among the cards still in play, split by geometry.
+
+    Left/right membership comes from each card's center against the
+    board's midline, order within a column from top to bottom. Locked
+    pairs are out of play — a tap on them is swallowed.
+    """
+    active = [c for c in cards if c["clickable"]]
+    if not active:
+        return [], []
+    mid = (min(c["x"] for c in active) + max(c["x"] for c in active)) / 2
+    lefts = sorted((c for c in active if c["x"] < mid), key=lambda c: c["y"])
+    rights = sorted((c for c in active if c["x"] >= mid), key=lambda c: c["y"])
+    return lefts, rights
+
+
+def card_signature(cards):
+    """Board state for progress detection.
+
+    A locked pair can keep its labels AND its position (pairs lock in
+    place when they were already adjacent), so only the clickable flip
+    reveals the match — the label list alone is blind to it.
+    """
+    return [(c["label"], c["x"], c["y"], c["clickable"]) for c in cards]
+
+
+def pair_attempt_order(left_label, rights, known_pairs):
+    """Order to try right cards for a left card: every instance of the
+    known partner label first (labels repeat), each group top to bottom."""
+    known = known_pairs.get(left_label)
+    if known is None:
+        return list(rights)
+    return ([r for r in rights if r["label"] == known]
+            + [r for r in rights if r["label"] != known])
 
 
 def choose_mc_option(question, options, known, attempted):
@@ -225,15 +282,6 @@ def chip_sequence(question, options, known):
         else:
             return sequence
     return list(options[:1])
-
-
-def split_matching_cards(cards):
-    """Split matching-screen cards into (lefts, rights).
-
-    Cards come row by row: [L1, R1, L2, R2, ...] — left column at even
-    indices, right column at odd indices.
-    """
-    return cards[0::2], cards[1::2]
 
 
 def xpath_literal(s):

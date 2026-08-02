@@ -695,11 +695,41 @@ class TestStrategies(unittest.TestCase):
         chips = ["She", "is", "reading"]
         self.assertEqual(qh.chip_sequence("Q1", chips, known), ["She"])
 
-    def test_split_matching_cards_by_column(self):
-        cards = ["The", "letter he wrote", "An", "apple", "A", "cat"]
-        lefts, rights = qh.split_matching_cards(cards)
-        self.assertEqual(lefts, ["The", "An", "A"])
-        self.assertEqual(rights, ["letter he wrote", "apple", "cat"])
+    def test_parse_cards_extracts_labels_centers_and_clickability(self):
+        cards = qh.parse_cards(MATCHING_MIDGAME_XML)
+        self.assertEqual(len(cards), 8, "the desc-less quit-X Button is not a card")
+        apple = next(c for c in cards if c["label"] == "Apple")
+        self.assertEqual((apple["x"], apple["y"]), (194, 1029))
+        self.assertTrue(apple["clickable"])
+        story = next(c for c in cards if c["label"] == "Story")
+        self.assertFalse(story["clickable"])
+
+    def test_split_matching_columns_by_geometry_skips_locked_pairs(self):
+        lefts, rights = qh.split_matching_columns(qh.parse_cards(MATCHING_MIDGAME_XML))
+        self.assertEqual([c["label"] for c in lefts], ["Apple", "People"])
+        self.assertEqual([c["label"] for c in rights], ["Singular", "Plural"])
+
+    def test_card_signature_sees_a_lock_that_labels_alone_miss(self):
+        # After Jeans+Plural locked, the label sequence reads exactly the
+        # same — only the clickable flip reveals the match (this is how
+        # round 24 of the 2026-08-02 run recorded a real match as
+        # "not a pair").
+        before = MATCHING_MIDGAME_XML.replace(
+            'bounds="[44,600][344,865]" clickable="false" content-desc="Jeans"',
+            'bounds="[44,600][344,865]" clickable="true" content-desc="Jeans"',
+        ).replace(
+            'bounds="[376,600][676,865]" clickable="false" content-desc="Plural"',
+            'bounds="[376,600][676,865]" clickable="true" content-desc="Plural"',
+        )
+        self.assertNotEqual(
+            qh.card_signature(qh.parse_cards(before)),
+            qh.card_signature(qh.parse_cards(MATCHING_MIDGAME_XML)),
+        )
+        self.assertEqual(
+            [c["label"] for c in qh.parse_cards(before)],
+            [c["label"] for c in qh.parse_cards(MATCHING_MIDGAME_XML)],
+            "the label list alone is blind to this lock",
+        )
 
     def test_build_pair_map_collects_pairs_from_matching_entries(self):
         results = [
@@ -725,20 +755,19 @@ class TestStrategies(unittest.TestCase):
         }]
         self.assertEqual(qh.build_answer_map(results), {})
 
-    def test_pair_attempt_order_tries_known_partner_first(self):
-        remaining = ["to school", "along the road", "for a stroll"]
-        known = {"Drive": "along the road"}
+    def test_pair_attempt_order_tries_known_partner_instances_first(self):
+        rights = [
+            {"label": "Plural", "x": 526, "y": 435, "clickable": True},
+            {"label": "Singular", "x": 526, "y": 732, "clickable": True},
+            {"label": "Plural", "x": 526, "y": 1029, "clickable": True},
+        ]
+        ordered = qh.pair_attempt_order("Jeans", rights, {"Jeans": "Plural"})
         self.assertEqual(
-            qh.pair_attempt_order("Drive", remaining, known),
-            ["along the road", "to school", "for a stroll"],
+            [c["y"] for c in ordered], [435, 1029, 732],
+            "every instance of the known label first, each group top-down",
         )
-        # unknown left card, or known partner already used: original order
-        self.assertEqual(
-            qh.pair_attempt_order("Go", remaining, known), remaining
-        )
-        self.assertEqual(
-            qh.pair_attempt_order("Drive", ["to school"], known), ["to school"]
-        )
+        # unknown left card: top-to-bottom order untouched
+        self.assertEqual(qh.pair_attempt_order("Go", rights, {}), rights)
 
     def test_xpath_literal_handles_apostrophes(self):
         self.assertEqual(qh.xpath_literal("the"), "'the'")
@@ -746,65 +775,129 @@ class TestStrategies(unittest.TestCase):
         self.assertTrue(qh.xpath_literal("He's \"x\"").startswith("concat("))
 
 
-class MatchingFlowDriver:
-    """Matching screen: a correct pair reorders the cards (locks in), and
-    the feedback sheet appears once every pair is matched."""
+# Trimmed from the real stuck_screen.xml captured 2026-08-02 15:17: the
+# category-matching board mid-game. "Singular" and "Plural" each appear
+# twice; the first two rows are already-locked pairs (clickable=false)
+# that keep their labels. A text tap on "Singular" always lands on the
+# locked row-1 card and is swallowed — the runner burned every attempt
+# that way.
+MATCHING_MIDGAME_XML = """<hierarchy>
+  <node class="android.widget.Button" bounds="[0,77][720,175]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[42,189][678,245]" clickable="false" content-desc="So‘zlarni moslashtiring."/>
+  <node class="android.widget.Button" bounds="[44,303][344,568]" clickable="false" content-desc="Story"/>
+  <node class="android.widget.Button" bounds="[376,303][676,568]" clickable="false" content-desc="Singular"/>
+  <node class="android.widget.Button" bounds="[44,600][344,865]" clickable="false" content-desc="Jeans"/>
+  <node class="android.widget.Button" bounds="[376,600][676,865]" clickable="false" content-desc="Plural"/>
+  <node class="android.widget.Button" bounds="[44,896][344,1162]" clickable="true" content-desc="Apple"/>
+  <node class="android.widget.Button" bounds="[376,896][676,1162]" clickable="true" content-desc="Singular"/>
+  <node class="android.widget.Button" bounds="[44,1193][344,1458]" clickable="true" content-desc="People"/>
+  <node class="android.widget.Button" bounds="[376,1193][676,1458]" clickable="true" content-desc="Plural"/>
+</hierarchy>"""
 
-    PAIRS = {"Exam": "Imtihon", "Boring": "Zerikarli"}
+
+class GeoMatchingDriver:
+    """The category board as the app really behaves (2026-08-02): right
+    labels repeat, each left card matches exactly ONE right card
+    instance, locked pairs stay on screen unclickable with unchanged
+    labels, and a tap on a locked card is swallowed. Coordinate taps are
+    resolved to whichever card sits at that position NOW."""
+
+    # displayed rows: left | right
+    ROWS = [("Story", "Plural"), ("Jeans", "Singular"),
+            ("Apple", "Singular"), ("People", "Plural")]
+    # left card of row i pairs with the right card of row PARTNER[i]
+    PARTNER = {0: 1, 1: 0, 2: 2, 3: 3}
 
     def __init__(self):
-        self.cards = ["Exam", "Zerikarli", "Boring", "Imtihon"]
-        self.selected = None
-        self.matched = []
+        self.active_lefts = [0, 1, 2, 3]
+        self.active_rights = [0, 1, 2, 3]
+        self.locked = []      # (left_row, right_row) in lock order
+        self.selected = None  # ("L"|"R", card row id)
+        self.taps = []
+
+    def _board(self):
+        """Visible rows top to bottom: locked pairs first, then actives."""
+        rows = list(self.locked) + list(zip(self.active_lefts, self.active_rights))
+        board = []
+        for pos, (lrow, rrow) in enumerate(rows):
+            y1 = 303 + pos * 297
+            board.append((pos, lrow, rrow, y1, y1 + 265))
+        return board
 
     @property
     def page_source(self):
-        header = '<node class="android.view.View" content-desc="So‘zlarni moslashtiring."/>'
-        if len(self.matched) == len(self.PAIRS):
-            return (f"<hierarchy>{header}"
+        if not self.active_lefts:
+            return ('<hierarchy>'
+                    '<node class="android.view.View" content-desc="So‘zlarni moslashtiring."/>'
                     '<node class="android.view.View" content-desc="Nicely done!"/>'
-                    '<node class="android.widget.Button" content-desc="Next"/></hierarchy>')
-        buttons = "".join(
-            f'<node class="android.widget.Button" content-desc="{c}"/>' for c in self.cards
-        )
-        return f"<hierarchy>{header}{buttons}</hierarchy>"
+                    '<node class="android.widget.Button" bounds="[42,1418][678,1502]"'
+                    ' clickable="true" content-desc="Next"/></hierarchy>')
+        nodes = ['<node class="android.view.View" bounds="[42,189][678,245]"'
+                 ' clickable="false" content-desc="So‘zlarni moslashtiring."/>']
+        for pos, lrow, rrow, y1, y2 in self._board():
+            locked = pos < len(self.locked)
+            click = "false" if locked else "true"
+            nodes.append(f'<node class="android.widget.Button" bounds="[44,{y1}][344,{y2}]"'
+                         f' clickable="{click}" content-desc="{self.ROWS[lrow][0]}"/>')
+            nodes.append(f'<node class="android.widget.Button" bounds="[376,{y1}][676,{y2}]"'
+                         f' clickable="{click}" content-desc="{self.ROWS[rrow][1]}"/>')
+        return "<hierarchy>" + "".join(nodes) + "</hierarchy>"
 
-    def find_element(self, by, value):
-        el = FakeElement("card")
-        el.click = lambda: self._tap(value)
-        return el
-
-    def _tap(self, xpath):
-        card = next(c for c in self.cards if f"'{c}'" in xpath)
-        if self.selected is None:
-            self.selected = card
+    def tap(self, positions, duration=None):
+        self.taps.append(positions[0])
+        x, y = positions[0]
+        side = "L" if x < 360 else "R"
+        hit = next((row for row in self._board() if row[3] <= y <= row[4]), None)
+        if hit is None:
             return
-        left, self.selected = self.selected, None
-        if self.PAIRS.get(left) == card:
-            self.matched.append([left, card])
-            # locked pairs float to the top — the visible order changes
-            self.cards.remove(left)
-            self.cards.remove(card)
-            self.cards = [left, card] + self.cards
+        pos, lrow, rrow, _, _ = hit
+        if pos < len(self.locked):
+            return  # locked cards swallow taps — the real trap
+        card = lrow if side == "L" else rrow
+        if self.selected is None or self.selected[0] == side:
+            self.selected = (side, card)
+            return
+        prev_side, prev_card = self.selected
+        self.selected = None
+        left = prev_card if prev_side == "L" else card
+        right = card if prev_side == "L" else prev_card
+        if self.PARTNER[left] == right:
+            self.active_lefts.remove(left)
+            self.active_rights.remove(right)
+            self.locked.append((left, right))
+        # wrong pair: the board silently resets
 
 
 class TestAnswerMatchingFlow(unittest.TestCase):
-    def test_completes_all_pairs_and_leaves_them_for_the_logger(self):
+    def setUp(self):
         import main as main_mod
         self._time = main_mod.time
         main_mod.time = FakeTime()
-        driver = MatchingFlowDriver()
+
+    def tearDown(self):
+        import main as main_mod
+        main_mod.time = self._time
+
+    def test_completes_duplicate_label_board_by_position(self):
+        import main as main_mod
+        driver = GeoMatchingDriver()
         state = {}
-        try:
-            self.assertTrue(main_mod.answer_matching(
-                driver, ["Exam", "Zerikarli", "Boring", "Imtihon"], state, {}
-            ))
-        finally:
-            main_mod.time = self._time
-        self.assertEqual(driver.matched, [["Exam", "Imtihon"], ["Boring", "Zerikarli"]])
-        self.assertEqual(
-            state["pending_pairs"], [["Exam", "Imtihon"], ["Boring", "Zerikarli"]]
-        )
+        self.assertTrue(main_mod.answer_matching(driver, state, {}))
+        self.assertEqual(driver.active_lefts, [], "every pair locked")
+        self.assertEqual(driver.locked, [(0, 1), (1, 0), (2, 2), (3, 3)])
+        self.assertEqual(state["pending_pairs"], [
+            ["Story", "Singular"], ["Jeans", "Plural"],
+            ["Apple", "Singular"], ["People", "Plural"],
+        ])
+
+    def test_known_pairs_need_no_wrong_attempts(self):
+        import main as main_mod
+        known = {"Story": "Singular", "Jeans": "Plural",
+                 "Apple": "Singular", "People": "Plural"}
+        driver = GeoMatchingDriver()
+        self.assertTrue(main_mod.answer_matching(driver, {}, known))
+        self.assertEqual(driver.active_lefts, [])
+        self.assertEqual(len(driver.taps), 8, "two taps per pair, no misses")
 
 
 QUESTION_XML = """<hierarchy>
@@ -1374,6 +1467,28 @@ class TestStuckScreenRestart(unittest.TestCase):
         with self.assertRaises(main_mod.StuckScreenError):
             main_mod.auto_answer_loop(driver)
         self.assertTrue(os.path.exists(main_mod.STUCK_SCREEN_FILE))
+
+    def test_unprepared_question_tries_first_option_plus_continue_before_restart(self):
+        # A question shape we're not ready for: the typed attempt gets no
+        # sheet, so the second attempt must be the generic move — first
+        # option, then Continue — and only then the restart hammer.
+        import main as main_mod
+        clicks = []
+
+        class AdDriver(TapDriver):
+            def find_element(self, by, value):
+                el = FakeElement("btn")
+                el.click = lambda: clicks.append(value)
+                return el
+
+        driver = AdDriver(AD_QUESTION_XML)
+        with self.assertRaises(main_mod.StuckScreenError):
+            main_mod.auto_answer_loop(driver)
+        self.assertTrue(any("Ochish" in v for v in clicks), clicks)
+        self.assertTrue(
+            any("Continue" in v for v in clicks),
+            f"the fallback must try Continue: {clicks}",
+        )
 
 
 # Trimmed from the real stuck_screen.xml captured 2026-08-02: the app had

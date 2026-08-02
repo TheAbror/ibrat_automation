@@ -9,9 +9,11 @@ Navigates to the test, then answers every question:
   multiple_choice, but submitted with Continue — the chip tap alone
   submits nothing
 - unknown fill_the_blank: tap all chips first-to-last, then Continue
-- matching: direct neighbour first, then every other combination — wrong
-  pairs reset harmlessly, correct pairs lock in, so the screen always
-  completes
+- matching: cards tapped by position (labels can repeat), the known
+  partner first, then every other right-column card — wrong pairs reset
+  harmlessly, correct pairs lock in, so the board always completes
+- anything else that yields no feedback sheet: one desperate attempt of
+  first option + Continue before the app is restarted
 
 Usage: python3 main.py   (Ctrl+C to stop early)
 """
@@ -31,16 +33,17 @@ import locators as loc
 import watcher
 from navigation import dismiss_popup, navigate_to_test, tap_forward_button
 from question_handler import (
-    OPTION_IGNORE,
     build_answer_map,
     build_pair_map,
+    card_signature,
     chip_sequence,
     choose_mc_option,
     classify_sheet,
     detect_question_type,
     pair_attempt_order,
+    parse_cards,
     parse_screen,
-    split_matching_cards,
+    split_matching_columns,
     xpath_literal,
 )
 
@@ -64,10 +67,6 @@ class StuckScreenError(Exception):
 def tap_text(driver, text):
     xpath = f"//android.widget.Button[@content-desc={xpath_literal(text)}]"
     driver.find_element(AppiumBy.XPATH, xpath).click()
-
-
-def sheet_is_up(driver):
-    return classify_sheet([d for _, d in parse_screen(driver.page_source) if d]) is not None
 
 
 def wait_for_sheet(driver, state, timeout=12):
@@ -119,6 +118,21 @@ def answer_fill_the_blank(driver, question, options, known):
     return True
 
 
+def answer_unknown(driver, options, state):
+    """Last resort for a question shape the runner isn't prepared for:
+    tap the first option, then Continue if the screen has one. The goal
+    is not to be right — it is to get SOME feedback sheet up so the run
+    moves on and the reveal gets recorded for next time."""
+    if not options:
+        return False
+    print("  unprepared question shape — tapping first option + Continue")
+    tap_text(driver, options[0])
+    time.sleep(0.1)
+    state["descs"] = [d for _, d in parse_screen(driver.page_source) if d]
+    tap_continue(driver)
+    return True
+
+
 def answer_word_translation(driver, question, options, known, attempted, state):
     """A multiple choice built from chips: tap the chip, then submit.
 
@@ -140,58 +154,71 @@ def answer_word_translation(driver, question, options, known, attempted, state):
     return True
 
 
-def cards_from(nodes):
-    """Ordered card texts — they change when a correct pair locks and moves."""
-    return [
-        d for cls, d in nodes
-        if cls == "android.widget.Button" and d and d not in OPTION_IGNORE
-    ]
+# Wrong-pair taps a matching board tolerates before giving up on it; the
+# honest worst case for a 5-pair board is ~15 misses plus 5 matches.
+MATCH_ATTEMPTS = 40
 
 
-def card_state(driver):
-    return cards_from(parse_screen(driver.page_source))
+def answer_matching(driver, state, known_pairs):
+    """Match pairs one attempt at a time, tapping cards by position.
 
-
-def answer_matching(driver, cards, state, known_pairs):
-    """Match pairs one at a time, checking after every attempt.
-
-    For each left card, try the remaining right cards — the known partner
-    from earlier runs first. A correct pair rearranges the cards (they
-    move up/lock), so a changed screen means matched: remove that right
-    card from the pool and move on. Discovered pairs are left in
-    state["pending_pairs"] so the sheet logger saves them for next time.
+    Labels repeat on the category boards ("Singular"/"Plural" twice
+    each), so text taps are ambiguous — they land on the first tree
+    instance with that label, including an already-locked card, which
+    swallows the tap (the 2026-08-02 category-board stranding). Cards
+    are therefore tapped by their coordinates, the columns are told
+    apart by geometry, and progress is judged by the full (label,
+    position, clickable) board signature — a locked pair can keep its
+    labels and position, so the label list alone can miss a match. The
+    board is re-read after every attempt because locking rearranges it.
+    Discovered pairs are left in state["pending_pairs"] so the sheet
+    logger saves them for next time.
     """
-    lefts, rights = split_matching_cards(cards)
-    remaining = list(rights)
     found = []
     state["pending_pairs"] = found
-    print(f"  matching {len(lefts)} pairs: {lefts} x {rights}")
+    budget = MATCH_ATTEMPTS
+    skip = 0
+    announced = False
 
-    for left in lefts:
-        if sheet_is_up(driver):
+    while budget > 0:
+        xml = driver.page_source
+        if classify_sheet([d for _, d in parse_screen(xml) if d]) is not None:
             return True
-        for right in pair_attempt_order(left, remaining, known_pairs):
-            before = card_state(driver)
-            try:
-                tap_text(driver, left)
-                time.sleep(0.25)
-                tap_text(driver, right)
-            except (NoSuchElementException, StaleElementReferenceException):
-                continue
+        cards = parse_cards(xml)
+        lefts, rights = split_matching_columns(cards)
+        if not lefts or not rights:
+            budget -= 1
+            time.sleep(0.4)  # board settling, or the sheet on its way
+            continue
+        if not announced:
+            announced = True
+            print(f"  matching {len(lefts)} pairs: "
+                  f"{[c['label'] for c in lefts]} x {[c['label'] for c in rights]}")
+
+        left = lefts[skip % len(lefts)]
+        before = card_signature(cards)
+        matched = False
+        for right in pair_attempt_order(left["label"], rights, known_pairs):
+            budget -= 1
+            driver.tap([(left["x"], left["y"])])
+            time.sleep(0.25)
+            driver.tap([(right["x"], right["y"])])
             time.sleep(0.6)
-            # One snapshot answers both questions: is the feedback sheet
-            # up (all pairs done), and did the cards rearrange (pair
-            # locked in)?
-            nodes = parse_screen(driver.page_source)
-            if classify_sheet([d for _, d in nodes if d]) is not None:
-                found.append([left, right])
+            xml = driver.page_source
+            if classify_sheet([d for _, d in parse_screen(xml) if d]) is not None:
+                found.append([left["label"], right["label"]])
                 return True
-            if cards_from(nodes) != before:
-                print(f"  matched: {left} + {right}")
-                found.append([left, right])
-                remaining.remove(right)
+            if card_signature(parse_cards(xml)) != before:
+                print(f"  matched: {left['label']} + {right['label']}")
+                found.append([left["label"], right["label"]])
+                matched = True
                 break
-            print(f"  not a pair: {left} + {right}")
+            print(f"  not a pair: {left['label']} + {right['label']}")
+            if budget <= 0:
+                break
+        # a left whose rights all failed is skipped next round — the board
+        # may need another pair locked first
+        skip = 0 if matched else skip + 1
     return True
 
 
@@ -267,14 +294,19 @@ def auto_answer_loop(driver):
             answered += 1
             print(f"\n[{answered}] {qtype}: {question}")
             try:
-                if qtype == "multiple_choice":
+                if question == sheetless_question:
+                    # the typed handler already got no sheet out of this
+                    # question — try the desperate generic move before the
+                    # restart hammer falls
+                    answer_unknown(driver, options, state)
+                elif qtype == "multiple_choice":
                     answer_multiple_choice(driver, question, options, known, attempted)
                 elif qtype == "word_translation":
                     answer_word_translation(driver, question, options, known, attempted, state)
                 elif qtype == "fill_the_blank":
                     answer_fill_the_blank(driver, question, options, known)
                 else:
-                    answer_matching(driver, options, state, known_pairs)
+                    answer_matching(driver, state, known_pairs)
             except (NoSuchElementException, StaleElementReferenceException) as e:
                 print(f"  tap failed ({type(e).__name__}), retrying next cycle")
                 continue
