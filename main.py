@@ -18,6 +18,7 @@ Navigates to the test, then answers every question:
 Usage: python3 main.py   (Ctrl+C to stop early)
 """
 import subprocess
+import sys
 import time
 
 from appium.webdriver.common.appiumby import AppiumBy
@@ -522,11 +523,14 @@ def main():
                 wait_long = WebDriverWait(driver, 30)
                 if navigate_to_test(driver, wait, wait_long):
                     answer_until_done(driver)
-                return
+                    return 0
+                # Navigation dead ends are retried like stuck screens —
+                # under the supervisor exit 0 means "course done".
+                raise StuckScreenError("navigation never reached the question screen")
             except (AppLostError, StuckScreenError) + watcher.CONNECTION_ERRORS as e:
                 if relaunches == 0:
                     print("Still stuck after several app restarts — giving up.")
-                    return
+                    return 1
                 relaunches -= 1
                 if isinstance(e, AppLostError):
                     reason = "left the foreground"
@@ -541,7 +545,7 @@ def main():
                 print(f"The app {reason} ({e}) — restarting it...")
             except KeyboardInterrupt:
                 print("\nStopped by user.")
-                return
+                return 130
             finally:
                 if driver is not None:
                     watcher.safe_quit(driver)
@@ -552,4 +556,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if "--worker" in sys.argv:
+        sys.exit(main())
+    import supervisor
+    sys.exit(supervisor.run())
