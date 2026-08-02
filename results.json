@@ -7826,5 +7826,599 @@
       "These\n cookies are delicious.",
       "These"
     ]
+  },
+  {
+    "time": "2026-08-02 12:02:55",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I like ___ flower. It is very beautiful and attractive. ",
+    "options": [
+      "these",
+      "those",
+      "this"
+    ],
+    "correct_answer": [
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:00",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Iltimos, menga anavi qalamlarni uzata olasizmi?",
+    "options": [
+      "please?",
+      "Can ",
+      "pass",
+      " pens, ",
+      " those",
+      "you ",
+      " me"
+    ],
+    "correct_answer": [
+      "please?",
+      "Can you pass me those pens, please?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:04",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___ peach  looks fresh and delicious.",
+    "options": [
+      "Those",
+      "This",
+      "These"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ are the friends I told you about.",
+    "options": [
+      "These",
+      "That",
+      "This"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:13",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ is my brother's car.",
+    "options": [
+      "This",
+      "Those",
+      "These"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:17",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "I don’t think |_| is the right answer.",
+    "options": [
+      "these  ",
+      "this",
+      "those"
+    ],
+    "correct_answer": [
+      "I don’t think \nthese  \n is the right answer.",
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ apples look fresh and delicious.",
+    "options": [
+      "These",
+      "That",
+      "This"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:23",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Are |_| your glasses on the sofa?",
+    "options": [
+      "these",
+      "those",
+      "that "
+    ],
+    "correct_answer": [
+      "Are \nthese\n your glasses on the sofa?",
+      "those"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:28",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "O‘ylashimcha bu uniki (qiz).",
+    "options": [
+      "her  ",
+      "is ",
+      "are",
+      "this ",
+      "I ",
+      "hers.",
+      "think"
+    ],
+    "correct_answer": [
+      "her  ",
+      "I think this is hers."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "____ dog looks very friendly.",
+    "options": [
+      "This",
+      "Those",
+      "These"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:34",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Look at |_| beautiful flowers in the garden!",
+    "options": [
+      "that ",
+      "this",
+      "these"
+    ],
+    "correct_answer": [
+      "Look at \nthat \n beautiful flowers in the garden!",
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:37",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I don't think ___ is a good idea.",
+    "options": [
+      "that",
+      "those",
+      "these"
+    ],
+    "correct_answer": [
+      "that"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:42",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bular sizning kitoblaringizmi?",
+    "options": [
+      "that",
+      "these ",
+      "your ",
+      "Are ",
+      "books?"
+    ],
+    "correct_answer": [
+      "that",
+      "Are these your books?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:45",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| is not the type of music I like.",
+    "options": [
+      "These ",
+      "This ",
+      "Those "
+    ],
+    "correct_answer": [
+      "These \n is not the type of music I like.",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:48",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Are ____ your books?",
+    "options": [
+      "this",
+      "these",
+      "that "
+    ],
+    "correct_answer": [
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:53",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Bu sizning telefoningizmi?",
+    "options": [
+      "these",
+      "phone?",
+      "are",
+      "Is ",
+      "your ",
+      "this "
+    ],
+    "correct_answer": [
+      "these",
+      "Is this your phone?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:56",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "We believe ___ is his hat.",
+    "options": [
+      "these",
+      "this",
+      "those"
+    ],
+    "correct_answer": [
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:03:59",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Do you know who ___ people are?",
+    "options": [
+      "those",
+      "this",
+      "that"
+    ],
+    "correct_answer": [
+      "those"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:04:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ cookies are delicious!",
+    "options": [
+      "These",
+      "That",
+      "This"
+    ],
+    "correct_answer": [
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:04:06",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "___  is my car. I bought it last year.  ",
+    "options": [
+      "These",
+      "Those",
+      "This"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:04:10",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "|_| book on the table is mine.",
+    "options": [
+      "These",
+      "That",
+      "Those"
+    ],
+    "correct_answer": [
+      "These\n book on the table is mine.",
+      "That"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:05:01",
+    "type": "matching",
+    "result": "correct",
+    "question": "Moslashtiring.",
+    "options": [
+      "This",
+      "far plural ",
+      "The",
+      "near plural ",
+      "These",
+      "definite article ",
+      "Those",
+      "far singular ",
+      "That",
+      "near singular "
+    ],
+    "correct_answer": [
+      [
+        "This",
+        "near singular "
+      ],
+      [
+        "The",
+        "definite article "
+      ],
+      [
+        "These",
+        "near plural "
+      ],
+      [
+        "That",
+        "far plural "
+      ]
+    ]
+  },
+  {
+    "time": "2026-08-02 12:05:03",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I like ___ flower. It is very beautiful and attractive. ",
+    "options": [
+      "these",
+      "this",
+      "those"
+    ],
+    "correct_answer": [
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:05:20",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Iltimos, menga anavi qalamlarni uzata olasizmi?",
+    "options": [
+      "Can ",
+      " pens, ",
+      "please?",
+      " me",
+      "you ",
+      "pass",
+      " those"
+    ],
+    "correct_answer": [
+      "Can ",
+      "you ",
+      "pass",
+      " me",
+      " those",
+      " pens, ",
+      "please?",
+      "Can you pass me those pens, please?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:05:25",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ peach  looks fresh and delicious.",
+    "options": [
+      "This",
+      "Those",
+      "These"
+    ],
+    "correct_answer": [
+      "___ peach  looks fresh and delicious.",
+      "This",
+      "This",
+      "Those",
+      "These"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:05:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "I don’t think |_| is the right answer.",
+    "options": [
+      "these  ",
+      "those",
+      "this"
+    ],
+    "correct_answer": [
+      "I don’t think \nthis\n is the right answer.",
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:05:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Are |_| your glasses on the sofa?",
+    "options": [
+      "those",
+      "that ",
+      "these"
+    ],
+    "correct_answer": [
+      "Are \nthose\n your glasses on the sofa?",
+      "those"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:05:44",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "O‘ylashimcha bu uniki (qiz).",
+    "options": [
+      "hers.",
+      "I ",
+      "her  ",
+      "are",
+      "is ",
+      "think",
+      "this "
+    ],
+    "correct_answer": [
+      "I ",
+      "think",
+      "this ",
+      "is ",
+      "hers.",
+      "I think this is hers."
+    ]
+  },
+  {
+    "time": "2026-08-02 12:05:47",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Look at |_| beautiful flowers in the garden!",
+    "options": [
+      "these",
+      "that ",
+      "this"
+    ],
+    "correct_answer": [
+      "Look at \nthese\n beautiful flowers in the garden!",
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:05:57",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bular sizning kitoblaringizmi?",
+    "options": [
+      "your ",
+      "these ",
+      "Are ",
+      "that",
+      "books?"
+    ],
+    "correct_answer": [
+      "Are ",
+      "these ",
+      "your ",
+      "books?",
+      "Are these your books?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:06:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| is not the type of music I like.",
+    "options": [
+      "This ",
+      "These ",
+      "Those "
+    ],
+    "correct_answer": [
+      "|_| is not the type of music I like.",
+      "This \n is not the type of music I like.",
+      "This ",
+      "These ",
+      "Those ",
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:06:06",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Are ____ your books?",
+    "options": [
+      "that ",
+      "these",
+      "this"
+    ],
+    "correct_answer": [
+      "these"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:06:16",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Bu sizning telefoningizmi?",
+    "options": [
+      "Is ",
+      "these",
+      "are",
+      "phone?",
+      "your ",
+      "this "
+    ],
+    "correct_answer": [
+      "Is ",
+      "this ",
+      "your ",
+      "phone?",
+      "Is this your phone?"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:06:19",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "We believe ___ is his hat.",
+    "options": [
+      "this",
+      "those",
+      "these"
+    ],
+    "correct_answer": [
+      "this"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:06:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___  is my car. I bought it last year.  ",
+    "options": [
+      "These",
+      "Those",
+      "This"
+    ],
+    "correct_answer": [
+      "This"
+    ]
+  },
+  {
+    "time": "2026-08-02 12:06:25",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| book on the table is mine.",
+    "options": [
+      "Those",
+      "That",
+      "These"
+    ],
+    "correct_answer": [
+      "That\n book on the table is mine.",
+      "That"
+    ]
   }
 ]
