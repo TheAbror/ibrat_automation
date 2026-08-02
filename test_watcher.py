@@ -935,6 +935,47 @@ class GeoMatchingDriver:
         # wrong pair: the board silently resets
 
 
+class TestTapPair(unittest.TestCase):
+    def test_both_taps_ride_in_one_actions_request(self):
+        import main as main_mod
+
+        class W3CDriver:
+            def __init__(self):
+                self.calls = []
+                self.taps = []
+
+            def execute(self, command, params=None):
+                self.calls.append((command, params))
+                return {"value": None}
+
+            def tap(self, positions, duration=None):
+                self.taps.append(positions)
+
+        driver = W3CDriver()
+        main_mod.tap_pair(driver, (194, 435), (526, 732))
+        self.assertEqual(len(driver.calls), 1, "one request for both taps")
+        self.assertEqual(driver.taps, [], "no per-tap fallback calls")
+
+    def test_falls_back_to_two_plain_taps(self):
+        import main as main_mod
+        self._time = main_mod.time
+        main_mod.time = FakeTime()
+
+        class PlainDriver:  # no execute() — like the test fakes
+            def __init__(self):
+                self.taps = []
+
+            def tap(self, positions, duration=None):
+                self.taps.append(positions[0])
+
+        driver = PlainDriver()
+        try:
+            main_mod.tap_pair(driver, (194, 435), (526, 732))
+        finally:
+            main_mod.time = self._time
+        self.assertEqual(driver.taps, [(194, 435), (526, 732)])
+
+
 class TestAnswerMatchingFlow(unittest.TestCase):
     def setUp(self):
         import main as main_mod

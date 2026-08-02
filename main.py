@@ -21,6 +21,9 @@ import subprocess
 import time
 
 from appium.webdriver.common.appiumby import AppiumBy
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import (
     NoSuchElementException,
@@ -129,11 +132,13 @@ def answer_fill_the_blank(driver, question, options, known):
     sequence = chip_sequence(question, options, known)
     print(f"  tapping {len(sequence)} chips")
     for word in sequence:
+        # No settle between chips: each find_element round-trips to the
+        # device anyway, and UiAutomator2 waits for the UI to idle
+        # before locating — that spacing is what keeps taps reliable.
         try:
             tap_text(driver, word)
         except (NoSuchElementException, StaleElementReferenceException):
             continue
-        time.sleep(0.1)
     tap_continue(driver)
     return True
 
@@ -197,6 +202,39 @@ def answer_word_translation(driver, question, options, known, attempted, state):
 # Wrong-pair taps a matching board tolerates before giving up on it; the
 # honest worst case for a 5-pair board is ~15 misses plus 5 matches.
 MATCH_ATTEMPTS = 40
+# Selection pause between the two taps of an attempt (runs device-side
+# inside the batched request) and the settle before re-reading the board.
+# The re-read tolerates a too-early snapshot — a lock that hasn't
+# rendered yet just reads as "not a pair" and the attempt is retried —
+# so trimming these risks a wasted attempt, never a stranding.
+PAIR_TAP_PAUSE = 0.2
+MATCH_SETTLE = 0.4
+
+
+def tap_pair(driver, first, second):
+    """Both taps of a matching attempt in ONE actions request.
+
+    One Wi-Fi round trip instead of two, and the selection pause runs on
+    the device instead of the host. Falls back to two plain taps when
+    the batched call is unavailable (fake drivers) or rejected.
+    """
+    try:
+        actions = ActionBuilder(
+            driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch")
+        )
+        pointer = actions.pointer_action
+        pointer.move_to_location(*first)
+        pointer.pointer_down()
+        pointer.pointer_up()
+        pointer.pause(PAIR_TAP_PAUSE)
+        pointer.move_to_location(*second)
+        pointer.pointer_down()
+        pointer.pointer_up()
+        actions.perform()
+    except (AttributeError, WebDriverException):
+        driver.tap([first])
+        time.sleep(PAIR_TAP_PAUSE)
+        driver.tap([second])
 
 
 def answer_matching(driver, state, known_pairs):
@@ -240,10 +278,8 @@ def answer_matching(driver, state, known_pairs):
         matched = False
         for right in pair_attempt_order(left["label"], rights, known_pairs):
             budget -= 1
-            driver.tap([(left["x"], left["y"])])
-            time.sleep(0.25)
-            driver.tap([(right["x"], right["y"])])
-            time.sleep(0.6)
+            tap_pair(driver, (left["x"], left["y"]), (right["x"], right["y"]))
+            time.sleep(MATCH_SETTLE)
             xml = driver.page_source
             if classify_sheet([d for _, d in parse_screen(xml) if d]) is not None:
                 found.append([left["label"], right["label"]])
