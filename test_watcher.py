@@ -2268,7 +2268,7 @@ class TestAccuracyThrottle(unittest.TestCase):
         import main as main_mod
         import navigation
         self._main_time = main_mod.time
-        self._miss = main_mod.MISS_EVERY
+        self._stats = dict(main_mod.RUN_STATS)
         main_mod.time = FakeTime()
         self._nav_sleep = navigation.time.sleep
         navigation.time.sleep = lambda s: None
@@ -2277,7 +2277,8 @@ class TestAccuracyThrottle(unittest.TestCase):
         import main as main_mod
         import navigation
         main_mod.time = self._main_time
-        main_mod.MISS_EVERY = self._miss
+        main_mod.RUN_STATS.clear()
+        main_mod.RUN_STATS.update(self._stats)
         navigation.time.sleep = self._nav_sleep
         os.chdir(self._cwd)
 
@@ -2293,7 +2294,20 @@ class TestAccuracyThrottle(unittest.TestCase):
         self.assertIn("Nohaq ", driver.clicked[0], "must not tap the known answer")
         self.assertTrue(any("Continue" in v for v in driver.clicked))
 
-    def test_loop_misses_every_nth_known_answer(self):
+    def test_should_miss_keeps_accuracy_inside_the_band(self):
+        import main as main_mod
+        # warm-up: answer honestly no matter how high the score is
+        self.assertFalse(main_mod.should_miss(19, 0))
+        # 40/40 correct — one more correct stays 100%, over the cap: miss
+        self.assertTrue(main_mod.should_miss(40, 0))
+        # 95%: another correct would nudge it above the cap: miss
+        self.assertTrue(main_mod.should_miss(95, 5))
+        # 93%: comfortably inside the band — play it straight
+        self.assertFalse(main_mod.should_miss(93, 7))
+        # below the band: never miss, the score must climb
+        self.assertFalse(main_mod.should_miss(45, 5))
+
+    def test_loop_misses_a_known_answer_when_accuracy_is_too_high(self):
         import main as main_mod
         watcher.save_results([{
             "question": "Clever -",
@@ -2302,13 +2316,31 @@ class TestAccuracyThrottle(unittest.TestCase):
             "options": ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
             "correct_answer": ["Aqlli"],
         }])
-        main_mod.MISS_EVERY = 1  # throttle every known answer
+        # the run so far is perfect — the governor must throw this one
+        main_mod.RUN_STATS.update({"correct": 40, "incorrect": 0})
         driver = WordTranslationFlowDriver()
         with self.assertRaises(main_mod.StuckScreenError):
             main_mod.auto_answer_loop(driver)
         self.assertIn("Nohaq ", driver.clicked[0],
                       "known answer must be deliberately missed")
         self.assertTrue(any("Continue" in v for v in driver.clicked))
+
+    def test_loop_answers_straight_when_accuracy_is_in_band(self):
+        import main as main_mod
+        watcher.save_results([{
+            "question": "Clever -",
+            "type": "word_translation",
+            "result": "incorrect",
+            "options": ["Nohaq ", "Qizg’anchiq", "Aqlli ", "Mehribon"],
+            "correct_answer": ["Aqlli"],
+        }])
+        # 94% so far — inside the band, the known answer is played straight
+        main_mod.RUN_STATS.update({"correct": 47, "incorrect": 3})
+        driver = WordTranslationFlowDriver()
+        with self.assertRaises(main_mod.StuckScreenError):
+            main_mod.auto_answer_loop(driver)
+        self.assertIn("Aqlli ", driver.clicked[0],
+                      "in-band accuracy must not trigger a miss")
 
 
 class TestPollOnceWordTranslation(unittest.TestCase):

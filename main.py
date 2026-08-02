@@ -55,11 +55,27 @@ from question_handler import (
 IDLE_LIMIT = 10      # seconds on an unrecognized screen -> restart the app
 MAX_QUESTIONS = 5000  # a whole course in one run (~88 quizzes + retakes)
 APP_RELAUNCHES = 50  # app restarts per run before giving up
-# Accuracy throttle: every Nth KNOWN answer is deliberately missed — a
-# perfect score across a whole course does not look human. 1-in-12 keeps
-# the score around 92% (natural misses on unseen questions pull it a bit
-# lower). Set to 0 to always answer as well as possible.
-MISS_EVERY = 12
+# Accuracy governor: keep this run's score in the 93–96% band. A known
+# answer is deliberately missed ONLY when answering it correctly would
+# push the run's accuracy above ACCURACY_HIGH; at or below it, every
+# known answer is played straight (so the score can climb back whenever
+# natural misses on unseen questions drag it down). Equilibrium sits at
+# ~95%, safely under the 96% cap. Set ACCURACY_HIGH = 1.0 to always
+# answer as well as possible.
+ACCURACY_HIGH = 0.95
+GOVERNOR_WARMUP = 20  # honest answers before steering starts
+
+# This run's sheet results, across app restarts (module-level so every
+# auto_answer_loop session adds to the same tally).
+RUN_STATS = {"correct": 0, "incorrect": 0}
+
+
+def should_miss(correct, incorrect):
+    """True when a correct answer NOW would lift accuracy past the cap."""
+    total = correct + incorrect
+    if total < GOVERNOR_WARMUP:
+        return False
+    return (correct + 1) / (total + 1) > ACCURACY_HIGH
 # Where the tree of an unrecognized screen is saved before restarting
 STUCK_SCREEN_FILE = "stuck_screen.xml"
 
@@ -293,7 +309,6 @@ def auto_answer_loop(driver):
     state = watcher.fresh_state()
     answered = 0
     idle_since = time.time()
-    miss_countdown = MISS_EVERY
     # An ad styled like a question (a text plus 2+ buttons) dodges the
     # idle timer: answering it looks like progress but no feedback sheet
     # ever comes. Two sheetless attempts on the same question = restart.
@@ -308,6 +323,8 @@ def auto_answer_loop(driver):
         if status in ("correct", "incorrect", "other"):
             # poll_once logged the result and tapped Next; new correct
             # answers become known immediately.
+            if status in RUN_STATS:
+                RUN_STATS[status] += 1
             known = build_answer_map(results)
             known_pairs = build_pair_map(results)
             idle_since = time.time()
@@ -318,12 +335,10 @@ def auto_answer_loop(driver):
             qtype = detect_question_type(question, options, state["descs"])
             answered += 1
             print(f"\n[{answered}] {qtype}: {question}")
-            throttle = False
-            if MISS_EVERY and question in known and qtype != "matching":
-                miss_countdown -= 1
-                if miss_countdown <= 0:
-                    miss_countdown = MISS_EVERY
-                    throttle = True
+            throttle = (
+                qtype != "matching" and question in known
+                and should_miss(RUN_STATS["correct"], RUN_STATS["incorrect"])
+            )
             try:
                 if question == sheetless_question:
                     # the typed handler already got no sheet out of this
