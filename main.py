@@ -254,29 +254,54 @@ def auto_answer_loop(driver):
     print(f"Results saved in {watcher.RESULTS_FILE}")
 
 
+def adb_shell(*args):
+    """Run an adb shell command, trying the pinned device first. Best-effort."""
+    for base in (["adb", "-s", config.DEVICE_NAME, "shell"], ["adb", "shell"]):
+        try:
+            subprocess.run(base + list(args), check=True, timeout=15, capture_output=True)
+            return True
+        except (OSError, subprocess.SubprocessError):
+            continue
+    return False
+
+
+def wake_device():
+    """Wake the phone and clear its swipe lock so the app can show.
+
+    An unattended phone sleeps between runs and a locked screen makes
+    every launch time out on the first home-screen element. The lock is
+    swipe-only (no PIN): wake, collapse the notification shade (an open
+    shade would swallow the swipe), then swipe up. All best-effort — a
+    phone that is already awake and unlocked just ignores all of it.
+    """
+    if not adb_shell("input", "keyevent", "KEYCODE_WAKEUP"):
+        print("adb not reachable — cannot wake the device")
+        return False
+    time.sleep(1)
+    adb_shell("cmd", "statusbar", "collapse")
+    adb_shell("wm", "dismiss-keyguard")
+    adb_shell("input", "swipe", "360", "1300", "360", "300", "200")
+    time.sleep(1)
+    print("Device woken and unlocked (best effort)")
+    return True
+
+
 def force_stop_app():
     """Kill the app via adb so every run starts from the app's home screen.
 
     Works even when the app was left open mid-test on the phone. Falls back
     to the session's forceAppLaunch capability when adb isn't reachable.
     """
-    commands = (
-        ["adb", "-s", config.DEVICE_NAME, "shell", "am", "force-stop", config.APP_PACKAGE],
-        ["adb", "shell", "am", "force-stop", config.APP_PACKAGE],
-    )
-    for cmd in commands:
-        try:
-            subprocess.run(cmd, check=True, timeout=15, capture_output=True)
-            print("App closed (adb force-stop)")
-            time.sleep(1)
-            return True
-        except (OSError, subprocess.SubprocessError):
-            continue
+    if adb_shell("am", "force-stop", config.APP_PACKAGE):
+        print("App closed (adb force-stop)")
+        time.sleep(1)
+        return True
     print("adb force-stop not available — relying on forceAppLaunch")
     return False
 
 
 def main():
+    wake_device()
     force_stop_app()
     driver = watcher.connect(attach=False)
 
