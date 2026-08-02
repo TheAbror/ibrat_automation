@@ -149,6 +149,18 @@ def pick_revealed_answer(entry):
         if matches:
             return max(matches, key=matches.count)
         return None
+    # fill_the_blank: only a sentence the chip row can actually build is
+    # an answer — the diff sometimes catches the NEXT screen instead of
+    # the sheet (lesson text, the video player's controls), and learning
+    # that garbage repeats a wrong single-chip answer on every encounter.
+    # Teaching nothing instead lets dedupe's upgrade rule replace the
+    # entry from a later good reveal. Entries with no chip list (the old
+    # format) keep the longest-element behavior: nothing to check against.
+    if options:
+        buildable = [a for a in answers if build_chip_sentence(a, options)]
+        if not buildable:
+            return None
+        return max(buildable, key=len)
     return max(answers, key=len)
 
 
@@ -360,19 +372,37 @@ def chip_sequence(question, options, known):
     """
     answer = known.get(question)
     if answer:
-        # Chip labels can carry trailing spaces ("They ", "go ") — match
-        # stripped, but return the original labels so taps find them.
-        pool = list(options)
-        sequence = []
-        for word in answer.split():
-            chip = next((c for c in pool if c.strip() == word), None)
-            if chip is None:
-                break
-            pool.remove(chip)
-            sequence.append(chip)
-        else:
+        sequence = build_chip_sentence(answer, options)
+        if sequence is not None:
             return sequence
     return list(options[:1])
+
+
+def build_chip_sentence(sentence, options):
+    """The chip tap order that reproduces sentence, or None.
+
+    A chip can hold several words ("the station.") and its label can
+    carry trailing spaces ("They ") — split() normalizes both sides, and
+    the longest matching chip wins each position so "the station." beats
+    a bare "the" when the sentence continues that way. Returns the
+    original labels so taps find them.
+    """
+    pool = list(options)
+    rest = sentence.split()
+    sequence = []
+    while rest:
+        best = None
+        for chip in pool:
+            words = chip.split()
+            if words and rest[: len(words)] == words:
+                if best is None or len(words) > len(best.split()):
+                    best = chip
+        if best is None:
+            return None
+        pool.remove(best)
+        sequence.append(best)
+        rest = rest[len(best.split()) :]
+    return sequence
 
 
 def xpath_literal(s):

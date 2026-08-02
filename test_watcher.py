@@ -753,6 +753,52 @@ class TestStrategies(unittest.TestCase):
             ["They ", "often ", "go ", "swimming."],
         )
 
+    def test_chip_sequence_handles_multiword_chips(self):
+        # The live n=149 entry: the chip row carries "the station." as ONE
+        # chip, so word-by-word matching dead-ends and the runner used to
+        # fall back to a single-chip guess every encounter.
+        known = {"Q1": "This is not the way to the station."}
+        chips = ["not", "is", "the station.", "way", "are", "the",
+                 "those", "This", "for", "to"]
+        self.assertEqual(
+            qh.chip_sequence("Q1", chips, known),
+            ["This", "is", "not", "the", "way", "to", "the station."],
+        )
+
+    def test_fill_blank_reveal_untrusted_when_not_buildable_from_chips(self):
+        # The live n=227 entry: the reveal diff caught the NEXT lesson's
+        # video player, not the sheet. Learning that garbage repeats a
+        # wrong single-chip answer forever; teaching nothing lets the
+        # dedupe upgrade rule replace the entry from a later good reveal.
+        entry = {
+            "question": "Kitobda mundarija yo‘q.",
+            "type": "fill_the_blank",
+            "options": ["The", "has", "book", "no", "table of contents.", "a"],
+            "correct_answer": ["Hide player controls", "Unmute",
+                               "Playback Settings"],
+        }
+        self.assertIsNone(qh.pick_revealed_answer(entry))
+
+    def test_fill_blank_reveal_prefers_buildable_sentence_over_longer_noise(self):
+        # The live n=108 entry: the diff holds a lesson paragraph (longest)
+        # AND the real revealed sentence — the sentence the chips can build
+        # must win over raw length.
+        entry = {
+            "question": "U (qiz) ishidan keyin maktabga boradi.",
+            "type": "fill_the_blank",
+            "options": ["goes ", "work.", "school ", "to ", "go",
+                        "after ", "She "],
+            "correct_answer": [
+                "Demonstrative pronouns are used to point to specific"
+                " people, objects, or places. They help distinguish and"
+                " indicate the proximity of objects.",
+                "She goes to school after work.",
+            ],
+        }
+        self.assertEqual(
+            qh.pick_revealed_answer(entry), "She goes to school after work."
+        )
+
     def test_chip_sequence_unknown_taps_first_chip_only(self):
         chips = ["She", "is", "reading"]
         self.assertEqual(qh.chip_sequence("Q1", chips, {}), ["She"])
