@@ -81,9 +81,15 @@ def tap(driver, waiter, locator, label, clear_rounds=3):
     time.sleep(0.5)
 
 
+# A real lessons-list item: "Dars 68 A vs The | Articles", "Test 69.1 The
+# article", ... — the number matters, or "Test completed" (the pass-stats
+# screen) would count as a list item.
+LESSON_ITEM_RE = re.compile(r"^(Dars|Test) \d")
+
+
 def last_lesson_desc(nodes):
-    """The last 'Dars ...' / 'Test ...' item visible in a lessons list."""
-    items = [d for _, d in nodes if d.startswith(("Dars ", "Test "))]
+    """The last 'Dars N ...' / 'Test N ...' item visible in a lessons list."""
+    items = [d for _, d in nodes if LESSON_ITEM_RE.match(d)]
     return items[-1] if items else None
 
 
@@ -551,6 +557,15 @@ def push_through_to_start(driver, attempts=5):
                         continue
                 except (NoSuchElementException, StaleElementReferenceException):
                     pass
+
+            # A lessons list (e.g. after the Modules-screen recovery
+            # opened the module card): rejoin the lesson sequence — the
+            # list itself has no Buttons, so tap-through dies on it.
+            # Two items minimum: a lesson PAGE carries its own single
+            # "Dars N ..." title and must be pushed through, not re-listed.
+            items = [d for _, d in nodes if LESSON_ITEM_RE.match(d)]
+            if len(items) >= 2 and open_next_in_sequence(driver):
+                continue
 
             # A finish/start/streak screen: its forward button (Next ... /
             # Start / Continue) beats blind-tapping in tree order.

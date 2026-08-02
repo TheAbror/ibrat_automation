@@ -79,6 +79,16 @@ class TestLastLessonDesc(unittest.TestCase):
         import navigation
         self.assertIsNone(navigation.last_lesson_desc([("android.view.View", "Lessons")]))
 
+    def test_finish_screen_texts_are_not_lesson_items(self):
+        # "Test completed" starts with "Test " but is the pass-stats
+        # screen — treating it as a list item would fling and retap on a
+        # screen that has no list.
+        import navigation
+        self.assertIsNone(navigation.last_lesson_desc([
+            ("android.view.View", "Test completed"),
+            ("android.view.View", "Test finished!"),
+        ]))
+
 
 # A fresh course entry always opens the list at the top of the module.
 # Once progress moves past the first screenful, every visible item is
@@ -1113,6 +1123,36 @@ class TestPollOnce(unittest.TestCase):
         )
         # without the Modules header, module-like descs are never tapped
         self.assertIsNone(navigation.find_forward_button(nodes[2:]))
+
+    def test_push_through_rejoins_sequence_from_a_lessons_list(self):
+        # The Modules recovery lands on the module's lessons list — all
+        # Views, no Buttons — where tap-through stranded (2026-08-02
+        # 21:10). Rejoin the lesson sequence instead.
+        import navigation
+        import locators as loc
+        from selenium.common.exceptions import TimeoutException
+
+        driver = TapDriver(LESSONS_TOP_XML)
+        rejoined = []
+
+        def fake_open(d):
+            rejoined.append(1)
+            d.xml = QUIZ_START_XML
+            return True
+
+        def fake_tap(d, w, locator, label):
+            if locator == loc.START_TEST and "Start" in d.xml:
+                return
+            raise TimeoutException(label)
+
+        saved = (navigation.tap, navigation.open_next_in_sequence)
+        navigation.tap = fake_tap
+        navigation.open_next_in_sequence = fake_open
+        try:
+            self.assertTrue(navigation.push_through_to_start(driver, attempts=3))
+        finally:
+            navigation.tap, navigation.open_next_in_sequence = saved
+        self.assertEqual(rejoined, [1])
 
     def test_completed_stats_screen_is_not_a_question(self):
         # The 2026-08-02 pass screen: its stat labels are Buttons, enough
