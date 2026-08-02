@@ -1392,11 +1392,13 @@ class TestReconnect(unittest.TestCase):
 
 
 class TestSessionSettings(unittest.TestCase):
-    """Every session must disable UiAutomator2's wait-for-idle: animated
-    screens (the chest reward's bouncing chest) never go idle, so each
-    command stalls for the full 10s idle timeout before executing."""
+    """Every session must CAP UiAutomator2's wait-for-idle, not disable it.
+    Never-idle screens (the chest reward's looping animation) stall every
+    command for the full timeout, so 10s is minutes per chest — but 0 makes
+    dumps and chip taps race the question screens' entry animation and the
+    runner answers from half a chip row (2026-08-03: ~33% wrong)."""
 
-    def test_connect_disables_wait_for_idle(self):
+    def test_connect_caps_wait_for_idle(self):
         captured = {}
 
         class FakeRemote:
@@ -1412,7 +1414,12 @@ class TestSessionSettings(unittest.TestCase):
             watcher.connect(attach=True)
         finally:
             watcher.webdriver.Remote = original
-        self.assertEqual(captured.get("waitForIdleTimeout"), 0)
+        timeout = captured.get("waitForIdleTimeout")
+        self.assertIsNotNone(timeout, "connect() must cap waitForIdleTimeout")
+        self.assertTrue(
+            0 < timeout <= 3000,
+            f"waitForIdleTimeout must stay small but nonzero, got {timeout}",
+        )
 
 
 class TestConnectionResilience(unittest.TestCase):
@@ -2515,6 +2522,57 @@ class TestConfigDeviceOverride(unittest.TestCase):
             del os.environ["IBRAT_DEVICE"]
             importlib.reload(config)
         self.assertEqual(config.DEVICE_NAME, "192.168.1.16:5555")
+
+
+class QuietDriver:
+    def quit(self):
+        pass
+
+
+class TestWorkerExitCodes(unittest.TestCase):
+    def setUp(self):
+        import main as main_mod
+        self.m = main_mod
+        self._saved = (main_mod.wake_device, main_mod.force_stop_app,
+                       main_mod.connect_fresh_session, main_mod.navigate_to_test,
+                       main_mod.answer_until_done, main_mod.APP_RELAUNCHES,
+                       main_mod.time)
+        main_mod.wake_device = lambda: True
+        main_mod.force_stop_app = lambda: True
+        main_mod.connect_fresh_session = lambda: QuietDriver()
+        main_mod.APP_RELAUNCHES = 0
+        main_mod.time = FakeTime()
+
+    def tearDown(self):
+        (self.m.wake_device, self.m.force_stop_app, self.m.connect_fresh_session,
+         self.m.navigate_to_test, self.m.answer_until_done, self.m.APP_RELAUNCHES,
+         self.m.time) = self._saved
+
+    def test_course_completion_exits_zero(self):
+        self.m.navigate_to_test = lambda *a: True
+        self.m.answer_until_done = lambda d: None
+        self.assertEqual(self.m.main(), 0)
+
+    def test_giving_up_exits_one(self):
+        from navigation import StuckScreenError
+
+        def stuck(*a):
+            raise StuckScreenError("stranded")
+        self.m.navigate_to_test = stuck
+        self.assertEqual(self.m.main(), 1)
+
+    def test_navigation_failure_is_a_stuck_screen_not_success(self):
+        # navigate_to_test returning False used to end the run with a
+        # quiet success; under the supervisor exit 0 means "course done,
+        # stop everything", so a failed navigation must be a give-up.
+        self.m.navigate_to_test = lambda *a: False
+        self.assertEqual(self.m.main(), 1)
+
+    def test_ctrl_c_exits_130(self):
+        def interrupted(*a):
+            raise KeyboardInterrupt
+        self.m.navigate_to_test = interrupted
+        self.assertEqual(self.m.main(), 130)
 
 
 if __name__ == "__main__":

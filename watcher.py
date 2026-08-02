@@ -94,12 +94,16 @@ def connect(attach=True):
     driver = webdriver.Remote(
         config.APPIUM_SERVER, options=options, client_config=client_config
     )
-    # UiAutomator2 waits (up to 10s) for the UI thread to go idle before
-    # every command; animated screens (the chest reward) never go idle, so
-    # each find/dump/tap there stalls the full 10s. This app is Flutter —
-    # something is always animating — and the runner does its own polling,
-    # so skip the idle wait entirely.
-    driver.update_settings({"waitForIdleTimeout": 0})
+    # UiAutomator2 waits for the UI thread to go idle before every command.
+    # That wait is load-bearing on question screens: dumps and chip taps
+    # must land after the entry animation, or the runner reads half a chip
+    # row and answers with it (observed 2026-08-03: 0 → ~33% wrong). But
+    # screens that NEVER go idle (the chest reward's looping animation)
+    # pay the timeout in full on every command, so the default 10s cap
+    # turns the chest sequence into minutes. Screens that settle only pay
+    # actual settle time (~0.3s), so the cap just bounds the pathological
+    # case.
+    driver.update_settings({"waitForIdleTimeout": 2000})
     return driver
 
 
