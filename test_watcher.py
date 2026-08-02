@@ -2576,5 +2576,68 @@ class TestWorkerExitCodes(unittest.TestCase):
         self.assertEqual(self.m.main(), 130)
 
 
+ADB_HEADER = "List of devices attached\n"
+
+
+class TestSupervisorPolicy(unittest.TestCase):
+    PINNED = "192.168.1.16:5555"
+
+    def test_pinned_wifi_target_wins_when_online(self):
+        import supervisor
+        out = ADB_HEADER + "ZY22GTXB9R\tdevice\n192.168.1.16:5555\tdevice\n\n"
+        self.assertEqual(supervisor.pick_device(out, self.PINNED), self.PINNED)
+
+    def test_usb_serial_used_when_wifi_is_gone(self):
+        import supervisor
+        out = ADB_HEADER + "ZY22GTXB9R\tdevice\n\n"
+        self.assertEqual(supervisor.pick_device(out, self.PINNED), "ZY22GTXB9R")
+
+    def test_usb_preferred_over_another_network_serial(self):
+        import supervisor
+        out = ADB_HEADER + "192.168.1.99:5555\tdevice\nZY22GTXB9R\tdevice\n\n"
+        self.assertEqual(supervisor.pick_device(out, self.PINNED), "ZY22GTXB9R")
+
+    def test_other_network_serial_used_as_last_resort(self):
+        import supervisor
+        out = ADB_HEADER + "192.168.1.99:5555\tdevice\n\n"
+        self.assertEqual(supervisor.pick_device(out, self.PINNED),
+                         "192.168.1.99:5555")
+
+    def test_offline_and_unauthorized_devices_are_ignored(self):
+        import supervisor
+        out = ADB_HEADER + "192.168.1.16:5555\toffline\nZY22GTXB9R\tunauthorized\n\n"
+        self.assertIsNone(supervisor.pick_device(out, self.PINNED))
+
+    def test_no_devices_returns_none(self):
+        import supervisor
+        self.assertIsNone(supervisor.pick_device(ADB_HEADER + "\n", self.PINNED))
+
+    def test_respawn_delay_ladder_caps_at_five_minutes(self):
+        import supervisor
+        delays = [supervisor.respawn_delay(s) for s in range(1, 9)]
+        self.assertEqual(delays, [5, 15, 30, 60, 120, 300, 300, 300])
+        self.assertEqual(supervisor.respawn_delay(0), 0)
+
+    def test_streak_resets_after_a_long_lived_worker(self):
+        import supervisor
+        self.assertEqual(supervisor.update_streak(4, lived_seconds=3600), 1)
+        self.assertEqual(supervisor.update_streak(1, lived_seconds=5), 2)
+
+    def test_exit_codes_decide_respawn(self):
+        import signal
+        import supervisor
+        self.assertFalse(supervisor.should_respawn(0))    # course done
+        self.assertFalse(supervisor.should_respawn(130))  # worker saw Ctrl+C
+        self.assertFalse(supervisor.should_respawn(-signal.SIGINT))
+        self.assertTrue(supervisor.should_respawn(1))     # worker gave up
+        self.assertTrue(supervisor.should_respawn(-9))    # killed while hung
+
+    def test_silence_detection_uses_the_limit(self):
+        import supervisor
+        limit = supervisor.SILENCE_LIMIT
+        self.assertFalse(supervisor.worker_is_hung(1000.0, 1000.0 + limit))
+        self.assertTrue(supervisor.worker_is_hung(1000.0, 1000.0 + limit + 1))
+
+
 if __name__ == "__main__":
     unittest.main()
