@@ -57,6 +57,10 @@ def load_results():
 
 
 def save_results(results):
+    # Number every entry on every save ("n", kept first in the JSON) so
+    # the file shows at a glance how many results it holds.
+    for i, entry in enumerate(results):
+        results[i] = {"n": i + 1, **{k: v for k, v in entry.items() if k != "n"}}
     with open(RESULTS_FILE, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
 

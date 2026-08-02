@@ -949,6 +949,22 @@ class XmlDriver:
         return [self.next_el] if self.next_el else []
 
 
+class TestSaveResults(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+
+    def tearDown(self):
+        os.chdir(self._cwd)
+
+    def test_every_entry_is_numbered_with_n_first(self):
+        watcher.save_results([{"question": "Q1"}, {"question": "Q2", "n": 99}])
+        saved = watcher.load_results()
+        self.assertEqual([e["n"] for e in saved], [1, 2], "stale n gets renumbered")
+        self.assertEqual(list(saved[0].keys())[0], "n", "n leads each entry")
+        self.assertEqual(saved[1]["question"], "Q2")
+
+
 class TestPollOnce(unittest.TestCase):
     def setUp(self):
         self._cwd = os.getcwd()
