@@ -1096,6 +1096,24 @@ class TestPollOnce(unittest.TestCase):
         self.assertIsNone(watcher.poll_once(driver, state, []))
         self.assertIsNone(state["question"])
 
+    def test_modules_list_forward_is_the_course_module_card(self):
+        # After some reward flows the app falls back to the Modules list
+        # (live dump 2026-08-02 21:02) — all Views, no Buttons, nothing
+        # the runner knew. Forward = the configured module's card.
+        import navigation
+        nodes = [
+            ("android.view.View", "Placement test"),
+            ("android.view.View", "Modules"),
+            ("android.view.View", "A1 | Beginner and elementary\n16\n25\n4 hours"),
+            ("android.view.View", "B2 | Upper-Intermediate\n86\n88\n13 hours"),
+        ]
+        self.assertEqual(
+            navigation.find_forward_button(nodes),
+            "B2 | Upper-Intermediate\n86\n88\n13 hours",
+        )
+        # without the Modules header, module-like descs are never tapped
+        self.assertIsNone(navigation.find_forward_button(nodes[2:]))
+
     def test_completed_stats_screen_is_not_a_question(self):
         # The 2026-08-02 pass screen: its stat labels are Buttons, enough
         # to clear the 2-option floor — the runner tapped "Lessons" as an

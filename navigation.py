@@ -202,6 +202,15 @@ def find_forward_button(nodes):
     for label in ("Start", "Continue", "Open chest", "Try again"):
         if any(d == label for _, d in nodes):
             return label
+    # The Modules list (the app falls back to it after some reward
+    # flows, 2026-08-02): forward = the course's module card. The full
+    # desc is returned because it carries live progress counts.
+    if any(d == "Modules" for _, d in nodes):
+        module = next(
+            (d for _, d in nodes if d.startswith(config.MODULE_PREFIX)), None
+        )
+        if module:
+            return module
     # "Open chest" merged into a longer desc: return the full desc so the
     # content-desc xpath still finds the node to tap.
     return next((d for _, d in nodes if "Open chest" in d), None)
