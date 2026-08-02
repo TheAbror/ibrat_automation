@@ -1041,7 +1041,7 @@ class TestSaveResults(unittest.TestCase):
         ]
         watcher.save_results(results)
         self.assertEqual([e["question"] for e in results], ["Q1", "Q2"])
-        self.assertEqual(results[0]["result"], "correct", "latest repeat wins")
+        self.assertEqual(results[0]["result"], "incorrect", "first entry wins")
         self.assertEqual(results, watcher.load_results(),
                          "in-memory list stays the saved list")
 
@@ -1056,6 +1056,27 @@ class TestSaveResults(unittest.TestCase):
         self.assertEqual(len(deduped), 1)
         self.assertEqual(deduped[0]["correct_answer"], ["b"])
 
+    def test_dedupe_keeps_the_first_entry_untouched_when_a_question_repeats(self):
+        first = {"question": "Q1", "time": "2026-08-02 15:44:12",
+                 "type": "multiple_choice", "options": ["quite", "rather"],
+                 "result": "correct", "correct_answer": ["rather"]}
+        snapshot = dict(first)
+        repeat = {"question": "Q1", "time": "2026-08-02 20:49:43",
+                  "type": "multiple_choice", "options": ["rather", "quite"],
+                  "result": "correct", "correct_answer": ["rather"]}
+        deduped = qh.dedupe_results([first, repeat])
+        self.assertEqual(deduped, [snapshot],
+                         "a re-answered question keeps its original entry")
+
+    def test_dedupe_upgrades_an_answerless_entry_when_a_repeat_reveals_one(self):
+        first = {"question": "Q1", "type": "multiple_choice",
+                 "options": ["a", "b"], "result": "other"}
+        repeat = {"question": "Q1", "type": "multiple_choice",
+                  "options": ["b", "a"], "result": "correct",
+                  "correct_answer": ["b"]}
+        deduped = qh.dedupe_results([first, repeat])
+        self.assertEqual(deduped, [repeat])
+
     def test_dedupe_keeps_matching_entries_per_board(self):
         board_a = {"question": "Moslashtiring.", "type": "matching",
                    "options": ["Drive", "along the road", "Fly", "to Tashkent"],
@@ -1063,14 +1084,19 @@ class TestSaveResults(unittest.TestCase):
         board_b = {"question": "Moslashtiring.", "type": "matching",
                    "options": ["Exam", "Imtihon", "Boring", "Zerikarli"],
                    "correct_answer": [["Exam", "Imtihon"]]}
-        # board A re-served with shuffled cards: replaces the original A
+        # board A re-served with shuffled cards and a newly discovered
+        # pair: the original entry stays, only the new pair folds in
         board_a2 = {"question": "Moslashtiring.", "type": "matching",
                     "options": ["Fly", "to Tashkent", "Drive", "along the road"],
                     "correct_answer": [["Fly", "to Tashkent"], ["Drive", "along the road"]]}
         deduped = qh.dedupe_results([board_a, board_b, board_a2])
         self.assertEqual(len(deduped), 2, "different boards both kept")
-        self.assertIn(board_a2, deduped)
-        self.assertNotIn(board_a, deduped)
+        self.assertIn(board_b, deduped)
+        merged = next(e for e in deduped if "Drive" in e["options"])
+        self.assertEqual(merged["options"], board_a["options"],
+                         "first board entry keeps its card order")
+        self.assertEqual(merged["correct_answer"],
+                         [["Drive", "along the road"], ["Fly", "to Tashkent"]])
 
     def test_dedupe_drops_entries_with_no_question(self):
         # A feedback sheet met before any question (attach mid-sheet)

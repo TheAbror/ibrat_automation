@@ -161,12 +161,14 @@ def _teaches(entry):
 def dedupe_results(results):
     """One entry per question — the answer book, not the attempt log.
 
-    Repeats of a question replace their earlier entry, EXCEPT that an
-    entry with a usable answer is never replaced by one without: a later
-    encounter with a noisy or empty reveal must not erase a learned
-    answer. Matching entries all share one question text, so they are
-    kept per board (question + card set) instead. Entries with no
-    question text at all (a sheet met before any question) are dropped.
+    The first recorded entry for a question is the one that stays: a
+    repeat never rewrites its time, options order, or result, so re-runs
+    leave the book unchanged. A repeat only contributes what the kept
+    entry lacks — a revealed answer upgrades an answerless entry, and on
+    matching boards (kept per board — question + card set — since every
+    board shares one question text) newly discovered pairs fold into the
+    kept entry. Entries with no question text at all (a sheet met before
+    any question) are dropped.
     """
     kept = {}
     for entry in results:
@@ -178,9 +180,18 @@ def dedupe_results(results):
         else:
             key = question
         old = kept.get(key)
-        if old is not None and _teaches(old) and not _teaches(entry):
-            continue
-        kept[key] = entry
+        if old is None:
+            kept[key] = entry
+        elif entry.get("type") == "matching":
+            known = old.get("correct_answer") or []
+            lefts = {p[0] for p in known if isinstance(p, (list, tuple)) and p}
+            new = [p for p in entry.get("correct_answer") or []
+                   if isinstance(p, (list, tuple)) and len(p) == 2
+                   and p[0] not in lefts]
+            if new:
+                kept[key] = {**old, "correct_answer": list(known) + new}
+        elif not _teaches(old) and _teaches(entry):
+            kept[key] = entry
     return list(kept.values())
 
 
