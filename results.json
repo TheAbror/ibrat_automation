@@ -16847,29 +16847,23 @@
   },
   {
     "n": 871,
-    "time": "2026-08-02 20:50:29",
+    "time": "2026-08-03 15:31:44",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Ular o‘qishlarida juda ko‘p yutuqlarga erishdilar.",
     "options": [
-      "have",
-      "made",
+      "studies.",
       "quite",
-      "They",
-      "their",
-      "progress",
       "in",
+      "have",
+      "progress",
+      "their",
+      "They",
       "a lot of",
-      "studies."
+      "made"
     ],
     "correct_answer": [
-      "Dars 143 Comparative 1 (cheaper, more expensive etc.)",
-      "Qiyosiy darajadagi sifatlardan so'ng 'than' ni ishlatamiz:",
-      "Exapmle:",
-      "It’s cheaper to drive than go by train.",
-      "Going by train is more expensive than driving.",
-      "Qiyosiy sifat shakli -er yoki more …",
-      "Biz -er shaklidan qisqa so'zlarda foydalanamiz (bir bo'g'inli)"
+      "They have made quite a lot of progress in their studies."
     ]
   },
   {
@@ -17256,27 +17250,24 @@
   },
   {
     "n": 893,
-    "time": "2026-08-02 20:52:32",
+    "time": "2026-08-03 15:35:34",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "U varrakni yaxshigina yasadi.",
     "options": [
-      "the",
-      "make",
-      "better.",
-      "She ",
-      "kite",
-      "much",
-      "made",
+      "makeing",
       "any",
-      "makeing"
+      "much",
+      "kite",
+      "the",
+      "better.",
+      "made",
+      "make",
+      "She "
     ],
     "correct_answer": [
-      "Dars 145 Superlative (the longest/ the most enjoyable etc.)",
-      "Orttirma daraja shakli -er yoki most bilan yasaladi. Umumiy holatlarda -'est' ni qisqa so'zlar uchun va 'most' ni uzun so'zlar uchun ishlatamiz.",
-      "long → longest hot → hottest easy → easiest",
-      "Ayrim orttirma darajadagi sifatlar noto'g'ri fe'llar kabi tubdan o'zgaradi:",
-      "good → best bad → worst far → furthest or farthest"
+      "makeing",
+      "She made the kite much better."
     ]
   },
   {
@@ -17496,26 +17487,21 @@
   },
   {
     "n": 906,
-    "time": "2026-08-02 20:53:38",
+    "time": "2026-08-03 15:36:49",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Sanjar sinfdagi eng aqlli o'quvchi.",
     "options": [
-      "cleverest",
-      "is the",
-      "pupil",
+      "class.",
       "in the",
+      "cleverest",
       "Sanjar",
-      "class."
+      "is the",
+      "pupil"
     ],
     "correct_answer": [
-      "Dars 146 Although, though, even, though, in spite of, despite",
-      "Although so'zidan keyin biz ega va kesimni ishlatamiz:",
-      "Example:",
-      "Example:",
-      "Although it rained a lot, they had a good time.",
-      "I didn’t apply for the job although I had the necessary qualifications.",
-      "\"Although\" va \"because\" so'zlarining ma'nolarini solishtiring:"
+      "class.",
+      "Sanjar is the cleverest pupil in the class."
     ]
   },
   {
@@ -17732,43 +17718,30 @@
   },
   {
     "n": 918,
-    "time": "2026-08-02 20:55:13",
+    "time": "2026-08-03 15:38:04",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Yomon ob-havoga qaramay, ular piknikga borishdi.",
     "options": [
-      "the",
-      "Despite",
-      "for",
-      "picnic.",
-      "spite",
-      "a",
-      "In",
-      "good",
-      "bad",
-      "weather",
-      "they",
-      "went",
       "of",
+      "they",
+      "In",
+      "bad",
+      "a",
+      "picnic.",
+      "went",
+      "though",
       "you",
-      "though"
+      "the",
+      "for",
+      "weather",
+      "spite",
+      "Despite",
+      "good"
     ],
     "correct_answer": [
-      "Hide player controls",
-      "Mute",
-      "Playback Settings",
-      "Rewind 10 seconds",
-      "Play video",
-      "Fast forward 10 seconds",
-      "Time elapsed 0 secondsTime duration 8 minutes, 7 seconds",
-      "Enter full screen",
-      "Dars 147 Even",
-      "Biz biror narsani g'ayrioddiy yoki hayratlanarli deb aytish uchun 'even' dan foydalanamiz.",
-      "Example:",
-      "Example:",
-      "Laylo loves watching TV.",
-      "She has a television in every room of the house, even the bedroom.",
-      "Biz gapning o'rtasida 'even' ni fe'l bilan ishlatamiz:"
+      "of",
+      "In spite of the bad weather they went for a picnic."
     ]
   },
   {
@@ -17816,35 +17789,24 @@
   },
   {
     "n": 921,
-    "time": "2026-08-02 20:56:20",
+    "time": "2026-08-03 15:39:23",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Ular hattoki kech yugurishsa ham, lekin baribir poyezdni ushlashga muvaffaq bo‘lishdi.",
     "options": [
-      "but",
-      "they",
       "ran",
-      "the train.",
-      "late,",
       "they managed ",
-      "catch",
+      "but",
+      "the train.",
+      "Even though ",
       "to",
-      "Even though "
+      "they",
+      "catch",
+      "late,"
     ],
     "correct_answer": [
-      "Hide player controls",
-      "Unmute",
-      "No captions are available for this video",
-      "Playback Settings",
-      "Rewind 10 seconds",
-      "Play video",
-      "Fast forward 10 seconds",
-      "Time elapsed 0 secondsTime duration 0 seconds",
-      "Enter full screen",
-      "Dars 148 Still, any, more, yet, already",
-      "Voqealar hozir sodir bo'layotgandek taassurot qoldirish uchun ko'pincha norasmiy ingliz tilidagi hikoyalar va hazillarda Present Simple va Present Continuous zamonlaridan foydalaniladi.",
-      "Example:",
-      "This man is playing golf when a kangaroo bounds up to him grabs his club and hits his ball about half a mile..."
+      "ran",
+      "Even though they ran late, but they managed to catch the train."
     ]
   },
   {
@@ -18446,24 +18408,20 @@
   },
   {
     "n": 955,
-    "time": "2026-08-02 20:59:25",
+    "time": "2026-08-03 15:42:35",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "|_|   I was waiting for the bus, it started to rain. ",
     "options": [
-      "One",
-      "While",
       "As",
+      "While",
       "Where",
+      "One",
       "Like"
     ],
     "correct_answer": [
-      "Dars 151 Like and as",
-      "Like = 'the same as' bilan bir xil ma'noda keladi:",
-      "Example:",
-      "What a beautiful house! It’s like a palace. (not as a palace)",
-      "Be careful! The floor has been polished. It’s like walking on ice. (not as walking)",
-      "Bu misollarda like - predlog. Demak, undan keyin ot (like a palace), olmosh"
+      "As\n   I was waiting for the bus, it started to rain. ",
+      "While"
     ]
   },
   {
@@ -18719,27 +18677,23 @@
   },
   {
     "n": 971,
-    "time": "2026-08-02 21:01:25",
+    "time": "2026-08-03 15:44:36",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Men o'qituvchi bo‘lib ishlayman.",
     "options": [
+      "as",
+      "like",
+      "work",
+      "I",
       "if",
       "am",
-      "like",
       "teacher.",
-      "as",
-      "a ",
-      "I",
-      "work"
+      "a "
     ],
     "correct_answer": [
-      "Dars 153 At, on, in (time)",
-      "Kunning vaqti uchun 'at' ni ishlatamiz:",
-      "at five o’clock, at 11.45 at midnight, at lunchtime, at sunset",
-      "Kunlar va sanalarga 'on' ni ishlatamiz:",
-      "on Friday / on Fridays, on 16 May 2012, on New Year’s Day, on my birthday",
-      "'In' ni uzoqroq muddatlar uchun ishlatamiz (months/years/seasons etc.)"
+      "as",
+      "I work as a teacher."
     ]
   },
   {
