@@ -6281,32 +6281,28 @@
   },
   {
     "n": 323,
-    "time": "2026-08-02 19:39:38",
+    "time": "2026-08-03 01:24:32",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Salim sinfdagi boshqa o‘quvchilardan aqlliroq.",
     "options": [
-      "was",
-      "other",
-      "than",
       "more clever",
-      "a",
-      "in",
-      "is",
-      "pupils",
-      "Salim",
+      "class.",
+      "other",
       "clever",
+      "is",
+      "was",
+      "a",
+      "pupils",
       "others",
+      "than",
+      "in",
       "the ",
-      "class."
+      "Salim"
     ],
     "correct_answer": [
-      "Dars 87 Older / More expensive than...",
-      "Than is used after comparatives to indicate a comparison between two things. It shows that one thing has a higher degree or quality than the other.",
-      "Examples:",
-      "1. She's taller than me.",
-      "2. Are oranges more expensive than bananas?",
-      "3. - How much did your shoes cost? £30?"
+      "more clever",
+      "Salim is more clever than other pupils in the class."
     ]
   },
   {
@@ -6821,28 +6817,25 @@
   },
   {
     "n": 349,
-    "time": "2026-08-02 19:43:26",
+    "time": "2026-08-03 01:28:14",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Salima basketbolni yaxshi o‘ynaydi. Lekin u jamoadagi eng zo‘ri emas.",
     "options": [
-      "isn't",
       "well.",
-      "the ",
-      "plays",
-      "best",
+      "in",
+      "isn't",
+      "Salima ",
       "basketball",
       "But",
+      "best",
+      "the ",
       "the team.",
-      "in",
-      "she",
-      "Salima "
+      "plays",
+      "she"
     ],
     "correct_answer": [
-      "Dars 90 Enough",
-      "Enough is an adverb that is used to indicate sufficiency or adequacy of something. It implies that a particular quantity, degree, or amount is satisfactory or suitable for a particular purpose or need. It can also convey the idea of reaching a certain threshold or limit.",
-      "Examples:",
-      "1. I've only got 1$ → She can't buy a sandwich. She hasn't got enough money."
+      "Salima plays basketball well. But she isn't the best in the team."
     ]
   },
   {
@@ -7329,32 +7322,28 @@
   },
   {
     "n": 375,
-    "time": "2026-08-02 19:46:18",
+    "time": "2026-08-03 01:30:25",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Charchagan ko‘rinasan. Menimcha sen juda qattiq ishlagansan.",
     "options": [
+      "much",
+      "hard.",
       "look",
+      "too",
+      "you",
+      "tired.",
+      "worked",
+      "think",
       "hardly",
       "works",
-      "worked",
       "I",
-      "thinks",
-      "too",
-      "tired.",
-      "you",
-      "think",
       "You",
-      "much",
-      "hard."
+      "thinks"
     ],
     "correct_answer": [
-      "Dars 92 Word order 1",
-      "In English, the verb usually comes after the subject and before the object: subject + verb + object.",
-      "Rule. The verb and the object are usually together.",
-      "Examples:",
-      "1. Sitora reads a newspaper every day (not \"Sitora reads every day a newspaper\").",
-      "2. He speaks English very well. (not \"He speaks very well English\")."
+      "much",
+      "You look tired. I think you worked too hard."
     ]
   },
   {
@@ -7494,31 +7483,24 @@
   },
   {
     "n": 382,
-    "time": "2026-08-02 19:48:04",
+    "time": "2026-08-03 01:32:07",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Mening talabalarim ingliz tilida juda yaxshi gapirishadi.",
     "options": [
-      "students",
-      "English",
-      "speaks",
-      "pupils",
-      "good",
-      "My",
       "well.",
+      "very",
+      "good",
       "speak",
-      "very"
+      "speaks",
+      "My",
+      "English",
+      "pupils",
+      "students"
     ],
     "correct_answer": [
-      "Dars 93 Word order 2",
-      "always - har doim",
-      "often - ko‘pincha",
-      "ever - qachonlardir",
-      "rarely -kamdan-kam",
-      "also - ham",
-      "already - allaqachon",
-      "all - hammasi",
-      "usually - odatda"
+      "well.",
+      "My students speak English very well."
     ]
   },
   {
@@ -7705,36 +7687,22 @@
   },
   {
     "n": 392,
-    "time": "2026-08-02 19:49:30",
+    "time": "2026-08-03 01:33:48",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Meni ikkita singlim bor.",
     "options": [
-      "sisters.",
       "have",
-      "two",
       "I",
+      "two",
+      "got",
+      "sisters.",
       "three",
-      "brothers",
-      "got"
+      "brothers"
     ],
     "correct_answer": [
-      "Hide player controls",
-      "Unmute",
-      "No captions are available for this video",
-      "Playback Settings",
-      "Rewind 10 seconds",
-      "Play video",
-      "Fast forward 10 seconds",
-      "Time elapsed 0 secondsTime duration 0 seconds",
-      "Enter full screen",
-      "Dars 94 Still vs Yet",
-      "Still = Avvalgidek, hali ham:",
-      "I had a lot to eat but I'm still hungry. (=I was hungry before and I'm hungry now)",
-      "Did you sell your car? No, I've still got it.",
-      "Do you still live in Bukhara? No, I live in Tashkent now.",
-      "Yet = hozirgacha:",
-      "We use yet in negative sentences. (He hasn't come yet.) and in questions (Has he come yet?)."
+      "have",
+      "I have got two sisters."
     ]
   },
   {
@@ -7864,29 +7832,24 @@
   },
   {
     "n": 400,
-    "time": "2026-08-02 19:50:35",
+    "time": "2026-08-03 01:34:36",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Aziz allaqachon bu filmni ko‘rib bo‘ldi.",
     "options": [
-      "already",
-      "have",
-      "film.",
-      "seen",
+      "Aziz",
       "see",
       "has",
-      "this",
       "theatre",
-      "Aziz"
+      "have",
+      "already",
+      "film.",
+      "this",
+      "seen"
     ],
     "correct_answer": [
-      "Dars 95 Give me.. / Give it to...",
-      "Give lend pass send show",
-      "After these verbs (give/lend etc.). there are two possible structures:",
-      "(give) something to somebody:",
-      "I gave the keys to Laziza.",
-      "(give) somebody something:",
-      "I gave Laziza the keys. (give) something to somebody something."
+      "Aziz",
+      "Aziz has already seen this film."
     ]
   },
   {
@@ -8194,33 +8157,26 @@
   },
   {
     "n": 417,
-    "time": "2026-08-02 19:52:02",
+    "time": "2026-08-03 01:36:06",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Buni menga bera olasizmi?",
     "options": [
       "Can",
-      "to",
       "your",
+      "gives",
+      "you",
       "me",
-      "?",
-      "give",
-      "the",
       "it",
       "I",
-      "gives",
-      "you"
+      "the",
+      "to",
+      "give",
+      "?"
     ],
     "correct_answer": [
-      "Dars 96 At / On / In",
-      "At",
-      "10:30",
-      "midnight",
-      "I start work at 8 o'clock.",
-      "The shops close at 5.30.",
-      "Sunday(s) / Monday(s) etc...",
-      "On",
-      "25 April / 6 June etc."
+      "Can",
+      "Can you give it to me ?"
     ]
   },
   {
@@ -9058,30 +9014,26 @@
   },
   {
     "n": 459,
-    "time": "2026-08-02 19:59:25",
+    "time": "2026-08-03 01:42:20",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Men Jasminani universitetga ketish yo‘lida ko‘rdim.",
     "options": [
-      "the way",
-      "to",
-      "saw",
-      "on",
-      "see",
       "the",
+      "the way",
       "at",
-      "university.",
+      "to",
       "a",
       "Jasmina",
+      "saw",
+      "on",
+      "university.",
+      "see",
       "I"
     ],
     "correct_answer": [
-      "Dars 101 In / At / On (places 3)",
-      "In / at / on (places 3)",
-      "go / come / return / walk to…",
-      "We're going to London next week.",
-      "I want to go to Italy.",
-      "We walked from my house to the city centre."
+      "the",
+      "I saw Jasmina on the way to the university."
     ]
   },
   {
@@ -9738,30 +9690,26 @@
   },
   {
     "n": 492,
-    "time": "2026-08-02 20:03:37",
+    "time": "2026-08-03 01:46:30",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Kitobni sumkangizning ichidan oling.",
     "options": [
-      "the",
       "your",
+      "at",
+      "books",
+      "the",
+      "out",
       "of",
       "bag",
-      "Take",
-      "out",
-      "in",
       "book",
-      "pocket",
-      "books",
-      "at"
+      "Take",
+      "in",
+      "pocket"
     ],
     "correct_answer": [
-      "Dars 104 At / By / With / Without/ About (prepositions)",
-      "on holiday Iroda isn't at work this week. She's on holiday.",
-      "on television We watched the news on television.",
-      "on the radio We listened to the news on the radio.",
-      "on the phone I spoke to Kamol on the phone last night.",
-      "on fire The house is on fire! Call the fire brigade."
+      "your",
+      "Take the book out of your bag"
     ]
   },
   {
@@ -11820,31 +11768,26 @@
   },
   {
     "n": 603,
-    "time": "2026-08-02 20:15:34",
+    "time": "2026-08-03 01:57:38",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "U (qiz bola) ko‘targan sumka og‘ir.",
     "options": [
       "is ",
-      " is carrying ",
-      "whose",
-      "when",
-      "The",
-      " bag ",
-      "which",
+      "heavy.",
       "he",
-      "she",
+      "when",
+      " is carrying ",
+      " bag ",
+      "The",
+      "whose",
       "who",
-      "heavy."
+      "which",
+      "she"
     ],
     "correct_answer": [
-      "Play video",
-      "Hide player controls",
-      "Dars 115 Can\\could and (be) able to",
-      "Can",
-      "Can o‘rnida be able to ni ham ishlatsa bo‘ladi. Be able to hozirgi, o‘tgan va kelasi zamonda ishlatiladi.",
-      "Ex: I could swim when I was a child = I was able to swim when I was a child.",
-      "Haqiqatda sodir bo‘lgan ish-harakat to‘g‘risida gap ketganda was (were) able to"
+      "is ",
+      "The bag which she is carrying is heavy."
     ]
   },
   {
@@ -12326,26 +12269,22 @@
   },
   {
     "n": 627,
-    "time": "2026-08-02 20:18:20",
+    "time": "2026-08-03 02:01:25",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "U tez yugura oladi.",
     "options": [
-      "He",
-      "can",
-      "fast.",
       "fastly",
+      "fast.",
+      "run ",
+      "can",
+      "He",
       "not",
-      "I",
-      "run "
+      "I"
     ],
     "correct_answer": [
-      "Dars 117 Must and can't",
-      "It must be very noisy.",
-      "Biz bir narsaning aniqligiga ishonganimizni aytish uchun must dan foydalanamiz:",
-      "Masalan:",
-      "You’ve been travelling all day. You must be tired. (travelling is tiring and you’ve been travelling all day, so you must be tired)",
-      "Sanjar is a hard worker. Sanjar? You must be joking.He doesn’t do anything."
+      "fastly",
+      "He can run fast."
     ]
   },
   {
@@ -12657,31 +12596,25 @@
   },
   {
     "n": 646,
-    "time": "2026-08-02 20:20:24",
+    "time": "2026-08-03 02:04:29",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Ruchkangizni olsam maylimi?",
     "options": [
-      "you",
-      "might",
-      "?",
-      "my",
-      "May",
+      "pen",
       "your",
+      "May",
+      "my",
       "take",
       "I",
+      "might",
+      "you",
       "pencil",
-      "pen"
+      "?"
     ],
     "correct_answer": [
-      "Play video",
-      "Hide player controls",
-      "Dars 119 May and might 2",
-      "Kelajakdagi sodir bo‘lishi mumkin bo‘lgan ish-harakatlar haqida gapirish uchun may va might dan foydalanamiz.",
-      "Examples:",
-      "I haven’t decided where to go on holiday. I may go to Ireland. (perhaps I will go there)",
-      "Take an umbrella with you. It might rain later. (perhaps it will rain)",
-      "May not va might not ning inkor shakli (mightn’t)"
+      "pen",
+      "May I take your pen ?"
     ]
   },
   {
@@ -19106,6 +19039,101 @@
       "to",
       "answer.",
       "It was a difficult question to answer."
+    ]
+  },
+  {
+    "n": 986,
+    "time": "2026-08-03 01:00:40",
+    "type": "matching",
+    "result": "correct",
+    "question": "So‘zlarni moslashtiring.",
+    "options": [
+      "These",
+      "That",
+      "Those",
+      "This"
+    ],
+    "correct_answer": [
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "star in the sky"
+      ],
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "car is mine"
+      ],
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "star in the sky"
+      ],
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "car is mine"
+      ],
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "star in the sky"
+      ],
+      [
+        "These",
+        "star in the sky"
+      ],
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "birds in trees"
+      ],
+      [
+        "These",
+        "books in my hand"
+      ],
+      [
+        "That",
+        "star in the sky"
+      ],
+      [
+        "Those",
+        "birds in trees"
+      ],
+      [
+        "This",
+        "car is mine"
+      ]
     ]
   }
 ]
