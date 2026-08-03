@@ -9,6 +9,7 @@ from selenium.common.exceptions import (
     NoSuchElementException,
     StaleElementReferenceException,
     TimeoutException,
+    WebDriverException,
 )
 
 import locators as loc
@@ -50,6 +51,15 @@ CHEST_SCREEN_MARKERS = (CHEST_TAP_MARKER, "Get your reward", "Open chest")
 # A screen with no forward button that also isn't moving is dead — give
 # up on it (an app restart recovers) instead of waiting forever.
 DEAD_SCREEN_LIMIT = 90
+# Swipes allowed when scrolling something below the fold into view. The
+# screens involved are a few rows tall, so a handful always suffices.
+REVEAL_SWIPES = 5
+# A driver that cannot swipe (an older server, a fake driver) must not
+# kill the run — the caller falls back to what is already on screen.
+SWIPE_ERRORS = (WebDriverException, AttributeError)
+# The home-screen card the run enters the course through, as its
+# accessibility label reads. Kept next to the locator it mirrors.
+HOME_CARD_DESC = loc.PROGRAM_CERTIFICATE[1]
 
 
 class StuckScreenError(Exception):
@@ -483,9 +493,62 @@ def clear_launch_popups(driver, rounds=5):
             return
 
 
+def card_on_screen(driver, desc):
+    return any(d == desc for _, d in parse_screen(driver.page_source))
+
+
+def scroll_down(driver):
+    """One swipe up the middle of the screen. False when it can't swipe."""
+    try:
+        size = driver.get_window_size()
+        x, height = size["width"] // 2, size["height"]
+        driver.swipe(x, int(height * 0.75), x, int(height * 0.35), 600)
+    except SWIPE_ERRORS:
+        return False
+    time.sleep(1)
+    return True
+
+
+def reveal_card(driver, desc):
+    """Scroll until `desc` is in the element tree.
+
+    UiAutomator2 leaves off-screen nodes out of the tree entirely, so
+    anything below the fold cannot be waited for — it does not exist yet,
+    and find_element fails instantly instead of settling. On a 1080x2340
+    phone the home screen's collection grid puts the Program Certificate
+    card below the screen, so scrolling is what makes it real. A card
+    already in view costs no swipe.
+    """
+    for _ in range(REVEAL_SWIPES):
+        if card_on_screen(driver, desc):
+            return True
+        if not scroll_down(driver):
+            break
+    return card_on_screen(driver, desc)
+
+
+def reveal_forward_button(driver):
+    """Scroll a too-tall screen until its forward button is in the tree.
+
+    Same off-screen blindness as reveal_card, hit one screen deeper: a
+    quiz Start page's button sits under the info card, so on a tall
+    phone the runner sees no Start, no question and nothing to tap, and
+    strands on a screen a human would simply scroll.
+    """
+    for _ in range(REVEAL_SWIPES):
+        if find_forward_button(parse_screen(driver.page_source)):
+            return True
+        if not scroll_down(driver):
+            break
+    return bool(find_forward_button(parse_screen(driver.page_source)))
+
+
 def navigate_to_test(driver, wait, wait_long):
     """Returns True when the question screen is reached, False otherwise."""
     clear_launch_popups(driver)
+    if not reveal_card(driver, HOME_CARD_DESC):
+        print(f"'{HOME_CARD_DESC}' is not on the home screen — "
+              "is the app signed in to the right account?")
     tap(driver, wait, loc.PROGRAM_CERTIFICATE, "Program Certificate")
     tap(driver, wait, loc.GET_CERTIFICATE, "Get certificate")
 
@@ -570,6 +633,12 @@ def push_through_to_start(driver, attempts=5):
             # A finish/start/streak screen: its forward button (Next ... /
             # Start / Continue) beats blind-tapping in tree order.
             if tap_forward_button(driver):
+                continue
+
+            # Nothing actionable in the tree yet — the button may simply
+            # be below the fold on a tall screen, where it is absent
+            # rather than merely out of reach.
+            if reveal_forward_button(driver) and tap_forward_button(driver):
                 continue
 
             print("No Start button — tapping through this screen...")

@@ -606,26 +606,20 @@
   },
   {
     "n": 32,
-    "time": "2026-08-02 17:13:35",
+    "time": "2026-08-03 19:16:51",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "U (bola) qiziqarli kitob o‘qidi.",
     "options": [
-      "book.",
       "an ",
-      "interesting ",
+      "book.",
+      "read",
       "He",
       "reading",
-      "read"
+      "interesting "
     ],
     "correct_answer": [
-      "Dars 69 The article",
-      "We use article the when it is clear which thing or person we mean.",
-      "Examples:",
-      "1. What is the name of this street? (=This street has only one name)",
-      "2. Excuse me, where is the nearest bank? (not \"Where is nearest\")",
-      "3. We live in the same street. (not \"in same street\")",
-      "We use the with sky / sea / country."
+      "He read an interesting book."
     ]
   },
   {
@@ -2113,26 +2107,23 @@
   },
   {
     "n": 108,
-    "time": "2026-08-02 17:27:10",
+    "time": "2026-08-03 19:57:12",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "U (qiz) ishidan keyin maktabga boradi.",
     "options": [
-      "goes ",
-      "work.",
       "school ",
-      "to ",
-      "go",
-      "after ",
       "She ",
-      "her "
+      "work.",
+      "to ",
+      "goes ",
+      "her ",
+      "after ",
+      "go"
     ],
     "correct_answer": [
-      "Dars 73 That / This / Those / These",
-      "Demonstrative pronouns are used to point to specific people, objects, or places. They help distinguish and indicate the proximity of objects in relation to the speaker and the listener. The main demonstrative pronouns are:",
-      "- This / that / these / those.",
-      "Examples:",
-      "1. This is used to refer to a singular object or person that is near the speaker."
+      "school ",
+      "She goes to school after her work."
     ]
   },
   {

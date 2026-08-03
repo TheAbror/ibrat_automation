@@ -32,6 +32,24 @@ one worker, but a second `python3 main.py` (or `watcher.py`) started by
 hand has the same effect. If runs keep dying with "instrumentation
 process is not running", check for a second runner still going.
 
+## On a tall phone, buttons can start below the fold
+
+UiAutomator2 leaves off-screen nodes out of the element tree entirely, so
+a control below the fold is not merely out of reach — it does not exist
+as far as the runner is concerned, and the lookup fails instantly instead
+of settling. On a 1080x2340 phone this hit two screens:
+
+- the home screen, whose "My collection" grid pushes the
+  **2+6 Program Certificate** card off the bottom;
+- the quiz **Start** page, whose button sits under the quiz-info card.
+
+Both are handled by scrolling the screen until the target enters the tree
+(`reveal_card` / `reveal_forward_button` in [navigation.py](navigation.py)).
+A target already in view costs no swipe. If a new screen ever strands the
+runner with "nothing to tap" on a phone where a human can plainly see a
+button, this is the first thing to suspect — check `stuck_screen.xml` for
+whether the button is in the tree at all.
+
 ## If a lesson video loads slowly
 
 Lesson pages with a video swallow the **Next** tap until the video has loaded.

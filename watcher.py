@@ -120,7 +120,11 @@ def poll_once(driver, state, results):
     Returns 'correct' / 'incorrect' / 'other' when a sheet was handled,
     'question' when a question screen was seen, else None.
     """
-    nodes = parse_screen(driver.page_source)
+    # Kept so a stall can be reported with the tree that actually stalled;
+    # by the time one is detected the app has often moved on.
+    source = driver.page_source
+    state["source"] = source
+    nodes = parse_screen(source)
     descs = [d for _, d in nodes if d]
     sheet = classify_sheet(descs)
 

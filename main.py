@@ -19,6 +19,7 @@ Usage: python3 main.py — supervised, self-healing run (via supervisor.py).
        python3 main.py --worker — this bare runner (needs your own Appium).
 """
 import math
+import re
 import subprocess
 import sys
 import time
@@ -41,6 +42,7 @@ from navigation import (
     StuckScreenError,
     dismiss_popup,
     navigate_to_test,
+    reveal_forward_button,
     tap_forward_button,
 )
 from question_handler import (
@@ -362,15 +364,21 @@ def answer_matching(driver, state, known_pairs):
     return True
 
 
-def save_stuck_screen(driver):
+def save_stuck_screen(driver, observed=None):
     """Save the tree of a screen the runner can't handle.
 
     The saved file is how a new stranding screen gets explained and then
     supported (it identified the 2026-08-02 launcher crash). No taps are
     tried here: blind taps on an unknown ad screen could open the ad.
+
+    `observed` is the tree the runner actually stalled on. Re-reading the
+    device here instead would capture whatever is on screen by now, and
+    the app often resolves during the seconds the stall takes to detect —
+    twice on 2026-08-03 the "stuck" file held an ordinary question screen,
+    which is worse than useless: it hides the screen under investigation.
     """
     with open(STUCK_SCREEN_FILE, "w", encoding="utf-8") as f:
-        f.write(driver.page_source)
+        f.write(observed if observed is not None else driver.page_source)
     print(f"Unrecognized screen — tree saved to {STUCK_SCREEN_FILE}")
 
 
@@ -409,6 +417,9 @@ def auto_answer_loop(driver):
     state = watcher.fresh_state()
     answered = 0
     idle_since = time.time()
+    # The idle_since value the below-the-fold button hunt last ran for,
+    # so one stuck episode costs one hunt.
+    scroll_hunted_at = None
     # An ad styled like a question (a text plus 2+ buttons) dodges the
     # idle timer: answering it looks like progress but no feedback sheet
     # ever comes. Two sheetless attempts on the same question = restart.
@@ -467,7 +478,7 @@ def auto_answer_loop(driver):
                 else:
                     sheetless_question, sheetless_count = question, 1
                 if sheetless_count >= 2:
-                    save_stuck_screen(driver)
+                    save_stuck_screen(driver, state.get("source"))
                     raise StuckScreenError(f"answers change nothing on: {question!r}")
             idle_since = time.time()
             continue
@@ -488,8 +499,26 @@ def auto_answer_loop(driver):
             idle_since = time.time()
             continue
 
+        # Finishing a quiz lands on the next one's Start page, whose
+        # button is below the fold on a tall phone and so missing from
+        # the tree entirely. Scrolling it into view beats paying a whole
+        # app restart between every pair of quizzes.
+        #
+        # Hunted at most once per stuck episode (idle_since changes only
+        # when something moved): every swipe costs a second, so hunting
+        # on each poll of a dead screen would burn the idle budget that
+        # triggers the recovering restart.
+        if scroll_hunted_at != idle_since:
+            scroll_hunted_at = idle_since
+            if reveal_forward_button(driver) and tap_forward_button(driver):
+                # The hunt itself takes seconds, so by now the timer has
+                # run down. Tapping IS progress — without this the next
+                # poll restarts the app right after the successful tap.
+                idle_since = time.time()
+                continue
+
         if time.time() - idle_since > IDLE_LIMIT:
-            save_stuck_screen(driver)
+            save_stuck_screen(driver, state.get("source"))
             raise StuckScreenError(f"unrecognized screen for over {IDLE_LIMIT}s")
         time.sleep(0.5)
 
@@ -508,22 +537,59 @@ def adb_shell(*args):
     return False
 
 
+def adb_capture(*args):
+    """Same as adb_shell, but returns the command's output ('' on failure)."""
+    for base in (["adb", "-s", config.DEVICE_NAME, "shell"], ["adb", "shell"]):
+        try:
+            done = subprocess.run(base + list(args), check=True, timeout=15,
+                                  capture_output=True, text=True)
+            return done.stdout
+        except (OSError, subprocess.SubprocessError):
+            continue
+    return ""
+
+
+def keyguard_is_up():
+    """True unless the phone is known to be unlocked already.
+
+    Unknown counts as locked: a stray swipe on an unlocked phone is a
+    smaller problem than a phone that stays locked all run.
+    """
+    return "mDreamingLockscreen=false" not in adb_capture("dumpsys", "window")
+
+
+def screen_size():
+    match = re.search(r"(\d+)x(\d+)", adb_capture("wm", "size"))
+    return (int(match.group(1)), int(match.group(2))) if match else (720, 1600)
+
+
 def wake_device():
     """Wake the phone and clear its swipe lock so the app can show.
 
     An unattended phone sleeps between runs and a locked screen makes
     every launch time out on the first home-screen element. The lock is
     swipe-only (no PIN): wake, collapse the notification shade (an open
-    shade would swallow the swipe), then swipe up. All best-effort — a
-    phone that is already awake and unlocked just ignores all of it.
+    shade would swallow the swipe), then swipe up.
+
+    The swipe only happens while the keyguard is actually up. It is a
+    blind gesture: on an unlocked phone sitting on the launcher it drags
+    the app drawer open instead, and since every app restart wakes the
+    device again, a run that cannot start the app turns into a phone
+    scrolling endlessly through its own app list.
     """
     if not adb_shell("input", "keyevent", "KEYCODE_WAKEUP"):
         print("adb not reachable — cannot wake the device")
         return False
     time.sleep(1)
     adb_shell("cmd", "statusbar", "collapse")
+    if not keyguard_is_up():
+        print("Device is awake and already unlocked")
+        return True
     adb_shell("wm", "dismiss-keyguard")
-    adb_shell("input", "swipe", "360", "1300", "360", "300", "200")
+    if keyguard_is_up():
+        width, height = screen_size()
+        adb_shell("input", "swipe", str(width // 2), str(int(height * 0.8)),
+                  str(width // 2), str(int(height * 0.2)), "200")
     time.sleep(1)
     print("Device woken and unlocked (best effort)")
     return True

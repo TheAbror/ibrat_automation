@@ -3,6 +3,7 @@
 Run with: python3 -m unittest test_watcher -v
 """
 import os
+import re
 import tempfile
 import unittest
 
@@ -2860,6 +2861,561 @@ class TestSupervisorPolicy(unittest.TestCase):
         limit = supervisor.SILENCE_LIMIT
         self.assertFalse(supervisor.worker_is_hung(1000.0, 1000.0 + limit))
         self.assertTrue(supervisor.worker_is_hung(1000.0, 1000.0 + limit + 1))
+
+
+# The home screen as a taller phone renders it (Samsung SM-A performance,
+# 1080x2340): the "My collection" grid's second row — which holds the
+# "2+6 Program Certificate" card the run must tap — sits below the fold.
+# UiAutomator2 omits off-screen nodes from the tree, so the card is not
+# merely hard to tap, it is absent: find_element raises instead of
+# waiting, and the run dies on its very first navigation step.
+HOME_UNSCROLLED_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,704][1080,1608]" clickable="true" content-desc="Jarayondagi topshiriq\nLaunchpad"/>
+  <node class="android.view.View" bounds="[54,1736][402,1824]" clickable="false" content-desc="My collection"/>
+  <node class="android.view.View" bounds="[0,1878][342,2243]" clickable="true" content-desc="Speaking club"/>
+  <node class="android.view.View" bounds="[369,1878][711,2243]" clickable="true" content-desc="Library"/>
+  <node class="android.view.View" bounds="[738,1878][1080,2243]" clickable="true" content-desc="Partner"/>
+</hierarchy>"""
+
+HOME_SCROLLED_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,348][342,713]" clickable="true" content-desc="Speaking club"/>
+  <node class="android.view.View" bounds="[0,713][342,1078]" clickable="true" content-desc="2+6 Program Certificate"/>
+  <node class="android.view.View" bounds="[369,713][711,1078]" clickable="true" content-desc="IELTS\nprep"/>
+  <node class="android.view.View" bounds="[738,713][1080,1078]" clickable="true" content-desc="Mock exam"/>
+</hierarchy>"""
+
+CERT_SCREEN_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,713][1080,1078]" clickable="true" content-desc="Get certificate"/>
+  <node class="android.view.View" bounds="[0,1200][1080,1400]" clickable="true" content-desc="Ingliz tili B2\nRustam Qoriyev"/>
+</hierarchy>"""
+
+
+class ScrollHomeDriver:
+    """Home screen that only reveals the second collection row after a swipe."""
+
+    def __init__(self, swipes_needed=1):
+        self.page_source = HOME_UNSCROLLED_XML
+        self._swipes_needed = swipes_needed
+        self.swipes = 0
+
+    def get_window_size(self):
+        return {"width": 1080, "height": 2340}
+
+    def find_element(self, by, value):
+        # Only what the current tree holds can be found — off-screen
+        # nodes are absent, exactly as UiAutomator2 reports them.
+        match = re.search(r'\.description\("(.*)"\)', value, re.S)
+        wanted = match.group(1) if match else value
+        if wanted not in self.page_source:
+            raise NoSuchElementException(f"{wanted} is not in the tree")
+        return FakeElement(wanted)
+
+    def find_elements(self, by, value):
+        try:
+            return [self.find_element(by, value)]
+        except NoSuchElementException:
+            return []
+
+    def swipe(self, *a, **kw):
+        self.swipes += 1
+        if self.swipes >= self._swipes_needed:
+            self.page_source = HOME_SCROLLED_XML
+
+
+class TestRevealHomeCard(unittest.TestCase):
+    """The home screen must be scrolled until the target card is real."""
+
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_scrolls_until_the_card_enters_the_tree(self):
+        import navigation
+        driver = ScrollHomeDriver(swipes_needed=1)
+        self.assertTrue(
+            navigation.reveal_card(driver, "2+6 Program Certificate")
+        )
+        self.assertEqual(driver.swipes, 1)
+
+    def test_no_scroll_when_the_card_is_already_visible(self):
+        import navigation
+        driver = ScrollHomeDriver(swipes_needed=1)
+        driver.page_source = HOME_SCROLLED_XML
+        self.assertTrue(
+            navigation.reveal_card(driver, "2+6 Program Certificate")
+        )
+        self.assertEqual(driver.swipes, 0, "already visible — must not scroll")
+
+    def test_keeps_scrolling_when_one_swipe_is_not_enough(self):
+        import navigation
+        driver = ScrollHomeDriver(swipes_needed=3)
+        self.assertTrue(
+            navigation.reveal_card(driver, "2+6 Program Certificate")
+        )
+        self.assertEqual(driver.swipes, 3)
+
+    def test_gives_up_after_a_bounded_number_of_swipes(self):
+        import navigation
+        driver = ScrollHomeDriver(swipes_needed=99)
+        self.assertFalse(
+            navigation.reveal_card(driver, "2+6 Program Certificate")
+        )
+        self.assertLessEqual(driver.swipes, navigation.REVEAL_SWIPES)
+
+    def test_navigate_to_test_reveals_the_card_before_tapping_it(self):
+        # The regression itself: without the reveal step navigate_to_test
+        # times out on the first tap on any phone whose home screen puts
+        # the collection grid's second row below the fold.
+        import navigation
+        driver = ScrollHomeDriver(swipes_needed=1)
+        tapped = []
+
+        def fake_tap(d, w, locator, label, clear_rounds=3):
+            # find_element is the point: a card below the fold is absent
+            # from the tree, so this raises unless the reveal scrolled it in.
+            d.find_element(*locator)
+            tapped.append(label)
+            if label == "Program Certificate":
+                d.page_source = CERT_SCREEN_XML
+
+        saved = (navigation.clear_launch_popups, navigation.tap,
+                 navigation.open_next_in_sequence,
+                 navigation.push_through_to_start)
+        navigation.clear_launch_popups = lambda d, rounds=5: None
+        navigation.tap = fake_tap
+        navigation.open_next_in_sequence = lambda d: True
+        navigation.push_through_to_start = lambda d, attempts=5: None
+
+        class Waiter:
+            def until(self, cond):
+                return FakeElement("x")
+
+        try:
+            self.assertTrue(
+                navigation.navigate_to_test(driver, Waiter(), Waiter())
+            )
+        finally:
+            (navigation.clear_launch_popups, navigation.tap,
+             navigation.open_next_in_sequence,
+             navigation.push_through_to_start) = saved
+
+        self.assertIn("Program Certificate", tapped)
+        self.assertGreaterEqual(driver.swipes, 1,
+                                "must scroll the card into the tree first")
+
+
+# The quiz Start page on a 1080x2340 phone: the info card fills the
+# screen and the Start button sits below the fold, so it is missing from
+# the tree entirely — the runner finds no Start, no question and no
+# forward button, and strands on a screen a human would just scroll.
+QUIZ_START_UNSCROLLED_XML = """<hierarchy>
+  <node class="android.widget.Button" bounds="[0,123][342,265]" clickable="true" content-desc="Go back"/>
+  <node class="android.view.View" bounds="[0,700][1080,900]" clickable="false" content-desc="Quizzes"/>
+  <node class="android.view.View" bounds="[0,900][1080,1000]" clickable="false" content-desc="Press the start button when you are ready"/>
+  <node class="android.view.View" bounds="[70,1230][850,1450]" clickable="false" content-desc="Quiz difficulty\nMedium"/>
+  <node class="android.view.View" bounds="[70,1450][850,1680]" clickable="false" content-desc="The number of quizzes\n24"/>
+</hierarchy>"""
+
+QUIZ_START_SCROLLED_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[70,600][850,830]" clickable="false" content-desc="Given time\nUnlimited"/>
+  <node class="android.widget.Button" bounds="[70,1100][1010,1280]" clickable="true" content-desc="Start"/>
+</hierarchy>"""
+
+
+class QuizStartDriver:
+    """A Start page whose button only exists once the page is scrolled."""
+
+    def __init__(self):
+        self.page_source = QUIZ_START_UNSCROLLED_XML
+        self.swipes = 0
+        self.clicked = []
+
+    def get_window_size(self):
+        return {"width": 1080, "height": 2340}
+
+    def find_element(self, by, value):
+        wanted = value
+        match = re.search(r'@content-desc=\'(.*)\'', value, re.S)
+        if match:
+            wanted = match.group(1)
+        if wanted not in self.page_source:
+            raise NoSuchElementException(f"{wanted} is not in the tree")
+        el = FakeElement(wanted)
+        el.click = lambda: self.clicked.append(wanted)
+        return el
+
+    def find_elements(self, by, value):
+        try:
+            return [self.find_element(by, value)]
+        except NoSuchElementException:
+            return []
+
+    def swipe(self, *a, **kw):
+        self.swipes += 1
+        self.page_source = QUIZ_START_SCROLLED_XML
+
+
+class FastWait:
+    """WebDriverWait that polls once — keeps the timeout out of the test."""
+
+    def __init__(self, driver, timeout=0, *a, **kw):
+        self._driver = driver
+
+    def until(self, condition):
+        from selenium.common.exceptions import TimeoutException
+        try:
+            found = condition(self._driver)
+        except NoSuchElementException:
+            raise TimeoutException("not on screen")
+        if not found:
+            raise TimeoutException("not on screen")
+        return found
+
+
+class TestBelowTheFoldStartButton(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self.nav = navigation
+        self._saved = (navigation.WebDriverWait, navigation.time)
+        navigation.WebDriverWait = FastWait
+        navigation.time = FakeTime()
+
+    def tearDown(self):
+        self.nav.WebDriverWait, self.nav.time = self._saved
+
+    def test_scrolls_to_reach_a_start_button_below_the_fold(self):
+        driver = QuizStartDriver()
+        self.assertTrue(self.nav.push_through_to_start(driver))
+        self.assertGreaterEqual(driver.swipes, 1,
+                                "must scroll to bring Start into the tree")
+        self.assertIn("Start", driver.clicked)
+
+
+class QuizStartInLoopDriver(TapDriver):
+    """The quiz Start page as the answering loop meets it, Start below the fold.
+
+    Trimmed from the real stuck_screen.xml captured 2026-08-03 on a
+    1080x2340 phone: finishing a quiz lands on the next quiz's Start
+    page, whose button is off-screen and therefore absent from the tree.
+    """
+
+    XML = """<hierarchy>
+  <node class="android.widget.ImageView" bounds="[0,96][189,285]" clickable="true" content-desc="Back"/>
+  <node class="android.view.View" bounds="[189,147][400,234]" clickable="false" content-desc="Go back"/>
+  <node class="android.view.View" bounds="[393,825][687,933]" clickable="false" content-desc="Quizzes"/>
+  <node class="android.view.View" bounds="[176,960][905,1122]" clickable="false" content-desc="Press the start button when you are ready"/>
+  <node class="android.view.View" bounds="[300,1287][692,1375]" clickable="false" content-desc="Quiz difficulty"/>
+  <node class="android.view.View" bounds="[300,1760][940,1848]" clickable="false" content-desc="The number of quizzes"/>
+</hierarchy>"""
+
+    SCROLLED_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[300,600][603,700]" clickable="false" content-desc="Given time"/>
+  <node class="android.widget.Button" bounds="[70,1100][1010,1280]" clickable="true" content-desc="Start"/>
+</hierarchy>"""
+
+    def __init__(self):
+        super().__init__(self.XML)
+        self.swipes = 0
+        self.clicked = []
+
+    def get_window_size(self):
+        return {"width": 1080, "height": 2340}
+
+    def find_element(self, by, value):
+        match = re.search(r"@content-desc='(.*)'", value, re.S)
+        wanted = match.group(1) if match else value
+        if wanted not in self.xml:
+            raise NoSuchElementException(f"{wanted} is not in the tree")
+        el = FakeElement(wanted)
+        el.click = lambda: self._click(wanted)
+        return el
+
+    def _click(self, label):
+        self.clicked.append(label)
+        if label == "Start":
+            # The quiz opens for real here; the loop has shown what this
+            # test came to see, so end it rather than model a whole quiz.
+            raise StopIteration("Start tapped")
+
+    def swipe(self, *a, **kw):
+        self.swipes += 1
+        self.xml = self.SCROLLED_XML
+
+
+class TestAnsweringLoopScrollsToStart(unittest.TestCase):
+    """The answering loop meets below-the-fold buttons too, not just navigation.
+
+    Between quizzes the loop lands on the next Start page itself. Without
+    a scroll it sees nothing to tap, saves a stuck screen and burns a
+    whole app restart — once per quiz, all run long.
+    """
+
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        import navigation
+        self.m = main_mod
+        self.nav = navigation
+        self._saved = (main_mod.time, navigation.time)
+        main_mod.time = FakeTime()
+        navigation.time = FakeTime()
+
+    def tearDown(self):
+        self.m.time, self.nav.time = self._saved
+        os.chdir(self._cwd)
+
+    def test_scrolls_to_the_start_button_instead_of_restarting_the_app(self):
+        driver = QuizStartInLoopDriver()
+        try:
+            self.m.auto_answer_loop(driver)
+        except self.m.StuckScreenError:
+            self.fail("stranded on a Start page it only had to scroll")
+        except StopIteration:
+            pass
+        self.assertGreaterEqual(driver.swipes, 1, "must scroll for the button")
+        self.assertIn("Start", driver.clicked)
+
+
+class SlowQuizStartDriver(TapDriver):
+    """Start page below the fold, then a quiz that takes a moment to load.
+
+    The revealing scroll itself costs seconds, so by the time Start is
+    tapped the idle timer has already run down. If tapping a revealed
+    button does not count as progress, the very next poll restarts the
+    app — right after the tap that was about to work.
+    """
+
+    START_HIDDEN = """<hierarchy>
+  <node class="android.view.View" bounds="[393,825][687,933]" clickable="false" content-desc="Quizzes"/>
+  <node class="android.view.View" bounds="[300,1287][692,1375]" clickable="false" content-desc="Quiz difficulty"/>
+</hierarchy>"""
+
+    START_VISIBLE = """<hierarchy>
+  <node class="android.view.View" bounds="[300,600][603,700]" clickable="false" content-desc="Given time"/>
+  <node class="android.widget.Button" bounds="[70,1100][1010,1280]" clickable="true" content-desc="Start"/>
+</hierarchy>"""
+
+    LOADING = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][1080,2340]" clickable="false" content-desc="Yuklanmoqda"/>
+</hierarchy>"""
+
+    QUESTION = """<hierarchy>
+  <node class="android.view.View" bounds="[81,312][999,528]" clickable="false" content-desc="They live in ___ small village."/>
+  <node class="android.widget.Button" bounds="[84,1049][996,1211]" clickable="true" content-desc="a"/>
+  <node class="android.widget.Button" bounds="[84,1272][996,1434]" clickable="true" content-desc="the"/>
+  <node class="android.widget.Button" bounds="[84,1495][996,1657]" clickable="true" content-desc="an"/>
+</hierarchy>"""
+
+    def __init__(self, swipes_to_reveal=5, loading_polls=10):
+        super().__init__(self.START_HIDDEN)
+        self._to_reveal = swipes_to_reveal
+        self._loading_left = loading_polls
+        self.swipes = 0
+        self.clicked = []
+        self.started = False
+
+    @property
+    def page_source(self):
+        if not self.started:
+            return self.xml
+        if self._loading_left > 0:
+            self._loading_left -= 1
+            return self.LOADING
+        return self.QUESTION
+
+    def get_window_size(self):
+        return {"width": 1080, "height": 2340}
+
+    def find_element(self, by, value):
+        match = re.search(r"@content-desc='(.*)'", value, re.S)
+        wanted = match.group(1) if match else value
+        if wanted not in self.page_source:
+            raise NoSuchElementException(f"{wanted} is not in the tree")
+        el = FakeElement(wanted)
+        el.click = lambda: self._click(wanted)
+        return el
+
+    def _click(self, label):
+        self.clicked.append(label)
+        if label == "Start":
+            self.started = True
+        else:
+            # An option on the loaded question: the loop got where it
+            # needed to go, so end the test here.
+            raise StopIteration("question reached")
+
+    def swipe(self, *a, **kw):
+        self.swipes += 1
+        if self.swipes >= self._to_reveal:
+            self.xml = self.START_VISIBLE
+
+
+class TestRevealedTapCountsAsProgress(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        import navigation
+        self.m, self.nav = main_mod, navigation
+        self._saved = (main_mod.time, navigation.time)
+        # One clock: the scrolling in navigation must burn the same idle
+        # budget that main checks, or the race under test cannot happen.
+        clock = FakeTime()
+        main_mod.time = clock
+        navigation.time = clock
+
+    def tearDown(self):
+        self.m.time, self.nav.time = self._saved
+        os.chdir(self._cwd)
+
+    def test_tapping_a_revealed_button_refreshes_the_idle_timer(self):
+        driver = SlowQuizStartDriver()
+        try:
+            self.m.auto_answer_loop(driver)
+        except self.m.StuckScreenError:
+            self.fail("restarted the app right after tapping Start")
+        except StopIteration:
+            pass
+        self.assertIn("Start", driver.clicked)
+
+    def test_scroll_hunt_is_not_repeated_on_every_poll(self):
+        # Scrolling costs a second per swipe. Repeating the hunt on each
+        # poll of a genuinely dead screen would burn the idle budget that
+        # triggers the recovering restart.
+        driver = SlowQuizStartDriver(swipes_to_reveal=99)
+        with self.assertRaises(self.m.StuckScreenError):
+            self.m.auto_answer_loop(driver)
+        self.assertLessEqual(driver.swipes, self.nav.REVEAL_SWIPES,
+                             "must hunt once per stuck episode, not per poll")
+
+
+class VanishingStuckDriver(TapDriver):
+    """A screen the runner cannot read, which resolves just after the save.
+
+    The real 2026-08-03 case: the runner stalls on something between
+    quizzes, and by the time it writes the tree the app has moved on to
+    a question. Saving a fresh read captures the question — evidence of
+    the screen that actually stalled is lost, which is the whole point
+    of the file.
+    """
+
+    UNREADABLE = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][1080,2340]" clickable="false" content-desc="Yuklanmoqda"/>
+</hierarchy>"""
+
+    QUESTION = """<hierarchy>
+  <node class="android.view.View" bounds="[81,312][999,528]" clickable="false" content-desc="Is ___ your pen on the table?"/>
+  <node class="android.widget.Button" bounds="[84,1049][996,1211]" clickable="true" content-desc="this"/>
+  <node class="android.widget.Button" bounds="[84,1272][996,1434]" clickable="true" content-desc="these"/>
+</hierarchy>"""
+
+    def __init__(self):
+        super().__init__(self.QUESTION)
+
+    def find_element(self, by, value):
+        raise NoSuchElementException(value)
+
+
+class TestStuckScreenCapturesTheStalledScreen(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        self.m = main_mod
+        self._time = main_mod.time
+        main_mod.time = FakeTime()
+
+    def tearDown(self):
+        self.m.time = self._time
+        os.chdir(self._cwd)
+
+    def test_saves_the_observed_screen_not_a_fresh_read(self):
+        driver = VanishingStuckDriver()
+        self.m.save_stuck_screen(driver, VanishingStuckDriver.UNREADABLE)
+        with open(self.m.STUCK_SCREEN_FILE, encoding="utf-8") as f:
+            saved = f.read()
+        self.assertIn("Yuklanmoqda", saved,
+                      "must save the screen the runner could not read")
+        self.assertNotIn("Is ___ your pen", saved,
+                         "a fresh read captures the wrong screen entirely")
+
+    def test_falls_back_to_the_live_screen_when_none_was_captured(self):
+        driver = VanishingStuckDriver()
+        self.m.save_stuck_screen(driver)
+        with open(self.m.STUCK_SCREEN_FILE, encoding="utf-8") as f:
+            self.assertIn("Is ___ your pen", f.read())
+
+
+class TestWakeDevice(unittest.TestCase):
+    """The unlock swipe must only ever land on a lock screen."""
+
+    def setUp(self):
+        import main as main_mod
+        self.m = main_mod
+        self._saved = (main_mod.adb_shell, main_mod.time)
+        main_mod.time = FakeTime()
+        self.commands = []
+        main_mod.adb_shell = lambda *a: self.commands.append(a) or True
+
+    def tearDown(self):
+        self.m.adb_shell, self.m.time = self._saved
+        if hasattr(self.m, "adb_capture"):
+            self.m.adb_capture = self._capture_saved
+
+    def _stub_capture(self, fn):
+        self._capture_saved = getattr(self.m, "adb_capture", None)
+        self.m.adb_capture = fn
+
+    def swipes(self):
+        return [c for c in self.commands if c[:2] == ("input", "swipe")]
+
+    def test_no_unlock_swipe_when_the_phone_is_already_unlocked(self):
+        # The swipe is blind: on an unlocked phone it lands on the
+        # launcher and drags the app drawer open. That is what the client
+        # watched their phone do while the app kept failing to start —
+        # every restart added another swipe.
+        self._stub_capture(lambda *a: "mShowingDream=false mDreamingLockscreen=false")
+        self.assertTrue(self.m.wake_device())
+        self.assertEqual(self.swipes(), [], "must not swipe an unlocked phone")
+
+    def test_swipes_when_the_keyguard_is_still_up(self):
+        self._stub_capture(lambda *a: "mDreamingLockscreen=true")
+        self.assertTrue(self.m.wake_device())
+        self.assertEqual(len(self.swipes()), 1)
+
+    def test_unlock_swipe_is_scaled_to_the_screen(self):
+        # Coordinates were hardcoded for a 720x1600 phone; on a 1080x2340
+        # screen that swipe starts halfway up and can miss the gesture.
+        def capture(*args):
+            if args[0] == "wm":
+                return "Physical size: 1080x2340\n"
+            return "mDreamingLockscreen=true"
+
+        self._stub_capture(capture)
+        self.m.wake_device()
+        _, _, x1, y1, x2, y2, _ = self.swipes()[0]
+        self.assertEqual(int(x1), 540, "swipe must run up the middle")
+        self.assertGreater(int(y1), 1600, "must start low on a tall screen")
+        self.assertLess(int(y2), int(y1), "must swipe upward")
+
+    def test_falls_back_to_a_swipe_when_the_state_cannot_be_read(self):
+        # No reading of the lock state (adb refused the dumpsys) — the
+        # old blind behaviour is the safe default: better a stray swipe
+        # than a phone that stays locked for the whole run.
+        self._stub_capture(lambda *a: "")
+        self.assertTrue(self.m.wake_device())
+        self.assertEqual(len(self.swipes()), 1)
+
+    def test_reports_failure_when_adb_is_unreachable(self):
+        self._stub_capture(lambda *a: "")
+        self.m.adb_shell = lambda *a: False
+        self.assertFalse(self.m.wake_device())
 
 
 if __name__ == "__main__":
