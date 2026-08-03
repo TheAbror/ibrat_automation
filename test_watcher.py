@@ -3418,5 +3418,166 @@ class TestWakeDevice(unittest.TestCase):
         self.assertFalse(self.m.wake_device())
 
 
+class TestProblemLog(unittest.TestCase):
+    """One appended block per incident, readable by whoever gets it emailed."""
+
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        self.m = main_mod
+        self._context = dict(main_mod.CONTEXT)
+
+    def tearDown(self):
+        self.m.CONTEXT.clear()
+        self.m.CONTEXT.update(self._context)
+        os.chdir(self._cwd)
+
+    def read(self):
+        with open(self.m.PROBLEM_LOG, encoding="utf-8") as f:
+            return f.read()
+
+    def test_records_the_reason_and_where_the_run_was(self):
+        self.m.CONTEXT.update(phase="answering questions",
+                              question="Is ___ your pen on the table?",
+                              answered=7)
+        self.m.log_problem("app restarted", "app left the foreground (launcher)")
+        text = self.read()
+        self.assertIn("app restarted", text)
+        self.assertIn("left the foreground", text)
+        self.assertIn("answering questions", text)
+        self.assertIn("Is ___ your pen on the table?", text)
+        self.assertIn("7", text)
+
+    def test_appends_so_a_whole_run_is_kept(self):
+        self.m.log_problem("app restarted", "first failure")
+        self.m.log_problem("gave up", "second failure")
+        text = self.read()
+        self.assertIn("first failure", text)
+        self.assertIn("second failure", text)
+
+    def test_points_at_the_saved_screen_when_there_is_one(self):
+        self.m.log_problem("app restarted", "unrecognized screen",
+                           screen="stuck_screen_20260803_202400.xml")
+        self.assertIn("stuck_screen_20260803_202400.xml", self.read())
+
+    def test_never_breaks_the_run_when_the_log_cannot_be_written(self):
+        # Diagnostics must never be the thing that kills a run.
+        os.chdir(self._cwd)
+        self.m.PROBLEM_LOG = "/nonexistent-dir/problems.log"
+        try:
+            self.m.log_problem("app restarted", "some reason")
+        finally:
+            self.m.PROBLEM_LOG = "problems.log"
+
+
+class TestStuckScreensAreKept(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        self.m = main_mod
+
+    def tearDown(self):
+        os.chdir(self._cwd)
+
+    def test_each_stranding_keeps_its_own_tree(self):
+        # A run with several strandings used to leave only the last one,
+        # so the screen that started the trouble was already gone.
+        first = self.m.save_stuck_screen(None, "<hierarchy>first</hierarchy>")
+        second = self.m.save_stuck_screen(None, "<hierarchy>second</hierarchy>")
+        self.assertNotEqual(first, second)
+        with open(first, encoding="utf-8") as f:
+            self.assertIn("first", f.read())
+        with open(second, encoding="utf-8") as f:
+            self.assertIn("second", f.read())
+
+    def test_latest_stranding_is_also_at_the_documented_path(self):
+        self.m.save_stuck_screen(None, "<hierarchy>newest</hierarchy>")
+        with open(self.m.STUCK_SCREEN_FILE, encoding="utf-8") as f:
+            self.assertIn("newest", f.read())
+
+
+class TestRunRecordsItsProblems(unittest.TestCase):
+    """The restart messages must reach the file, not only the console."""
+
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        self.m = main_mod
+        self._saved = (main_mod.wake_device, main_mod.force_stop_app,
+                       main_mod.connect_fresh_session, main_mod.navigate_to_test,
+                       main_mod.answer_until_done, main_mod.APP_RELAUNCHES,
+                       main_mod.time, dict(main_mod.CONTEXT))
+        main_mod.wake_device = lambda: True
+        main_mod.force_stop_app = lambda: True
+        main_mod.connect_fresh_session = lambda: QuietDriver()
+        main_mod.answer_until_done = lambda d: None
+        main_mod.APP_RELAUNCHES = 1
+        main_mod.time = FakeTime()
+
+    def tearDown(self):
+        (self.m.wake_device, self.m.force_stop_app, self.m.connect_fresh_session,
+         self.m.navigate_to_test, self.m.answer_until_done, self.m.APP_RELAUNCHES,
+         self.m.time, context) = self._saved
+        self.m.CONTEXT.clear()
+        self.m.CONTEXT.update(context)
+        os.chdir(self._cwd)
+
+    def read(self):
+        with open(self.m.PROBLEM_LOG, encoding="utf-8") as f:
+            return f.read()
+
+    def test_a_restart_and_the_give_up_are_both_recorded(self):
+        def stuck(*a):
+            raise self.m.StuckScreenError("unrecognized screen for over 10s")
+
+        self.m.navigate_to_test = stuck
+        self.assertEqual(self.m.main(), 1)
+        text = self.read()
+        self.assertIn("unrecognized screen for over 10s", text)
+        self.assertIn("gave up", text)
+
+    def test_losing_the_app_names_the_package_that_took_over(self):
+        def lost(*a):
+            raise self.m.AppLostError("com.sec.android.app.launcher")
+
+        self.m.navigate_to_test = lost
+        self.m.main()
+        self.assertIn("com.sec.android.app.launcher", self.read())
+
+    def test_a_clean_finish_writes_no_problem_log(self):
+        self.m.navigate_to_test = lambda *a: True
+        self.assertEqual(self.m.main(), 0)
+        self.assertFalse(os.path.exists(self.m.PROBLEM_LOG))
+
+
+class TestRunLog(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import supervisor
+        self.s = supervisor
+        self._path = supervisor.RUN_LOG_PATH
+        supervisor.RUN_LOG_PATH = os.path.join(os.getcwd(), "run.log")
+
+    def tearDown(self):
+        self.s.RUN_LOG_PATH = self._path
+        os.chdir(self._cwd)
+
+    def test_worker_output_is_kept_on_disk_not_just_printed(self):
+        # The console scrolls away and the window gets closed; without a
+        # file there is nothing for the user to send back.
+        class Child:
+            stdout = ["Tapped: Start\n", "The app is stuck — restarting it...\n"]
+
+        self.s._pump(Child(), [0.0])
+        with open(self.s.RUN_LOG_PATH, encoding="utf-8") as f:
+            text = f.read()
+        self.assertIn("Tapped: Start", text)
+        self.assertIn("restarting it", text)
+
+
 if __name__ == "__main__":
     unittest.main()

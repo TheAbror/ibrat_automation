@@ -23,6 +23,7 @@ import re
 import subprocess
 import sys
 import time
+from datetime import datetime
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.common.actions import interaction
@@ -89,6 +90,16 @@ def should_miss(correct, incorrect):
     return (correct + 1) / (correct + incorrect + 1) > ACCURACY_HIGH
 # Where the tree of an unrecognized screen is saved before restarting
 STUCK_SCREEN_FILE = "stuck_screen.xml"
+# Every restart and give-up, one block each. Small enough to email, and
+# the only record that survives a console window being closed — which is
+# how a run's history reaches whoever has to explain it.
+PROBLEM_LOG = "problems.log"
+# Where the run currently is, so a problem can say more than what broke.
+CONTEXT = {"phase": "starting up", "question": None, "answered": 0}
+# The tree file the most recent stranding wrote, so the incident that
+# follows can point at it. One slot, in a list so save_stuck_screen can
+# set it from anywhere.
+LAST_STUCK_SCREEN = [None]
 
 
 class AppLostError(Exception):
@@ -364,8 +375,29 @@ def answer_matching(driver, state, known_pairs):
     return True
 
 
+def log_problem(kind, reason, screen=None):
+    """Append one incident — what broke, and where the run had got to.
+
+    Best-effort by design: a diagnostic must never be the thing that
+    ends a run, so every failure to write is swallowed.
+    """
+    try:
+        with open(PROBLEM_LOG, "a", encoding="utf-8") as f:
+            f.write(f"\n[{datetime.now():%Y-%m-%d %H:%M:%S}] {kind}\n")
+            f.write(f"  reason:   {reason}\n")
+            f.write(f"  phase:    {CONTEXT['phase']}\n")
+            f.write(f"  answered: {CONTEXT['answered']} question(s) this run\n")
+            if CONTEXT["question"]:
+                f.write(f"  on:       {CONTEXT['question']}\n")
+            f.write(f"  device:   {config.DEVICE_NAME}\n")
+            if screen:
+                f.write(f"  screen:   {screen}\n")
+    except OSError as e:
+        print(f"(could not write {PROBLEM_LOG}: {e})")
+
+
 def save_stuck_screen(driver, observed=None):
-    """Save the tree of a screen the runner can't handle.
+    """Save the tree of a screen the runner can't handle; return its path.
 
     The saved file is how a new stranding screen gets explained and then
     supported (it identified the 2026-08-02 launcher crash). No taps are
@@ -376,10 +408,20 @@ def save_stuck_screen(driver, observed=None):
     the app often resolves during the seconds the stall takes to detect —
     twice on 2026-08-03 the "stuck" file held an ordinary question screen,
     which is worse than useless: it hides the screen under investigation.
+
+    Each stranding keeps its own timestamped file: a run that strands
+    several times used to leave only the last, so the screen that started
+    the trouble was already gone by the time anyone looked. The newest is
+    copied to STUCK_SCREEN_FILE too, the path the docs point at.
     """
-    with open(STUCK_SCREEN_FILE, "w", encoding="utf-8") as f:
-        f.write(observed if observed is not None else driver.page_source)
-    print(f"Unrecognized screen — tree saved to {STUCK_SCREEN_FILE}")
+    tree = observed if observed is not None else driver.page_source
+    stamped = f"stuck_screen_{datetime.now():%Y%m%d_%H%M%S_%f}.xml"
+    for path in (stamped, STUCK_SCREEN_FILE):
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(tree)
+    print(f"Unrecognized screen — tree saved to {stamped}")
+    LAST_STUCK_SCREEN[0] = stamped
+    return stamped
 
 
 def answer_until_done(driver):
@@ -445,6 +487,8 @@ def auto_answer_loop(driver):
             question, options = state["question"], state["options"]
             qtype = detect_question_type(question, options, state["descs"])
             answered += 1
+            CONTEXT.update(question=f"[{answered}] {qtype}: {question}",
+                           answered=answered)
             print(f"\n[{answered}] {qtype}: {question}")
             throttle = (
                 qtype != "matching" and question in known
@@ -648,19 +692,17 @@ def main():
                 driver = connect_fresh_session()
                 time.sleep(3)
 
+                CONTEXT.update(phase="navigating into the course", question=None)
                 wait = WebDriverWait(driver, 20)
                 wait_long = WebDriverWait(driver, 30)
                 if navigate_to_test(driver, wait, wait_long):
+                    CONTEXT["phase"] = "answering questions"
                     answer_until_done(driver)
                     return 0
                 # Navigation dead ends are retried like stuck screens —
                 # under the supervisor exit 0 means "course done".
                 raise StuckScreenError("navigation never reached the question screen")
             except (AppLostError, StuckScreenError) + watcher.CONNECTION_ERRORS as e:
-                if relaunches == 0:
-                    print("Still stuck after several app restarts — giving up.")
-                    return 1
-                relaunches -= 1
                 if isinstance(e, AppLostError):
                     reason = "left the foreground"
                 elif isinstance(e, StuckScreenError):
@@ -670,7 +712,16 @@ def main():
                     # mid-navigation (another runner on the same phone
                     # restarts it too).
                     reason = f"lost the device connection ({type(e).__name__})"
+                if relaunches == 0:
+                    print("Still stuck after several app restarts — giving up.")
+                    log_problem("gave up", f"app {reason} ({e}); "
+                                f"no restarts left after {APP_RELAUNCHES}")
+                    return 1
+                relaunches -= 1
+                if not isinstance(e, (AppLostError, StuckScreenError)):
                     clear_stale_instrumentation()
+                log_problem("app restarted", f"app {reason} ({e})",
+                            screen=LAST_STUCK_SCREEN[0])
                 print(f"The app {reason} ({e}) — restarting it...")
             except KeyboardInterrupt:
                 print("\nStopped by user.")
