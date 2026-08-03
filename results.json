@@ -13376,30 +13376,27 @@
   },
   {
     "n": 689,
-    "time": "2026-08-02 20:25:33",
+    "time": "2026-08-03 15:09:48",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Agar men suzishni bilsam, daryoda siz bilan cho‘milishim mumkin edi.",
     "options": [
-      "I",
-      "the",
-      "in ",
-      "you",
-      "swim",
-      "knew",
-      "how ",
-      "I could",
-      "swim with ",
       "to ",
+      "swim",
+      "how ",
+      "If",
+      "I",
       "river.",
-      "If"
+      "the",
+      "swim with ",
+      "I could",
+      "you",
+      "knew",
+      "in "
     ],
     "correct_answer": [
-      "Dars 124 Reported speech (He said that...)",
-      "Biz reported speech dan foydalanganimizda, jumlaning asosiy fe’li odatda o‘tgan zamonda bo‘ladi. (Ulug‘bek aytdi ... / Men unga aytdim ... va hokazo). Jumlaning qolgan qismi ham odatda \"past simple\" da bo‘ladi:",
-      "Example:",
-      "Ulugbek said that he was feeling ill.",
-      "I told Lola that I didn’t have any money."
+      "to ",
+      "If I knew how to swim I could swim with you in the river."
     ]
   },
   {
@@ -15770,42 +15767,28 @@
   },
   {
     "n": 811,
-    "time": "2026-08-02 20:44:23",
+    "time": "2026-08-03 15:25:35",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Hukumatning yangi soliqlar kiritish qarori xalqga salbiy ta’sir qildi. ",
     "options": [
+      "on",
+      "The",
+      "impose ",
       "government",
+      "decision",
+      "had ",
+      "a negative",
+      "to ",
       " impact",
       "taxes",
-      "impose ",
-      "new",
       "a population.",
-      "to ",
-      "decision",
-      "  of",
-      "had ",
+      "new",
       "the",
-      "on",
-      "a negative",
-      "The"
+      "  of"
     ],
     "correct_answer": [
-      "Hide player controls",
-      "Unmute",
-      "No captions are available for this video",
-      "Playback Settings",
-      "Rewind 10 seconds",
-      "Play video",
-      "Fast forward 10 seconds",
-      "Time elapsed 0 secondsTime duration 0 seconds",
-      "Enter full screen",
-      "Dars 137 Each and every",
-      "Each va every bir xil ma’noga ega, ba’zida each yoki every ni gaplarda ma’no farqisiz ishlatishimiz mumkin.",
-      "Example:",
-      "Each time I see you, you look different. or Every time I see you …",
-      "Aslida, each va every so‘zlari ma’nosi bir xil emas.",
-      "Birma bir, alohida narsalar haqida alohida ta’kidlab ko‘rsatganimizda \"each\"dan foydalanamiz."
+      "The decision of the government to impose new taxes had a negative impact on a population."
     ]
   },
   {
@@ -16058,39 +16041,25 @@
   },
   {
     "n": 825,
-    "time": "2026-08-02 20:45:42",
+    "time": "2026-08-03 15:27:20",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Mening onam har bittamiz uchun o‘yinchoq olib berdilar. ",
     "options": [
       "us.",
-      "of",
       "mum",
-      "My",
-      "each",
-      "bought",
-      "every",
       "a",
+      "each",
+      "of",
+      "toy",
       "for",
-      "toy"
+      "every",
+      "My",
+      "bought"
     ],
     "correct_answer": [
-      "Hide player controls",
-      "Unmute",
-      "No captions are available for this video",
-      "Playback Settings",
-      "Rewind 10 seconds",
-      "Play video",
-      "Fast forward 10 seconds",
-      "Time elapsed 0 secondsTime duration 0 seconds",
-      "Enter full screen",
-      "Dars 138 Relative clauses: whose/whom/where",
-      "Biz \"whose\" ni asosan insonlar uchun ishlatamiz:",
-      "Example:",
-      "Example:",
-      "A window is a woman whose husband is dead.",
-      "Who va whose ni solishtiring:",
-      "I met a man who knows you. (he knows you)"
+      "us.",
+      "My mum bought a toy for each of us."
     ]
   },
   {
