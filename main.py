@@ -692,7 +692,8 @@ def main():
                 driver = connect_fresh_session()
                 time.sleep(3)
 
-                CONTEXT.update(phase="navigating into the course", question=None)
+                CONTEXT.update(phase="navigating into the course", question=None,
+                               answered=0)
                 wait = WebDriverWait(driver, 20)
                 wait_long = WebDriverWait(driver, 30)
                 if navigate_to_test(driver, wait, wait_long):

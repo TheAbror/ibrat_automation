@@ -3418,6 +3418,129 @@ class TestWakeDevice(unittest.TestCase):
         self.assertFalse(self.m.wake_device())
 
 
+# A lesson page as the client photographed it on 2026-08-04: a video, the
+# lesson text, and a plain "Next" button sitting right there. Nothing here
+# needs scrolling — and scrolling is actively harmful, because it pushes
+# the button out of the tree and strands the runner on a page it could
+# have simply tapped.
+LESSON_PAGE_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,140][1080,610]" clickable="false" content-desc="That/This/Those/These\nIBRAT FARZANDLARI"/>
+  <node class="android.view.View" bounds="[180,660][1000,800]" clickable="false" content-desc="Dars 73 That / This / Those / These"/>
+  <node class="android.view.View" bounds="[180,840][1000,1600]" clickable="false" content-desc="Demonstrative pronouns are used to point to specific people, objects, or places."/>
+  <node class="android.widget.Button" bounds="[280,1690][1000,1790]" clickable="true" content-desc="Next"/>
+</hierarchy>"""
+
+
+class LessonPageDriver:
+    """A lesson page whose Next button scrolls away if the runner swipes."""
+
+    current_package = "uz.ibrat.farzandlari"
+
+    def __init__(self):
+        self.page_source = LESSON_PAGE_XML
+        self.swipes = 0
+
+    def get_window_size(self):
+        return {"width": 1080, "height": 2340}
+
+    def find_element(self, by, value):
+        match = re.search(r"@content-desc='(.*)'", value, re.S)
+        wanted = match.group(1) if match else value
+        if wanted not in self.page_source:
+            raise NoSuchElementException(f"{wanted} is not in the tree")
+        return FakeElement(wanted)
+
+    def find_elements(self, by, value):
+        try:
+            return [self.find_element(by, value)]
+        except NoSuchElementException:
+            return []
+
+    def swipe(self, *a, **kw):
+        self.swipes += 1
+        # Scrolling carries the button off the bottom of the page.
+        self.page_source = LESSON_PAGE_XML.replace(
+            '<node class="android.widget.Button" bounds="[280,1690][1000,1790]"'
+            ' clickable="true" content-desc="Next"/>', "")
+
+
+class TestNoScrollingWhenNextIsRightThere(unittest.TestCase):
+    """find_forward_button hides a plain "Next" — poll_once owns that case.
+
+    The scroll hunt must not read that silence as "nothing to move
+    forward with", or every lesson page gets swiped at until its button
+    is gone.
+    """
+
+    def setUp(self):
+        import navigation
+        self.nav = navigation
+        self._time = navigation.time
+        navigation.time = FakeTime()
+
+    def tearDown(self):
+        self.nav.time = self._time
+
+    def test_a_visible_next_button_stops_the_hunt(self):
+        driver = LessonPageDriver()
+        self.nav.reveal_forward_button(driver)
+        self.assertEqual(driver.swipes, 0,
+                         "Next was on screen — nothing to hunt for")
+
+    def test_the_button_survives_the_hunt(self):
+        driver = LessonPageDriver()
+        self.nav.reveal_forward_button(driver)
+        self.assertIn("Next", driver.page_source,
+                      "scrolling swept away the button that was already there")
+
+    def test_a_screen_with_nothing_forward_is_still_scrolled(self):
+        # The below-the-fold Start page must keep working.
+        driver = QuizStartDriver()
+        self.assertTrue(self.nav.reveal_forward_button(driver))
+        self.assertGreaterEqual(driver.swipes, 1)
+
+
+class TestProblemLogCountIsNotStale(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        self.m = main_mod
+        self._saved = (main_mod.wake_device, main_mod.force_stop_app,
+                       main_mod.connect_fresh_session, main_mod.navigate_to_test,
+                       main_mod.APP_RELAUNCHES, main_mod.time,
+                       dict(main_mod.CONTEXT))
+        main_mod.wake_device = lambda: True
+        main_mod.force_stop_app = lambda: True
+        main_mod.connect_fresh_session = lambda: QuietDriver()
+        main_mod.APP_RELAUNCHES = 0
+        main_mod.time = FakeTime()
+
+    def tearDown(self):
+        (self.m.wake_device, self.m.force_stop_app, self.m.connect_fresh_session,
+         self.m.navigate_to_test, self.m.APP_RELAUNCHES, self.m.time,
+         context) = self._saved
+        self.m.CONTEXT.clear()
+        self.m.CONTEXT.update(context)
+        os.chdir(self._cwd)
+
+    def test_a_new_attempt_does_not_inherit_the_last_ones_count(self):
+        # Reporting "answered: 10" for an attempt that answered nothing
+        # sends whoever reads the log looking in the wrong place.
+        self.m.CONTEXT.update(question="[10] multiple_choice: leftover",
+                              answered=10)
+
+        def stuck(*a):
+            raise self.m.StuckScreenError("unrecognized screen for over 10s")
+
+        self.m.navigate_to_test = stuck
+        self.m.main()
+        with open(self.m.PROBLEM_LOG, encoding="utf-8") as f:
+            text = f.read()
+        self.assertIn("answered: 0 question(s)", text)
+        self.assertNotIn("leftover", text)
+
+
 class TestProblemLog(unittest.TestCase):
     """One appended block per incident, readable by whoever gets it emailed."""
 

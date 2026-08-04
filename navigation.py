@@ -15,6 +15,7 @@ from selenium.common.exceptions import (
 import locators as loc
 import config
 from question_handler import (
+    NEXT_LABELS,
     OPTION_IGNORE,
     looks_like_promo,
     parse_screen,
@@ -527,16 +528,31 @@ def reveal_card(driver, desc):
     return card_on_screen(driver, desc)
 
 
+def has_forward_control(nodes):
+    """True when something on screen already moves the run forward.
+
+    find_forward_button hides a plain "Next" deliberately — poll_once
+    owns that button. For deciding whether to SCROLL, though, a visible
+    "Next" absolutely counts: a lesson page carries one, and swiping
+    past it drags it out of the tree, stranding the runner on a page it
+    only had to tap (seen on a client's phone, 2026-08-04).
+    """
+    if find_forward_button(nodes):
+        return True
+    return any(d in NEXT_LABELS for _, d in nodes)
+
+
 def reveal_forward_button(driver):
     """Scroll a too-tall screen until its forward button is in the tree.
 
     Same off-screen blindness as reveal_card, hit one screen deeper: a
     quiz Start page's button sits under the info card, so on a tall
     phone the runner sees no Start, no question and nothing to tap, and
-    strands on a screen a human would simply scroll.
+    strands on a screen a human would simply scroll. Screens that
+    already show a way forward are left alone.
     """
     for _ in range(REVEAL_SWIPES):
-        if find_forward_button(parse_screen(driver.page_source)):
+        if has_forward_control(parse_screen(driver.page_source)):
             return True
         if not scroll_down(driver):
             break
