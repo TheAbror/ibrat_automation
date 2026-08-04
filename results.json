@@ -4359,36 +4359,25 @@
   },
   {
     "n": 227,
-    "time": "2026-08-02 18:44:17",
+    "time": "2026-08-04 16:51:18",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Kitobda mundarija yo‘q.",
     "options": [
       "There",
-      "is",
-      "no ",
-      "contents",
-      "content",
       "book.",
       "plans",
+      "is",
+      "content",
+      "no ",
+      "contents",
       "in ",
       "the ",
       "hook"
     ],
     "correct_answer": [
-      "Hide player controls",
-      "Unmute",
-      "Playback Settings",
-      "Rewind 10 seconds",
-      "Play video",
-      "Fast forward 10 seconds",
-      "Time elapsed 0 secondsTime duration 0 seconds",
-      "Enter full screen",
-      "Dars 77 Not+anybody vs Nobody",
-      "While \"not + anything\" and \"nothing\" are negative forms used to express the absence of things or objects, \"not + anybody / anyone\" and \"nobody / no one\" are used to express the absence of people or individuals.",
-      "Examples with \"not + anything\" and \"nothing\":",
-      "1. - What's in the bag?",
-      "- There isn't anything in the bag."
+      "There",
+      "There is no contents in the book."
     ]
   },
   {
@@ -4473,29 +4462,25 @@
   },
   {
     "n": 233,
-    "time": "2026-08-02 18:45:43",
+    "time": "2026-08-04 16:52:12",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Sumkada hech nima yo‘q.",
     "options": [
-      "There ",
-      "nothing",
-      "has",
-      "is",
       "in ",
-      "the ",
-      "It",
-      "anything",
+      "is",
+      "nothing",
       "bag.",
-      "pocket"
+      "the ",
+      "pocket",
+      "has",
+      "It",
+      "There ",
+      "anything"
     ],
     "correct_answer": [
-      "Play video",
-      "Hide player controls",
-      "Dars 78 Somebody/ Anything/ Nowhere",
-      "\"Somebody\" and \"someone\" are used interchangeably to refer to an unspecified person. Similarly, \"anybody\" and \"anyone\" can be used interchangeably to refer to any person in a general sense. On the other hand, \"nobody\" and \"no one\" are also interchangeable and indicate the absence of any person.",
-      "Examples:",
-      "1. - Is there anybody (or anyone) in the garden?"
+      "in ",
+      "There is nothing in the bag."
     ]
   },
   {

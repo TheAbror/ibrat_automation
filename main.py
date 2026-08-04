@@ -42,7 +42,9 @@ import watcher
 from navigation import (
     StuckScreenError,
     dismiss_popup,
+    looks_like_quiz_start,
     navigate_to_test,
+    rejoin_lesson_sequence,
     reveal_forward_button,
     tap_forward_button,
 )
@@ -54,6 +56,7 @@ from question_handler import (
     classify_sheet,
     detect_question_type,
     judge_pair_attempt,
+    looks_like_finish,
     pair_attempt_order,
     parse_cards,
     parse_screen,
@@ -62,6 +65,10 @@ from question_handler import (
 )
 
 IDLE_LIMIT = 10      # seconds on an unrecognized screen -> restart the app
+# The quiz start card, stripped of its button, is what a quiz looks like
+# while it opens. That is a healthy transition, not a stranding, so it
+# gets its own far longer allowance.
+LOADING_IDLE_LIMIT = 90
 MAX_QUESTIONS = 5000  # a whole course in one run (~88 quizzes + retakes)
 APP_RELAUNCHES = 50  # app restarts per run before giving up
 # Accuracy governor: secure the floor first, then steer into the 93–96%
@@ -462,6 +469,8 @@ def auto_answer_loop(driver):
     # The idle_since value the below-the-fold button hunt last ran for,
     # so one stuck episode costs one hunt.
     scroll_hunted_at = None
+    # Same guard for backing out of a dead-end finish screen.
+    backed_out_at = None
     # An ad styled like a question (a text plus 2+ buttons) dodges the
     # idle timer: answering it looks like progress but no feedback sheet
     # ever comes. Two sheetless attempts on the same question = restart.
@@ -543,6 +552,25 @@ def auto_answer_loop(driver):
             idle_since = time.time()
             continue
 
+        # The pass-stats screen's "Lessons" (the tap above) lands on
+        # the lessons list, which this loop otherwise has no move for.
+        if rejoin_lesson_sequence(driver):
+            idle_since = time.time()
+            continue
+
+        descs = [d for _, d in parse_screen(state.get("source") or "<hierarchy/>")]
+
+        # The Retry-only pass-stats variant (2026-08-04 17:51) offers no
+        # forward button at all — Retry would redo the finished quiz.
+        # Back out to the lessons list; the rejoin above picks up the
+        # sequence next cycle. Once per stuck episode, and WITHOUT
+        # resetting the idle timer: a back press that changes nothing
+        # must still end in the recovering restart.
+        if backed_out_at != idle_since and looks_like_finish(descs):
+            backed_out_at = idle_since
+            driver.back()
+            print("Finish screen with nothing forward — backing out to the lessons list")
+
         # Finishing a quiz lands on the next one's Start page, whose
         # button is below the fold on a tall phone and so missing from
         # the tree entirely. Scrolling it into view beats paying a whole
@@ -561,9 +589,24 @@ def auto_answer_loop(driver):
                 idle_since = time.time()
                 continue
 
-        if time.time() - idle_since > IDLE_LIMIT:
+        # A quiz takes a while to open after Start, and while it does the
+        # start card sits there stripped of its button — unrecognizable,
+        # and healthy. Restarting the app at 10s killed it mid-transition
+        # at every quiz boundary; left alone it opened in well under a
+        # minute (watched on the phone, 2026-08-04).
+        limit = LOADING_IDLE_LIMIT if looks_like_quiz_start(descs) else IDLE_LIMIT
+        if time.time() - idle_since > limit:
+            # A slow transition can eat the whole budget before the
+            # settled screen gets a single look: the stats screen's
+            # entry animation plus the idle-wait tax on every dump
+            # left tap_forward_button zero attempts on the final
+            # screen (2026-08-04, twice). One last chance on a fresh
+            # dump before the restart hammer.
+            if tap_forward_button(driver) or rejoin_lesson_sequence(driver):
+                idle_since = time.time()
+                continue
             save_stuck_screen(driver, state.get("source"))
-            raise StuckScreenError(f"unrecognized screen for over {IDLE_LIMIT}s")
+            raise StuckScreenError(f"unrecognized screen for over {limit}s")
         time.sleep(0.5)
 
     print(f"\nDone. {state['correct']} correct, {state['incorrect']} incorrect this run.")

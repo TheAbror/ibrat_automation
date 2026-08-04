@@ -24,7 +24,17 @@ OPTION_IGNORE = NEXT_LABELS + ("Continue", "null", "Retry")
 # "35 130+ subscribers" pill; the interstitial also has its own CTA texts.
 # Their buttons must never count as answer options — option A would be a
 # paywall CTA.
-PROMO_MARKERS = ("+ subscribers", "IELTSGA", "VAQT TOPILAVERADI")
+# The pill can render split into one-glyph nodes ('3','5',...,'+',
+# ' subscribers') — seen on the IBRAT PRO paywall 2026-08-04, which went
+# unrecognized and cost a restart — so the marker is the one fragment
+# that survives the split. "uzs/oy" is the plan cards' per-month price
+# unit, carried only by paywall screens (bare "soums" could appear in a
+# money-themed question).
+# "% chegirma" — the discount interstitials' "30% chegirma" headline;
+# percent-prefixed so a vocabulary question about "chegirma" (discount)
+# can never read as a promo.
+PROMO_MARKERS = (" subscribers", "IELTSGA", "VAQT TOPILAVERADI", "uzs/oy",
+                 "% chegirma")
 
 
 def looks_like_promo(descs):
@@ -42,6 +52,53 @@ FINISH_MARKERS = ("Test completed", "Test finished")
 
 def looks_like_finish(descs):
     return any(m in d for d in descs for m in FINISH_MARKERS)
+
+
+# The "How did you hear about us?" survey interstitial (client report,
+# 2026-08-04 — its tree has never been captured in a dump). Recognized
+# two ways, because its exact title is unknown and may drift or render
+# in another language:
+# - title markers, substring and case-blind, for the phrasings clients
+#   have described;
+# - option shape: a TV option next to an untranslatable social-brand
+#   option. Proper nouns survive any translation, and a genuine
+#   media-vocabulary question could offer TV — but never Instagram
+#   beside it — so the pair is this survey and nothing else.
+# Its option Buttons clear the 2-option question floor, and it can carry
+# its own Next/Continue, so both the question and the sheet paths must
+# check for it.
+SURVEY_TITLE_MARKERS = (
+    "did you hear about us",
+    "did you find out about us",
+    "did you learn about us",
+)
+SURVEY_SOCIAL_CHANNELS = ("instagram", "telegram", "facebook", "youtube", "tiktok")
+# The answer the client wants chosen, whatever the label calls it.
+SURVEY_TV_LABELS = ("tv", "televizor")
+
+
+def looks_like_survey(descs):
+    """True when the screen is the hear-about-us survey interstitial."""
+    lowered = [d.strip().lower() for d in descs]
+    if any(m in d for d in lowered for m in SURVEY_TITLE_MARKERS):
+        return True
+    return (any(d in SURVEY_TV_LABELS for d in lowered)
+            and any(d in SURVEY_SOCIAL_CHANNELS for d in lowered))
+
+
+# The ask-to-update-the-app bottom sheet (client report, 2026-08-04 —
+# never captured in a dump): recognized by its Update button alone,
+# matched exactly and case-blind so the word inside a lesson sentence
+# doesn't trigger it. Updating is never the run's job — the button walks
+# out to the Play Store — so the sheet is closed instead
+# (navigation.dismiss_update_sheet), and its buttons must never count as
+# answer options or forward buttons while it covers the real screen.
+UPDATE_LABELS = ("update", "yangilash")
+
+
+def looks_like_update_sheet(descs):
+    """True when the ask-to-update bottom sheet is up."""
+    return any(d.strip().lower() in UPDATE_LABELS for d in descs)
 
 
 def parse_screen(xml):

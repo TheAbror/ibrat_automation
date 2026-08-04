@@ -453,11 +453,24 @@ class TestPromoInterstitial(unittest.TestCase):
 
     def test_dismissed_via_android_back_button(self):
         # No X of any kind on this screen — back is the only way out.
+        # Success is claimed only once the promo is really gone: a
+        # swallowed back claimed as a dismissal would reset the idle
+        # timer every cycle and lock the run out of its restart.
         import navigation
-        driver = TapDriver(PROMO_INTERSTITIAL_XML)
+
+        class BackDriver(TapDriver):
+            def back(self):
+                super().back()
+                self.xml = "<hierarchy/>"
+
+        driver = BackDriver(PROMO_INTERSTITIAL_XML)
         self.assertTrue(navigation.dismiss_popup(driver))
         self.assertEqual(driver.back_presses, 1)
         self.assertEqual(driver.taps, [], "nothing to blind-tap on this screen")
+
+        swallowed = TapDriver(PROMO_INTERSTITIAL_XML)
+        self.assertFalse(navigation.dismiss_popup(swallowed))
+        self.assertEqual(swallowed.back_presses, 1)
 
     def test_pro_offer_still_dismissed_via_its_x_not_back(self):
         import navigation
@@ -499,6 +512,297 @@ class TestPromoInterstitial(unittest.TestCase):
         state = watcher.fresh_state()
         self.assertIsNone(watcher.poll_once(driver, state, []))
         self.assertIsNone(state["question"])
+
+
+# The "How did you hear about us?" survey interstitial, as reported from
+# a client's phone (2026-08-04). The page has never been captured in a
+# dump, so this tree is inferred — and the handler under test must
+# survive label drift: no TV option, a different submit label, or a page
+# that refuses to clear at all.
+SURVEY_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[42,189][678,245]" clickable="false" content-desc="How did you hear about us?"/>
+  <node class="android.widget.Button" bounds="[42,400][678,490]" clickable="true" content-desc="Instagram"/>
+  <node class="android.widget.Button" bounds="[42,510][678,600]" clickable="true" content-desc="Telegram"/>
+  <node class="android.widget.Button" bounds="[42,620][678,710]" clickable="true" content-desc="TV"/>
+  <node class="android.widget.Button" bounds="[42,730][678,820]" clickable="true" content-desc="Friends"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Continue"/>
+</hierarchy>"""
+
+# The same page carrying its own "Next" — which classify_sheet would read
+# as a feedback sheet and blind-tap, skipping the survey unanswered.
+SURVEY_NEXT_XML = SURVEY_XML.replace(
+    'content-desc="Continue"', 'content-desc="Next"'
+)
+
+# Label drift: no TV among the options, a Skip instead of a submit.
+SURVEY_NO_TV_XML = SURVEY_XML.replace(
+    'content-desc="TV"', 'content-desc="Radio"'
+).replace('content-desc="Continue"', 'content-desc="Skip"')
+
+# The same survey under a title no English marker can see (another
+# phrasing or language): only the option shape — TV next to
+# untranslatable social-brand names — identifies it.
+SURVEY_UZBEK_XML = SURVEY_XML.replace(
+    'content-desc="How did you hear about us?"',
+    'content-desc="Biz haqimizda qayerdan eshitdingiz?"',
+)
+
+# TV rendered in Uzbek as well.
+SURVEY_TELEVIZOR_XML = SURVEY_UZBEK_XML.replace(
+    'content-desc="TV"', 'content-desc="Televizor"'
+)
+
+
+class SurveyDriver:
+    """The survey page: desc taps recorded in order; the page clears (to
+    a quiz Start page) only when one of `clears_on` is tapped."""
+
+    def __init__(self, xml, clears_on=("Continue",)):
+        self.xml = xml
+        self.taps = []
+        self.back_presses = 0
+        self.clears_on = clears_on
+
+    @property
+    def page_source(self):
+        return self.xml
+
+    def find_element(self, by, value):
+        m = re.search(r"content-desc=(?:'([^']*)'|\"([^\"]*)\")", value)
+        desc = m and (m.group(1) if m.group(1) is not None else m.group(2))
+        if not desc or f'content-desc="{desc}"' not in self.xml:
+            raise NoSuchElementException(value)
+        el = FakeElement(desc)
+
+        def click():
+            self.taps.append(desc)
+            if desc in self.clears_on:
+                self.xml = QUIZ_START_XML
+
+        el.click = click
+        return el
+
+    def tap(self, positions, duration=None):
+        self.taps.append(positions[0])
+
+    def back(self):
+        self.back_presses += 1
+
+
+class TestSurveyPage(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        # poll_once on a misread survey would write results.json into cwd
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+        os.chdir(self._cwd)
+
+    def test_survey_titles_match_case_and_phrasing_variants(self):
+        self.assertTrue(qh.looks_like_survey(["How did you hear about us?"]))
+        self.assertTrue(qh.looks_like_survey(["Where did you hear about us"]))
+        self.assertTrue(qh.looks_like_survey(["How did you find out about us?"]))
+        self.assertFalse(qh.looks_like_survey(
+            ["He's reading ___ interesting book.", "a", "an"]
+        ))
+
+    def test_unknown_title_is_caught_by_the_option_shape(self):
+        # A title in another language (or any unseen phrasing) must not
+        # blind the detector: TV next to an untranslated social brand is
+        # this survey and nothing else.
+        self.assertTrue(qh.looks_like_survey(
+            ["Biz haqimizda qayerdan eshitdingiz?", "Instagram", "TV", "Friends"]
+        ))
+        self.assertTrue(qh.looks_like_survey(["Telegram", "Televizor"]))
+
+    def test_tv_without_a_social_brand_is_not_the_survey(self):
+        # A genuine media-vocabulary question can offer TV — without a
+        # social brand beside it, it stays a question.
+        self.assertFalse(qh.looks_like_survey(
+            ["Television - ?", "TV", "Radio", "Newspaper"]
+        ))
+        # A brand inside longer text (a promo caption) is not an option.
+        self.assertFalse(qh.looks_like_survey(
+            ["Follow us on Instagram", "TV shows to watch", "Continue"]
+        ))
+
+    def test_drifted_title_survey_is_dismissed_via_tv(self):
+        import navigation
+        driver = SurveyDriver(SURVEY_UZBEK_XML, clears_on=("Continue",))
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, ["TV", "Continue"])
+
+    def test_televizor_label_counts_as_tv(self):
+        import navigation
+        driver = SurveyDriver(SURVEY_TELEVIZOR_XML, clears_on=("Continue",))
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, ["Televizor", "Continue"])
+
+    def test_survey_is_not_a_question(self):
+        # Four option Buttons plus Continue read as word_translation —
+        # the runner would tap "Instagram" as its answer and then wait
+        # forever for a feedback sheet.
+        driver = XmlDriver(SURVEY_XML)
+        state = watcher.fresh_state()
+        results = []
+        self.assertIsNone(watcher.poll_once(driver, state, results))
+        self.assertIsNone(state["question"])
+        self.assertEqual(results, [])
+
+    def test_survey_with_next_is_not_a_feedback_sheet(self):
+        # Its "Next" would classify as an "other" sheet: a bogus results
+        # entry, plus a blind Next tap that skips the survey unanswered.
+        driver = XmlDriver(SURVEY_NEXT_XML)
+        state = watcher.fresh_state()
+        results = []
+        self.assertIsNone(watcher.poll_once(driver, state, results))
+        self.assertEqual(results, [])
+
+    def test_survey_forward_is_owned_by_the_survey_handler_alone(self):
+        # tap_forward_button re-tapping the survey's Continue on every
+        # poll would reset the idle timer forever — the run would never
+        # reach its restart-and-dump recovery.
+        import navigation
+        nodes = qh.parse_screen(SURVEY_XML)
+        self.assertIsNone(navigation.find_forward_button(nodes))
+        self.assertIsNone(navigation.forward_tap_label(nodes))
+
+    def test_dismissed_by_choosing_tv_then_submitting(self):
+        import navigation
+        driver = SurveyDriver(SURVEY_XML, clears_on=("Continue",))
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, ["TV", "Continue"])
+
+    def test_tv_choice_that_advances_by_itself_needs_no_submit(self):
+        import navigation
+        driver = SurveyDriver(SURVEY_XML, clears_on=("TV",))
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, ["TV"], "no stray tap on the next screen")
+
+    def test_survey_without_tv_is_still_skipped(self):
+        import navigation
+        driver = SurveyDriver(SURVEY_NO_TV_XML, clears_on=("Skip",))
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, ["Skip"], "no blind option guessing")
+
+    def test_survey_that_refuses_to_clear_leaves_the_restart_armed(self):
+        # False keeps the idle timer running, so the usual restart plus
+        # stuck-screen dump captures the tree this handler guessed
+        # wrong about.
+        import navigation
+        driver = SurveyDriver(SURVEY_XML, clears_on=())
+        self.assertFalse(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, ["TV", "Continue"])
+        self.assertEqual(driver.back_presses, 0)
+
+
+# The ask-to-update bottom sheet (client report, 2026-08-04 — never
+# captured in a dump), risen over a word-translation screen whose own
+# Continue is still in the tree: forward taps must be suppressed while
+# the sheet is up, and Update itself must never be tapped — it walks out
+# to the Play Store.
+UPDATE_SHEET_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[42,189][678,245]" clickable="false" content-desc="Clever -"/>
+  <node class="android.widget.Button" bounds="[56,700][336,784]" clickable="true" content-desc="Aqlli "/>
+  <node class="android.widget.Button" bounds="[384,700][664,784]" clickable="true" content-desc="Mehribon"/>
+  <node class="android.widget.Button" bounds="[42,820][678,900]" clickable="true" content-desc="Continue"/>
+  <node class="android.view.View" bounds="[0,1000][720,1600]" clickable="true" content-desc="A new version of the app is available"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Update"/>
+  <node class="android.widget.Button" bounds="[42,1520][678,1580]" clickable="true" content-desc="Later"/>
+</hierarchy>"""
+
+# The same sheet offering nothing but Update: the Android back button —
+# how any bottom sheet closes — is the only way out.
+UPDATE_SHEET_NO_DECLINE_XML = UPDATE_SHEET_XML.replace(
+    '  <node class="android.widget.Button" bounds="[42,1520][678,1580]"'
+    ' clickable="true" content-desc="Later"/>\n', ''
+)
+
+
+class UpdateSheetDriver(SurveyDriver):
+    """SurveyDriver that can also clear its page on a back press."""
+
+    def __init__(self, xml, clears_on=(), back_clears=False):
+        super().__init__(xml, clears_on)
+        self.back_clears = back_clears
+
+    def back(self):
+        self.back_presses += 1
+        if self.back_clears:
+            self.xml = QUIZ_START_XML
+
+
+class TestUpdateSheet(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        # poll_once on a misread sheet would write results.json into cwd
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+        os.chdir(self._cwd)
+
+    def test_update_sheet_is_recognized_by_its_button_alone(self):
+        self.assertTrue(qh.looks_like_update_sheet(["Update", "Later"]))
+        self.assertTrue(qh.looks_like_update_sheet(["UPDATE "]))
+        # the word inside a sentence (a lesson text) is not the sheet
+        self.assertFalse(qh.looks_like_update_sheet(
+            ["Please update your homework", "Next"]
+        ))
+
+    def test_update_sheet_is_not_a_question(self):
+        # Its Update/Later Buttons join the covered screen's options —
+        # option A could be Update itself, walking out to the Play Store.
+        driver = XmlDriver(UPDATE_SHEET_XML)
+        state = watcher.fresh_state()
+        results = []
+        self.assertIsNone(watcher.poll_once(driver, state, results))
+        self.assertIsNone(state["question"])
+        self.assertEqual(results, [])
+
+    def test_update_button_is_never_a_tap_through_candidate(self):
+        import navigation
+        buttons = navigation.candidate_buttons(qh.parse_screen(UPDATE_SHEET_XML))
+        self.assertNotIn("Update", buttons)
+
+    def test_forward_taps_are_suppressed_under_the_sheet(self):
+        # The covered screen's Continue is still in the tree; re-tapping
+        # it through the sheet resets the idle timer forever.
+        import navigation
+        nodes = qh.parse_screen(UPDATE_SHEET_XML)
+        self.assertIsNone(navigation.find_forward_button(nodes))
+        self.assertIsNone(navigation.forward_tap_label(nodes))
+
+    def test_declined_via_later_without_touching_update(self):
+        import navigation
+        driver = UpdateSheetDriver(UPDATE_SHEET_XML, clears_on=("Later",))
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, ["Later"])
+        self.assertEqual(driver.back_presses, 0)
+
+    def test_backed_out_when_it_offers_nothing_but_update(self):
+        import navigation
+        driver = UpdateSheetDriver(UPDATE_SHEET_NO_DECLINE_XML, back_clears=True)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, [], "Update must never be tapped")
+        self.assertEqual(driver.back_presses, 1)
+
+    def test_sheet_that_refuses_to_close_leaves_the_restart_armed(self):
+        import navigation
+        driver = UpdateSheetDriver(UPDATE_SHEET_NO_DECLINE_XML, back_clears=False)
+        self.assertFalse(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.taps, [])
 
 
 class TestTapNext(unittest.TestCase):
@@ -1953,6 +2257,94 @@ class TestTapClearsOverlay(unittest.TestCase):
         self.assertEqual(driver.taps, [])
 
 
+# The 2026-08-04 chest slowdown: the flow popped over the home screen at
+# launch, and every clearing round only ran AFTER tap()'s full 20s
+# presence timeout — three flow screens cost a minute-plus of staring at
+# "Tap on the chest!". reveal_card made it worse by spending its swipe
+# budget on a screen that cannot scroll. The chest markers are
+# unambiguous, so a covering chest is cleared the moment it is seen.
+class ChestOverHomeDriver:
+    """Chest flow covering the home screen; the target card becomes
+    findable only after the flow is walked (chest tap → stars → Continue)."""
+
+    def __init__(self):
+        self.xml = CHEST_TAP_XML
+        self.coord_taps = []
+        self.clicked = []
+        self.swipes = 0
+
+    @property
+    def page_source(self):
+        return self.xml
+
+    def get_window_size(self):
+        return {"width": 720, "height": 1600}
+
+    def swipe(self, *a, **kw):
+        self.swipes += 1
+
+    def find_element(self, by, value):
+        m = re.search(r"content-desc=(?:'([^']*)'|\"([^\"]*)\")", value)
+        wanted = (m.group(1) or m.group(2)) if m else value
+        if wanted not in self.xml:
+            raise NoSuchElementException(wanted)
+        el = FakeElement(wanted)
+
+        def click():
+            self.clicked.append(wanted)
+            if "Continue" in wanted:
+                self.xml = HOME_SCROLLED_XML
+
+        el.click = click
+        return el
+
+    def tap(self, positions, duration=None):
+        self.coord_taps.append(positions[0])
+        if self.xml == CHEST_TAP_XML:
+            self.xml = CHEST_STARS_XML
+
+
+class TestChestClearedMidWait(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_tap_clears_a_covering_chest_without_waiting_out_the_timeout(self):
+        # Every clearing round used to cost the waiter's FULL timeout
+        # (20s live) before the chest was even looked at — the whole
+        # flow must clear in well under one timeout's worth of waiting.
+        import time as real_time
+        import locators as loc
+        import navigation
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        driver = ChestOverHomeDriver()
+        started = real_time.time()
+        navigation.tap(driver, WebDriverWait(driver, 2),
+                       loc.PROGRAM_CERTIFICATE, "Program Certificate")
+        elapsed = real_time.time() - started
+        self.assertEqual(driver.coord_taps, [(360, 992)])
+        self.assertIn("Continue", driver.clicked)
+        self.assertIn("2+6 Program Certificate", driver.clicked)
+        self.assertLess(elapsed, 1.5,
+                        "the chest must be cleared as soon as it is seen, "
+                        "not after full presence timeouts")
+
+    def test_reveal_card_clears_the_chest_instead_of_swiping_at_it(self):
+        import navigation
+        driver = ChestOverHomeDriver()
+        self.assertTrue(navigation.reveal_card(driver, "2+6 Program Certificate"))
+        self.assertEqual(driver.coord_taps, [(360, 992)])
+        self.assertEqual(driver.swipes, 0,
+                         "the chest screen cannot scroll — swiping it is "
+                         "pure wasted time")
+
+
 class TestChestScreenVariants(unittest.TestCase):
     def setUp(self):
         import navigation
@@ -2008,7 +2400,7 @@ UNKNOWN_AD_XML = """<hierarchy>
 
 AD_QUESTION_XML = """<hierarchy>
   <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
-  <node class="android.view.View" bounds="[100,600][620,760]" clickable="false" content-desc="Ibrat Pro — 50% chegirma!"/>
+  <node class="android.view.View" bounds="[100,600][620,760]" clickable="false" content-desc="Ibrat Pro — yangi imkoniyat!"/>
   <node class="android.widget.Button" bounds="[42,1200][678,1290]" clickable="true" content-desc="Ochish"/>
   <node class="android.widget.Button" bounds="[42,1320][678,1410]" clickable="true" content-desc="Keyinroq"/>
 </hierarchy>"""
@@ -2268,6 +2660,37 @@ class ManualAdvanceDriver:
         return el
 
 
+class NeverAdvancingDriver:
+    """A screen that offers a forward button but never actually moves.
+
+    The 2026-08-04 "Student Already Enrolled" banner on the Modules list
+    behaved exactly this way: every Start tap "succeeded", the banner
+    redrew, and the screen stayed put. page_source raises once the reads
+    pass `read_limit` so a regression fails the suite instead of hanging
+    it forever.
+    """
+
+    def __init__(self, read_limit=10000):
+        self.taps = []
+        self.reads = 0
+        self.read_limit = read_limit
+
+    @property
+    def page_source(self):
+        self.reads += 1
+        if self.reads > self.read_limit:
+            raise AssertionError(
+                f"still waiting after {self.reads} screen reads — "
+                "the wait never gives up on a button that does nothing"
+            )
+        return LESSON_SCREEN_XML
+
+    def find_element(self, by, value):
+        el = FakeElement("forward")
+        el.click = lambda: self.taps.append(value)
+        return el
+
+
 class TestWaitForManualAdvance(unittest.TestCase):
     def setUp(self):
         import navigation
@@ -2311,6 +2734,46 @@ class TestWaitForManualAdvance(unittest.TestCase):
                 raise NoSuchElementException(value)
 
         self.assertFalse(navigation.wait_for_manual_advance(DeadDriver()))
+
+    def test_gives_up_when_the_forward_button_never_advances_the_screen(self):
+        # 2026-08-04, the client's phone: the Modules list answered every
+        # Start tap with "Student Already Enrolled" and never moved. The
+        # give-up branch was reachable only with NO forward button, so a
+        # button that does nothing was re-tapped forever — and because
+        # each tap prints, the supervisor's silence watchdog stayed quiet
+        # too. Nothing anywhere ended the run.
+        import navigation
+        driver = NeverAdvancingDriver()
+        self.assertFalse(navigation.wait_for_manual_advance(driver))
+        self.assertTrue(driver.taps, "should re-tap a while before giving up")
+
+    def test_push_through_stops_when_the_screen_changes_but_never_starts(self):
+        # The same stranding one level up: the banner redrawing counts as
+        # "screen changed", so the wait returns True, the attempts loop
+        # runs again, and `while True` never exits. A screen that keeps
+        # changing without ever reaching the questions must still strand.
+        import navigation
+        from selenium.common.exceptions import TimeoutException
+
+        driver = NeverAdvancingDriver(read_limit=500)
+        saved = (navigation.tap, navigation.wait_for_manual_advance,
+                 navigation.open_next_in_sequence, navigation.tap_forward_button,
+                 navigation.dismiss_popup)
+        navigation.tap = lambda d, w, locator, label: (_ for _ in ()).throw(
+            TimeoutException(label)
+        )
+        navigation.wait_for_manual_advance = lambda d, deadline=None: True
+        navigation.open_next_in_sequence = lambda d: False
+        # The Start button that taps "successfully" and changes nothing.
+        navigation.tap_forward_button = lambda d: True
+        navigation.dismiss_popup = lambda d: False
+        try:
+            with self.assertRaises(navigation.StuckScreenError):
+                navigation.push_through_to_start(driver, attempts=2)
+        finally:
+            (navigation.tap, navigation.wait_for_manual_advance,
+             navigation.open_next_in_sequence, navigation.tap_forward_button,
+             navigation.dismiss_popup) = saved
 
     def test_push_through_raises_stuck_when_the_wait_gives_up(self):
         import navigation
@@ -2410,6 +2873,120 @@ class TestPushThroughWaitsWhenStuck(unittest.TestCase):
         self.assertTrue(result)
         self.assertEqual(calls["waits"], 1)
         self.assertTrue(calls["started"])
+
+
+# The Dars 73 video lesson page as the 2026-08-04 run met it: the
+# player's "Show player controls" toggle sits before "Next" in tree
+# order, and each toggle redraws the overlay — so the blind tap-through
+# read that churn as progress and never reached the Next button.
+VIDEO_LESSON_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.widget.Button" bounds="[100,60][620,300]" clickable="true" content-desc="Show player controls"/>
+  <node class="android.view.View" bounds="[42,350][678,420]" clickable="false" content-desc="Dars 73 That / This / Those / These"/>
+  <node class="android.view.View" bounds="[42,440][678,700]" clickable="false" content-desc="Demonstrative pronouns are used to point to specific people, objects, or places."/>
+  <node class="android.widget.Button" bounds="[26,1418][117,1502]" clickable="true" content-desc="null"/>
+  <node class="android.widget.Button" bounds="[160,1418][678,1502]" clickable="true" content-desc="Next"/>
+</hierarchy>"""
+
+
+class VideoLessonDriver:
+    """The video lesson page: Next advances, the player toggle only
+    redraws the overlay (the tree changes, the page goes nowhere)."""
+
+    current_package = "uz.ibrat.farzandlari"
+
+    def __init__(self):
+        self.xml = VIDEO_LESSON_XML
+        self.clicks = []
+
+    @property
+    def page_source(self):
+        return self.xml
+
+    def find_element(self, by, value):
+        el = FakeElement("btn")
+
+        def click():
+            self.clicks.append(value)
+            if "player controls" in value:
+                swap = (("Show player controls", "Hide player controls")
+                        if "Show player controls" in self.xml
+                        else ("Hide player controls", "Show player controls"))
+                self.xml = self.xml.replace(*swap)
+            elif "Next" in value:
+                self.xml = QUIZ_START_XML
+
+        el.click = click
+        return el
+
+
+class TestVideoLessonNavigation(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._time = navigation.time
+        navigation.time = FakeTime()
+
+    def tearDown(self):
+        import navigation
+        navigation.time = self._time
+
+    def test_candidate_buttons_skip_the_player_controls_toggle(self):
+        # Toggling the player's overlay never moves forward, and the
+        # redraw it causes reads as "Screen changed" — so the tap-through
+        # loop kept "progressing" without ever reaching Next (2026-08-04).
+        import navigation
+        nodes = qh.parse_screen(VIDEO_LESSON_XML)
+        self.assertEqual(navigation.candidate_buttons(nodes), ["Next"])
+
+    def test_tap_forward_button_ignores_plain_next_by_default(self):
+        # The answer loop's unrecognized-screen path must keep leaving
+        # the feedback sheet's exact "Next" to poll_once.
+        import navigation
+        driver = VideoLessonDriver()
+        self.assertFalse(navigation.tap_forward_button(driver))
+        self.assertEqual(driver.clicks, [])
+
+    def test_tap_plain_next_taps_the_lesson_pages_bare_next(self):
+        # No feedback sheet exists during navigation, so the lesson
+        # page's exact "Next" is safe there — and IS the way forward.
+        import navigation
+        driver = VideoLessonDriver()
+        self.assertTrue(navigation.tap_plain_next(driver))
+        self.assertTrue(any("Next" in c for c in driver.clicks), driver.clicks)
+
+    def test_tap_plain_next_leaves_the_survey_forward_alone(self):
+        # The survey swallows blind forward taps until an option is
+        # chosen — its "Next" belongs to dismiss_survey, and a swallowed
+        # tap here would reset the push-through loop forever.
+        import navigation
+        driver = TapDriver(SURVEY_NEXT_XML)
+        self.assertFalse(navigation.tap_plain_next(driver))
+
+    def test_push_through_taps_next_and_never_the_player_toggle(self):
+        import navigation
+        import locators as loc
+        from selenium.common.exceptions import TimeoutException
+
+        driver = VideoLessonDriver()
+        calls = {"started": False}
+
+        def fake_tap(d, waiter, locator, label):
+            if locator == loc.START_TEST and "Start" in d.xml:
+                calls["started"] = True
+                return
+            raise TimeoutException(label)
+
+        saved = navigation.tap
+        navigation.tap = fake_tap
+        try:
+            self.assertTrue(navigation.push_through_to_start(driver, attempts=3))
+        finally:
+            navigation.tap = saved
+
+        self.assertTrue(calls["started"])
+        self.assertTrue(any("Next" in c for c in driver.clicks), driver.clicks)
+        self.assertTrue(all("player controls" not in c for c in driver.clicks),
+                        driver.clicks)
 
 
 class TestPollOnceStuckLesson(unittest.TestCase):
@@ -3546,6 +4123,93 @@ class TestProblemLogCountIsNotStale(unittest.TestCase):
         self.assertNotIn("leftover", text)
 
 
+# The quiz Start page a moment after Start was tapped: the button is
+# gone because the page is on its way out, and the quiz behind it has
+# not arrived yet. Captured on a 720x1600 Moto on 2026-08-04, with 400px
+# of empty screen below the card — nothing to scroll to, nothing to tap,
+# and the app perfectly healthy. Left alone for 50s it opened the quiz;
+# the runner killed it at 10s, every single quiz.
+QUIZ_LOADING_XML = """<hierarchy>
+  <node class="android.widget.ImageView" bounds="[0,77][98,175]" clickable="true" content-desc="Back"/>
+  <node class="android.view.View" bounds="[98,103][207,149]" clickable="false" content-desc="Go back"/>
+  <node class="android.view.View" bounds="[284,532][436,588]" clickable="false" content-desc="Quizzes"/>
+  <node class="android.view.View" bounds="[93,602][627,644]" clickable="false" content-desc="Press the start button when you are ready"/>
+  <node class="android.view.View" bounds="[156,730][359,776]" clickable="false" content-desc="Quiz difficulty"/>
+  <node class="android.view.View" bounds="[156,975][487,1021]" clickable="false" content-desc="The number of quizzes"/>
+</hierarchy>"""
+
+DEAD_UNKNOWN_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="false" content-desc="Reklama"/>
+</hierarchy>"""
+
+
+class SlowLoadingQuizDriver(TapDriver):
+    """The Start page hangs about for a while, then the quiz appears."""
+
+    QUESTION = """<hierarchy>
+  <node class="android.view.View" bounds="[40,200][680,300]" clickable="false" content-desc="I need |_| advice on this matter."/>
+  <node class="android.widget.Button" bounds="[40,430][680,520]" clickable="true" content-desc="---"/>
+  <node class="android.widget.Button" bounds="[40,545][680,635]" clickable="true" content-desc="an"/>
+  <node class="android.widget.Button" bounds="[40,660][680,750]" clickable="true" content-desc="a"/>
+</hierarchy>"""
+
+    def __init__(self, clock, loads_after):
+        super().__init__(QUIZ_LOADING_XML)
+        self._clock = clock
+        self._ready_at = clock.time() + loads_after
+
+    @property
+    def page_source(self):
+        return self.QUESTION if self._clock.time() >= self._ready_at else self.xml
+
+    def find_element(self, by, value):
+        raise NoSuchElementException(value)
+
+
+class TestQuizLoadIsWaitedOut(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        import navigation
+        self.m, self.nav = main_mod, navigation
+        self._saved = (main_mod.time, navigation.time)
+        self.clock = FakeTime()
+        main_mod.time = self.clock
+        navigation.time = self.clock
+
+    def tearDown(self):
+        self.m.time, self.nav.time = self._saved
+        os.chdir(self._cwd)
+
+    def test_a_loading_quiz_is_given_time_instead_of_a_restart(self):
+        driver = SlowLoadingQuizDriver(self.clock, loads_after=30)
+        started = self.clock.time()
+        try:
+            self.m.auto_answer_loop(driver)
+        except self.m.StuckScreenError:
+            self.fail("restarted the app while the quiz was still opening")
+        except (StopIteration, NoSuchElementException):
+            pass
+        self.assertGreaterEqual(self.clock.time() - started, 30,
+                                "must actually have waited out the load")
+
+    def test_a_quiz_that_never_loads_still_gives_up(self):
+        driver = SlowLoadingQuizDriver(self.clock, loads_after=10_000)
+        with self.assertRaises(self.m.StuckScreenError):
+            self.m.auto_answer_loop(driver)
+
+    def test_an_ordinary_unknown_screen_is_not_given_the_long_wait(self):
+        # Only the start/loading page earns patience; a strange ad screen
+        # must still recover at the usual speed.
+        driver = TapDriver(DEAD_UNKNOWN_XML)
+        started = self.clock.time()
+        with self.assertRaises(self.m.StuckScreenError):
+            self.m.auto_answer_loop(driver)
+        self.assertLess(self.clock.time() - started, self.m.LOADING_IDLE_LIMIT,
+                        "an unknown screen must not wait for a quiz load")
+
+
 class TestProblemLog(unittest.TestCase):
     """One appended block per incident, readable by whoever gets it emailed."""
 
@@ -3705,6 +4369,295 @@ class TestRunLog(unittest.TestCase):
             text = f.read()
         self.assertIn("Tapped: Start", text)
         self.assertIn("restarting it", text)
+
+
+# The IBRAT PRO paywall (stuck_screen_20260804_180610): the subscriber
+# pill renders split into one-glyph nodes, the close X is the unlabeled
+# top-left ImageView, and every CTA is a labeled clickable View.
+PAYWALL_SPLIT_PILL_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.widget.ImageView" bounds="[42,100][112,170]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[446,117][459,152]" clickable="false" content-desc="3"/>
+  <node class="android.view.View" bounds="[459,117][472,152]" clickable="false" content-desc="5"/>
+  <node class="android.view.View" bounds="[516,117][529,152]" clickable="false" content-desc="+"/>
+  <node class="android.view.View" bounds="[529,121][657,149]" clickable="false" content-desc=" subscribers"/>
+  <node class="android.view.View" bounds="[28,656][692,784]" clickable="true" content-desc="Yillik\n26 500 uzs/oy\n318 000 soums"/>
+  <node class="android.view.View" bounds="[28,1411][692,1509]" clickable="true" content-desc="Subscribe • 318 000 soums"/>
+</hierarchy>"""
+
+# The 30%-discount countdown interstitial (stuck_screen_20260804_183453):
+# a full-screen close surface the app itself labels "Dismiss", a glyph-
+# split countdown, and a "use the discount" CTA that must stay fenced.
+DISCOUNT_COUNTDOWN_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc="Dismiss"/>
+  <node class="android.widget.ImageView" bounds="[0,77][126,175]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[150,800][570,845]" clickable="false" content-desc="Masus taklif - 30% chegirma"/>
+  <node class="android.widget.Button" bounds="[42,1404][678,1488]" clickable="true" content-desc="Chegirmadan foydalanish"/>
+</hierarchy>"""
+
+# The payment bottom sheet (stuck_screen_20260804_182349): a Flutter
+# sheet over a Scrim; its Button is a real payment CTA and its unlabeled
+# ImageView is a payment logo (mid-screen, not a top-left X).
+PAYMENT_SHEET_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[0,0][720,623]" clickable="true" content-desc="Scrim"/>
+  <node class="android.widget.ImageView" bounds="[0,623][126,749]" clickable="true" content-desc=""/>
+  <node class="android.widget.Button" bounds="[42,1397][678,1495]" clickable="true" content-desc="Toʻlovni amalga oshirish"/>
+</hierarchy>"""
+
+# The Retry-only pass-stats variant (stuck_screen_20260804_175138, at
+# 93% accuracy): no Lessons, no next — Retry is fenced off (it redoes
+# the finished quiz), so the only way out is the Android back button.
+RETRY_ONLY_FINISH_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[42,532][678,588]" clickable="false" content-desc="Test completed"/>
+  <node class="android.view.View" bounds="[42,602][678,644]" clickable="false" content-desc="You’ve earned 5 point(s) in this quiz"/>
+  <node class="android.view.View" bounds="[536,795][622,844]" clickable="false" content-desc="93%"/>
+  <node class="android.widget.ImageView" bounds="[42,942][678,1026]" clickable="true" content-desc="See your answers"/>
+  <node class="android.widget.Button" bounds="[42,1306][678,1390]" clickable="true" content-desc="Retry"/>
+</hierarchy>"""
+
+# The pass-stats variant seen 2026-08-04 (stuck_screen_20260804_161732):
+# unlike TEST_COMPLETED_XML, its next-lesson Button renders disabled and
+# unlabeled, leaving "Lessons" as the only enabled way forward.
+TEST_COMPLETED_NO_NEXT_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[42,532][678,588]" clickable="false" content-desc="Test completed"/>
+  <node class="android.view.View" bounds="[42,602][678,644]" clickable="false" content-desc="You’ve earned 5 point(s) in this quiz"/>
+  <node class="android.widget.ImageView" bounds="[42,942][678,1026]" clickable="true" content-desc="See your answers"/>
+  <node class="android.widget.Button" bounds="[42,1306][678,1390]" clickable="true" content-desc="Lessons"/>
+  <node class="android.widget.Button" bounds="[42,1411][678,1495]" clickable="false" content-desc=""/>
+</hierarchy>"""
+
+
+class TestPassStatsLessonsFallback(unittest.TestCase):
+    def setUp(self):
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
+        import main as main_mod
+        self._main_time = main_mod.time
+        main_mod.time = FakeTime()
+
+    def tearDown(self):
+        import main as main_mod
+        main_mod.time = self._main_time
+        os.chdir(self._cwd)
+
+    def test_find_forward_button_falls_back_to_lessons(self):
+        # With the next-lesson Button disabled and unlabeled, the screen
+        # sat unrecognized for 10s and cost an app restart per quiz
+        # (2026-08-04 16:17). "Lessons" is its only enabled way forward.
+        import navigation
+        nodes = qh.parse_screen(TEST_COMPLETED_NO_NEXT_XML)
+        self.assertEqual(navigation.find_forward_button(nodes), "Lessons")
+
+    def test_lessons_never_beats_an_enabled_next(self):
+        # The 2026-08-02 variant still has a live "Next lesson" — that
+        # one must keep winning over the Lessons fallback.
+        import navigation
+        nodes = qh.parse_screen(TEST_COMPLETED_XML)
+        self.assertEqual(navigation.find_forward_button(nodes), "Next lesson")
+
+    def test_lessons_alone_is_not_a_forward_button(self):
+        # Outside a finish screen (e.g. the lessons list's own header)
+        # "Lessons" must stay untapped — it navigates, not forwards.
+        import navigation
+        nodes = qh.parse_screen(LESSONS_TOP_XML)
+        self.assertIsNone(navigation.find_forward_button(nodes))
+
+    def test_rejoin_lesson_sequence_reopens_the_list(self):
+        import navigation
+        driver = TapDriver(LESSONS_TOP_XML)
+        called = []
+        saved = navigation.open_next_in_sequence
+        navigation.open_next_in_sequence = lambda d: called.append(1) or True
+        try:
+            self.assertTrue(navigation.rejoin_lesson_sequence(driver))
+        finally:
+            navigation.open_next_in_sequence = saved
+        self.assertEqual(called, [1])
+
+    def test_rejoin_leaves_other_screens_alone(self):
+        # One "Test/Dars N" title alone is a lesson PAGE, not the list;
+        # the stats screen has none at all. Neither may re-fling.
+        import navigation
+        saved = navigation.open_next_in_sequence
+        navigation.open_next_in_sequence = (
+            lambda d: self.fail("must not reopen the sequence")
+        )
+        try:
+            self.assertFalse(
+                navigation.rejoin_lesson_sequence(TapDriver(TEST_COMPLETED_NO_NEXT_XML))
+            )
+            self.assertFalse(
+                navigation.rejoin_lesson_sequence(TapDriver(VIDEO_LESSON_XML))
+            )
+        finally:
+            navigation.open_next_in_sequence = saved
+
+    def test_answer_loop_rejoins_from_a_lessons_list(self):
+        # Tapping the stats screen's "Lessons" lands the ANSWER loop on
+        # the lessons list — it must rejoin the sequence there instead
+        # of paying an app restart.
+        import main as main_mod
+        driver = TapDriver(LESSONS_TOP_XML)
+        rejoined = []
+
+        def fake_rejoin(d):
+            if "Dars 68" not in d.xml:
+                return False
+            rejoined.append(1)
+            d.xml = UNKNOWN_AD_XML
+            return True
+
+        saved = main_mod.rejoin_lesson_sequence
+        main_mod.rejoin_lesson_sequence = fake_rejoin
+        try:
+            with self.assertRaises(main_mod.StuckScreenError):
+                main_mod.auto_answer_loop(driver)
+        finally:
+            main_mod.rejoin_lesson_sequence = saved
+        self.assertEqual(rejoined, [1])
+
+    def test_answer_loop_backs_out_of_a_retry_only_finish(self):
+        # The Retry-only pass-stats screen: one back press to the
+        # lessons list (never Retry), then the rejoin machinery — and
+        # only ONE press, so a back that changes nothing still ends in
+        # the recovering restart.
+        import main as main_mod
+
+        class BackDriver(TapDriver):
+            def back(self):
+                super().back()
+                self.xml = LESSONS_TOP_XML
+
+        driver = BackDriver(RETRY_ONLY_FINISH_XML)
+        rejoined = []
+
+        def fake_rejoin(d):
+            if "Dars 68" not in d.xml:
+                return False
+            rejoined.append(1)
+            d.xml = UNKNOWN_AD_XML
+            return True
+
+        saved = main_mod.rejoin_lesson_sequence
+        main_mod.rejoin_lesson_sequence = fake_rejoin
+        try:
+            with self.assertRaises(main_mod.StuckScreenError):
+                main_mod.auto_answer_loop(driver)
+        finally:
+            main_mod.rejoin_lesson_sequence = saved
+        self.assertEqual(driver.back_presses, 1)
+        self.assertEqual(rejoined, [1])
+
+    def test_stats_screen_lessons_is_tapped_by_position_when_find_fails(self):
+        # Both 2026-08-04 stats strandings: the tree showed "Lessons"
+        # while find_element kept missing it (looping entry animation).
+        # The tree knows where the button is — tap the spot.
+        import main as main_mod
+
+        class AnimatedStatsDriver(TapDriver):
+            def tap(self, positions, duration=None):
+                super().tap(positions, duration)
+                if "Test completed" in self.xml:
+                    self.xml = LESSONS_TOP_XML
+
+        driver = AnimatedStatsDriver(TEST_COMPLETED_NO_NEXT_XML)
+        rejoined = []
+
+        def fake_rejoin(d):
+            if "Dars 68" not in d.xml:
+                return False
+            rejoined.append(1)
+            d.xml = UNKNOWN_AD_XML
+            return True
+
+        saved = main_mod.rejoin_lesson_sequence
+        main_mod.rejoin_lesson_sequence = fake_rejoin
+        try:
+            with self.assertRaises(main_mod.StuckScreenError):
+                main_mod.auto_answer_loop(driver)
+        finally:
+            main_mod.rejoin_lesson_sequence = saved
+        self.assertEqual(rejoined, [1])
+        # center of the Lessons button's bounds [42,1306][678,1390]
+        self.assertIn((360, 1348), driver.taps)
+
+    def test_split_pill_paywall_is_recognized_and_dismissed(self):
+        # The subscriber pill split into one-glyph descs must still read
+        # as a promo, and the unlabeled top-left X must be blind-tapped.
+        import navigation
+        self.assertTrue(qh.looks_like_promo(
+            ["3", "5", " ", "1", "3", "0", "+", " subscribers"]
+        ))
+        driver = TapDriver(PAYWALL_SPLIT_PILL_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        # center of the unlabeled close ImageView [42,100][112,170]
+        self.assertEqual(driver.taps, [(77, 135)])
+
+    def test_payment_sheet_is_backed_out_of_and_its_button_fenced(self):
+        # The payment CTA must never be a tap target, and the sheet
+        # closes like any bottom sheet — Android back, success claimed
+        # only once the sheet is really gone.
+        import navigation
+
+        self.assertEqual(
+            navigation.candidate_buttons(qh.parse_screen(PAYMENT_SHEET_XML)),
+            [],
+        )
+
+        class BackDriver(TapDriver):
+            def back(self):
+                super().back()
+                self.xml = LESSONS_TOP_XML
+
+        driver = BackDriver(PAYMENT_SHEET_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.back_presses, 1)
+        self.assertEqual(driver.taps, [])
+
+    def test_payment_sheet_that_refuses_to_close_reports_failure(self):
+        # A sheet still up after back must read as NOT dismissed, so the
+        # idle timer keeps running into the recovering restart.
+        import navigation
+        driver = TapDriver(PAYMENT_SHEET_XML)
+        self.assertFalse(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.back_presses, 1)
+
+    def test_discount_countdown_is_dismissed_via_its_own_label(self):
+        # The interstitial names its close surface "Dismiss" — tap it by
+        # desc, never the "Chegirmadan foydalanish" CTA.
+        import navigation
+
+        self.assertTrue(qh.looks_like_promo(["Masus taklif - 30% chegirma"]))
+        self.assertEqual(
+            navigation.candidate_buttons(qh.parse_screen(DISCOUNT_COUNTDOWN_XML)),
+            [],
+        )
+        # a vocabulary question about the word itself is NOT a promo
+        self.assertFalse(qh.looks_like_promo(["Discount -", "Chegirma", "Narx"]))
+
+        class ClickableDriver(TapDriver):
+            def __init__(self, xml):
+                super().__init__(xml)
+                self.clicks = []
+
+            def find_element(self, by, value):
+                self.clicks.append(value)
+                return FakeElement("dismiss surface")
+
+        driver = ClickableDriver(DISCOUNT_COUNTDOWN_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertTrue(any("Dismiss" in c for c in driver.clicks), driver.clicks)
+
+    def test_back_out_never_fires_twice_in_one_episode(self):
+        # A finish screen where back does NOTHING: exactly one press,
+        # then the usual stuck restart with the tree saved.
+        import main as main_mod
+        driver = TapDriver(RETRY_ONLY_FINISH_XML)
+        with self.assertRaises(main_mod.StuckScreenError):
+            main_mod.auto_answer_loop(driver)
+        self.assertEqual(driver.back_presses, 1)
+        self.assertEqual(driver.taps, [])
 
 
 if __name__ == "__main__":
