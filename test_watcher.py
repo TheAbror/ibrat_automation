@@ -2756,6 +2756,10 @@ class QuietDriver:
 
 class TestWorkerExitCodes(unittest.TestCase):
     def setUp(self):
+        # main() now records its give-ups, so run somewhere disposable —
+        # a test suite must not drop a problems.log into the project.
+        self._cwd = os.getcwd()
+        os.chdir(tempfile.mkdtemp())
         import main as main_mod
         self.m = main_mod
         self._saved = (main_mod.wake_device, main_mod.force_stop_app,
@@ -2772,6 +2776,7 @@ class TestWorkerExitCodes(unittest.TestCase):
         (self.m.wake_device, self.m.force_stop_app, self.m.connect_fresh_session,
          self.m.navigate_to_test, self.m.answer_until_done, self.m.APP_RELAUNCHES,
          self.m.time) = self._saved
+        os.chdir(self._cwd)
 
     def test_course_completion_exits_zero(self):
         self.m.navigate_to_test = lambda *a: True
