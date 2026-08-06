@@ -48,6 +48,13 @@ SKIP_BUTTONS = ("Go back", "Back", "null", "Retry",
 # "Toʻlovni amalga oshirish" (= make the payment — 2026-08-04, both
 # apostrophe renderings): tapping one leads deeper into the
 # subscription/payment flow, never forward through the course.
+# "Chegirmadan" fences the discount interstitial's own CTA — but this
+# button is only ever reached if its "Dismiss" close surface somehow
+# fails first (dismiss_popup tries that before any button gets tapped
+# at all), so an English render's CTA text has no confirmed fence here
+# yet. Not guessed at, unlike the entries above: a wrong guess could
+# fence out an unrelated legitimate button. Add its real text once an
+# English-language dump of this screen exists.
 PROMO_CTA_MARKERS = ("IELTSGA", "VAQT TOPILAVERADI", "Subscribe", "soums",
                      "Toʻlovni", "To'lovni", "Chegirmadan")
 # The payment bottom sheet: a Flutter sheet over a "Scrim" whose only
@@ -506,6 +513,35 @@ def dismiss_update_sheet(driver, descs):
     return True
 
 
+# Poll instead of a blind sleep after pressing back on a bottom sheet:
+# most close in well under a second, and a fixed time.sleep(1) here paid
+# that full second even when the close animation had already finished
+# (2026-08-06 — made the Daily Reward sheet visibly slow to clear on
+# every app launch). Same worst-case wait as before, just no longer paid
+# on the common fast path.
+BACK_CLOSE_POLL = 0.15
+BACK_CLOSE_TIMEOUT = 1.0
+
+
+def _closed_via_back(driver, markers, label):
+    """Press back, then confirm a marker-identified sheet is really gone.
+
+    True only once the markers are actually absent — a sheet that
+    refuses to close must still read as NOT dismissed so the idle timer
+    keeps running into the recovering restart.
+    """
+    driver.back()
+    print(f"{label} — pressed the Android back button")
+    deadline = time.time() + BACK_CLOSE_TIMEOUT
+    while True:
+        still = [d for _, d in parse_screen(driver.page_source) if d]
+        if not any(m in d for d in still for m in markers):
+            return True
+        if time.time() >= deadline:
+            return False
+        time.sleep(BACK_CLOSE_POLL)
+
+
 def dismiss_popup(driver):
     """If a popup with a close (X) icon is on screen, tap the X.
 
@@ -548,33 +584,19 @@ def dismiss_popup(driver):
     # through to the recovering restart with its tree saved.
     if any(d == "Scrim" for d in descs) and any(
             m in d for d in descs for m in PAYMENT_SHEET_MARKERS):
-        driver.back()
-        print("Payment sheet — pressed the Android back button")
-        time.sleep(1)
-        still = [d for _, d in parse_screen(driver.page_source) if d]
-        return not any(m in d for d in still for m in PAYMENT_SHEET_MARKERS)
+        return _closed_via_back(driver, PAYMENT_SHEET_MARKERS, "Payment sheet")
     if any(d == "Scrim" for d in descs) and any(
             m in d for d in descs for m in LANGUAGE_CROSS_SELL_MARKERS):
-        driver.back()
-        print("Language cross-sell sheet — pressed the Android back button")
-        time.sleep(1)
-        still = [d for _, d in parse_screen(driver.page_source) if d]
-        return not any(m in d for d in still for m in LANGUAGE_CROSS_SELL_MARKERS)
+        return _closed_via_back(driver, LANGUAGE_CROSS_SELL_MARKERS,
+                                 "Language cross-sell sheet")
     # A native system dialog, not a Flutter sheet — no Scrim desc to
     # check for. Its "Update"/"Learn more" buttons both lead out of the
     # app, so back is used directly rather than tapping either.
     if any(m in d for d in descs for m in PLAY_STORE_UPDATE_MARKERS):
-        driver.back()
-        print("Play Store update nag — pressed the Android back button")
-        time.sleep(1)
-        still = [d for _, d in parse_screen(driver.page_source) if d]
-        return not any(m in d for d in still for m in PLAY_STORE_UPDATE_MARKERS)
+        return _closed_via_back(driver, PLAY_STORE_UPDATE_MARKERS,
+                                 "Play Store update nag")
     if any(m in d for d in descs for m in DAILY_REWARD_MARKERS):
-        driver.back()
-        print("Daily Reward sheet — pressed the Android back button")
-        time.sleep(1)
-        still = [d for _, d in parse_screen(driver.page_source) if d]
-        return not any(m in d for d in still for m in DAILY_REWARD_MARKERS)
+        return _closed_via_back(driver, DAILY_REWARD_MARKERS, "Daily Reward sheet")
     if blind_close_unsafe(nodes) or not looks_like_known_popup(descs):
         return False
     center = find_unlabeled_close_center(xml)

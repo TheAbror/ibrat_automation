@@ -10301,24 +10301,30 @@
   },
   {
     "n": 521,
-    "time": "2026-08-02 20:06:43",
+    "time": "2026-08-06 15:30:07",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Ish vaqtida menga yozmang.",
     "options": [
-      "the",
-      "during",
-      "when",
-      "you",
       "me",
-      "to",
-      "Do not",
       "write",
+      "the",
       "work.",
+      "to",
+      "you",
+      "when",
+      "during",
+      "Do not",
       "Do"
     ],
     "correct_answer": [
+      "Do not",
+      "write",
+      "to",
+      "me",
+      "during",
       "the",
+      "work.",
       "Do not write to me during the work."
     ]
   },
@@ -11313,25 +11319,33 @@
   },
   {
     "n": 574,
-    "time": "2026-08-02 20:12:20",
+    "time": "2026-08-06 15:39:46",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Maktabni bitirganimdan keyin boshqalarga ingliz tilini o‘rgataman.",
     "options": [
-      " to",
-      "teach",
+      " I ",
+      "finish",
       "school,",
       "After",
-      "you",
-      "finish",
-      "others.",
-      " I ",
-      "Before",
       " I will ",
+      "Before",
+      "others.",
+      "you",
+      " to",
+      "teach",
       " English "
     ],
     "correct_answer": [
+      "After",
+      " I ",
+      "finish",
+      "school,",
+      " I will ",
+      "teach",
+      " English ",
       " to",
+      "others.",
       "After I finish school, I will teach English to others."
     ]
   },
@@ -11639,21 +11653,27 @@
   },
   {
     "n": 593,
-    "time": "2026-08-02 20:14:14",
+    "time": "2026-08-06 15:43:05",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Agar o'zim o'qiydigan maktabga borsam, do‘stlarim bilan uchrashaman.",
     "options": [
-      "I will",
-      "meet",
-      "where I study,",
-      "school",
       "go to",
+      "school",
+      "If I",
+      "meet",
       "my friends.",
-      "If I"
+      "I will",
+      "where I study,"
     ],
     "correct_answer": [
+      "If I",
+      "go to",
+      "school",
+      "where I study,",
       "I will",
+      "meet",
+      "my friends.",
       "If I go to school where I study, I will meet my friends."
     ]
   },
@@ -11801,25 +11821,31 @@
   },
   {
     "n": 603,
-    "time": "2026-08-03 01:57:38",
+    "time": "2026-08-06 15:44:28",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "U (qiz bola) ko‘targan sumka og‘ir.",
     "options": [
-      "is ",
-      "heavy.",
       "he",
       "when",
-      " is carrying ",
-      " bag ",
-      "The",
-      "whose",
       "who",
+      "whose",
+      " bag ",
       "which",
+      "heavy.",
+      "The",
+      "is ",
+      " is carrying ",
       "she"
     ],
     "correct_answer": [
+      "The",
+      " bag ",
+      "which",
+      "she",
+      " is carrying ",
       "is ",
+      "heavy.",
       "The bag which she is carrying is heavy."
     ]
   },
@@ -12105,20 +12131,23 @@
   },
   {
     "n": 618,
-    "time": "2026-08-02 20:17:53",
+    "time": "2026-08-06 15:47:06",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Mohina pianino chala oladi.",
     "options": [
-      "playing",
-      " the piano.",
       "can",
+      "playing",
+      "play",
       "not",
       "Mohina",
-      "play"
+      " the piano."
     ],
     "correct_answer": [
-      "playing",
+      "Mohina",
+      "can",
+      "play",
+      " the piano.",
       "Mohina can play the piano."
     ]
   },
@@ -12302,21 +12331,24 @@
   },
   {
     "n": 627,
-    "time": "2026-08-03 02:01:25",
+    "time": "2026-08-06 15:48:01",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "U tez yugura oladi.",
     "options": [
-      "fastly",
-      "fast.",
       "run ",
+      "fast.",
       "can",
-      "He",
+      "I",
       "not",
-      "I"
+      "fastly",
+      "He"
     ],
     "correct_answer": [
-      "fastly",
+      "He",
+      "can",
+      "run ",
+      "fast.",
       "He can run fast."
     ]
   },
@@ -12629,24 +12661,29 @@
   },
   {
     "n": 646,
-    "time": "2026-08-03 02:04:29",
+    "time": "2026-08-06 15:51:04",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Ruchkangizni olsam maylimi?",
     "options": [
-      "pen",
-      "your",
-      "May",
-      "my",
       "take",
-      "I",
+      "pen",
+      "my",
       "might",
       "you",
       "pencil",
-      "?"
+      "?",
+      "I",
+      "your",
+      "May"
     ],
     "correct_answer": [
+      "May",
+      "I",
+      "take",
+      "your",
       "pen",
+      "?",
       "May I take your pen ?"
     ]
   },

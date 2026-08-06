@@ -32,9 +32,15 @@ OPTION_IGNORE = NEXT_LABELS + ("Continue", "null", "Retry")
 # money-themed question).
 # "% chegirma" — the discount interstitials' "30% chegirma" headline;
 # percent-prefixed so a vocabulary question about "chegirma" (discount)
-# can never read as a promo.
+# can never read as a promo. "% discount" is the same guard for an
+# English-language render of the same screen (client request, 2026-08-06
+# — never actually seen, since the app has only shown this interstitial
+# in Uzbek so far; added ahead of time in case a client update switches
+# it to English). Its own close surface is labeled "Dismiss" regardless
+# of language and is matched separately (CLOSE_ICON_DESCS) — this marker
+# only backs up looks_like_promo if that surface ever changes too.
 PROMO_MARKERS = (" subscribers", "IELTSGA", "VAQT TOPILAVERADI", "uzs/oy",
-                 "% chegirma")
+                 "% chegirma", "% discount")
 
 
 def looks_like_promo(descs):

@@ -576,11 +576,21 @@ def auto_answer_loop(driver):
         # the tree entirely. Scrolling it into view beats paying a whole
         # app restart between every pair of quizzes.
         #
+        # Only tried on that specific screen (its Quizzes/"Press the
+        # start button" marker text). A question screen mid-render (its
+        # own options just haven't finished appearing yet) used to hit
+        # this same branch and get swiped at for nothing — it has no
+        # below-the-fold button to find, so the hunt cleared the idle
+        # episode's one allowed attempt for no gain, and risked dragging
+        # a just-appearing option out of the tree the way it once did to
+        # a lesson page's Next (client log, 2026-08-06).
+        #
         # Hunted at most once per stuck episode (idle_since changes only
         # when something moved): every swipe costs a second, so hunting
         # on each poll of a dead screen would burn the idle budget that
         # triggers the recovering restart.
-        if scroll_hunted_at != idle_since:
+        quiz_start = looks_like_quiz_start(descs)
+        if quiz_start and scroll_hunted_at != idle_since:
             scroll_hunted_at = idle_since
             if reveal_forward_button(driver) and tap_forward_button(driver):
                 # The hunt itself takes seconds, so by now the timer has
@@ -594,7 +604,7 @@ def auto_answer_loop(driver):
         # and healthy. Restarting the app at 10s killed it mid-transition
         # at every quiz boundary; left alone it opened in well under a
         # minute (watched on the phone, 2026-08-04).
-        limit = LOADING_IDLE_LIMIT if looks_like_quiz_start(descs) else IDLE_LIMIT
+        limit = LOADING_IDLE_LIMIT if quiz_start else IDLE_LIMIT
         if time.time() - idle_since > limit:
             # A slow transition can eat the whole budget before the
             # settled screen gets a single look: the stats screen's

@@ -4804,6 +4804,14 @@ class TestPassStatsLessonsFallback(unittest.TestCase):
         self.assertTrue(navigation.dismiss_popup(driver))
         self.assertTrue(any("Dismiss" in c for c in driver.clicks), driver.clicks)
 
+    def test_discount_countdown_is_recognized_in_english_too(self):
+        # Client request, 2026-08-06: make sure an English render of this
+        # same interstitial (never actually seen — the app has only shown
+        # it in Uzbek so far) still reads as a promo, and a vocabulary
+        # question about "discount" itself still doesn't.
+        self.assertTrue(qh.looks_like_promo(["Special offer - 30% discount"]))
+        self.assertFalse(qh.looks_like_promo(["Discount -", "Sale", "Price"]))
+
     def test_back_out_never_fires_twice_in_one_episode(self):
         # A finish screen where back does NOTHING: exactly one press,
         # then the usual stuck restart with the tree saved.
