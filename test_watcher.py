@@ -2443,6 +2443,38 @@ class TestDailyRewardClearedMidWait(unittest.TestCase):
                         "it is seen, not after full presence timeouts")
 
 
+class TestTapRetriesAfterStaleClick(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_tap_re_locates_after_a_stale_click_instead_of_raising(self):
+        # A screen just after a fresh app launch can still be settling
+        # (a live run's page-source size climbed across three checks in
+        # a row before it stopped changing), so an element found a
+        # moment ago can already be gone by click time. Every other
+        # find-then-click site in navigation.py already tolerates that
+        # (tap_desc, tap_forward_button) — tap() must too, instead of
+        # letting a stale click escalate all the way to main.py's
+        # app-restart handler (observed live as a "crash at the start"
+        # loop: restart landed on an equally unsettled screen and raced
+        # again).
+        import locators as loc
+        import navigation
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        el = FakeElement("2+6 Program Certificate", click_fails=1)
+        driver = FakeDriver([el])
+        navigation.tap(driver, WebDriverWait(driver, 2),
+                       loc.PROGRAM_CERTIFICATE, "Program Certificate")
+        self.assertTrue(el.clicked)
+
+
 class TestChestScreenVariants(unittest.TestCase):
     def setUp(self):
         import navigation

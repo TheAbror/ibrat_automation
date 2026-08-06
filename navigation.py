@@ -186,6 +186,17 @@ def tap(driver, waiter, locator, label, clear_rounds=3):
     seen rather than only after the wait times out. Other overlays still
     keep the full-patience wait — the missing target is the only
     evidence they are in the way at all.
+
+    The click is inside the same retry loop as the lookup (2026-08-06):
+    right after a fresh app launch the screen can still be settling (a
+    live run's page-source size climbed across three checks in a row
+    before the tree stopped changing), so an element found a moment ago
+    can already be gone by the time the click lands. Every other
+    find-then-click site in this file already tolerates that
+    (tap_desc, tap_forward_button); this one used to let it escalate
+    all the way to main.py's app-restart handler instead — a ~15s
+    session relaunch onto a screen just as likely to race again, which
+    is what a "crash at the start" loop turned out to be.
     """
     while True:
         try:
@@ -193,6 +204,7 @@ def tap(driver, waiter, locator, label, clear_rounds=3):
                 el = waiter.until(presence_or_chest(locator))
             else:
                 el = waiter.until(EC.presence_of_element_located(locator))
+            el.click()
             break
         except ChestOverlayDetected:
             clear_rounds -= 1
@@ -202,12 +214,16 @@ def tap(driver, waiter, locator, label, clear_rounds=3):
             clear_rounds -= 1
             print(f"Daily Reward sheet covering '{label}' — closing it now")
             dismiss_popup(driver)
+        except StaleElementReferenceException:
+            if clear_rounds <= 0:
+                raise
+            clear_rounds -= 1
+            print(f"'{label}' went stale before the tap landed — re-locating")
         except TimeoutException:
             if clear_rounds <= 0 or not (dismiss_popup(driver) or tap_forward_button(driver)):
                 raise
             clear_rounds -= 1
             print(f"Cleared an overlay covering '{label}' — retrying")
-    el.click()
     print(f"Tapped: {label}")
     time.sleep(0.5)
 
