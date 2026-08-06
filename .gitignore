@@ -1,1 +1,6 @@
 stuck_screen.xml
+stuck_screen_*.xml
+
+# Run artifacts: rewritten on every run, so tracking them means a dirty
+# tree and a conflict on every pull.
+*.log

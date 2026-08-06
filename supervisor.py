@@ -29,6 +29,9 @@ SILENCE_LIMIT = 300   # no worker output for this long = hung
 KILL_GRACE = 10       # seconds between SIGTERM and SIGKILL
 APPIUM_LOG = "appium.log"
 APPIUM_LOG_PATH = os.path.join(BASE_DIR, APPIUM_LOG)
+# Everything the runner printed, kept because the console is not a record.
+RUN_LOG = "run.log"
+RUN_LOG_PATH = os.path.join(BASE_DIR, RUN_LOG)
 APPIUM_WAIT = 30      # seconds for a fresh server to answer /status
 
 
@@ -154,9 +157,27 @@ def spawn_worker(device, worker_cmd=None):
 
 
 def _pump(child, last_output):
-    for line in child.stdout:
-        print(line, end="")
-        last_output[0] = time.time()
+    """Echo the worker's output, and keep a copy on disk.
+
+    The console is not a record: it scrolls away, and the window gets
+    closed. Without this file a run that misbehaved overnight leaves
+    nothing to look at or send on.
+    """
+    try:
+        log = open(RUN_LOG_PATH, "a", encoding="utf-8")
+    except OSError as e:
+        print(f"[supervisor] could not write {RUN_LOG}: {e}")
+        log = None
+    try:
+        for line in child.stdout:
+            print(line, end="")
+            if log is not None:
+                log.write(line)
+                log.flush()  # a killed or hung run must not lose its tail
+            last_output[0] = time.time()
+    finally:
+        if log is not None:
+            log.close()
 
 
 def babysit(child):

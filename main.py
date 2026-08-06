@@ -23,6 +23,7 @@ import re
 import subprocess
 import sys
 import time
+from datetime import datetime
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.common.actions import interaction
@@ -41,7 +42,9 @@ import watcher
 from navigation import (
     StuckScreenError,
     dismiss_popup,
+    looks_like_quiz_start,
     navigate_to_test,
+    rejoin_lesson_sequence,
     reveal_forward_button,
     tap_forward_button,
 )
@@ -53,6 +56,7 @@ from question_handler import (
     classify_sheet,
     detect_question_type,
     judge_pair_attempt,
+    looks_like_finish,
     pair_attempt_order,
     parse_cards,
     parse_screen,
@@ -61,6 +65,19 @@ from question_handler import (
 )
 
 IDLE_LIMIT = 10      # seconds on an unrecognized screen -> restart the app
+# A screen that is merely mid-render (the next question's options still
+# fading in) clears on its own well inside this window — a poll or two,
+# under half a second each. Below-the-fold Start pages stay unrecognized
+# far longer than this, so gating the scroll hunt on the episode having
+# lasted at least this long is what tells the two apart, on top of the
+# quiz-start marker check (which alone was not enough: that marker text
+# turned out to also read as present on ordinary in-quiz screens,
+# 2026-08-06 — the hunt still fired mid-quiz after that first fix).
+SCROLL_HUNT_GRACE = 2
+# The quiz start card, stripped of its button, is what a quiz looks like
+# while it opens. That is a healthy transition, not a stranding, so it
+# gets its own far longer allowance.
+LOADING_IDLE_LIMIT = 90
 MAX_QUESTIONS = 5000  # a whole course in one run (~88 quizzes + retakes)
 APP_RELAUNCHES = 50  # app restarts per run before giving up
 # Accuracy governor: secure the floor first, then steer into the 93–96%
@@ -89,6 +106,16 @@ def should_miss(correct, incorrect):
     return (correct + 1) / (correct + incorrect + 1) > ACCURACY_HIGH
 # Where the tree of an unrecognized screen is saved before restarting
 STUCK_SCREEN_FILE = "stuck_screen.xml"
+# Every restart and give-up, one block each. Small enough to email, and
+# the only record that survives a console window being closed — which is
+# how a run's history reaches whoever has to explain it.
+PROBLEM_LOG = "problems.log"
+# Where the run currently is, so a problem can say more than what broke.
+CONTEXT = {"phase": "starting up", "question": None, "answered": 0}
+# The tree file the most recent stranding wrote, so the incident that
+# follows can point at it. One slot, in a list so save_stuck_screen can
+# set it from anywhere.
+LAST_STUCK_SCREEN = [None]
 
 
 class AppLostError(Exception):
@@ -364,8 +391,29 @@ def answer_matching(driver, state, known_pairs):
     return True
 
 
+def log_problem(kind, reason, screen=None):
+    """Append one incident — what broke, and where the run had got to.
+
+    Best-effort by design: a diagnostic must never be the thing that
+    ends a run, so every failure to write is swallowed.
+    """
+    try:
+        with open(PROBLEM_LOG, "a", encoding="utf-8") as f:
+            f.write(f"\n[{datetime.now():%Y-%m-%d %H:%M:%S}] {kind}\n")
+            f.write(f"  reason:   {reason}\n")
+            f.write(f"  phase:    {CONTEXT['phase']}\n")
+            f.write(f"  answered: {CONTEXT['answered']} question(s) this run\n")
+            if CONTEXT["question"]:
+                f.write(f"  on:       {CONTEXT['question']}\n")
+            f.write(f"  device:   {config.DEVICE_NAME}\n")
+            if screen:
+                f.write(f"  screen:   {screen}\n")
+    except OSError as e:
+        print(f"(could not write {PROBLEM_LOG}: {e})")
+
+
 def save_stuck_screen(driver, observed=None):
-    """Save the tree of a screen the runner can't handle.
+    """Save the tree of a screen the runner can't handle; return its path.
 
     The saved file is how a new stranding screen gets explained and then
     supported (it identified the 2026-08-02 launcher crash). No taps are
@@ -376,10 +424,20 @@ def save_stuck_screen(driver, observed=None):
     the app often resolves during the seconds the stall takes to detect —
     twice on 2026-08-03 the "stuck" file held an ordinary question screen,
     which is worse than useless: it hides the screen under investigation.
+
+    Each stranding keeps its own timestamped file: a run that strands
+    several times used to leave only the last, so the screen that started
+    the trouble was already gone by the time anyone looked. The newest is
+    copied to STUCK_SCREEN_FILE too, the path the docs point at.
     """
-    with open(STUCK_SCREEN_FILE, "w", encoding="utf-8") as f:
-        f.write(observed if observed is not None else driver.page_source)
-    print(f"Unrecognized screen — tree saved to {STUCK_SCREEN_FILE}")
+    tree = observed if observed is not None else driver.page_source
+    stamped = f"stuck_screen_{datetime.now():%Y%m%d_%H%M%S_%f}.xml"
+    for path in (stamped, STUCK_SCREEN_FILE):
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(tree)
+    print(f"Unrecognized screen — tree saved to {stamped}")
+    LAST_STUCK_SCREEN[0] = stamped
+    return stamped
 
 
 def answer_until_done(driver):
@@ -420,6 +478,8 @@ def auto_answer_loop(driver):
     # The idle_since value the below-the-fold button hunt last ran for,
     # so one stuck episode costs one hunt.
     scroll_hunted_at = None
+    # Same guard for backing out of a dead-end finish screen.
+    backed_out_at = None
     # An ad styled like a question (a text plus 2+ buttons) dodges the
     # idle timer: answering it looks like progress but no feedback sheet
     # ever comes. Two sheetless attempts on the same question = restart.
@@ -445,6 +505,8 @@ def auto_answer_loop(driver):
             question, options = state["question"], state["options"]
             qtype = detect_question_type(question, options, state["descs"])
             answered += 1
+            CONTEXT.update(question=f"[{answered}] {qtype}: {question}",
+                           answered=answered)
             print(f"\n[{answered}] {qtype}: {question}")
             throttle = (
                 qtype != "matching" and question in known
@@ -499,16 +561,48 @@ def auto_answer_loop(driver):
             idle_since = time.time()
             continue
 
+        # The pass-stats screen's "Lessons" (the tap above) lands on
+        # the lessons list, which this loop otherwise has no move for.
+        if rejoin_lesson_sequence(driver):
+            idle_since = time.time()
+            continue
+
+        descs = [d for _, d in parse_screen(state.get("source") or "<hierarchy/>")]
+
+        # The Retry-only pass-stats variant (2026-08-04 17:51) offers no
+        # forward button at all — Retry would redo the finished quiz.
+        # Back out to the lessons list; the rejoin above picks up the
+        # sequence next cycle. Once per stuck episode, and WITHOUT
+        # resetting the idle timer: a back press that changes nothing
+        # must still end in the recovering restart.
+        if backed_out_at != idle_since and looks_like_finish(descs):
+            backed_out_at = idle_since
+            driver.back()
+            print("Finish screen with nothing forward — backing out to the lessons list")
+
         # Finishing a quiz lands on the next one's Start page, whose
         # button is below the fold on a tall phone and so missing from
         # the tree entirely. Scrolling it into view beats paying a whole
         # app restart between every pair of quizzes.
         #
+        # Gated two ways. First, the quiz-start marker text — though that
+        # alone proved too loose (client log, 2026-08-06): the same
+        # "Quizzes" text still reads as present on an ordinary in-quiz
+        # question screen, so the hunt kept firing there too. Second,
+        # SCROLL_HUNT_GRACE — a question mid-render (its own options
+        # still fading in) resolves on its own within a poll or two,
+        # long before this grace period is up, so it is never still
+        # "unrecognized" by the time the hunt is allowed to run. A
+        # genuinely below-the-fold Start page stays unrecognized far
+        # past it.
+        #
         # Hunted at most once per stuck episode (idle_since changes only
         # when something moved): every swipe costs a second, so hunting
         # on each poll of a dead screen would burn the idle budget that
         # triggers the recovering restart.
-        if scroll_hunted_at != idle_since:
+        quiz_start = looks_like_quiz_start(descs)
+        if (quiz_start and scroll_hunted_at != idle_since
+                and time.time() - idle_since >= SCROLL_HUNT_GRACE):
             scroll_hunted_at = idle_since
             if reveal_forward_button(driver) and tap_forward_button(driver):
                 # The hunt itself takes seconds, so by now the timer has
@@ -517,9 +611,24 @@ def auto_answer_loop(driver):
                 idle_since = time.time()
                 continue
 
-        if time.time() - idle_since > IDLE_LIMIT:
+        # A quiz takes a while to open after Start, and while it does the
+        # start card sits there stripped of its button — unrecognizable,
+        # and healthy. Restarting the app at 10s killed it mid-transition
+        # at every quiz boundary; left alone it opened in well under a
+        # minute (watched on the phone, 2026-08-04).
+        limit = LOADING_IDLE_LIMIT if quiz_start else IDLE_LIMIT
+        if time.time() - idle_since > limit:
+            # A slow transition can eat the whole budget before the
+            # settled screen gets a single look: the stats screen's
+            # entry animation plus the idle-wait tax on every dump
+            # left tap_forward_button zero attempts on the final
+            # screen (2026-08-04, twice). One last chance on a fresh
+            # dump before the restart hammer.
+            if tap_forward_button(driver) or rejoin_lesson_sequence(driver):
+                idle_since = time.time()
+                continue
             save_stuck_screen(driver, state.get("source"))
-            raise StuckScreenError(f"unrecognized screen for over {IDLE_LIMIT}s")
+            raise StuckScreenError(f"unrecognized screen for over {limit}s")
         time.sleep(0.5)
 
     print(f"\nDone. {state['correct']} correct, {state['incorrect']} incorrect this run.")
@@ -648,19 +757,18 @@ def main():
                 driver = connect_fresh_session()
                 time.sleep(3)
 
+                CONTEXT.update(phase="navigating into the course", question=None,
+                               answered=0)
                 wait = WebDriverWait(driver, 20)
                 wait_long = WebDriverWait(driver, 30)
                 if navigate_to_test(driver, wait, wait_long):
+                    CONTEXT["phase"] = "answering questions"
                     answer_until_done(driver)
                     return 0
                 # Navigation dead ends are retried like stuck screens —
                 # under the supervisor exit 0 means "course done".
                 raise StuckScreenError("navigation never reached the question screen")
             except (AppLostError, StuckScreenError) + watcher.CONNECTION_ERRORS as e:
-                if relaunches == 0:
-                    print("Still stuck after several app restarts — giving up.")
-                    return 1
-                relaunches -= 1
                 if isinstance(e, AppLostError):
                     reason = "left the foreground"
                 elif isinstance(e, StuckScreenError):
@@ -670,7 +778,16 @@ def main():
                     # mid-navigation (another runner on the same phone
                     # restarts it too).
                     reason = f"lost the device connection ({type(e).__name__})"
+                if relaunches == 0:
+                    print("Still stuck after several app restarts — giving up.")
+                    log_problem("gave up", f"app {reason} ({e}); "
+                                f"no restarts left after {APP_RELAUNCHES}")
+                    return 1
+                relaunches -= 1
+                if not isinstance(e, (AppLostError, StuckScreenError)):
                     clear_stale_instrumentation()
+                log_problem("app restarted", f"app {reason} ({e})",
+                            screen=LAST_STUCK_SCREEN[0])
                 print(f"The app {reason} ({e}) — restarting it...")
             except KeyboardInterrupt:
                 print("\nStopped by user.")

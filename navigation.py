@@ -15,22 +15,81 @@ from selenium.common.exceptions import (
 import locators as loc
 import config
 from question_handler import (
+    NEXT_LABELS,
     OPTION_IGNORE,
+    SURVEY_TV_LABELS,
+    looks_like_finish,
     looks_like_promo,
+    looks_like_survey,
+    looks_like_update_sheet,
     parse_screen,
     xpath_literal,
 )
 
-# Labels a close (X) icon may carry on offer/promo popups
-CLOSE_ICON_DESCS = ("X", "x", "✕", "×", "Close", "close")
+# Labels a close (X) icon may carry on offer/promo popups. "Dismiss" is
+# the 30%-discount countdown interstitial's own name for its full-screen
+# close surface (2026-08-04).
+CLOSE_ICON_DESCS = ("X", "x", "✕", "×", "Close", "close", "Dismiss")
 # Buttons never worth tapping when pushing through an unknown screen:
-# backwards navigation, popup closers, the report icon, and Retry — which
-# restarts an already-finished test instead of moving forward
-SKIP_BUTTONS = ("Go back", "Back", "null", "Retry") + CLOSE_ICON_DESCS
+# backwards navigation, popup closers, the report icon, Retry — which
+# restarts an already-finished test instead of moving forward — the
+# update sheet's Update and the Play Store nag's Update/Learn more,
+# which walk out to the Play Store, the language cross-sell sheet's CTA,
+# which walks out to a different course, the Daily Reward sheet's CLAIM
+# REWARD, an unproven CTA, and the video player's controls toggle:
+# tapping it only flips an overlay on and off, which reads as "screen
+# changed" and loops the tap-through forever (2026-08-04).
+SKIP_BUTTONS = ("Go back", "Back", "null", "Retry",
+                "Update", "Yangilash", "Learn more", "Men til oʻrganmoqchiman",
+                "CLAIM REWARD",
+                "Show player controls", "Hide player controls") + CLOSE_ICON_DESCS
 # Paywall/promo call-to-action buttons ("IELTSGA GOO!", "Subscribe ·
-# 318 000 soums", the Yillik/Oylik plan cards): tapping one leads deeper
-# into the subscription flow, never forward through the course.
-PROMO_CTA_MARKERS = ("IELTSGA", "VAQT TOPILAVERADI", "Subscribe", "soums")
+# 318 000 soums", the Yillik/Oylik plan cards) and the payment sheet's
+# "Toʻlovni amalga oshirish" (= make the payment — 2026-08-04, both
+# apostrophe renderings): tapping one leads deeper into the
+# subscription/payment flow, never forward through the course.
+# "Chegirmadan" fences the discount interstitial's own CTA — but this
+# button is only ever reached if its "Dismiss" close surface somehow
+# fails first (dismiss_popup tries that before any button gets tapped
+# at all), so an English render's CTA text has no confirmed fence here
+# yet. Not guessed at, unlike the entries above: a wrong guess could
+# fence out an unrelated legitimate button. Add its real text once an
+# English-language dump of this screen exists.
+PROMO_CTA_MARKERS = ("IELTSGA", "VAQT TOPILAVERADI", "Subscribe", "soums",
+                     "Toʻlovni", "To'lovni", "Chegirmadan")
+# The payment bottom sheet: a Flutter sheet over a "Scrim" whose only
+# Button is the payment CTA. Closed like any bottom sheet — Android back.
+PAYMENT_SHEET_MARKERS = ("Toʻlovni", "To'lovni")
+# The "want to learn a language too?" cross-sell bottom sheet (client
+# report, 2026-08-04 — stuck_screen_20260804_184527, captured mid a
+# matching quiz: the runner had no dismisser for it, sat idle past the
+# 10s limit, and the app restart that followed is what read on the
+# client's phone as the quiz being frozen). Same Scrim-backed sheet shape
+# as the payment sheet; its one Button offers to start a different
+# course and must never be tapped. Closed the same way — Android back.
+LANGUAGE_CROSS_SELL_MARKERS = ("Men til oʻrganmoqchiman",)
+# The Play Store "Update available" nag (client photo, 2026-08-06 — no
+# XML dump, so recognized by its own title text; a native system dialog
+# rather than a Flutter sheet, so no Scrim desc is assumed). Its "Update"
+# and "Learn more" buttons both lead out of the app and are never
+# tapped — closed with the Android back button like the sheets above.
+PLAY_STORE_UPDATE_MARKERS = ("Update available",)
+# The "Daily Reward" streak-claim bottom sheet (client photo, 2026-08-06
+# — no XML dump either). Seen covering the Profile screen; its CLAIM
+# REWARD button is an unproven CTA, so it is never tapped and the sheet
+# is closed the same way as the others — Android back.
+DAILY_REWARD_MARKERS = ("Daily Reward",)
+# The "How did you hear about us?" survey page: the labels that might
+# submit or skip it, tried in order. Guesses — the page's tree has never
+# been captured in a dump — so a page none of them clears falls through
+# to the usual restart-and-dump, which captures the real labels. (Which
+# option to choose lives with the detector: SURVEY_TV_LABELS.)
+SURVEY_FORWARD = ("Continue", "Submit", "Next", "Done", "Skip")
+# Labels that decline the ask-to-update bottom sheet, compared stripped
+# and case-blind. Guesses too (same never-captured caveat as the survey);
+# a sheet with none of them is closed with the Android back button — how
+# any bottom sheet closes.
+UPDATE_DECLINE = ("later", "not now", "skip", "cancel", "keyinroq")
 
 BOUNDS_RE = re.compile(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]")
 # The home screen's bottom navigation — its top-left gear icon is also an
@@ -69,6 +128,49 @@ class StuckScreenError(Exception):
     skips it."""
 
 
+class ChestOverlayDetected(Exception):
+    """A chest-reward screen is covering the tap target. Raised from
+    inside the target wait so the clear runs the moment the chest is
+    seen — waiting out the full presence timeout under a chest cost
+    minutes per encounter (2026-08-04)."""
+
+
+class DailyRewardOverlayDetected(Exception):
+    """The Daily Reward sheet is covering the tap target. Raised from
+    inside the target wait for the same reason as ChestOverlayDetected
+    (2026-08-06): the sheet's animate-in can land after
+    clear_launch_popups already found nothing to close, right as a
+    tap() wait starts polling the card underneath it. Left to the
+    except-TimeoutException fallback, closing it paid the wait's full
+    20-30s every time (confirmed in run.log — every Daily Reward close
+    that run went through the 'Cleared an overlay ... retrying' path,
+    never the fast one) — the sub-second confirm loop in
+    _closed_via_back never got a chance to matter."""
+
+
+def presence_or_chest(locator):
+    """Wait condition: the target element, else ChestOverlayDetected /
+    DailyRewardOverlayDetected.
+
+    The chest and Daily Reward markers are both unambiguous — no
+    legitimate navigation screen carries either — so a covering chest
+    or Daily Reward sheet never needs the full-patience timeout other
+    (X-dismissable) popups get.
+    """
+    def check(driver):
+        try:
+            return driver.find_element(*locator)
+        except NoSuchElementException:
+            pass
+        nodes = parse_screen(driver.page_source)
+        if on_chest_screen(nodes):
+            raise ChestOverlayDetected()
+        if any(m in d for _, d in nodes for m in DAILY_REWARD_MARKERS):
+            raise DailyRewardOverlayDetected()
+        return False
+    return check
+
+
 def tap(driver, waiter, locator, label, clear_rounds=3):
     """Tap the located element, clearing overlays that cover it.
 
@@ -76,17 +178,52 @@ def tap(driver, waiter, locator, label, clear_rounds=3):
     update, and it is a multi-screen sequence (chest → stars → Continue)
     — one clear is not enough, so clearing loops until the target
     appears or nothing clears anymore.
+
+    A chest is recognized mid-wait and its whole flow walked at once:
+    paying the full presence timeout per flow screen kept the phone on
+    "Tap on the chest!" for minutes (2026-08-04). The Daily Reward sheet
+    gets the same early recognition (2026-08-06), closed the moment it's
+    seen rather than only after the wait times out. Other overlays still
+    keep the full-patience wait — the missing target is the only
+    evidence they are in the way at all.
+
+    The click is inside the same retry loop as the lookup (2026-08-06):
+    right after a fresh app launch the screen can still be settling (a
+    live run's page-source size climbed across three checks in a row
+    before the tree stopped changing), so an element found a moment ago
+    can already be gone by the time the click lands. Every other
+    find-then-click site in this file already tolerates that
+    (tap_desc, tap_forward_button); this one used to let it escalate
+    all the way to main.py's app-restart handler instead — a ~15s
+    session relaunch onto a screen just as likely to race again, which
+    is what a "crash at the start" loop turned out to be.
     """
     while True:
         try:
-            el = waiter.until(EC.presence_of_element_located(locator))
+            if clear_rounds > 0:
+                el = waiter.until(presence_or_chest(locator))
+            else:
+                el = waiter.until(EC.presence_of_element_located(locator))
+            el.click()
             break
+        except ChestOverlayDetected:
+            clear_rounds -= 1
+            print(f"Chest-reward flow covering '{label}' — clearing it now")
+            clear_launch_popups(driver)
+        except DailyRewardOverlayDetected:
+            clear_rounds -= 1
+            print(f"Daily Reward sheet covering '{label}' — closing it now")
+            dismiss_popup(driver)
+        except StaleElementReferenceException:
+            if clear_rounds <= 0:
+                raise
+            clear_rounds -= 1
+            print(f"'{label}' went stale before the tap landed — re-locating")
         except TimeoutException:
             if clear_rounds <= 0 or not (dismiss_popup(driver) or tap_forward_button(driver)):
                 raise
             clear_rounds -= 1
             print(f"Cleared an overlay covering '{label}' — retrying")
-    el.click()
     print(f"Tapped: {label}")
     time.sleep(0.5)
 
@@ -210,8 +347,18 @@ def find_forward_button(nodes):
     quiz Start page offers "Start". Popups whose X icon has no label
     (e.g. the streak popup) offer "Continue", and the task-reward screen
     offers "Open chest". Returns the label, or None.
-    (The feedback sheet's exact "Next" is excluded — poll_once handles it.)
+    (The feedback sheet's exact "Next" is excluded — poll_once handles
+    it. During navigation, where no sheet can be up, tap_plain_next
+    covers the lesson pages' bare "Next".)
     """
+    # The survey's Continue belongs to dismiss_survey alone (a blind
+    # forward tap is swallowed until an option is chosen), and under the
+    # update sheet the covered screen's forward button is still in the
+    # tree but blocked. Each "successful" swallowed tap would reset the
+    # idle timer — stuck forever. Their dismissers own these screens.
+    descs = [d for _, d in nodes if d]
+    if looks_like_survey(descs) or looks_like_update_sheet(descs):
+        return None
     for _, d in nodes:
         if d.lower().startswith("next") and d != "Next":
             return d
@@ -227,6 +374,12 @@ def find_forward_button(nodes):
         )
         if module:
             return module
+    # The pass-stats screen ("Test completed" + See your answers,
+    # 2026-08-04): its next-lesson Button renders disabled and
+    # unlabeled, so "Lessons" — back to the list, where the sequence
+    # is rejoined — is the only way forward it offers.
+    if looks_like_finish(descs) and any(d == "Lessons" for _, d in nodes):
+        return "Lessons"
     # "Open chest" merged into a longer desc: return the full desc so the
     # content-desc xpath still finds the node to tap.
     return next((d for _, d in nodes if "Open chest" in d), None)
@@ -261,9 +414,25 @@ def tap_chest(driver):
     return False
 
 
+def desc_center(xml, label):
+    """Center (x, y) of the first node carrying this content-desc, or None."""
+    try:
+        root = ET.fromstring(xml)
+    except ET.ParseError:
+        return None
+    for el in root.iter():
+        if el.get("content-desc") == label:
+            m = BOUNDS_RE.fullmatch(el.get("bounds") or "")
+            if m:
+                x1, y1, x2, y2 = map(int, m.groups())
+                return (x1 + x2) // 2, (y1 + y2) // 2
+    return None
+
+
 def tap_forward_button(driver):
     """On a finish/start/reward screen, tap whatever moves forward."""
-    nodes = parse_screen(driver.page_source)
+    xml = driver.page_source
+    nodes = parse_screen(xml)
     label = find_forward_button(nodes)
     if not label:
         if chest_tap_caption(nodes):
@@ -276,7 +445,141 @@ def tap_forward_button(driver):
         time.sleep(1)
         return True
     except (NoSuchElementException, StaleElementReferenceException):
+        # The pass-stats screen: its tree kept SHOWING "Lessons" while
+        # find_element missed it for the whole 10s idle budget, twice
+        # on 2026-08-04 (a looping entry animation keeps the screen
+        # from ever settling). The tree already says where the button
+        # is — tap the spot.
+        center = desc_center(xml, label)
+        if center is None:
+            return False
+        driver.tap([center])
+        print(f"Tapped: {label} (by position)")
+        time.sleep(1)
+        return True
+
+
+def tap_desc(driver, label):
+    """Tap the element carrying this content-desc. False when it's gone."""
+    try:
+        xpath = f"//*[@content-desc={xpath_literal(label)}]"
+        driver.find_element(AppiumBy.XPATH, xpath).click()
+        return True
+    except (NoSuchElementException, StaleElementReferenceException):
         return False
+
+
+def tap_plain_next(driver):
+    """Tap a lesson page's bare "Next" while navigating.
+
+    find_forward_button hides exactly "Next" on purpose — on feedback
+    sheets that button belongs to poll_once. But no sheet can be up
+    during navigation, and the video lesson pages' forward button is
+    exactly "Next": left untapped, the tap-through fallback pokes the
+    video's "Show player controls" toggle instead and counts the
+    overlay flipping as progress, forever (2026-08-04). The survey and
+    update sheet keep their immunity — their forward buttons belong to
+    their dismissers, and a swallowed tap here would reset the
+    push-through loop forever.
+    """
+    descs = [d for _, d in parse_screen(driver.page_source) if d]
+    if looks_like_survey(descs) or looks_like_update_sheet(descs):
+        return False
+    label = next((d for d in descs if d in NEXT_LABELS), None)
+    if label and tap_desc(driver, label):
+        print(f"Tapped: {label} (lesson page)")
+        time.sleep(1)
+        return True
+    return False
+
+
+def dismiss_survey(driver, descs):
+    """Answer the "How did you hear about us?" survey and move past it.
+
+    The page pops up at unpredictable points. Its option Buttons make it
+    look like a question, but no answer ever brings a feedback sheet, so
+    the question machinery skips it (poll_once) and this handler owns
+    it: choose the client's answer (TV), then tap whatever submits or
+    skips the page. Succeeds only once the survey is actually gone — one
+    that refuses to clear returns False, so the idle timer keeps running
+    and the usual restart + dump captures the tree this handler guessed
+    wrong about.
+    """
+    choice = next(
+        (d for d in descs if d.strip().lower() in SURVEY_TV_LABELS), None
+    )
+    if choice and tap_desc(driver, choice):
+        print(f"Survey: chose '{choice.strip()}'")
+        time.sleep(0.5)
+        descs = [d for _, d in parse_screen(driver.page_source) if d]
+    if looks_like_survey(descs):
+        for label in SURVEY_FORWARD:
+            target = next((d for d in descs if d.strip() == label), None)
+            if target and tap_desc(driver, target):
+                print(f"Survey: tapped '{label}'")
+                time.sleep(1)
+                break
+        descs = [d for _, d in parse_screen(driver.page_source) if d]
+    if looks_like_survey(descs):
+        return False
+    print("Survey page cleared")
+    return True
+
+
+def dismiss_update_sheet(driver, descs):
+    """Close the ask-to-update bottom sheet without updating.
+
+    Updating is never the run's job — the Update button walks out to
+    the Play Store — so it is never tapped (and SKIP_BUTTONS fences it
+    out of the blind tap-through too). A decline button is tried first,
+    then the Android back button, the standard way a bottom sheet
+    closes. True only once the sheet is actually gone; one that refuses
+    to close returns False so the idle timer keeps running and the
+    usual restart + dump captures the real tree.
+    """
+    for label in UPDATE_DECLINE:
+        target = next((d for d in descs if d.strip().lower() == label), None)
+        if target and tap_desc(driver, target):
+            print(f"Update sheet: declined via '{target.strip()}'")
+            time.sleep(1)
+            break
+    else:
+        driver.back()
+        print("Update sheet: no decline button — pressed the Android back button")
+        time.sleep(1)
+    if looks_like_update_sheet([d for _, d in parse_screen(driver.page_source) if d]):
+        return False
+    print("Update sheet closed")
+    return True
+
+
+# Poll instead of a blind sleep after pressing back on a bottom sheet:
+# most close in well under a second, and a fixed time.sleep(1) here paid
+# that full second even when the close animation had already finished
+# (2026-08-06 — made the Daily Reward sheet visibly slow to clear on
+# every app launch). Same worst-case wait as before, just no longer paid
+# on the common fast path.
+BACK_CLOSE_POLL = 0.15
+BACK_CLOSE_TIMEOUT = 1.0
+
+
+def _closed_via_back(driver, markers, label):
+    """Press back, then confirm a marker-identified sheet is really gone.
+
+    True only once the markers are actually absent — a sheet that
+    refuses to close must still read as NOT dismissed so the idle timer
+    keeps running into the recovering restart.
+    """
+    driver.back()
+    print(f"{label} — pressed the Android back button")
+    deadline = time.time() + BACK_CLOSE_TIMEOUT
+    while True:
+        still = [d for _, d in parse_screen(driver.page_source) if d]
+        if not any(m in d for d in still for m in markers):
+            return True
+        if time.time() >= deadline:
+            return False
+        time.sleep(BACK_CLOSE_POLL)
 
 
 def dismiss_popup(driver):
@@ -288,9 +591,20 @@ def dismiss_popup(driver):
     The full-screen IELTS promo interstitial has no X at all (in any
     form), so a promo screen with no X left to try is dismissed with the
     Android back button — verified to land back on the covered screen.
+    The hear-about-us survey has no X either — it is answered and
+    submitted instead (dismiss_survey) — and the ask-to-update bottom
+    sheet is declined or backed out of (dismiss_update_sheet). The
+    payment sheet and the language-course cross-sell sheet share one
+    shape (a Scrim-backed sheet with a single CTA Button that must never
+    be tapped) and are both closed with the Android back button — as are
+    the Play Store "Update available" nag and the Daily Reward
+    streak-claim sheet, recognized by their own title text alone.
     """
     xml = driver.page_source
     nodes = parse_screen(xml)
+    descs = [d for _, d in nodes if d]
+    if looks_like_survey(descs):
+        return dismiss_survey(driver, descs)
     icon = find_close_icon(nodes)
     if icon:
         try:
@@ -301,7 +615,28 @@ def dismiss_popup(driver):
             return True
         except (NoSuchElementException, StaleElementReferenceException):
             return False
-    descs = [d for _, d in nodes if d]
+    if looks_like_update_sheet(descs):
+        return dismiss_update_sheet(driver, descs)
+    # The payment bottom sheet (2026-08-04): its "Toʻlovni amalga
+    # oshirish" button must NEVER be tapped, and its unlabeled icon is
+    # a payment logo, not an X. Back out, and only claim success once
+    # the sheet is actually gone — one that refuses to close falls
+    # through to the recovering restart with its tree saved.
+    if any(d == "Scrim" for d in descs) and any(
+            m in d for d in descs for m in PAYMENT_SHEET_MARKERS):
+        return _closed_via_back(driver, PAYMENT_SHEET_MARKERS, "Payment sheet")
+    if any(d == "Scrim" for d in descs) and any(
+            m in d for d in descs for m in LANGUAGE_CROSS_SELL_MARKERS):
+        return _closed_via_back(driver, LANGUAGE_CROSS_SELL_MARKERS,
+                                 "Language cross-sell sheet")
+    # A native system dialog, not a Flutter sheet — no Scrim desc to
+    # check for. Its "Update"/"Learn more" buttons both lead out of the
+    # app, so back is used directly rather than tapping either.
+    if any(m in d for d in descs for m in PLAY_STORE_UPDATE_MARKERS):
+        return _closed_via_back(driver, PLAY_STORE_UPDATE_MARKERS,
+                                 "Play Store update nag")
+    if any(m in d for d in descs for m in DAILY_REWARD_MARKERS):
+        return _closed_via_back(driver, DAILY_REWARD_MARKERS, "Daily Reward sheet")
     if blind_close_unsafe(nodes) or not looks_like_known_popup(descs):
         return False
     center = find_unlabeled_close_center(xml)
@@ -314,7 +649,13 @@ def dismiss_popup(driver):
         driver.back()
         print("Promo screen with no X — pressed the Android back button")
         time.sleep(1)
-        return True
+        # Success only once the promo is really gone: a back press the
+        # screen swallows would otherwise be claimed as a dismissal
+        # every cycle, resetting the idle timer forever and locking the
+        # run out of its recovering restart.
+        return not looks_like_promo(
+            [d for _, d in parse_screen(driver.page_source) if d]
+        )
     return False
 
 
@@ -354,6 +695,13 @@ def forward_tap_label(nodes):
     pages' button is exactly "Next", and no feedback sheet is involved
     when a screen is being waited out.
     """
+    # Nothing to re-tap on the survey or under the update sheet — their
+    # buttons are their dismissers' to press, and one that can't be
+    # cleared should read as a dead screen so the wait gives up into the
+    # recovering restart.
+    descs = [d for _, d in nodes if d]
+    if looks_like_survey(descs) or looks_like_update_sheet(descs):
+        return None
     for _, d in nodes:
         if d.lower().startswith("next"):
             return d
@@ -480,6 +828,20 @@ def open_next_in_sequence(driver):
     return True
 
 
+def rejoin_lesson_sequence(driver):
+    """On a lessons list, reopen whatever the sequence says is next.
+
+    The answering loop lands here when the pass-stats screen's only
+    enabled button, "Lessons", was its way forward (2026-08-04). The
+    list offers that loop nothing to answer and nothing forward to
+    tap, so reopening the sequence is what beats an app restart.
+    """
+    nodes = parse_screen(driver.page_source)
+    if len([d for _, d in nodes if LESSON_ITEM_RE.match(d)]) < 2:
+        return False
+    return open_next_in_sequence(driver)
+
+
 def clear_launch_popups(driver, rounds=5):
     """Close popups that cover the home screen right after app launch
     (streak screen, Pro offer, the chest-reward flow) — X icon first,
@@ -518,13 +880,46 @@ def reveal_card(driver, desc):
     phone the home screen's collection grid puts the Program Certificate
     card below the screen, so scrolling is what makes it real. A card
     already in view costs no swipe.
+
+    A chest-reward flow covering the screen is walked first: it cannot
+    scroll, so swiping at it only burned the whole swipe budget while
+    the chest sat there (2026-08-04).
     """
     for _ in range(REVEAL_SWIPES):
-        if card_on_screen(driver, desc):
+        nodes = parse_screen(driver.page_source)
+        if any(d == desc for _, d in nodes):
             return True
+        if on_chest_screen(nodes):
+            clear_launch_popups(driver)
+            continue
         if not scroll_down(driver):
             break
     return card_on_screen(driver, desc)
+
+
+# The quiz Start page, which is also what a quiz looks like while it
+# opens: tapping Start removes the button, and for a few seconds the
+# card is all that is left — no button, no question, nothing to tap.
+QUIZ_START_MARKERS = ("Press the start button", "Quizzes")
+
+
+def looks_like_quiz_start(descs):
+    """True on the quiz start card, with or without its Start button."""
+    return any(m in d for d in descs for m in QUIZ_START_MARKERS)
+
+
+def has_forward_control(nodes):
+    """True when something on screen already moves the run forward.
+
+    find_forward_button hides a plain "Next" deliberately — poll_once
+    owns that button. For deciding whether to SCROLL, though, a visible
+    "Next" absolutely counts: a lesson page carries one, and swiping
+    past it drags it out of the tree, stranding the runner on a page it
+    only had to tap (seen on a client's phone, 2026-08-04).
+    """
+    if find_forward_button(nodes):
+        return True
+    return any(d in NEXT_LABELS for _, d in nodes)
 
 
 def reveal_forward_button(driver):
@@ -533,10 +928,11 @@ def reveal_forward_button(driver):
     Same off-screen blindness as reveal_card, hit one screen deeper: a
     quiz Start page's button sits under the info card, so on a tall
     phone the runner sees no Start, no question and nothing to tap, and
-    strands on a screen a human would simply scroll.
+    strands on a screen a human would simply scroll. Screens that
+    already show a way forward are left alone.
     """
     for _ in range(REVEAL_SWIPES):
-        if find_forward_button(parse_screen(driver.page_source)):
+        if has_forward_control(parse_screen(driver.page_source)):
             return True
         if not scroll_down(driver):
             break
@@ -631,14 +1027,17 @@ def push_through_to_start(driver, attempts=5):
                 continue
 
             # A finish/start/streak screen: its forward button (Next ... /
-            # Start / Continue) beats blind-tapping in tree order.
-            if tap_forward_button(driver):
+            # Start / Continue) beats blind-tapping in tree order — and a
+            # video lesson page's bare "Next" counts here too, since no
+            # feedback sheet can be up during navigation.
+            if tap_forward_button(driver) or tap_plain_next(driver):
                 continue
 
             # Nothing actionable in the tree yet — the button may simply
             # be below the fold on a tall screen, where it is absent
             # rather than merely out of reach.
-            if reveal_forward_button(driver) and tap_forward_button(driver):
+            if reveal_forward_button(driver) and (
+                    tap_forward_button(driver) or tap_plain_next(driver)):
                 continue
 
             print("No Start button — tapping through this screen...")

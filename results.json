@@ -4359,36 +4359,25 @@
   },
   {
     "n": 227,
-    "time": "2026-08-02 18:44:17",
+    "time": "2026-08-04 16:51:18",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Kitobda mundarija yo‘q.",
     "options": [
       "There",
-      "is",
-      "no ",
-      "contents",
-      "content",
       "book.",
       "plans",
+      "is",
+      "content",
+      "no ",
+      "contents",
       "in ",
       "the ",
       "hook"
     ],
     "correct_answer": [
-      "Hide player controls",
-      "Unmute",
-      "Playback Settings",
-      "Rewind 10 seconds",
-      "Play video",
-      "Fast forward 10 seconds",
-      "Time elapsed 0 secondsTime duration 0 seconds",
-      "Enter full screen",
-      "Dars 77 Not+anybody vs Nobody",
-      "While \"not + anything\" and \"nothing\" are negative forms used to express the absence of things or objects, \"not + anybody / anyone\" and \"nobody / no one\" are used to express the absence of people or individuals.",
-      "Examples with \"not + anything\" and \"nothing\":",
-      "1. - What's in the bag?",
-      "- There isn't anything in the bag."
+      "There",
+      "There is no contents in the book."
     ]
   },
   {
@@ -4473,29 +4462,25 @@
   },
   {
     "n": 233,
-    "time": "2026-08-02 18:45:43",
+    "time": "2026-08-04 16:52:12",
     "type": "fill_the_blank",
-    "result": "other",
+    "result": "incorrect",
     "question": "Sumkada hech nima yo‘q.",
     "options": [
-      "There ",
-      "nothing",
-      "has",
-      "is",
       "in ",
-      "the ",
-      "It",
-      "anything",
+      "is",
+      "nothing",
       "bag.",
-      "pocket"
+      "the ",
+      "pocket",
+      "has",
+      "It",
+      "There ",
+      "anything"
     ],
     "correct_answer": [
-      "Play video",
-      "Hide player controls",
-      "Dars 78 Somebody/ Anything/ Nowhere",
-      "\"Somebody\" and \"someone\" are used interchangeably to refer to an unspecified person. Similarly, \"anybody\" and \"anyone\" can be used interchangeably to refer to any person in a general sense. On the other hand, \"nobody\" and \"no one\" are also interchangeable and indicate the absence of any person.",
-      "Examples:",
-      "1. - Is there anybody (or anyone) in the garden?"
+      "in ",
+      "There is nothing in the bag."
     ]
   },
   {
@@ -6450,22 +6435,27 @@
   },
   {
     "n": 331,
-    "time": "2026-08-02 19:40:50",
+    "time": "2026-08-06 15:00:18",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Qalam menga ruchkadan ko‘ra qulayroq.",
     "options": [
-      "Pen",
-      "comfortable",
-      "is ",
-      "than ",
-      "a pen.",
-      "was",
+      "more ",
       "A pencil",
-      "more "
+      "is ",
+      "was",
+      "than ",
+      "comfortable",
+      "a pen.",
+      "Pen"
     ],
     "correct_answer": [
-      "Pen",
+      "A pencil",
+      "is ",
+      "more ",
+      "comfortable",
+      "than ",
+      "a pen.",
       "A pencil is more comfortable than a pen."
     ]
   },
@@ -6808,24 +6798,35 @@
   },
   {
     "n": 349,
-    "time": "2026-08-03 01:28:14",
+    "time": "2026-08-06 15:03:06",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Salima basketbolni yaxshi o‘ynaydi. Lekin u jamoadagi eng zo‘ri emas.",
     "options": [
-      "well.",
-      "in",
-      "isn't",
-      "Salima ",
-      "basketball",
-      "But",
-      "best",
-      "the ",
-      "the team.",
       "plays",
-      "she"
+      "basketball",
+      "she",
+      "best",
+      "well.",
+      "Salima ",
+      "the team.",
+      "in",
+      "But",
+      "the ",
+      "isn't"
     ],
     "correct_answer": [
+      "Salima ",
+      "plays",
+      "basketball",
+      "well.",
+      "But",
+      "she",
+      "isn't",
+      "the ",
+      "best",
+      "in",
+      "the team.",
       "Salima plays basketball well. But she isn't the best in the team."
     ]
   },
@@ -7313,27 +7314,35 @@
   },
   {
     "n": 375,
-    "time": "2026-08-03 01:30:25",
+    "time": "2026-08-06 15:06:56",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Charchagan ko‘rinasan. Menimcha sen juda qattiq ishlagansan.",
     "options": [
-      "much",
+      "think",
+      "You",
+      "I",
       "hard.",
-      "look",
-      "too",
       "you",
       "tired.",
+      "look",
+      "thinks",
+      "too",
       "worked",
-      "think",
       "hardly",
       "works",
-      "I",
-      "You",
-      "thinks"
+      "much"
     ],
     "correct_answer": [
-      "much",
+      "You",
+      "look",
+      "tired.",
+      "I",
+      "think",
+      "you",
+      "worked",
+      "too",
+      "hard.",
       "You look tired. I think you worked too hard."
     ]
   },
@@ -7474,22 +7483,27 @@
   },
   {
     "n": 382,
-    "time": "2026-08-03 01:32:07",
+    "time": "2026-08-06 15:07:28",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Mening talabalarim ingliz tilida juda yaxshi gapirishadi.",
     "options": [
-      "well.",
-      "very",
       "good",
-      "speak",
-      "speaks",
+      "students",
       "My",
+      "speaks",
+      "well.",
+      "speak",
       "English",
-      "pupils",
-      "students"
+      "very",
+      "pupils"
     ],
     "correct_answer": [
+      "My",
+      "students",
+      "speak",
+      "English",
+      "very",
       "well.",
       "My students speak English very well."
     ]
@@ -7678,21 +7692,25 @@
   },
   {
     "n": 392,
-    "time": "2026-08-03 01:33:48",
+    "time": "2026-08-06 15:09:58",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Meni ikkita singlim bor.",
     "options": [
+      "brothers",
+      "got",
+      "three",
       "have",
       "I",
       "two",
-      "got",
-      "sisters.",
-      "three",
-      "brothers"
+      "sisters."
     ],
     "correct_answer": [
+      "I",
       "have",
+      "got",
+      "two",
+      "sisters.",
       "I have got two sisters."
     ]
   },
@@ -7823,23 +7841,28 @@
   },
   {
     "n": 400,
-    "time": "2026-08-03 01:34:36",
+    "time": "2026-08-06 15:11:07",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Aziz allaqachon bu filmni ko‘rib bo‘ldi.",
     "options": [
-      "Aziz",
-      "see",
-      "has",
       "theatre",
-      "have",
-      "already",
+      "see",
+      "seen",
       "film.",
+      "Aziz",
       "this",
-      "seen"
+      "has",
+      "have",
+      "already"
     ],
     "correct_answer": [
       "Aziz",
+      "has",
+      "already",
+      "seen",
+      "this",
+      "film.",
       "Aziz has already seen this film."
     ]
   },
@@ -8148,25 +8171,31 @@
   },
   {
     "n": 417,
-    "time": "2026-08-03 01:36:06",
+    "time": "2026-08-06 15:12:02",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Buni menga bera olasizmi?",
     "options": [
-      "Can",
-      "your",
-      "gives",
-      "you",
-      "me",
-      "it",
-      "I",
-      "the",
       "to",
+      "I",
+      "Can",
       "give",
-      "?"
+      "your",
+      "it",
+      "the",
+      "?",
+      "me",
+      "gives",
+      "you"
     ],
     "correct_answer": [
       "Can",
+      "you",
+      "give",
+      "it",
+      "to",
+      "me",
+      "?",
       "Can you give it to me ?"
     ]
   },
@@ -9005,25 +9034,32 @@
   },
   {
     "n": 459,
-    "time": "2026-08-03 01:42:20",
+    "time": "2026-08-06 15:21:07",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Men Jasminani universitetga ketish yo‘lida ko‘rdim.",
     "options": [
       "the",
-      "the way",
+      "Jasmina",
+      "see",
+      "on",
+      "saw",
+      "university.",
       "at",
       "to",
+      "I",
       "a",
-      "Jasmina",
-      "saw",
-      "on",
-      "university.",
-      "see",
-      "I"
+      "the way"
     ],
     "correct_answer": [
+      "I",
+      "saw",
+      "Jasmina",
+      "on",
+      "the way",
+      "to",
       "the",
+      "university.",
       "I saw Jasmina on the way to the university."
     ]
   },
@@ -9681,25 +9717,31 @@
   },
   {
     "n": 492,
-    "time": "2026-08-03 01:46:30",
+    "time": "2026-08-06 15:25:50",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Kitobni sumkangizning ichidan oling.",
     "options": [
-      "your",
       "at",
-      "books",
-      "the",
       "out",
-      "of",
-      "bag",
-      "book",
       "Take",
-      "in",
-      "pocket"
+      "your",
+      "bag",
+      "the",
+      "books",
+      "of",
+      "book",
+      "pocket",
+      "in"
     ],
     "correct_answer": [
+      "Take",
+      "the",
+      "book",
+      "out",
+      "of",
       "your",
+      "bag",
       "Take the book out of your bag"
     ]
   },
@@ -10259,24 +10301,30 @@
   },
   {
     "n": 521,
-    "time": "2026-08-02 20:06:43",
+    "time": "2026-08-06 15:30:07",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Ish vaqtida menga yozmang.",
     "options": [
-      "the",
-      "during",
-      "when",
-      "you",
       "me",
-      "to",
-      "Do not",
       "write",
+      "the",
       "work.",
+      "to",
+      "you",
+      "when",
+      "during",
+      "Do not",
       "Do"
     ],
     "correct_answer": [
+      "Do not",
+      "write",
+      "to",
+      "me",
+      "during",
       "the",
+      "work.",
       "Do not write to me during the work."
     ]
   },
@@ -11271,25 +11319,33 @@
   },
   {
     "n": 574,
-    "time": "2026-08-02 20:12:20",
+    "time": "2026-08-06 15:39:46",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Maktabni bitirganimdan keyin boshqalarga ingliz tilini o‘rgataman.",
     "options": [
-      " to",
-      "teach",
+      " I ",
+      "finish",
       "school,",
       "After",
-      "you",
-      "finish",
-      "others.",
-      " I ",
-      "Before",
       " I will ",
+      "Before",
+      "others.",
+      "you",
+      " to",
+      "teach",
       " English "
     ],
     "correct_answer": [
+      "After",
+      " I ",
+      "finish",
+      "school,",
+      " I will ",
+      "teach",
+      " English ",
       " to",
+      "others.",
       "After I finish school, I will teach English to others."
     ]
   },
@@ -11597,21 +11653,27 @@
   },
   {
     "n": 593,
-    "time": "2026-08-02 20:14:14",
+    "time": "2026-08-06 15:43:05",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Agar o'zim o'qiydigan maktabga borsam, do‘stlarim bilan uchrashaman.",
     "options": [
-      "I will",
-      "meet",
-      "where I study,",
-      "school",
       "go to",
+      "school",
+      "If I",
+      "meet",
       "my friends.",
-      "If I"
+      "I will",
+      "where I study,"
     ],
     "correct_answer": [
+      "If I",
+      "go to",
+      "school",
+      "where I study,",
       "I will",
+      "meet",
+      "my friends.",
       "If I go to school where I study, I will meet my friends."
     ]
   },
@@ -11759,25 +11821,31 @@
   },
   {
     "n": 603,
-    "time": "2026-08-03 01:57:38",
+    "time": "2026-08-06 15:44:28",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "U (qiz bola) ko‘targan sumka og‘ir.",
     "options": [
-      "is ",
-      "heavy.",
       "he",
       "when",
-      " is carrying ",
-      " bag ",
-      "The",
-      "whose",
       "who",
+      "whose",
+      " bag ",
       "which",
+      "heavy.",
+      "The",
+      "is ",
+      " is carrying ",
       "she"
     ],
     "correct_answer": [
+      "The",
+      " bag ",
+      "which",
+      "she",
+      " is carrying ",
       "is ",
+      "heavy.",
       "The bag which she is carrying is heavy."
     ]
   },
@@ -12063,20 +12131,23 @@
   },
   {
     "n": 618,
-    "time": "2026-08-02 20:17:53",
+    "time": "2026-08-06 15:47:06",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Mohina pianino chala oladi.",
     "options": [
-      "playing",
-      " the piano.",
       "can",
+      "playing",
+      "play",
       "not",
       "Mohina",
-      "play"
+      " the piano."
     ],
     "correct_answer": [
-      "playing",
+      "Mohina",
+      "can",
+      "play",
+      " the piano.",
       "Mohina can play the piano."
     ]
   },
@@ -12260,21 +12331,24 @@
   },
   {
     "n": 627,
-    "time": "2026-08-03 02:01:25",
+    "time": "2026-08-06 15:48:01",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "U tez yugura oladi.",
     "options": [
-      "fastly",
-      "fast.",
       "run ",
+      "fast.",
       "can",
-      "He",
+      "I",
       "not",
-      "I"
+      "fastly",
+      "He"
     ],
     "correct_answer": [
-      "fastly",
+      "He",
+      "can",
+      "run ",
+      "fast.",
       "He can run fast."
     ]
   },
@@ -12587,24 +12661,29 @@
   },
   {
     "n": 646,
-    "time": "2026-08-03 02:04:29",
+    "time": "2026-08-06 15:51:04",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Ruchkangizni olsam maylimi?",
     "options": [
-      "pen",
-      "your",
-      "May",
-      "my",
       "take",
-      "I",
+      "pen",
+      "my",
       "might",
       "you",
       "pencil",
-      "?"
+      "?",
+      "I",
+      "your",
+      "May"
     ],
     "correct_answer": [
+      "May",
+      "I",
+      "take",
+      "your",
       "pen",
+      "?",
       "May I take your pen ?"
     ]
   },
@@ -13091,17 +13170,21 @@
   },
   {
     "n": 673,
-    "time": "2026-08-02 20:23:31",
+    "time": "2026-08-06 15:59:05",
     "type": "multiple_choice",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Choose the correct sentence.",
     "options": [
-      "I'd better to go to bed early.",
-      "It's about time to go bed early.",
-      "I'd better go to bed early."
+      "I'd better eat something before going out.",
+      "I'd better eating something before going out.",
+      "It's about time to eat something before going out."
     ],
     "correct_answer": [
-      "I'd better go to bed early."
+      "Choose the correct sentence.",
+      "I'd better eat something before going out.",
+      "I'd better eat something before going out.",
+      "I'd better eating something before going out.",
+      "It's about time to eat something before going out."
     ]
   },
   {
@@ -13367,26 +13450,37 @@
   },
   {
     "n": 689,
-    "time": "2026-08-03 15:09:48",
+    "time": "2026-08-06 16:02:08",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Agar men suzishni bilsam, daryoda siz bilan cho‘milishim mumkin edi.",
     "options": [
-      "to ",
-      "swim",
-      "how ",
-      "If",
-      "I",
-      "river.",
-      "the",
-      "swim with ",
       "I could",
-      "you",
+      "in ",
+      "If",
+      "the",
+      "how ",
+      "swim",
+      "river.",
+      "I",
+      "to ",
       "knew",
-      "in "
+      "swim with ",
+      "you"
     ],
     "correct_answer": [
+      "If",
+      "I",
+      "knew",
+      "how ",
       "to ",
+      "swim",
+      "I could",
+      "swim with ",
+      "you",
+      "in ",
+      "the",
+      "river.",
       "If I knew how to swim I could swim with you in the river."
     ]
   },
@@ -13733,22 +13827,26 @@
   },
   {
     "n": 707,
-    "time": "2026-08-02 20:27:59",
+    "time": "2026-08-06 16:04:47",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Men savolga javob berishga harakat qildim.",
     "options": [
-      "I",
-      "the",
       "answer",
-      "to answer",
-      "answering",
       "tried",
+      "to answer",
       "question.",
-      "trying"
+      "answering",
+      "the",
+      "trying",
+      "I"
     ],
     "correct_answer": [
       "I",
+      "tried",
+      "to answer",
+      "the",
+      "question.",
       "I tried to answer the question."
     ]
   },
