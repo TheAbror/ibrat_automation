@@ -33,12 +33,15 @@ CLOSE_ICON_DESCS = ("X", "x", "✕", "×", "Close", "close", "Dismiss")
 # Buttons never worth tapping when pushing through an unknown screen:
 # backwards navigation, popup closers, the report icon, Retry — which
 # restarts an already-finished test instead of moving forward — the
-# update sheet's Update, which walks out to the Play Store, and the
-# video player's controls toggle: tapping it only flips an overlay on
-# and off, which reads as "screen changed" and loops the tap-through
-# forever (2026-08-04).
+# update sheet's Update and the Play Store nag's Update/Learn more,
+# which walk out to the Play Store, the language cross-sell sheet's CTA,
+# which walks out to a different course, the Daily Reward sheet's CLAIM
+# REWARD, an unproven CTA, and the video player's controls toggle:
+# tapping it only flips an overlay on and off, which reads as "screen
+# changed" and loops the tap-through forever (2026-08-04).
 SKIP_BUTTONS = ("Go back", "Back", "null", "Retry",
-                "Update", "Yangilash",
+                "Update", "Yangilash", "Learn more", "Men til oʻrganmoqchiman",
+                "CLAIM REWARD",
                 "Show player controls", "Hide player controls") + CLOSE_ICON_DESCS
 # Paywall/promo call-to-action buttons ("IELTSGA GOO!", "Subscribe ·
 # 318 000 soums", the Yillik/Oylik plan cards) and the payment sheet's
@@ -50,6 +53,25 @@ PROMO_CTA_MARKERS = ("IELTSGA", "VAQT TOPILAVERADI", "Subscribe", "soums",
 # The payment bottom sheet: a Flutter sheet over a "Scrim" whose only
 # Button is the payment CTA. Closed like any bottom sheet — Android back.
 PAYMENT_SHEET_MARKERS = ("Toʻlovni", "To'lovni")
+# The "want to learn a language too?" cross-sell bottom sheet (client
+# report, 2026-08-04 — stuck_screen_20260804_184527, captured mid a
+# matching quiz: the runner had no dismisser for it, sat idle past the
+# 10s limit, and the app restart that followed is what read on the
+# client's phone as the quiz being frozen). Same Scrim-backed sheet shape
+# as the payment sheet; its one Button offers to start a different
+# course and must never be tapped. Closed the same way — Android back.
+LANGUAGE_CROSS_SELL_MARKERS = ("Men til oʻrganmoqchiman",)
+# The Play Store "Update available" nag (client photo, 2026-08-06 — no
+# XML dump, so recognized by its own title text; a native system dialog
+# rather than a Flutter sheet, so no Scrim desc is assumed). Its "Update"
+# and "Learn more" buttons both lead out of the app and are never
+# tapped — closed with the Android back button like the sheets above.
+PLAY_STORE_UPDATE_MARKERS = ("Update available",)
+# The "Daily Reward" streak-claim bottom sheet (client photo, 2026-08-06
+# — no XML dump either). Seen covering the Profile screen; its CLAIM
+# REWARD button is an unproven CTA, so it is never tapped and the sheet
+# is closed the same way as the others — Android back.
+DAILY_REWARD_MARKERS = ("Daily Reward",)
 # The "How did you hear about us?" survey page: the labels that might
 # submit or skip it, tried in order. Guesses — the page's tree has never
 # been captured in a dump — so a page none of them clears falls through
@@ -495,7 +517,12 @@ def dismiss_popup(driver):
     Android back button — verified to land back on the covered screen.
     The hear-about-us survey has no X either — it is answered and
     submitted instead (dismiss_survey) — and the ask-to-update bottom
-    sheet is declined or backed out of (dismiss_update_sheet).
+    sheet is declined or backed out of (dismiss_update_sheet). The
+    payment sheet and the language-course cross-sell sheet share one
+    shape (a Scrim-backed sheet with a single CTA Button that must never
+    be tapped) and are both closed with the Android back button — as are
+    the Play Store "Update available" nag and the Daily Reward
+    streak-claim sheet, recognized by their own title text alone.
     """
     xml = driver.page_source
     nodes = parse_screen(xml)
@@ -526,6 +553,28 @@ def dismiss_popup(driver):
         time.sleep(1)
         still = [d for _, d in parse_screen(driver.page_source) if d]
         return not any(m in d for d in still for m in PAYMENT_SHEET_MARKERS)
+    if any(d == "Scrim" for d in descs) and any(
+            m in d for d in descs for m in LANGUAGE_CROSS_SELL_MARKERS):
+        driver.back()
+        print("Language cross-sell sheet — pressed the Android back button")
+        time.sleep(1)
+        still = [d for _, d in parse_screen(driver.page_source) if d]
+        return not any(m in d for d in still for m in LANGUAGE_CROSS_SELL_MARKERS)
+    # A native system dialog, not a Flutter sheet — no Scrim desc to
+    # check for. Its "Update"/"Learn more" buttons both lead out of the
+    # app, so back is used directly rather than tapping either.
+    if any(m in d for d in descs for m in PLAY_STORE_UPDATE_MARKERS):
+        driver.back()
+        print("Play Store update nag — pressed the Android back button")
+        time.sleep(1)
+        still = [d for _, d in parse_screen(driver.page_source) if d]
+        return not any(m in d for d in still for m in PLAY_STORE_UPDATE_MARKERS)
+    if any(m in d for d in descs for m in DAILY_REWARD_MARKERS):
+        driver.back()
+        print("Daily Reward sheet — pressed the Android back button")
+        time.sleep(1)
+        still = [d for _, d in parse_screen(driver.page_source) if d]
+        return not any(m in d for d in still for m in DAILY_REWARD_MARKERS)
     if blind_close_unsafe(nodes) or not looks_like_known_popup(descs):
         return False
     center = find_unlabeled_close_center(xml)

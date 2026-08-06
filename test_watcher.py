@@ -1601,16 +1601,19 @@ class TestSaveResults(unittest.TestCase):
         self.assertEqual(saved[1]["question"], "Q2")
 
     def test_save_folds_repeats_into_one_entry_per_question(self):
+        # The first entry is CONFIRMED correct here, so it must win over
+        # the repeat regardless — the "an incorrect first entry can be
+        # superseded" case has its own dedicated tests below.
         results = [
             {"question": "Q1", "type": "multiple_choice", "options": ["a", "b"],
-             "result": "incorrect", "correct_answer": ["b"]},
+             "result": "correct", "correct_answer": ["b"]},
             {"question": "Q2", "type": "multiple_choice", "options": ["x", "y"]},
             {"question": "Q1", "type": "multiple_choice", "options": ["a", "b"],
-             "result": "correct", "correct_answer": ["b"]},
+             "result": "correct", "correct_answer": ["b"], "time": "later"},
         ]
         watcher.save_results(results)
         self.assertEqual([e["question"] for e in results], ["Q1", "Q2"])
-        self.assertEqual(results[0]["result"], "incorrect", "first entry wins")
+        self.assertNotEqual(results[0].get("time"), "later", "first entry wins")
         self.assertEqual(results, watcher.load_results(),
                          "in-memory list stays the saved list")
 
@@ -1624,6 +1627,37 @@ class TestSaveResults(unittest.TestCase):
         deduped = qh.dedupe_results(results)
         self.assertEqual(len(deduped), 1)
         self.assertEqual(deduped[0]["correct_answer"], ["b"])
+
+    def test_dedupe_lets_a_fresh_reveal_replace_an_unconfirmed_wrong_answer(self):
+        # Live 2026-08-06 run: a fill_the_blank answer learned from an
+        # incorrect attempt (n=267, 2026-08-02) kept reproducing the same
+        # wrong sentence every time the question recurred — dedupe never
+        # revisited it because it already "taught" something. An entry
+        # whose own result was incorrect is not yet confirmed, so a fresh
+        # teaching repeat must be allowed through.
+        options = ["of", "the", "came", "students", "None", "lesson.", "the", "to"]
+        first = {"question": "Talabalarning hech biri darsga kelmadi.",
+                 "type": "fill_the_blank", "options": options,
+                 "result": "incorrect",
+                 "correct_answer": ["None of the students came to the lesson."]}
+        repeat = {"question": "Talabalarning hech biri darsga kelmadi.",
+                  "type": "fill_the_blank", "options": options,
+                  "result": "incorrect",
+                  "correct_answer": ["None of the lesson. came to the students"]}
+        deduped = qh.dedupe_results([first, repeat])
+        self.assertEqual(deduped, [repeat])
+
+    def test_dedupe_never_touches_a_confirmed_correct_answer(self):
+        # The common case must stay stable: once an answer has actually
+        # worked, later repeats (even unrelated reveals) never displace it.
+        first = {"question": "Q1", "type": "multiple_choice",
+                  "options": ["a", "b"], "result": "correct",
+                  "correct_answer": ["b"]}
+        repeat = {"question": "Q1", "type": "multiple_choice",
+                   "options": ["a", "b"], "result": "incorrect",
+                   "correct_answer": ["a"]}
+        deduped = qh.dedupe_results([first, repeat])
+        self.assertEqual(deduped, [first])
 
     def test_dedupe_keeps_the_first_entry_untouched_when_a_question_repeats(self):
         first = {"question": "Q1", "time": "2026-08-02 15:44:12",
@@ -4405,6 +4439,41 @@ PAYMENT_SHEET_XML = """<hierarchy>
   <node class="android.widget.Button" bounds="[42,1397][678,1495]" clickable="true" content-desc="Toʻlovni amalga oshirish"/>
 </hierarchy>"""
 
+# The language-course cross-sell bottom sheet (stuck_screen_20260804_184527,
+# captured while the "on:" context still read a matching question — the
+# runner had no dismisser for this sheet, so it idled past the 10s limit
+# and the app restart that followed looked, on the phone, like the quiz
+# had frozen). Same Scrim-backed shape as the payment sheet.
+LANGUAGE_CROSS_SELL_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[0,0][720,623]" clickable="true" content-desc="Scrim"/>
+  <node class="android.widget.ImageView" bounds="[0,623][126,749]" clickable="true" content-desc=""/>
+  <node class="android.widget.Button" bounds="[42,1397][678,1495]" clickable="true" content-desc="Men til oʻrganmoqchiman"/>
+</hierarchy>"""
+
+# The Play Store "Update available" nag (client photo, 2026-08-06 — a
+# native system dialog, never captured as an XML dump, so this is a
+# best-effort reconstruction from the screenshot: title, body text, an
+# unlabeled close icon, and "Learn more" / "Update" buttons that both
+# lead out of the app).
+PLAY_STORE_UPDATE_XML = """<hierarchy>
+  <node class="android.widget.TextView" bounds="[64,300][500,360]" clickable="false" content-desc="Update available"/>
+  <node class="android.widget.TextView" bounds="[64,420][1200,460]" clickable="false" content-desc="To use this app, download the latest version."/>
+  <node class="android.widget.ImageView" bounds="[1320,340][1390,410]" clickable="true" content-desc=""/>
+  <node class="android.widget.Button" bounds="[520,980][940,1060]" clickable="true" content-desc="Learn more"/>
+  <node class="android.widget.Button" bounds="[970,980][1370,1060]" clickable="true" content-desc="Update"/>
+</hierarchy>"""
+
+# The "Daily Reward" streak-claim bottom sheet (client photo, 2026-08-06
+# — also never captured as an XML dump), covering the Profile screen.
+DAILY_REWARD_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][1920,2560]" clickable="true" content-desc=""/>
+  <node class="android.view.View" bounds="[860,1220][1060,1240]" clickable="false" content-desc=""/>
+  <node class="android.widget.TextView" bounds="[420,1330][1500,1400]" clickable="false" content-desc="Daily Reward"/>
+  <node class="android.widget.TextView" bounds="[420,1420][1500,1500]" clickable="false" content-desc="Come back every day to collect rewards and keep your learning streak alive."/>
+  <node class="android.widget.Button" bounds="[460,2160][1460,2260]" clickable="true" content-desc="CLAIM REWARD"/>
+</hierarchy>"""
+
 # The Retry-only pass-stats variant (stuck_screen_20260804_175138, at
 # 93% accuracy): no Lessons, no next — Retry is fenced off (it redoes
 # the finished quiz), so the only way out is the Android back button.
@@ -4620,6 +4689,92 @@ class TestPassStatsLessonsFallback(unittest.TestCase):
         # idle timer keeps running into the recovering restart.
         import navigation
         driver = TapDriver(PAYMENT_SHEET_XML)
+        self.assertFalse(navigation.dismiss_popup(driver))
+
+    def test_language_cross_sell_sheet_is_backed_out_of_and_its_button_fenced(self):
+        # Reproduces stuck_screen_20260804_184527: the runner had no
+        # dismisser for this sheet and idled past the 10s limit — the
+        # app restart that followed is what read, on the client's phone,
+        # as the matching quiz being frozen. Its CTA must never be a tap
+        # target, and the sheet closes like any bottom sheet — Android
+        # back, success claimed only once the sheet is really gone.
+        import navigation
+
+        self.assertEqual(
+            navigation.candidate_buttons(qh.parse_screen(LANGUAGE_CROSS_SELL_XML)),
+            [],
+        )
+
+        class BackDriver(TapDriver):
+            def back(self):
+                super().back()
+                self.xml = LESSONS_TOP_XML
+
+        driver = BackDriver(LANGUAGE_CROSS_SELL_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.back_presses, 1)
+        self.assertEqual(driver.taps, [])
+
+    def test_language_cross_sell_sheet_that_refuses_to_close_reports_failure(self):
+        # A sheet still up after back must read as NOT dismissed, so the
+        # idle timer keeps running into the recovering restart.
+        import navigation
+        driver = TapDriver(LANGUAGE_CROSS_SELL_XML)
+        self.assertFalse(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.back_presses, 1)
+
+    def test_play_store_update_nag_is_backed_out_of_and_its_buttons_fenced(self):
+        # Client photo, 2026-08-06: neither "Update" (walks out to the
+        # Play Store) nor "Learn more" may ever be tapped, and back is
+        # used directly rather than the unlabeled close icon.
+        import navigation
+
+        self.assertEqual(
+            navigation.candidate_buttons(qh.parse_screen(PLAY_STORE_UPDATE_XML)),
+            [],
+        )
+
+        class BackDriver(TapDriver):
+            def back(self):
+                super().back()
+                self.xml = LESSONS_TOP_XML
+
+        driver = BackDriver(PLAY_STORE_UPDATE_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.back_presses, 1)
+        self.assertEqual(driver.taps, [])
+
+    def test_play_store_update_nag_that_refuses_to_close_reports_failure(self):
+        import navigation
+        driver = TapDriver(PLAY_STORE_UPDATE_XML)
+        self.assertFalse(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.back_presses, 1)
+
+    def test_daily_reward_sheet_is_backed_out_of_and_its_button_fenced(self):
+        # Client photo, 2026-08-06: covers the Profile screen with no
+        # existing dismisser (no Scrim/Day/promo marker matches it), so
+        # it would otherwise sit unrecognized until the idle restart.
+        # CLAIM REWARD is an unproven CTA and must never be a tap target.
+        import navigation
+
+        self.assertEqual(
+            navigation.candidate_buttons(qh.parse_screen(DAILY_REWARD_XML)),
+            [],
+        )
+
+        class BackDriver(TapDriver):
+            def back(self):
+                super().back()
+                self.xml = LESSONS_TOP_XML
+
+        driver = BackDriver(DAILY_REWARD_XML)
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertEqual(driver.back_presses, 1)
+        self.assertEqual(driver.taps, [])
+
+    def test_daily_reward_sheet_that_refuses_to_close_reports_failure(self):
+        import navigation
+        driver = TapDriver(DAILY_REWARD_XML)
         self.assertFalse(navigation.dismiss_popup(driver))
         self.assertEqual(driver.back_presses, 1)
 

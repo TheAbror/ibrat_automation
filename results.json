@@ -6435,22 +6435,27 @@
   },
   {
     "n": 331,
-    "time": "2026-08-02 19:40:50",
+    "time": "2026-08-06 15:00:18",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Qalam menga ruchkadan ko‘ra qulayroq.",
     "options": [
-      "Pen",
-      "comfortable",
-      "is ",
-      "than ",
-      "a pen.",
-      "was",
+      "more ",
       "A pencil",
-      "more "
+      "is ",
+      "was",
+      "than ",
+      "comfortable",
+      "a pen.",
+      "Pen"
     ],
     "correct_answer": [
-      "Pen",
+      "A pencil",
+      "is ",
+      "more ",
+      "comfortable",
+      "than ",
+      "a pen.",
       "A pencil is more comfortable than a pen."
     ]
   },
@@ -6793,24 +6798,35 @@
   },
   {
     "n": 349,
-    "time": "2026-08-03 01:28:14",
+    "time": "2026-08-06 15:03:06",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Salima basketbolni yaxshi o‘ynaydi. Lekin u jamoadagi eng zo‘ri emas.",
     "options": [
-      "well.",
-      "in",
-      "isn't",
-      "Salima ",
-      "basketball",
-      "But",
-      "best",
-      "the ",
-      "the team.",
       "plays",
-      "she"
+      "basketball",
+      "she",
+      "best",
+      "well.",
+      "Salima ",
+      "the team.",
+      "in",
+      "But",
+      "the ",
+      "isn't"
     ],
     "correct_answer": [
+      "Salima ",
+      "plays",
+      "basketball",
+      "well.",
+      "But",
+      "she",
+      "isn't",
+      "the ",
+      "best",
+      "in",
+      "the team.",
       "Salima plays basketball well. But she isn't the best in the team."
     ]
   },
@@ -7298,27 +7314,35 @@
   },
   {
     "n": 375,
-    "time": "2026-08-03 01:30:25",
+    "time": "2026-08-06 15:06:56",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Charchagan ko‘rinasan. Menimcha sen juda qattiq ishlagansan.",
     "options": [
-      "much",
+      "think",
+      "You",
+      "I",
       "hard.",
-      "look",
-      "too",
       "you",
       "tired.",
+      "look",
+      "thinks",
+      "too",
       "worked",
-      "think",
       "hardly",
       "works",
-      "I",
-      "You",
-      "thinks"
+      "much"
     ],
     "correct_answer": [
-      "much",
+      "You",
+      "look",
+      "tired.",
+      "I",
+      "think",
+      "you",
+      "worked",
+      "too",
+      "hard.",
       "You look tired. I think you worked too hard."
     ]
   },
@@ -7459,22 +7483,27 @@
   },
   {
     "n": 382,
-    "time": "2026-08-03 01:32:07",
+    "time": "2026-08-06 15:07:28",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Mening talabalarim ingliz tilida juda yaxshi gapirishadi.",
     "options": [
-      "well.",
-      "very",
       "good",
-      "speak",
-      "speaks",
+      "students",
       "My",
+      "speaks",
+      "well.",
+      "speak",
       "English",
-      "pupils",
-      "students"
+      "very",
+      "pupils"
     ],
     "correct_answer": [
+      "My",
+      "students",
+      "speak",
+      "English",
+      "very",
       "well.",
       "My students speak English very well."
     ]
@@ -7663,21 +7692,25 @@
   },
   {
     "n": 392,
-    "time": "2026-08-03 01:33:48",
+    "time": "2026-08-06 15:09:58",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Meni ikkita singlim bor.",
     "options": [
+      "brothers",
+      "got",
+      "three",
       "have",
       "I",
       "two",
-      "got",
-      "sisters.",
-      "three",
-      "brothers"
+      "sisters."
     ],
     "correct_answer": [
+      "I",
       "have",
+      "got",
+      "two",
+      "sisters.",
       "I have got two sisters."
     ]
   },
@@ -7808,23 +7841,28 @@
   },
   {
     "n": 400,
-    "time": "2026-08-03 01:34:36",
+    "time": "2026-08-06 15:11:07",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Aziz allaqachon bu filmni ko‘rib bo‘ldi.",
     "options": [
-      "Aziz",
-      "see",
-      "has",
       "theatre",
-      "have",
-      "already",
+      "see",
+      "seen",
       "film.",
+      "Aziz",
       "this",
-      "seen"
+      "has",
+      "have",
+      "already"
     ],
     "correct_answer": [
       "Aziz",
+      "has",
+      "already",
+      "seen",
+      "this",
+      "film.",
       "Aziz has already seen this film."
     ]
   },
@@ -8133,25 +8171,31 @@
   },
   {
     "n": 417,
-    "time": "2026-08-03 01:36:06",
+    "time": "2026-08-06 15:12:02",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Buni menga bera olasizmi?",
     "options": [
-      "Can",
-      "your",
-      "gives",
-      "you",
-      "me",
-      "it",
-      "I",
-      "the",
       "to",
+      "I",
+      "Can",
       "give",
-      "?"
+      "your",
+      "it",
+      "the",
+      "?",
+      "me",
+      "gives",
+      "you"
     ],
     "correct_answer": [
       "Can",
+      "you",
+      "give",
+      "it",
+      "to",
+      "me",
+      "?",
       "Can you give it to me ?"
     ]
   },
@@ -8990,25 +9034,32 @@
   },
   {
     "n": 459,
-    "time": "2026-08-03 01:42:20",
+    "time": "2026-08-06 15:21:07",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Men Jasminani universitetga ketish yo‘lida ko‘rdim.",
     "options": [
       "the",
-      "the way",
+      "Jasmina",
+      "see",
+      "on",
+      "saw",
+      "university.",
       "at",
       "to",
+      "I",
       "a",
-      "Jasmina",
-      "saw",
-      "on",
-      "university.",
-      "see",
-      "I"
+      "the way"
     ],
     "correct_answer": [
+      "I",
+      "saw",
+      "Jasmina",
+      "on",
+      "the way",
+      "to",
       "the",
+      "university.",
       "I saw Jasmina on the way to the university."
     ]
   },
@@ -9666,25 +9717,31 @@
   },
   {
     "n": 492,
-    "time": "2026-08-03 01:46:30",
+    "time": "2026-08-06 15:25:50",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Kitobni sumkangizning ichidan oling.",
     "options": [
-      "your",
       "at",
-      "books",
-      "the",
       "out",
-      "of",
-      "bag",
-      "book",
       "Take",
-      "in",
-      "pocket"
+      "your",
+      "bag",
+      "the",
+      "books",
+      "of",
+      "book",
+      "pocket",
+      "in"
     ],
     "correct_answer": [
+      "Take",
+      "the",
+      "book",
+      "out",
+      "of",
       "your",
+      "bag",
       "Take the book out of your bag"
     ]
   },

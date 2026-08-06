@@ -239,6 +239,15 @@ def dedupe_results(results):
     board shares one question text) newly discovered pairs fold into the
     kept entry. Entries with no question text at all (a sheet met before
     any question) are dropped.
+
+    A kept entry whose OWN result was "incorrect" is not yet a confirmed
+    answer — it was learned from a reveal alongside a wrong attempt, and
+    the reveal-parsing heuristic can occasionally lock in the wrong
+    element (2026-08-06 live run: a fill_the_blank answer learned this
+    way kept reproducing the same wrong sentence every time the question
+    recurred, forever, since nothing ever revisited it). A fresh teaching
+    repeat is let through in that case, the same as for an answerless
+    entry — a confirmed-correct kept entry is never touched.
     """
     kept = {}
     for entry in results:
@@ -260,7 +269,7 @@ def dedupe_results(results):
                    and p[0] not in lefts]
             if new:
                 kept[key] = {**old, "correct_answer": list(known) + new}
-        elif not _teaches(old) and _teaches(entry):
+        elif (not _teaches(old) or old.get("result") == "incorrect") and _teaches(entry):
             kept[key] = entry
     return list(kept.values())
 
