@@ -135,20 +135,38 @@ class ChestOverlayDetected(Exception):
     minutes per encounter (2026-08-04)."""
 
 
-def presence_or_chest(locator):
-    """Wait condition: the target element, else ChestOverlayDetected.
+class DailyRewardOverlayDetected(Exception):
+    """The Daily Reward sheet is covering the tap target. Raised from
+    inside the target wait for the same reason as ChestOverlayDetected
+    (2026-08-06): the sheet's animate-in can land after
+    clear_launch_popups already found nothing to close, right as a
+    tap() wait starts polling the card underneath it. Left to the
+    except-TimeoutException fallback, closing it paid the wait's full
+    20-30s every time (confirmed in run.log — every Daily Reward close
+    that run went through the 'Cleared an overlay ... retrying' path,
+    never the fast one) — the sub-second confirm loop in
+    _closed_via_back never got a chance to matter."""
 
-    The chest markers are unambiguous — no legitimate navigation screen
-    carries them — so a covering chest never needs the full-patience
-    timeout other (X-dismissable) popups get.
+
+def presence_or_chest(locator):
+    """Wait condition: the target element, else ChestOverlayDetected /
+    DailyRewardOverlayDetected.
+
+    The chest and Daily Reward markers are both unambiguous — no
+    legitimate navigation screen carries either — so a covering chest
+    or Daily Reward sheet never needs the full-patience timeout other
+    (X-dismissable) popups get.
     """
     def check(driver):
         try:
             return driver.find_element(*locator)
         except NoSuchElementException:
             pass
-        if on_chest_screen(parse_screen(driver.page_source)):
+        nodes = parse_screen(driver.page_source)
+        if on_chest_screen(nodes):
             raise ChestOverlayDetected()
+        if any(m in d for _, d in nodes for m in DAILY_REWARD_MARKERS):
+            raise DailyRewardOverlayDetected()
         return False
     return check
 
@@ -163,9 +181,11 @@ def tap(driver, waiter, locator, label, clear_rounds=3):
 
     A chest is recognized mid-wait and its whole flow walked at once:
     paying the full presence timeout per flow screen kept the phone on
-    "Tap on the chest!" for minutes (2026-08-04). Other overlays keep
-    the full-patience wait — the missing target is the only evidence
-    they are in the way at all.
+    "Tap on the chest!" for minutes (2026-08-04). The Daily Reward sheet
+    gets the same early recognition (2026-08-06), closed the moment it's
+    seen rather than only after the wait times out. Other overlays still
+    keep the full-patience wait — the missing target is the only
+    evidence they are in the way at all.
     """
     while True:
         try:
@@ -178,6 +198,10 @@ def tap(driver, waiter, locator, label, clear_rounds=3):
             clear_rounds -= 1
             print(f"Chest-reward flow covering '{label}' — clearing it now")
             clear_launch_popups(driver)
+        except DailyRewardOverlayDetected:
+            clear_rounds -= 1
+            print(f"Daily Reward sheet covering '{label}' — closing it now")
+            dismiss_popup(driver)
         except TimeoutException:
             if clear_rounds <= 0 or not (dismiss_popup(driver) or tap_forward_button(driver)):
                 raise

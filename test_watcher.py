@@ -2379,6 +2379,70 @@ class TestChestClearedMidWait(unittest.TestCase):
                          "pure wasted time")
 
 
+class DailyRewardOverHomeDriver:
+    """Daily Reward sheet covering the home screen; the target card
+    becomes findable only after the sheet is backed out of — mirrors
+    ChestOverHomeDriver above, for the same early-detection path."""
+
+    def __init__(self):
+        self.xml = DAILY_REWARD_XML
+        self.clicked = []
+        self.back_presses = 0
+
+    @property
+    def page_source(self):
+        return self.xml
+
+    def find_element(self, by, value):
+        m = re.search(r"content-desc=(?:'([^']*)'|\"([^\"]*)\")", value)
+        wanted = (m.group(1) or m.group(2)) if m else value
+        if wanted not in self.xml:
+            raise NoSuchElementException(wanted)
+        el = FakeElement(wanted)
+        el.click = lambda: self.clicked.append(wanted)
+        return el
+
+    def back(self):
+        self.back_presses += 1
+        self.xml = HOME_SCROLLED_XML
+
+
+class TestDailyRewardClearedMidWait(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_tap_clears_a_covering_daily_reward_sheet_without_waiting_out_the_timeout(self):
+        # Same failure shape as the chest overlay (see
+        # TestChestClearedMidWait above): left to the except-
+        # TimeoutException fallback, closing the sheet paid the waiter's
+        # FULL timeout (20-30s live) before dismiss_popup ever ran — a
+        # live run.log confirmed every Daily Reward close that run went
+        # through the slow 'Cleared an overlay ... retrying' path, never
+        # a fast one. Must now clear in well under one timeout's worth
+        # of waiting.
+        import time as real_time
+        import locators as loc
+        import navigation
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        driver = DailyRewardOverHomeDriver()
+        started = real_time.time()
+        navigation.tap(driver, WebDriverWait(driver, 2),
+                       loc.PROGRAM_CERTIFICATE, "Program Certificate")
+        elapsed = real_time.time() - started
+        self.assertEqual(driver.back_presses, 1)
+        self.assertIn("2+6 Program Certificate", driver.clicked)
+        self.assertLess(elapsed, 1.5,
+                        "the Daily Reward sheet must be cleared as soon as "
+                        "it is seen, not after full presence timeouts")
+
+
 class TestChestScreenVariants(unittest.TestCase):
     def setUp(self):
         import navigation
