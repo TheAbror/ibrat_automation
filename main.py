@@ -65,6 +65,15 @@ from question_handler import (
 )
 
 IDLE_LIMIT = 10      # seconds on an unrecognized screen -> restart the app
+# A screen that is merely mid-render (the next question's options still
+# fading in) clears on its own well inside this window — a poll or two,
+# under half a second each. Below-the-fold Start pages stay unrecognized
+# far longer than this, so gating the scroll hunt on the episode having
+# lasted at least this long is what tells the two apart, on top of the
+# quiz-start marker check (which alone was not enough: that marker text
+# turned out to also read as present on ordinary in-quiz screens,
+# 2026-08-06 — the hunt still fired mid-quiz after that first fix).
+SCROLL_HUNT_GRACE = 2
 # The quiz start card, stripped of its button, is what a quiz looks like
 # while it opens. That is a healthy transition, not a stranding, so it
 # gets its own far longer allowance.
@@ -576,21 +585,24 @@ def auto_answer_loop(driver):
         # the tree entirely. Scrolling it into view beats paying a whole
         # app restart between every pair of quizzes.
         #
-        # Only tried on that specific screen (its Quizzes/"Press the
-        # start button" marker text). A question screen mid-render (its
-        # own options just haven't finished appearing yet) used to hit
-        # this same branch and get swiped at for nothing — it has no
-        # below-the-fold button to find, so the hunt cleared the idle
-        # episode's one allowed attempt for no gain, and risked dragging
-        # a just-appearing option out of the tree the way it once did to
-        # a lesson page's Next (client log, 2026-08-06).
+        # Gated two ways. First, the quiz-start marker text — though that
+        # alone proved too loose (client log, 2026-08-06): the same
+        # "Quizzes" text still reads as present on an ordinary in-quiz
+        # question screen, so the hunt kept firing there too. Second,
+        # SCROLL_HUNT_GRACE — a question mid-render (its own options
+        # still fading in) resolves on its own within a poll or two,
+        # long before this grace period is up, so it is never still
+        # "unrecognized" by the time the hunt is allowed to run. A
+        # genuinely below-the-fold Start page stays unrecognized far
+        # past it.
         #
         # Hunted at most once per stuck episode (idle_since changes only
         # when something moved): every swipe costs a second, so hunting
         # on each poll of a dead screen would burn the idle budget that
         # triggers the recovering restart.
         quiz_start = looks_like_quiz_start(descs)
-        if quiz_start and scroll_hunted_at != idle_since:
+        if (quiz_start and scroll_hunted_at != idle_since
+                and time.time() - idle_since >= SCROLL_HUNT_GRACE):
             scroll_hunted_at = idle_since
             if reveal_forward_button(driver) and tap_forward_button(driver):
                 # The hunt itself takes seconds, so by now the timer has

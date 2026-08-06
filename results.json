@@ -13170,17 +13170,21 @@
   },
   {
     "n": 673,
-    "time": "2026-08-02 20:23:31",
+    "time": "2026-08-06 15:59:05",
     "type": "multiple_choice",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Choose the correct sentence.",
     "options": [
-      "I'd better to go to bed early.",
-      "It's about time to go bed early.",
-      "I'd better go to bed early."
+      "I'd better eat something before going out.",
+      "I'd better eating something before going out.",
+      "It's about time to eat something before going out."
     ],
     "correct_answer": [
-      "I'd better go to bed early."
+      "Choose the correct sentence.",
+      "I'd better eat something before going out.",
+      "I'd better eat something before going out.",
+      "I'd better eating something before going out.",
+      "It's about time to eat something before going out."
     ]
   },
   {
@@ -13446,26 +13450,37 @@
   },
   {
     "n": 689,
-    "time": "2026-08-03 15:09:48",
+    "time": "2026-08-06 16:02:08",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Agar men suzishni bilsam, daryoda siz bilan cho‘milishim mumkin edi.",
     "options": [
-      "to ",
-      "swim",
-      "how ",
-      "If",
-      "I",
-      "river.",
-      "the",
-      "swim with ",
       "I could",
-      "you",
+      "in ",
+      "If",
+      "the",
+      "how ",
+      "swim",
+      "river.",
+      "I",
+      "to ",
       "knew",
-      "in "
+      "swim with ",
+      "you"
     ],
     "correct_answer": [
+      "If",
+      "I",
+      "knew",
+      "how ",
       "to ",
+      "swim",
+      "I could",
+      "swim with ",
+      "you",
+      "in ",
+      "the",
+      "river.",
       "If I knew how to swim I could swim with you in the river."
     ]
   },
@@ -13812,22 +13827,26 @@
   },
   {
     "n": 707,
-    "time": "2026-08-02 20:27:59",
+    "time": "2026-08-06 16:04:47",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Men savolga javob berishga harakat qildim.",
     "options": [
-      "I",
-      "the",
       "answer",
-      "to answer",
-      "answering",
       "tried",
+      "to answer",
       "question.",
-      "trying"
+      "answering",
+      "the",
+      "trying",
+      "I"
     ],
     "correct_answer": [
       "I",
+      "tried",
+      "to answer",
+      "the",
+      "question.",
       "I tried to answer the question."
     ]
   },
