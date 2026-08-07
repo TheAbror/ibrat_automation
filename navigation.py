@@ -110,6 +110,10 @@ CHEST_SCREEN_MARKERS = (CHEST_TAP_MARKER, "Get your reward", "Open chest")
 # A screen with no forward button that also isn't moving is dead — give
 # up on it (an app restart recovers) instead of waiting forever.
 DEAD_SCREEN_LIMIT = 90
+# push_through_to_start rounds in a row that end on the exact same screen
+# they started on — a banner redrawing on every tap counts as "nothing
+# tappable found" from round to round, not progress.
+STUCK_ROUND_LIMIT = 3
 # Swipes allowed when scrolling something below the fold into view. The
 # screens involved are a few rows tall, so a handful always suffices.
 REVEAL_SWIPES = 5
@@ -735,7 +739,10 @@ def wait_for_manual_advance(driver):
     A screen with NO forward button at all that also isn't moving (e.g.
     the Assigned-courses list after the 2026-08-02 back-arrow escape) is
     dead — waiting can't help, so give up after DEAD_SCREEN_LIMIT and
-    let the app restart recover.
+    let the app restart recover. A screen WITH a forward button that taps
+    "successfully" but never actually moves (2026-08-04, "Student Already
+    Enrolled" redrawing on every tap) is just as dead — DEAD_SCREEN_LIMIT
+    applies there too, not only when there is nothing to tap at all.
     """
     before = [d for _, d in parse_screen(driver.page_source) if d]
     print("Screen is not moving forward (video still loading?) — waiting.")
@@ -748,10 +755,10 @@ def wait_for_manual_advance(driver):
             print("Screen changed — continuing")
             return True
         now = time.time()
+        if now - started >= DEAD_SCREEN_LIMIT:
+            print("Nothing is moving — giving up on this screen")
+            return False
         if forward_tap_label(nodes) is None:
-            if now - started >= DEAD_SCREEN_LIMIT:
-                print("Nothing to tap and nothing moving — giving up on this screen")
-                return False
             continue
         if now - last_tap >= STUCK_RETAP_EVERY:
             last_tap = now
@@ -986,7 +993,17 @@ def push_through_to_start(driver, attempts=5):
     waited out — re-tapped periodically, and a manual tap on the phone
     works too — then pushing resumes. Only a dead screen (nothing to tap,
     nothing moving) raises StuckScreenError so the app restart recovers.
+
+    A round that ends showing the exact same screen it started with is
+    not progress even when every tap in it "succeeded" — an enrollment
+    banner (2026-08-04, "Student Already Enrolled"; also seen entering a
+    newly assigned course, 2026-08-07) can redraw on every tap and fool
+    even wait_for_manual_advance's own before/after comparison.
+    STUCK_ROUND_LIMIT identical rounds in a row still raise
+    StuckScreenError so the app restart recovers.
     """
+    stale_rounds = 0
+    last_round_seen = None
     while True:
         for _ in range(attempts):
             dismiss_popup(driver)
@@ -1042,6 +1059,17 @@ def push_through_to_start(driver, attempts=5):
 
             print("No Start button — tapping through this screen...")
             tap_through_buttons(driver)
+
+        seen = [d for _, d in nodes if d]
+        if seen == last_round_seen:
+            stale_rounds += 1
+            if stale_rounds >= STUCK_ROUND_LIMIT:
+                raise StuckScreenError(
+                    "navigation stranded — the screen never truly advances"
+                )
+        else:
+            stale_rounds = 0
+            last_round_seen = seen
 
         if not wait_for_manual_advance(driver):
             raise StuckScreenError("navigation stranded on a screen with nothing to tap")
