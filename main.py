@@ -64,6 +64,16 @@ from question_handler import (
     xpath_literal,
 )
 
+# Windows' default console codepage (cp1251 on the client's machine) can't
+# encode characters like the "é" in "café you recommended" — a matching
+# board's print() then raises UnicodeEncodeError and kills the worker
+# outright, stranding the app on whatever screen was up (2026-08-07,
+# client report). print() and questions/options text are never ASCII-only,
+# so stdout/stderr are forced to UTF-8 regardless of the host's codepage.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 IDLE_LIMIT = 10      # seconds on an unrecognized screen -> restart the app
 # A screen that is merely mid-render (the next question's options still
 # fading in) clears on its own well inside this window — a poll or two,
