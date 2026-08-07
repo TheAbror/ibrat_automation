@@ -606,19 +606,24 @@
   },
   {
     "n": 32,
-    "time": "2026-08-03 19:16:51",
+    "time": "2026-08-07 17:58:15",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "U (bola) qiziqarli kitob o‘qidi.",
     "options": [
-      "an ",
+      "He",
+      "interesting ",
       "book.",
       "read",
-      "He",
-      "reading",
-      "interesting "
+      "an ",
+      "reading"
     ],
     "correct_answer": [
+      "He",
+      "read",
+      "an ",
+      "interesting ",
+      "book.",
       "He read an interesting book."
     ]
   },
@@ -733,20 +738,26 @@
   },
   {
     "n": 39,
-    "time": "2026-08-02 17:13:00",
+    "time": "2026-08-07 17:57:05",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Men bog‘da kapalaklarni ko‘rdim.",
     "options": [
-      "in",
-      "a",
+      "butterflies ",
       " the ",
       "garden.",
+      "in",
       "saw ",
-      "butterflies ",
+      "a",
       "I "
     ],
     "correct_answer": [
+      "I ",
+      "saw ",
+      "butterflies ",
+      "in",
+      " the ",
+      "garden.",
       "I saw butterflies in the garden."
     ]
   },
@@ -1617,27 +1628,49 @@
   },
   {
     "n": 83,
-    "time": "2026-08-02 17:23:23",
+    "time": "2026-08-07 18:05:23",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Ular yozda sohilga borishdan zavqlanadi.",
     "options": [
-      "we",
-      "enjoy ",
-      "going",
-      "the",
-      "to",
       "in",
-      "They",
-      "beach",
       "an",
-      "the summer.",
+      "beach",
+      "we",
+      "going",
+      "for",
+      "to",
+      "enjoy ",
       "on",
-      "for"
+      "the",
+      "the summer.",
+      "They"
     ],
     "correct_answer": [
+      "Ular yozda sohilga borishdan zavqlanadi.",
+      "Ular yozda sohilga borishdan zavqlanadi.",
+      "They",
+      "They",
+      "enjoy ",
+      "enjoy ",
+      "going",
+      "going",
+      "to",
+      "to",
+      "the",
+      "the",
+      "beach",
+      "beach",
+      "in",
+      "in",
+      "the summer.",
+      "the summer.",
+      "an",
       "we",
-      "They enjoy going to the beach in the summer."
+      "for",
+      "on",
+      "They enjoy going to the beach in the summer.",
+      "Continue"
     ]
   },
   {
@@ -1756,9 +1789,9 @@
   },
   {
     "n": 89,
-    "time": "2026-08-02 17:23:26",
+    "time": "2026-08-07 18:04:30",
     "type": "multiple_choice",
-    "result": "incorrect",
+    "result": "correct",
     "question": "They live in a beautiful house in ___ mountains.",
     "options": [
       "a",
@@ -2107,22 +2140,28 @@
   },
   {
     "n": 108,
-    "time": "2026-08-03 19:57:12",
+    "time": "2026-08-07 18:07:48",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "U (qiz) ishidan keyin maktabga boradi.",
     "options": [
       "school ",
-      "She ",
-      "work.",
-      "to ",
       "goes ",
-      "her ",
+      "go",
       "after ",
-      "go"
+      "She ",
+      "her ",
+      "to ",
+      "work."
     ],
     "correct_answer": [
+      "She ",
+      "goes ",
+      "to ",
       "school ",
+      "after ",
+      "her ",
+      "work.",
       "She goes to school after her work."
     ]
   },
@@ -2496,14 +2535,14 @@
   },
   {
     "n": 128,
-    "time": "2026-08-02 17:30:28",
+    "time": "2026-08-07 18:08:57",
     "type": "multiple_choice",
-    "result": "incorrect",
+    "result": "correct",
     "question": "___ flowers in the garden are beautiful.",
     "options": [
+      "This",
       "Those",
-      "That",
-      "This"
+      "That"
     ],
     "correct_answer": [
       "Those"
@@ -2880,24 +2919,30 @@
   },
   {
     "n": 149,
-    "time": "2026-08-02 17:33:14",
+    "time": "2026-08-07 18:10:57",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Bu stansiyaga boradigan yo‘l emas.",
     "options": [
-      "not",
+      "This",
       "is",
-      "the station.",
-      "way",
-      "are",
+      "to",
       "the",
       "those",
-      "This",
-      "for",
-      "to"
+      "are",
+      "the station.",
+      "way",
+      "not",
+      "for"
     ],
     "correct_answer": [
+      "This",
+      "is",
       "not",
+      "the",
+      "way",
+      "to",
+      "the station.",
       "This is not the way to the station."
     ]
   },
@@ -4359,24 +4404,30 @@
   },
   {
     "n": 227,
-    "time": "2026-08-04 16:51:18",
+    "time": "2026-08-07 18:16:23",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Kitobda mundarija yo‘q.",
     "options": [
+      "in ",
       "There",
-      "book.",
-      "plans",
+      "hook",
+      "the ",
       "is",
       "content",
+      "plans",
+      "no ",
+      "book.",
+      "contents"
+    ],
+    "correct_answer": [
+      "There",
+      "is",
       "no ",
       "contents",
       "in ",
       "the ",
-      "hook"
-    ],
-    "correct_answer": [
-      "There",
+      "book.",
       "There is no contents in the book."
     ]
   },
@@ -4462,25 +4513,43 @@
   },
   {
     "n": 233,
-    "time": "2026-08-04 16:52:12",
+    "time": "2026-08-07 18:17:16",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Sumkada hech nima yo‘q.",
     "options": [
-      "in ",
       "is",
       "nothing",
-      "bag.",
-      "the ",
       "pocket",
-      "has",
       "It",
+      "has",
       "There ",
+      "the ",
+      "bag.",
+      "in ",
       "anything"
     ],
     "correct_answer": [
+      "Sumkada hech nima yo‘q.",
+      "Sumkada hech nima yo‘q.",
+      "There ",
+      "There ",
+      "is",
+      "is",
+      "nothing",
+      "nothing",
       "in ",
-      "There is nothing in the bag."
+      "in ",
+      "the ",
+      "the ",
+      "bag.",
+      "bag.",
+      "pocket",
+      "It",
+      "has",
+      "anything",
+      "There is nothing in the bag.",
+      "Continue"
     ]
   },
   {
@@ -4724,23 +4793,28 @@
   },
   {
     "n": 246,
-    "time": "2026-08-02 18:46:53",
+    "time": "2026-08-07 18:18:35",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Meni hech qayerga borgim kelmayapti.",
     "options": [
-      "to",
-      "anywhere.",
       "don't",
-      "I",
-      "want to",
       "somewhere",
+      "I",
       "wants",
       "go",
-      "walk"
+      "want to",
+      "to",
+      "walk",
+      "anywhere."
     ],
     "correct_answer": [
+      "I",
+      "don't",
+      "want to",
+      "go",
       "to",
+      "anywhere.",
       "I don't want to go to anywhere."
     ]
   },
@@ -5143,19 +5217,19 @@
   },
   {
     "n": 267,
-    "time": "2026-08-02 19:26:37",
+    "time": "2026-08-07 18:20:47",
     "type": "fill_the_blank",
     "result": "incorrect",
     "question": "Talabalarning hech biri darsga kelmadi.",
     "options": [
-      "of",
       "the",
-      "came",
       "students",
+      "the",
       "None",
       "lesson.",
-      "the",
-      "to"
+      "of",
+      "to",
+      "came"
     ],
     "correct_answer": [
       "None",
@@ -5290,25 +5364,42 @@
   },
   {
     "n": 274,
-    "time": "2026-08-02 19:27:44",
+    "time": "2026-08-07 18:21:37",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Darslarning ikkalasi ham oson edi.",
     "options": [
-      "the lessons",
-      "Some",
-      "of",
-      "was",
-      "easy",
-      "Both",
-      "are",
       "were",
+      "was",
+      "Some",
+      "Most",
+      "of",
+      "Both",
+      "the lessons",
+      "easy",
       "difficult",
-      "Most"
+      "are"
     ],
     "correct_answer": [
+      "Darslarning ikkalasi ham oson edi.",
+      "Darslarning ikkalasi ham oson edi.",
+      "Both",
+      "Both",
+      "of",
+      "of",
       "the lessons",
-      "Both of the lessons were easy"
+      "the lessons",
+      "were",
+      "were",
+      "easy",
+      "easy",
+      "was",
+      "Some",
+      "Most",
+      "difficult",
+      "are",
+      "Both of the lessons were easy",
+      "Continue"
     ]
   },
   {
@@ -5629,21 +5720,27 @@
   },
   {
     "n": 293,
-    "time": "2026-08-02 19:30:02",
+    "time": "2026-08-07 18:23:34",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Men biroz o‘zbek tilida gapira olaman.",
     "options": [
-      "little",
-      "bit.",
+      "a little",
+      "speak",
+      "can",
       "could",
+      "little",
+      "I",
+      "bit.",
+      "Uzbek"
+    ],
+    "correct_answer": [
+      "I",
       "can",
       "speak",
       "Uzbek",
       "a little",
-      "I"
-    ],
-    "correct_answer": [
+      "bit.",
       "I can speak Uzbek a little bit."
     ]
   },
@@ -6257,27 +6354,26 @@
   },
   {
     "n": 323,
-    "time": "2026-08-03 01:24:32",
+    "time": "2026-08-07 18:27:15",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Salim sinfdagi boshqa o‘quvchilardan aqlliroq.",
     "options": [
-      "more clever",
-      "class.",
-      "other",
-      "clever",
-      "is",
-      "was",
-      "a",
       "pupils",
       "others",
+      "more clever",
+      "was",
       "than",
+      "is",
       "in",
+      "Salim",
       "the ",
-      "Salim"
+      "other",
+      "class.",
+      "clever",
+      "a"
     ],
     "correct_answer": [
-      "more clever",
       "Salim is more clever than other pupils in the class."
     ]
   },
@@ -14767,22 +14863,28 @@
   },
   {
     "n": 756,
-    "time": "2026-08-02 20:36:46",
+    "time": "2026-08-06 16:14:20",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Men non uchun do‘konga bordim.",
     "options": [
-      "the ",
-      "went",
-      "I ",
-      "market",
-      "to ",
       "buy",
-      "for",
-      "the bread."
+      "I ",
+      "went",
+      "the bread.",
+      "market",
+      "the ",
+      "to ",
+      "for"
     ],
     "correct_answer": [
+      "I ",
+      "went",
+      "to ",
       "the ",
+      "market",
+      "for",
+      "the bread.",
       "I went to the market for the bread."
     ]
   },
@@ -15856,27 +15958,40 @@
   },
   {
     "n": 811,
-    "time": "2026-08-03 15:25:35",
+    "time": "2026-08-06 16:23:58",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Hukumatning yangi soliqlar kiritish qarori xalqga salbiy ta’sir qildi. ",
     "options": [
-      "on",
-      "The",
-      "impose ",
-      "government",
-      "decision",
-      "had ",
-      "a negative",
-      "to ",
-      " impact",
       "taxes",
       "a population.",
-      "new",
       "the",
-      "  of"
+      "new",
+      "  of",
+      "government",
+      "a negative",
+      "The",
+      "on",
+      "decision",
+      " impact",
+      "impose ",
+      "to ",
+      "had "
     ],
     "correct_answer": [
+      "The",
+      "decision",
+      "  of",
+      "the",
+      "government",
+      "to ",
+      "impose ",
+      "new",
+      "taxes",
+      "a negative",
+      " impact",
+      "on",
+      "a population.",
       "The decision of the government to impose new taxes had a negative impact on a population."
     ]
   },
@@ -16130,23 +16245,31 @@
   },
   {
     "n": 825,
-    "time": "2026-08-03 15:27:20",
+    "time": "2026-08-06 16:25:19",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Mening onam har bittamiz uchun o‘yinchoq olib berdilar. ",
     "options": [
-      "us.",
       "mum",
       "a",
       "each",
-      "of",
-      "toy",
       "for",
-      "every",
+      "toy",
       "My",
+      "of",
+      "every",
+      "us.",
       "bought"
     ],
     "correct_answer": [
+      "My",
+      "mum",
+      "bought",
+      "a",
+      "toy",
+      "for",
+      "each",
+      "of",
       "us.",
       "My mum bought a toy for each of us."
     ]
@@ -16936,22 +17059,31 @@
   },
   {
     "n": 871,
-    "time": "2026-08-03 15:31:44",
+    "time": "2026-08-06 16:49:06",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "Ular o‘qishlarida juda ko‘p yutuqlarga erishdilar.",
     "options": [
-      "studies.",
-      "quite",
+      "a lot of",
+      "They",
+      "made",
       "in",
-      "have",
       "progress",
       "their",
-      "They",
-      "a lot of",
-      "made"
+      "studies.",
+      "have",
+      "quite"
     ],
     "correct_answer": [
+      "They",
+      "have",
+      "made",
+      "quite",
+      "a lot of",
+      "progress",
+      "in",
+      "their",
+      "studies.",
       "They have made quite a lot of progress in their studies."
     ]
   },
@@ -17339,23 +17471,28 @@
   },
   {
     "n": 893,
-    "time": "2026-08-03 15:35:34",
+    "time": "2026-08-06 16:51:08",
     "type": "fill_the_blank",
-    "result": "incorrect",
+    "result": "correct",
     "question": "U varrakni yaxshigina yasadi.",
     "options": [
       "makeing",
-      "any",
+      "made",
       "much",
       "kite",
-      "the",
-      "better.",
-      "made",
+      "She ",
       "make",
-      "She "
+      "better.",
+      "any",
+      "the"
     ],
     "correct_answer": [
-      "makeing",
+      "She ",
+      "made",
+      "the",
+      "kite",
+      "much",
+      "better.",
       "She made the kite much better."
     ]
   },
