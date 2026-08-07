@@ -37,7 +37,7 @@ from question_handler import (
     tap_next,
 )
 
-RESULTS_FILE = "results.json"
+RESULTS_FILE = config.RESULTS_FILE
 POLL_INTERVAL = 0.2
 RECONNECT_DELAY = 2
 MAX_RECONNECTS = 3

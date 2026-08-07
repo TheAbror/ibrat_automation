@@ -1,0 +1,480 @@
+[
+  {
+    "n": 1,
+    "time": "2026-08-07 19:06:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Heute ist es ___ als gestern. (kalt)",
+    "options": [
+      "kälter",
+      "kalt",
+      "kalter"
+    ],
+    "correct_answer": [
+      "kälter"
+    ]
+  },
+  {
+    "n": 2,
+    "time": "2026-08-07 19:06:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ich trinke lieber Kaffee als Tee, aber ___ trinke ich Kakao.",
+    "options": [
+      "am liebsten",
+      "am lieber",
+      "am liebster"
+    ],
+    "correct_answer": [
+      "am liebsten"
+    ]
+  },
+  {
+    "n": 3,
+    "time": "2026-08-07 19:07:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "  Munisa isst ___ als ich (schnell).",
+    "options": [
+      "schnellen",
+      "schnell",
+      "schneller"
+    ],
+    "correct_answer": [
+      "  Munisa isst ___ als ich (schnell).",
+      "schnellen",
+      "schnell",
+      "schneller",
+      "schneller"
+    ]
+  },
+  {
+    "n": 4,
+    "time": "2026-08-07 19:07:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ Bleistift",
+    "options": [
+      "Der",
+      "Das",
+      "Die"
+    ],
+    "correct_answer": [
+      "Der"
+    ]
+  },
+  {
+    "n": 5,
+    "time": "2026-08-07 19:07:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Mein Kaffee ist nicht so ___ wie deiner. (süß)",
+    "options": [
+      "sußer",
+      " süß",
+      " süßer"
+    ],
+    "correct_answer": [
+      "süß"
+    ]
+  },
+  {
+    "n": 6,
+    "time": "2026-08-07 19:07:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Baland  ",
+    "options": [
+      "Klug",
+      "Hoch",
+      "Niedrig"
+    ],
+    "correct_answer": [
+      "Hoch"
+    ]
+  },
+  {
+    "n": 7,
+    "time": "2026-08-07 19:06:53",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ Straße",
+    "options": [
+      "Die",
+      "Der",
+      "Das"
+    ],
+    "correct_answer": [
+      "Die"
+    ]
+  },
+  {
+    "n": 8,
+    "time": "2026-08-07 19:07:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Meine Oma ist so ___ wie mein Opa. (alt)",
+    "options": [
+      "alt",
+      "alter",
+      "älter"
+    ],
+    "correct_answer": [
+      "alt"
+    ]
+  },
+  {
+    "n": 9,
+    "time": "2026-08-07 19:07:21",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Er ist genauso |_| wie sein Freund Akmal. (stark)",
+    "options": [
+      "starker",
+      "stark",
+      "stärker"
+    ],
+    "correct_answer": [
+      "Er ist genauso \nstark\n wie sein Freund Akmal. (stark)",
+      "stark"
+    ]
+  },
+  {
+    "n": 10,
+    "time": "2026-08-07 19:07:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ich bin ___ als Asad. (groß)",
+    "options": [
+      " größer",
+      "großer",
+      "groß"
+    ],
+    "correct_answer": [
+      "größer"
+    ]
+  },
+  {
+    "n": 11,
+    "time": "2026-08-07 19:08:08",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Er wohnt in der Berlin___ Straße.",
+    "options": [
+      "-er",
+      "-en",
+      "-es"
+    ],
+    "correct_answer": [
+      "-er"
+    ]
+  },
+  {
+    "n": 12,
+    "time": "2026-08-07 19:08:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Das Hemd ist |_| Flecken.",
+    "options": [
+      "vollem",
+      "vollen",
+      "voller"
+    ],
+    "correct_answer": [
+      "Das Hemd ist |_| Flecken.",
+      "Das Hemd ist \nvoller\n Flecken.",
+      "vollem",
+      "vollen",
+      "voller",
+      "voller"
+    ]
+  },
+  {
+    "n": 13,
+    "time": "2026-08-07 19:08:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ Kleid",
+    "options": [
+      "Das",
+      "Der",
+      "Die"
+    ],
+    "correct_answer": [
+      "Das"
+    ]
+  },
+  {
+    "n": 14,
+    "time": "2026-08-07 19:08:17",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Nigora trägt heute ein ___ Kleid.",
+    "options": [
+      "blaues",
+      "blaue",
+      "blauen"
+    ],
+    "correct_answer": [
+      "blaues"
+    ]
+  },
+  {
+    "n": 15,
+    "time": "2026-08-07 19:07:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ende der |_| Jahre war ein Krieg. ",
+    "options": [
+      "zwanziger",
+      "zwanzigen",
+      "zwanzige"
+    ],
+    "correct_answer": [
+      "Ende der \nzwanziger\n Jahre war ein Krieg. ",
+      "zwanziger"
+    ]
+  },
+  {
+    "n": 16,
+    "time": "2026-08-07 19:08:20",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ Gast ",
+    "options": [
+      "Die",
+      "Der",
+      "Das"
+    ],
+    "correct_answer": [
+      "Der"
+    ]
+  },
+  {
+    "n": 17,
+    "time": "2026-08-07 19:08:23",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Das Klima des Thueringen ___ Waldes ist kühl.",
+    "options": [
+      "-er",
+      "-en",
+      "-es"
+    ],
+    "correct_answer": [
+      "-er"
+    ]
+  },
+  {
+    "n": 18,
+    "time": "2026-08-07 19:08:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Der Bahnhof",
+    "options": [
+      "Vokzal",
+      "Aeroport",
+      "Mashina"
+    ],
+    "correct_answer": [
+      "Vokzal"
+    ]
+  },
+  {
+    "n": 19,
+    "time": "2026-08-07 19:08:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Das ist ___ Wahrheit.",
+    "options": [
+      "laute",
+      "lauten",
+      "lauter"
+    ],
+    "correct_answer": [
+      "laute"
+    ]
+  },
+  {
+    "n": 20,
+    "time": "2026-08-07 19:08:26",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Die |_| Tasche ist sehr klein.",
+    "options": [
+      "cremefarbener",
+      "cremefarbige",
+      "cremefarbenen"
+    ],
+    "correct_answer": [
+      "Die \ncremefarbige\n Tasche ist sehr klein.",
+      "cremefarbige"
+    ]
+  },
+  {
+    "n": 21,
+    "time": "2026-08-07 19:10:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "___ Sitora heute da?",
+    "options": [
+      "War",
+      "Waren",
+      "Wart"
+    ],
+    "correct_answer": [
+      "War"
+    ]
+  },
+  {
+    "n": 22,
+    "time": "2026-08-07 19:10:40",
+    "type": "fill_the_blank",
+    "result": "correct",
+    "question": "Qiz bola juda muloyim edi.",
+    "options": [
+      "Auto",
+      "höflich",
+      "sehr ",
+      "schön",
+      "war",
+      "Das Mädchen",
+      "Junge",
+      "zu"
+    ],
+    "correct_answer": [
+      "Das Mädchen",
+      "war",
+      "sehr ",
+      "höflich",
+      "Das Mädchen war sehr höflich"
+    ]
+  },
+  {
+    "n": 23,
+    "time": "2026-08-07 19:10:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Asal ___ eine Wohnung für zwei Wochen. ",
+    "options": [
+      " suchten",
+      " suchte",
+      " sucht"
+    ],
+    "correct_answer": [
+      "Asal ___ eine Wohnung für zwei Wochen. ",
+      " suchten",
+      " suchte",
+      " sucht",
+      "suchte"
+    ]
+  },
+  {
+    "n": 24,
+    "time": "2026-08-07 19:10:49",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "antworten",
+    "options": [
+      "savol bermoq",
+      "kelmoq",
+      "javob bermoq"
+    ],
+    "correct_answer": [
+      "javob bermoq"
+    ]
+  },
+  {
+    "n": 25,
+    "time": "2026-08-07 19:10:52",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Heute ___ Pari und Schakhsoda nicht in die Schule.",
+    "options": [
+      "gingen",
+      "ginget",
+      "ging"
+    ],
+    "correct_answer": [
+      "gingen"
+    ]
+  },
+  {
+    "n": 26,
+    "time": "2026-08-07 19:10:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Tut mir leid, wir |_| in Stau.",
+    "options": [
+      "waren",
+      "hatten",
+      "bekam"
+    ],
+    "correct_answer": [
+      "Tut mir leid, wir \nwaren\n in Stau.",
+      "waren"
+    ]
+  },
+  {
+    "n": 27,
+    "time": "2026-08-07 19:10:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| ihr heute Morgen zu Hause?",
+    "options": [
+      " Kamen",
+      "Hattet",
+      "Wart"
+    ],
+    "correct_answer": [
+      "Wart\n ihr heute Morgen zu Hause?",
+      "Wart"
+    ]
+  },
+  {
+    "n": 28,
+    "time": "2026-08-07 19:10:57",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Das Mädchen |_| sehr höflich.",
+    "options": [
+      "hatte",
+      "war",
+      "machte"
+    ],
+    "correct_answer": [
+      "Das Mädchen \nwar\n sehr höflich.",
+      "war"
+    ]
+  },
+  {
+    "n": 29,
+    "time": "2026-08-07 19:10:27",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ich ___ Sofia eine SMS.",
+    "options": [
+      "schickte",
+      " schicken",
+      "sucht "
+    ],
+    "correct_answer": [
+      "schickte"
+    ]
+  },
+  {
+    "n": 30,
+    "time": "2026-08-07 19:11:00",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Wir ___ Urlaub in Wien.",
+    "options": [
+      " macht",
+      " machten",
+      " machte"
+    ],
+    "correct_answer": [
+      "machten"
+    ]
+  }
+]

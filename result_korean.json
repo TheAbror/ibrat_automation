@@ -1,0 +1,786 @@
+[
+  {
+    "n": 1,
+    "time": "2026-08-07 19:14:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"(ㅇ)ㄴ/는 모양이다\" grammatikasi qaysi so‘z turkumi bilan qo‘llaniladi?",
+    "options": [
+      "hamma javoblar to‘g‘ri ",
+      "fe‘l",
+      "sifat ,ot "
+    ],
+    "correct_answer": [
+      "hamma javoblar to‘g‘ri"
+    ]
+  },
+  {
+    "n": 2,
+    "time": "2026-08-07 19:15:27",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"아/어 보이다\" grammatikasi quyidagi sifatlarda bilan o'tgan zamonda to‘g‘ri tuslangan variantni toping. 작다 -",
+    "options": [
+      "작아 보였다",
+      "작아 보이다",
+      "작아 보일 것이다"
+    ],
+    "correct_answer": [
+      "\"아/어 보이다\" grammatikasi quyidagi sifatlarda bilan o'tgan zamonda to‘g‘ri tuslangan variantni toping. 작다 -",
+      "작아 보였다",
+      "작아 보였다",
+      "작아 보이다",
+      "작아 보일 것이다"
+    ]
+  },
+  {
+    "n": 3,
+    "time": "2026-08-07 19:15:30",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"아/어 보이다\" grammatikasi quyidagi sifatlarda bilan o'tgan zamonda to‘g‘ri tuslangan variantni toping. 넓다 -",
+    "options": [
+      "넓어 보였다",
+      "넓어 보이다",
+      "넓어 보일 것이다"
+    ],
+    "correct_answer": [
+      "넓어 보였다"
+    ]
+  },
+  {
+    "n": 4,
+    "time": "2026-08-07 19:15:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "피곤하다 -",
+    "options": [
+      "피곤한 모양이다",
+      "피곤했던 모양이다",
+      "피곤할 모양이다"
+    ],
+    "correct_answer": [
+      "피곤한 모양이다"
+    ]
+  },
+  {
+    "n": 5,
+    "time": "2026-08-07 19:15:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"아/어 보이다 \" qaysi so‘z turkumi bilan qo‘llaniladi?",
+    "options": [
+      "ot",
+      "fe'l",
+      "sifat"
+    ],
+    "correct_answer": [
+      "sifat"
+    ]
+  },
+  {
+    "n": 6,
+    "time": "2026-08-07 19:15:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"(ㅇ)ㄴ/는 모양이다\" grammatikasi nima deb tarjima qilinadi?",
+    "options": [
+      "ko'rinadi",
+      "to'g'ri javob yo'q",
+      "ga o'xshaydi"
+    ],
+    "correct_answer": [
+      "ga o'xshaydi"
+    ]
+  },
+  {
+    "n": 7,
+    "time": "2026-08-07 19:15:42",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "아끼다 -",
+    "options": [
+      "ortmoq",
+      "asramoq",
+      "kamaymoq"
+    ],
+    "correct_answer": [
+      "asramoq"
+    ]
+  },
+  {
+    "n": 8,
+    "time": "2026-08-07 19:15:16",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"(ㅇ)ㄴ/는 모양이다\" grammatikasi fe‘llar bilan hozirgi zamonda to‘g‘ri tuslangan variantni toping. 좋다 -",
+    "options": [
+      "좋은 모양이다",
+      "좋았던 모양이다",
+      "좋을 모양이다"
+    ],
+    "correct_answer": [
+      "좋은 모양이다"
+    ]
+  },
+  {
+    "n": 9,
+    "time": "2026-08-07 19:15:18",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-아/어 보이다\" grammatikasi nima deb tarjima qilinadi?",
+    "options": [
+      "ko'rinmoq",
+      "o'xshamoq",
+      "o'xshatmoq"
+    ],
+    "correct_answer": [
+      "ko'rinmoq"
+    ]
+  },
+  {
+    "n": 10,
+    "time": "2026-08-07 19:15:23",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "계약서 -",
+    "options": [
+      "shartnoma",
+      "tavsiyanoma",
+      "ariza"
+    ],
+    "correct_answer": [
+      "shartnoma"
+    ]
+  },
+  {
+    "n": 11,
+    "time": "2026-08-07 19:16:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ 텐데 \"grammatikasi quyidagi otlar bilan hozir zamonda tuslangan variantni toping. 부자이다 -",
+    "options": [
+      "부자일 텐데 ",
+      "hamma javoblar to‘g‘ri ",
+      "부자였을 텐데 "
+    ],
+    "correct_answer": [
+      "부자일 텐데"
+    ]
+  },
+  {
+    "n": 12,
+    "time": "2026-08-07 19:16:56",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ  텐데\" grammatikasi sifat va fe‘llar bilan o'tgan zamonda tuslangan to‘g‘ri variantni toping. 작다 - ",
+    "options": [
+      "작았을 텐데",
+      "to‘g‘ri javob yo‘q ",
+      "작을 텐데 "
+    ],
+    "correct_answer": [
+      "작았을 텐데"
+    ]
+  },
+  {
+    "n": 13,
+    "time": "2026-08-07 19:16:33",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ 텐데 \"grammatikasi quyidagi otlar bilan hozir zamonda tuslangan variantni toping. 학생이다 -",
+    "options": [
+      "학생일 텐데 ",
+      "to'g'ri javob yo'q",
+      "학생일였을 텐데 "
+    ],
+    "correct_answer": [
+      "학생일 텐데"
+    ]
+  },
+  {
+    "n": 14,
+    "time": "2026-08-07 19:16:36",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Qanday holatlarda \"-(으)ㄹ 테니까\" grammatikasi ishlatilmaydi ?",
+    "options": [
+      "hamma javoblar to‘g‘ri ",
+      "xavotir olish,uzr so'rashda",
+      "minnatdorchilik bildirganda"
+    ],
+    "correct_answer": [
+      "hamma javoblar to‘g‘ri"
+    ]
+  },
+  {
+    "n": 15,
+    "time": "2026-08-07 19:16:38",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "넓을 테니까  o'tgan zamonda tuslang.",
+    "options": [
+      "넓었을 테니까 ",
+      "넓을 테니까 ",
+      "hamma javoblar to‘g‘ri"
+    ],
+    "correct_answer": [
+      "넓었을 테니까"
+    ]
+  },
+  {
+    "n": 16,
+    "time": "2026-08-07 19:16:59",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"(으)ㄹ 텐데/-(으) 테니까\" bu qo‘shimcha qanday tarjima qilinadi?",
+    "options": [
+      "hamma javoblar to‘g‘ri ",
+      "lekin ,o‘xshaydi ",
+      "shuning uchun "
+    ],
+    "correct_answer": [
+      "hamma javoblar to‘g‘ri"
+    ]
+  },
+  {
+    "n": 17,
+    "time": "2026-08-07 19:17:02",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ 텐데\" qaysi so‘z turkumi bilan qo‘llaniladi?",
+    "options": [
+      "ravish",
+      "to'gri javob yo'q",
+      "sifat, fe‘l,ot"
+    ],
+    "correct_answer": [
+      "sifat, fe‘l,ot"
+    ]
+  },
+  {
+    "n": 18,
+    "time": "2026-08-07 19:16:46",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ 테니까 \" grammatikasi qanday tarjima qilinadi?",
+    "options": [
+      "hamma javob to'g'ri",
+      "...ligi uchun",
+      "...ligiga"
+    ],
+    "correct_answer": [
+      "hamma javob to'g'ri"
+    ]
+  },
+  {
+    "n": 19,
+    "time": "2026-08-07 19:16:49",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Quyidagi sifatlar va fe‘llar \"-(으)ㄹ 테니까\" grammatikasi bilan o'tgan zamonda tuslangan to‘g‘ri variantni toping. 가다 -",
+    "options": [
+      "갔을 테니까 ",
+      "갈 테니까 ",
+      "to‘g‘ri javob yo‘q "
+    ],
+    "correct_answer": [
+      "갔을 테니까"
+    ]
+  },
+  {
+    "n": 20,
+    "time": "2026-08-07 19:17:05",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "먹다 o'tgan zamonda tuslang.",
+    "options": [
+      "먹을 텐데 ",
+      "먹었을 텐데 ",
+      "hamma javoblar to‘g‘ri "
+    ],
+    "correct_answer": [
+      "먹었을 텐데"
+    ]
+  },
+  {
+    "n": 21,
+    "time": "2026-08-07 19:17:28",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ걸요\" grammatikasi -",
+    "options": [
+      "ehtimollik darajasini bildiradi",
+      "so'roq gaplarda qo‘llaniladi",
+      "buyruq gaplarda ishlatiladi "
+    ],
+    "correct_answer": [
+      "ehtimollik darajasini bildiradi"
+    ]
+  },
+  {
+    "n": 22,
+    "time": "2026-08-07 19:17:54",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ지도 모르다\" grammatikasi qaysi so‘z turkumlari bilan tuslanadi?",
+    "options": [
+      "ot, sifat ,fe‘l ",
+      "ravish",
+      "olmosh"
+    ],
+    "correct_answer": [
+      "ot, sifat ,fe‘l"
+    ]
+  },
+  {
+    "n": 23,
+    "time": "2026-08-07 19:17:57",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "-(으)ㄹ지도 모르다\" qo‘shimchasi qanday ma'no beradi?",
+    "options": [
+      "mumkin emas ",
+      "qila olmayman",
+      "...ishni ham bilmayman"
+    ],
+    "correct_answer": [
+      "...ishni ham bilmayman"
+    ]
+  },
+  {
+    "n": 24,
+    "time": "2026-08-07 19:18:01",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ걸요\" grammatikasi quyidagi sifat,ot va fe‘llar bilan hozirgi zamonda to‘g‘ri tuslangan variantni toping. 먹다 -",
+    "options": [
+      "먹었을걸요 ",
+      "tuslanmaydi",
+      "먹을걸요"
+    ],
+    "correct_answer": [
+      "\"-(으)ㄹ걸요\" grammatikasi quyidagi sifat,ot va fe‘llar bilan hozirgi zamonda to‘g‘ri tuslangan variantni toping. 먹다 -",
+      "먹었을걸요 ",
+      "tuslanmaydi",
+      "먹을걸요",
+      "먹을걸요"
+    ]
+  },
+  {
+    "n": 25,
+    "time": "2026-08-07 19:18:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "변호사이다 -",
+    "options": [
+      "hamma javoblar to‘g‘ri ",
+      "변호사였을걸요 ",
+      "변호사일걸요"
+    ],
+    "correct_answer": [
+      "변호사일걸요"
+    ]
+  },
+  {
+    "n": 26,
+    "time": "2026-08-07 19:17:41",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ걸요\" grammatikasi qaysi holatda ishlatilmaydi?",
+    "options": [
+      "yozma nutqda",
+      "og'zaki nutqda",
+      "o'tgan zamonda"
+    ],
+    "correct_answer": [
+      "yozma nutqda"
+    ]
+  },
+  {
+    "n": 27,
+    "time": "2026-08-07 19:18:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"내일부터 추석 연휴라서 문을 안 열지도 물라요.\" gap qaysi zamonda kelgan?",
+    "options": [
+      "hamma javoblar to‘g‘ri",
+      "hozirgi va kelasi zamonda ",
+      "o‘tgan zamonda "
+    ],
+    "correct_answer": [
+      "hozirgi va kelasi zamonda"
+    ]
+  },
+  {
+    "n": 28,
+    "time": "2026-08-07 19:18:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "학생이다 -",
+    "options": [
+      "학생이엤을걸요",
+      "학생일걸요",
+      "to‘g‘ri javob yo‘q "
+    ],
+    "correct_answer": [
+      "학생일걸요"
+    ]
+  },
+  {
+    "n": 29,
+    "time": "2026-08-07 19:18:12",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ걸요\" grammatikasi qaysi zamonda qo‘llaniladi?",
+    "options": [
+      "kelajak zamon uchun qo‘llaniladi",
+      "o‘tgan zamonda ishlatiladi",
+      "hozirgi zamonda foydalaniladi"
+    ],
+    "correct_answer": [
+      "kelajak zamon uchun qo‘llaniladi"
+    ]
+  },
+  {
+    "n": 30,
+    "time": "2026-08-07 19:18:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄹ걸요\" grammatikasi quyidagi sifat,ot va fe‘llar bilan hozirgi zamonda to‘g‘ri tuslangan variantni toping. 높다 -",
+    "options": [
+      "hozirgi zamonda tuslanmaydi",
+      "높을걸요",
+      "높았을걸요 "
+    ],
+    "correct_answer": [
+      "높을걸요"
+    ]
+  },
+  {
+    "n": 31,
+    "time": "2026-08-07 19:19:09",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "어제 푹 잤는데도 오늘 많이 피곤하네요. Gapning birinchi qismi qaysi zamonda kelgan?",
+    "options": [
+      "kelasi",
+      "hozirgi",
+      "o'tgan"
+    ],
+    "correct_answer": [
+      "o'tgan"
+    ]
+  },
+  {
+    "n": 32,
+    "time": "2026-08-07 19:19:13",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "고지서 -",
+    "options": [
+      "kvitansiya",
+      "ma'lumot",
+      "axborot"
+    ],
+    "correct_answer": [
+      "kvitansiya"
+    ]
+  },
+  {
+    "n": 33,
+    "time": "2026-08-07 19:19:15",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄴ/는데도\" grammatikasichi?",
+    "options": [
+      "shuning uchun ",
+      "...lekn,...da/ham lekin",
+      "shu sababli "
+    ],
+    "correct_answer": [
+      "...lekn,...da/ham lekin"
+    ]
+  },
+  {
+    "n": 34,
+    "time": "2026-08-07 19:18:47",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Qaysi zamonda? 지하철은 빠른 반면에 출퇴근 시간에는 사람이 많습니다.",
+    "options": [
+      "hozirgi",
+      "o'tgan",
+      "kelasi"
+    ],
+    "correct_answer": [
+      "hozirgi"
+    ]
+  },
+  {
+    "n": 35,
+    "time": "2026-08-07 19:19:21",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "자동이체 -",
+    "options": [
+      "kutubxona",
+      "bank",
+      "bankomat"
+    ],
+    "correct_answer": [
+      "자동이체 -",
+      "자동이체 -",
+      "bankomat",
+      "bankomat",
+      "bankomat",
+      "kutubxona",
+      "bank",
+      "Continue"
+    ]
+  },
+  {
+    "n": 36,
+    "time": "2026-08-07 19:19:25",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "제출 -",
+    "options": [
+      "tugatish",
+      "yakunlash",
+      "topshirish"
+    ],
+    "correct_answer": [
+      "topshirish"
+    ]
+  },
+  {
+    "n": 37,
+    "time": "2026-08-07 19:19:28",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "따로 -",
+    "options": [
+      "boshqa, boshqa",
+      "alohida",
+      "hamma javoblar to'g'ri"
+    ],
+    "correct_answer": [
+      "hamma javoblar to'g'ri"
+    ]
+  },
+  {
+    "n": 38,
+    "time": "2026-08-07 19:19:30",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "아침에 청소를 했는데도 집에 먼지가 많아요. Gapning birinchi qismi qaysi zamonda kelgan?",
+    "options": [
+      "kelasi",
+      "o'tgan",
+      "hozirgi"
+    ],
+    "correct_answer": [
+      "o'tgan"
+    ]
+  },
+  {
+    "n": 39,
+    "time": "2026-08-07 19:19:33",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"-(으)ㄴ/는 반면에\" grammatikasi qanday ma'no beradi?",
+    "options": [
+      "aksincha",
+      "lekin",
+      "hamma javoblar to‘g‘ri "
+    ],
+    "correct_answer": [
+      "hamma javoblar to‘g‘ri"
+    ]
+  },
+  {
+    "n": 40,
+    "time": "2026-08-07 19:19:37",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "집안일 -",
+    "options": [
+      "Uy",
+      "Uy ichida",
+      "Uy ishlari"
+    ],
+    "correct_answer": [
+      "Uy ishlari"
+    ]
+  },
+  {
+    "n": 41,
+    "time": "2026-08-07 19:20:32",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"출\" hanjasiga to‘g‘ri keladigan so'zlarni toping.",
+    "options": [
+      "hamma javoblar to‘g‘ri ",
+      "수출",
+      "매출"
+    ],
+    "correct_answer": [
+      "hamma javoblar to‘g‘ri"
+    ]
+  },
+  {
+    "n": 42,
+    "time": "2026-08-07 19:20:35",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"출\" hanjasiga qanday ma'no beradi?",
+    "options": [
+      "tashqariga chiqish",
+      "tashqari ",
+      "tashqaridan kirish"
+    ],
+    "correct_answer": [
+      "tashqariga chiqish"
+    ]
+  },
+  {
+    "n": 43,
+    "time": "2026-08-07 19:20:38",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "위생복  -",
+    "options": [
+      "Kostyum",
+      "Sanitariya kostyumi",
+      "Forma"
+    ],
+    "correct_answer": [
+      "Sanitariya kostyumi"
+    ]
+  },
+  {
+    "n": 44,
+    "time": "2026-08-07 19:20:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"외\" hanjasi qanday tarjima qilinadi?",
+    "options": [
+      "tashqari",
+      "ichida",
+      "ichki"
+    ],
+    "correct_answer": [
+      "\"외\" hanjasi qanday tarjima qilinadi?",
+      "tashqari",
+      "tashqari",
+      "ichida",
+      "ichki"
+    ]
+  },
+  {
+    "n": 45,
+    "time": "2026-08-07 19:20:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"중\" hanjasiga mos keladigan so‘zlarni toping.",
+    "options": [
+      "가운데 ",
+      "사이",
+      "중심"
+    ],
+    "correct_answer": [
+      "중심"
+    ]
+  },
+  {
+    "n": 46,
+    "time": "2026-08-07 19:20:48",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"외\" hanjasiga to‘g‘ri kelmaydigan so'zni toping. ",
+    "options": [
+      "국적",
+      "외교",
+      "외국"
+    ],
+    "correct_answer": [
+      "국적"
+    ]
+  },
+  {
+    "n": 47,
+    "time": "2026-08-07 19:20:52",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "가위 -",
+    "options": [
+      "Metr",
+      "Qaychi",
+      "Tarozi"
+    ],
+    "correct_answer": [
+      "Qaychi"
+    ]
+  },
+  {
+    "n": 48,
+    "time": "2026-08-07 19:20:56",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "톱 -",
+    "options": [
+      "Arra",
+      "Yog'och",
+      "Bolta"
+    ],
+    "correct_answer": [
+      "Arra"
+    ]
+  },
+  {
+    "n": 49,
+    "time": "2026-08-07 19:20:26",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"중\" hanjasi qanday ma'no beradi?",
+    "options": [
+      "hamma javoblar to'g'ri",
+      "o'rta",
+      "o'rtada"
+    ],
+    "correct_answer": [
+      "hamma javoblar to'g'ri"
+    ]
+  },
+  {
+    "n": 50,
+    "time": "2026-08-07 19:20:59",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "목장갑 -",
+    "options": [
+      "Niqob",
+      "Himoya qo'lqopi",
+      "Qop"
+    ],
+    "correct_answer": [
+      "Himoya qo'lqopi"
+    ]
+  },
+  {
+    "n": 51,
+    "time": "2026-08-07 19:21:22",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "\"반말체\" grammatikasi qanday holatda ishlatiladi?",
+    "options": [
+      "yaqin insonlar va do‘stlar o'rtasida ",
+      "hamma javoblar to‘g‘ri ",
+      "ko‘cha-ko‘yda"
+    ],
+    "correct_answer": [
+      "yaqin insonlar va do‘stlar o'rtasida"
+    ]
+  }
+]
