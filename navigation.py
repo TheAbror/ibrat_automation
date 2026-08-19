@@ -123,6 +123,9 @@ SWIPE_ERRORS = (WebDriverException, AttributeError)
 # The home-screen card the run enters the course through, as its
 # accessibility label reads. Kept next to the locator it mirrors.
 HOME_CARD_DESC = loc.PROGRAM_CERTIFICATE[1]
+# The certificate detail screen's button, same story: below the fold on
+# some phones (kept next to the locator it mirrors).
+CERT_BUTTON_DESC = loc.GET_CERTIFICATE[1]
 
 
 class StuckScreenError(Exception):
@@ -953,6 +956,13 @@ def navigate_to_test(driver, wait, wait_long):
         print(f"'{HOME_CARD_DESC}' is not on the home screen — "
               "is the app signed in to the right account?")
     tap(driver, wait, loc.PROGRAM_CERTIFICATE, "Program Certificate")
+    # Same off-screen-tree issue reveal_card fixed for the home-screen
+    # card (2026-08-03): on some phones the certificate detail screen's
+    # button sits below the fold right after the tap, so it is not just
+    # unclickable but absent from the tree, and tap()'s wait times out
+    # with nothing for dismiss_popup/tap_forward_button to clear (seen
+    # on a client's Samsung A15, 2026-08-08).
+    reveal_card(driver, CERT_BUTTON_DESC)
     tap(driver, wait, loc.GET_CERTIFICATE, "Get certificate")
 
     try:

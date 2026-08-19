@@ -139,7 +139,11 @@ def detect_question_type(question, options, descs=()):
     fill_the_blank, or matching.
 
     - matching: the title contains "moslashtiring" ("Moslashtiring.",
-      "So'zlarni moslashtiring.", ...) — pair cards.
+      "So'zlarni moslashtiring.", ...) — pair cards. Some German lessons
+      title the same board in German instead ("Finden Sie Sinonymen.",
+      client report 2026-08-08) — falling through to multiple_choice
+      made the runner tap single cards on a board that only ever gives a
+      feedback sheet from a matched pair, stranding it forever.
     - fill_the_blank: the sentence is built from many word chips. The chip
       count decides BEFORE any "___"/"|_|" blank in the prompt: the
       sentence-building questions ("The phone rang, but I didn't hear
@@ -155,7 +159,7 @@ def detect_question_type(question, options, descs=()):
       tapping the option submits by itself.
     """
     q = (question or "").strip().lower().rstrip(".")
-    if "moslashtiring" in q or q.startswith("match"):
+    if "moslashtiring" in q or q.startswith("match") or q.startswith("finden sie"):
         return "matching"
     if len(options) >= 5:
         return "fill_the_blank"
@@ -438,16 +442,21 @@ def chip_sequence(question, options, known):
     """Order in which to tap the word chips of a fill_the_blank question.
 
     If the correct sentence is known and every word of it is available as a
-    chip, tap in sentence order. Otherwise tap just the first chip and
+    chip, tap in sentence order. Otherwise tap every chip first-to-last and
     submit — the feedback sheet then reveals the correct sentence, which
-    gets saved for the next encounter.
+    gets saved for the next encounter. Tapping only the first chip used to
+    be enough to unlock Continue, but a multi-blank sentence-builder (a
+    client's stuck_screen.xml, 2026-08-19: 7 chips, Continue stayed
+    disabled after one tap) needs every blank filled first — tapping all
+    the chips still finishes a single-blank screen harmlessly, since the
+    caller already tolerates a chip that's no longer there to tap.
     """
     answer = known.get(question)
     if answer:
         sequence = build_chip_sentence(answer, options)
         if sequence is not None:
             return sequence
-    return list(options[:1])
+    return list(options)
 
 
 def build_chip_sentence(sentence, options):

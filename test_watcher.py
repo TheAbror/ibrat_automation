@@ -914,6 +914,20 @@ class TestDetectQuestionType(unittest.TestCase):
             "fill_the_blank",
         )
 
+    def test_finden_sie_is_matching(self):
+        # German course matching board: its title is in German, not
+        # Uzbek ("Finden Sie Sinonymen." = "Find the synonyms"). Falling
+        # through to multiple_choice made the runner tap single cards on
+        # a board that never gives a feedback sheet that way, stranding
+        # the same board forever (client report, 2026-08-08).
+        self.assertEqual(
+            qh.detect_question_type(
+                "Finden Sie Sinonymen.",
+                ["glücklich", "froh", "traurig", "unglücklich"],
+            ),
+            "matching",
+        )
+
     def test_moslashtiring_beats_continue_button(self):
         self.assertEqual(
             qh.detect_question_type(
@@ -1104,14 +1118,27 @@ class TestStrategies(unittest.TestCase):
             qh.pick_revealed_answer(entry), "She goes to school after work."
         )
 
-    def test_chip_sequence_unknown_taps_first_chip_only(self):
+    def test_chip_sequence_unknown_taps_every_chip(self):
+        # A client-sent stuck_screen.xml (2026-08-19) caught the bug this
+        # guards: a 7-chip Korean sentence-builder ("Shu kunlarda
+        # ishingiz ko'pmi?" + distractor chips) whose Continue button
+        # stays disabled="false" until every blank is filled. Tapping
+        # only the first chip never enables it, so the runner never
+        # submits, never learns the sentence, and restarts forever on
+        # the same question. Tapping every chip both fills a
+        # multi-blank sentence like this one and still finishes a
+        # single-blank one harmlessly (the extra taps land on an
+        # already-consumed chip and are swallowed by the caller's
+        # NoSuchElementException guard).
         chips = ["She", "is", "reading"]
-        self.assertEqual(qh.chip_sequence("Q1", chips, {}), ["She"])
+        self.assertEqual(qh.chip_sequence("Q1", chips, {}), ["She", "is", "reading"])
 
     def test_chip_sequence_ignores_known_answer_with_missing_chip(self):
         known = {"Q1": "She is sleeping."}
         chips = ["She", "is", "reading"]
-        self.assertEqual(qh.chip_sequence("Q1", chips, known), ["She"])
+        self.assertEqual(
+            qh.chip_sequence("Q1", chips, known), ["She", "is", "reading"]
+        )
 
     def test_parse_cards_extracts_labels_centers_and_clickability(self):
         cards = qh.parse_cards(MATCHING_MIDGAME_XML)
@@ -3601,6 +3628,13 @@ CERT_SCREEN_XML = """<hierarchy>
   <node class="android.view.View" bounds="[0,1200][1080,1400]" clickable="true" content-desc="Ingliz tili B2\nRustam Qoriyev"/>
 </hierarchy>"""
 
+# The certificate detail screen right after the tap, before "Get
+# certificate" has scrolled into the tree — the button-below-the-fold
+# case seen on a client's Samsung A15 (2026-08-08).
+CERT_SCREEN_UNSCROLLED_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,300][1080,700]" clickable="false" content-desc="Ingliz tili B2\nRustam Qoriyev"/>
+</hierarchy>"""
+
 
 class ScrollHomeDriver:
     """Home screen that only reveals the second collection row after a swipe."""
@@ -3719,6 +3753,56 @@ class TestRevealHomeCard(unittest.TestCase):
         self.assertIn("Program Certificate", tapped)
         self.assertGreaterEqual(driver.swipes, 1,
                                 "must scroll the card into the tree first")
+
+    def test_navigate_to_test_reveals_the_cert_button_before_tapping_it(self):
+        # Same regression, one screen later: the certificate detail
+        # screen's button below the fold used to time out tap() with
+        # nothing for dismiss_popup/tap_forward_button to clear, which
+        # main.py then misreported as a lost device connection.
+        import navigation
+        # Home card already visible, so the home-screen reveal costs no
+        # swipe — only the certificate screen needs one, isolating the
+        # thing this test actually checks.
+        driver = ScrollHomeDriver(swipes_needed=1)
+        driver.page_source = HOME_SCROLLED_XML
+        tapped = []
+
+        def fake_tap(d, w, locator, label, clear_rounds=3):
+            d.find_element(*locator)
+            tapped.append(label)
+            if label == "Program Certificate":
+                d.page_source = CERT_SCREEN_UNSCROLLED_XML
+
+        def cert_swipe(*a, **kw):
+            driver.swipes += 1
+            if "Get certificate" not in driver.page_source:
+                driver.page_source = CERT_SCREEN_XML
+        driver.swipe = cert_swipe
+
+        saved = (navigation.clear_launch_popups, navigation.tap,
+                 navigation.open_next_in_sequence,
+                 navigation.push_through_to_start)
+        navigation.clear_launch_popups = lambda d, rounds=5: None
+        navigation.tap = fake_tap
+        navigation.open_next_in_sequence = lambda d: True
+        navigation.push_through_to_start = lambda d, attempts=5: None
+
+        class Waiter:
+            def until(self, cond):
+                return FakeElement("x")
+
+        try:
+            self.assertTrue(
+                navigation.navigate_to_test(driver, Waiter(), Waiter())
+            )
+        finally:
+            (navigation.clear_launch_popups, navigation.tap,
+             navigation.open_next_in_sequence,
+             navigation.push_through_to_start) = saved
+
+        self.assertIn("Get certificate", tapped)
+        self.assertGreaterEqual(driver.swipes, 1,
+                                "must scroll the cert button into the tree first")
 
 
 # The quiz Start page on a 1080x2340 phone: the info card fills the
