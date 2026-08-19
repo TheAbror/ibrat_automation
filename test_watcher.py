@@ -441,6 +441,60 @@ class TestUnlabeledClose(unittest.TestCase):
         self.assertEqual(driver.taps, [])
 
 
+SEQUENCE_REMINDER_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,1600]" clickable="true" content-desc="Dismiss"/>
+  <node class="android.widget.Button" bounds="[42,1418][678,1502]" clickable="true" content-desc="Next lesson"/>
+</hierarchy>"""
+
+
+class SequenceReminderDriver:
+    """The 'study lessons in sequence' reminder: a Dismiss-labeled
+    backdrop behind the only button that actually resolves it."""
+
+    page_source = SEQUENCE_REMINDER_XML
+
+    def __init__(self):
+        self.next_lesson_tapped = False
+        self.dismiss_tapped = False
+
+    def find_element(self, by, value):
+        if value == "Next lesson":
+            el = FakeElement("Next lesson")
+            el.click = lambda: setattr(self, "next_lesson_tapped", True)
+            return el
+        if "Dismiss" in value:
+            el = FakeElement("Dismiss")
+            el.click = lambda: setattr(self, "dismiss_tapped", True)
+            return el
+        raise NoSuchElementException(value)
+
+
+class TestSequenceReminderPopup(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_next_lesson_wins_over_the_reminder_backdrops_dismiss_label(self):
+        # Live test run, 2026-08-19: the reminder's backdrop carries
+        # content-desc "Dismiss", which find_close_icon matches like any
+        # ordinary popup X. Dismissing the backdrop doesn't satisfy "you
+        # must study the lessons in sequence", so the app re-shows the
+        # same reminder immediately — dismiss_popup "succeeds" every
+        # time (resetting the caller's idle timer) while never actually
+        # advancing, an unbounded loop no existing safety net catches
+        # (confirmed live: 65+ repeats with no restart).
+        import navigation
+        driver = SequenceReminderDriver()
+        self.assertTrue(navigation.dismiss_popup(driver))
+        self.assertTrue(driver.next_lesson_tapped)
+        self.assertFalse(driver.dismiss_tapped)
+
+
 class TestPromoInterstitial(unittest.TestCase):
     def setUp(self):
         import navigation
@@ -924,6 +978,26 @@ class TestDetectQuestionType(unittest.TestCase):
             qh.detect_question_type(
                 "Finden Sie Sinonymen.",
                 ["glücklich", "froh", "traurig", "unglücklich"],
+            ),
+            "matching",
+        )
+
+    def test_birlashtiring_is_matching(self):
+        # A different Uzbek matching-board title turned up live,
+        # 2026-08-19: "Sinonimlarni birlashtiring." ("Combine the
+        # synonyms") — falls through the "moslashtiring" check exactly
+        # like "Finden Sie Sinonymen." did, and options >= 5 stranded it
+        # as fill_the_blank the same way. "moslashtiring" and
+        # "birlashtiring" are both Uzbek causative-imperative verbs
+        # ending "-tiring" ("(you) make them match/combine") — matching
+        # boards evidently get titled with whichever one applies, so the
+        # suffix is the durable signal, not either verb by name.
+        self.assertEqual(
+            qh.detect_question_type(
+                "Sinonimlarni birlashtiring.",
+                ["(으)ㄹ 때까지", "도록", "다고 해서", "(ㄴ/는)다기에/길래",
+                 "더라도", "(으)ㄴ/는가 하면", "다고", "든지",
+                 "기는 하지만", "는 길에"],
             ),
             "matching",
         )
@@ -1571,6 +1645,17 @@ QUESTION_XML = """<hierarchy>
   <node class="android.widget.Button" content-desc="the"/>
 </hierarchy>"""
 
+# A live stuck_screen.xml (2026-08-19): the session countdown timer
+# above the question is its own Button, content-desc "9:27" that ticks
+# every second — matched verbatim from the client's capture.
+TIMER_QUESTION_XML = """<hierarchy>
+  <node class="android.widget.Button" content-desc="9:27"/>
+  <node class="android.view.View" content-desc="그렇기는 한데"/>
+  <node class="android.widget.Button" content-desc="Shunaqa-yu, lekin"/>
+  <node class="android.widget.Button" content-desc="bilan"/>
+  <node class="android.widget.Button" content-desc="va"/>
+</hierarchy>"""
+
 FEEDBACK_XML = """<hierarchy>
   <node class="android.view.View" content-desc="He's reading ___ interesting book."/>
   <node class="android.widget.Button" content-desc="null"/>
@@ -1752,6 +1837,22 @@ class TestPollOnce(unittest.TestCase):
         self.assertEqual(state["question"], "He's reading ___ interesting book.")
         self.assertEqual(state["options"], ["a", "an", "the"])
         self.assertEqual(results, [])
+
+    def test_timer_button_is_never_scraped_as_an_option(self):
+        # The countdown timer above every quiz question renders as its
+        # own clickable Button, labeled with the current time ("9:42")
+        # — ticking every second, so it can't be named in OPTION_IGNORE
+        # like the other non-option buttons. Scraped as a spurious
+        # option, its value is different on every poll, so it always
+        # looks "untried" to choose_mc_option and starves the real
+        # options of a turn forever — confirmed live, 2026-08-19: a
+        # first-time question ("그렇기는 한데") stuck tapping "9:44",
+        # "9:43", "9:42" instead of any of its three real options.
+        driver = XmlDriver(TIMER_QUESTION_XML)
+        state = watcher.fresh_state()
+        status = watcher.poll_once(driver, state, [])
+        self.assertEqual(status, "question")
+        self.assertEqual(state["options"], ["Shunaqa-yu, lekin", "bilan", "va"])
 
     def test_finish_screen_is_not_a_question(self):
         # "Test finished!" plus [Retry, Next lesson] must never register as

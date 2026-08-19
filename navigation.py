@@ -612,6 +612,23 @@ def dismiss_popup(driver):
     descs = [d for _, d in nodes if d]
     if looks_like_survey(descs):
         return dismiss_survey(driver, descs)
+    if "Next lesson" in descs:
+        # Live test run, 2026-08-19: the "study lessons in sequence"
+        # reminder's backdrop carries content-desc "Dismiss", which
+        # find_close_icon below matches like an ordinary popup X.
+        # Dismissing the backdrop doesn't satisfy the reminder, so it
+        # reappears immediately — dismiss_popup "succeeds" every time
+        # (resetting the caller's idle timer) while never advancing, an
+        # unbounded loop no existing safety net catches (confirmed live:
+        # 65+ repeats, no restart). "Next lesson" is the only button
+        # that actually resolves it, so it must win the match.
+        try:
+            driver.find_element(*loc.NEXT_LESSON).click()
+            print("Tapped: Next lesson (sequence reminder)")
+            time.sleep(1)
+            return True
+        except (NoSuchElementException, StaleElementReferenceException):
+            return False
     icon = find_close_icon(nodes)
     if icon:
         try:

@@ -476,5 +476,444 @@
     "correct_answer": [
       "machten"
     ]
+  },
+  {
+    "n": 31,
+    "time": "2026-08-19 14:45:53",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Die Aufgabe, |_|  ich erfüllt habe, war schwer.",
+    "options": [
+      "den",
+      "das",
+      "die  ",
+      "der "
+    ],
+    "correct_answer": [
+      "Die Aufgabe, \ndie  \n  ich erfüllt habe, war schwer.",
+      "die"
+    ]
+  },
+  {
+    "n": 32,
+    "time": "2026-08-19 14:45:56",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Mein Freund, ___ ich besuche, lebt in Paris.",
+    "options": [
+      "die",
+      "den",
+      "das",
+      "der"
+    ],
+    "correct_answer": [
+      "den"
+    ]
+  },
+  {
+    "n": 33,
+    "time": "2026-08-19 14:45:28",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "der Ausgang",
+    "options": [
+      "Chiqish",
+      "Kirish",
+      "Nuqta"
+    ],
+    "correct_answer": [
+      "Chiqish"
+    ]
+  },
+  {
+    "n": 34,
+    "time": "2026-08-19 14:46:01",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Das Kind, |_| dort spielt, ist die Tochter meiner Chefin.",
+    "options": [
+      "die",
+      "den",
+      "der",
+      "das"
+    ],
+    "correct_answer": [
+      "Das Kind, |_| dort spielt, ist die Tochter meiner Chefin.",
+      "Das Kind, \ndas\n dort spielt, ist die Tochter meiner Chefin.",
+      "die",
+      "den",
+      "der",
+      "das",
+      "das"
+    ]
+  },
+  {
+    "n": 35,
+    "time": "2026-08-19 14:45:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Der Mann, ___ da drüben steht, ist mein Chef.",
+    "options": [
+      "der   ",
+      "das",
+      "die",
+      "den"
+    ],
+    "correct_answer": [
+      "der"
+    ]
+  },
+  {
+    "n": 36,
+    "time": "2026-08-19 14:46:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ich habe eine Mutter, ___ ich alles erzählen kann.",
+    "options": [
+      "das",
+      "der",
+      "dem"
+    ],
+    "correct_answer": [
+      "der"
+    ]
+  },
+  {
+    "n": 37,
+    "time": "2026-08-19 14:46:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Die Frau, ___ dort sitzt, ist meine Kollegin Lisa.",
+    "options": [
+      "die",
+      "den",
+      "das",
+      "der"
+    ],
+    "correct_answer": [
+      "die"
+    ]
+  },
+  {
+    "n": 38,
+    "time": "2026-08-19 14:46:10",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Du kennst die Nachbarn, |_| nett sind.",
+    "options": [
+      "der",
+      "die",
+      "den",
+      "das"
+    ],
+    "correct_answer": [
+      "Du kennst die Nachbarn, \ndie\n nett sind.",
+      "die"
+    ]
+  },
+  {
+    "n": 39,
+    "time": "2026-08-19 14:46:13",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Der Mann, ___ Sohn in Taschkent studiert, ist mein Lehrer.",
+    "options": [
+      "dessen",
+      "deren ",
+      "der ",
+      "die "
+    ],
+    "correct_answer": [
+      "dessen"
+    ]
+  },
+  {
+    "n": 40,
+    "time": "2026-08-19 14:46:16",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Die Frauen, |_| Französisch sprechen, kommen aus Kanada.",
+    "options": [
+      "dem",
+      "der",
+      "die",
+      "das"
+    ],
+    "correct_answer": [
+      "Die Frauen, \ndie\n Französisch sprechen, kommen aus Kanada.",
+      "die"
+    ]
+  },
+  {
+    "n": 41,
+    "time": "2026-08-19 14:47:29",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Er vertraut ___ mehr.",
+    "options": [
+      "keinem ",
+      "niemandem ",
+      "kein"
+    ],
+    "correct_answer": [
+      "Er vertraut ___ mehr.",
+      "keinem ",
+      "niemandem ",
+      "kein",
+      "niemandem"
+    ]
+  },
+  {
+    "n": 42,
+    "time": "2026-08-19 14:47:31",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Sie hat ___ genug Geld dabei.",
+    "options": [
+      "nicht ",
+      "kein ",
+      "keine"
+    ],
+    "correct_answer": [
+      "nicht"
+    ]
+  },
+  {
+    "n": 43,
+    "time": "2026-08-19 14:47:01",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "|_| ist wichtig.",
+    "options": [
+      "Nichts  ",
+      "Nicht",
+      "Niemand"
+    ],
+    "correct_answer": [
+      "Nichts  \n ist wichtig.",
+      "Nichts"
+    ]
+  },
+  {
+    "n": 44,
+    "time": "2026-08-19 14:47:04",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ich gehe ___ ins Schwimmbad. ",
+    "options": [
+      "nicht",
+      "keine ",
+      "kein "
+    ],
+    "correct_answer": [
+      "nicht"
+    ]
+  },
+  {
+    "n": 45,
+    "time": "2026-08-19 14:47:07",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Warst du schon irgendwann in der Schule? - Nein, dort war ich noch ___ .",
+    "options": [
+      "nie",
+      "kein",
+      "keine  "
+    ],
+    "correct_answer": [
+      "nie"
+    ]
+  },
+  {
+    "n": 46,
+    "time": "2026-08-19 14:47:34",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ich will ___ , dass er mitkommt.",
+    "options": [
+      "nicht",
+      "keine ",
+      "kein"
+    ],
+    "correct_answer": [
+      "nicht"
+    ]
+  },
+  {
+    "n": 47,
+    "time": "2026-08-19 14:47:39",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "Anfangen",
+    "options": [
+      "Tugatmoq",
+      "O'rganmoq",
+      "Boshlamoq"
+    ],
+    "correct_answer": [
+      "Boshlamoq"
+    ]
+  },
+  {
+    "n": 48,
+    "time": "2026-08-19 14:47:42",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Sind Sie ___ Herr Peters? - Nein.",
+    "options": [
+      "keinen",
+      "nicht",
+      "kein"
+    ],
+    "correct_answer": [
+      "nicht"
+    ]
+  },
+  {
+    "n": 49,
+    "time": "2026-08-19 14:47:45",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Ich gehe heute ___ einkaufen.",
+    "options": [
+      "kein ",
+      "nicht ",
+      "keine"
+    ],
+    "correct_answer": [
+      "nicht"
+    ]
+  },
+  {
+    "n": 50,
+    "time": "2026-08-19 14:47:24",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Für mich ist das |_| Problem.",
+    "options": [
+      " kein ",
+      "keine",
+      "nicht",
+      "keinen "
+    ],
+    "correct_answer": [
+      "Für mich ist das \n kein \n Problem.",
+      "kein"
+    ]
+  },
+  {
+    "n": 51,
+    "time": "2026-08-19 14:48:24",
+    "type": "multiple_choice",
+    "result": "incorrect",
+    "question": "Ich ___ ein Eis gestern ___ .",
+    "options": [
+      "haben, gegessen                             ",
+      "habe,  gegessen",
+      "habt,  getrunken"
+    ],
+    "correct_answer": [
+      "habe, gegessen"
+    ]
+  },
+  {
+    "n": 52,
+    "time": "2026-08-19 14:48:35",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Sho'rva shirin edi.",
+    "options": [
+      "blau",
+      "Suppe",
+      "rot",
+      "lecker.",
+      "Brot",
+      "sind",
+      "war "
+    ],
+    "correct_answer": [
+      "blau",
+      "Suppe",
+      "rot",
+      "lecker.",
+      "Brot",
+      "sind",
+      "war ",
+      "Suppe war lecker."
+    ]
+  },
+  {
+    "n": 53,
+    "time": "2026-08-19 14:48:40",
+    "type": "word_translation",
+    "result": "correct",
+    "question": "Zufügen",
+    "options": [
+      "Qo'shmoq   ",
+      "Tebratmoq",
+      "Yurmoq",
+      "Yordamlashmoq"
+    ],
+    "correct_answer": [
+      "Qo'shmoq"
+    ]
+  },
+  {
+    "n": 54,
+    "time": "2026-08-19 14:48:43",
+    "type": "multiple_choice",
+    "result": "correct",
+    "question": "Gestern ___ ich mit dem Bus ____ . ",
+    "options": [
+      "bin, gefahren ",
+      "bist, gefahren",
+      "sind, gefahren"
+    ],
+    "correct_answer": [
+      "bin, gefahren"
+    ]
+  },
+  {
+    "n": 55,
+    "time": "2026-08-19 14:48:47",
+    "type": "word_translation",
+    "result": "incorrect",
+    "question": "Das Feuer",
+    "options": [
+      "Kun ",
+      "Olov ",
+      "Kiyim"
+    ],
+    "correct_answer": [
+      "Olov"
+    ]
+  },
+  {
+    "n": 56,
+    "time": "2026-08-19 14:49:00",
+    "type": "fill_the_blank",
+    "result": "incorrect",
+    "question": "Biz o'zimizning uy vazifalarimizni qildik. ",
+    "options": [
+      "sind",
+      "unsere",
+      "Haus",
+      "gemacht",
+      "Hausaufgaben",
+      "Wir",
+      "haben",
+      "Ich"
+    ],
+    "correct_answer": [
+      "sind",
+      "unsere",
+      "Haus",
+      "gemacht",
+      "Hausaufgaben",
+      "Wir",
+      "haben",
+      "Ich",
+      "Wir haben unsere Hausaufgaben gemacht"
+    ]
   }
 ]

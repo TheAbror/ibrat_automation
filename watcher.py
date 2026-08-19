@@ -26,6 +26,7 @@ from question_handler import (
     INCORRECT_MARKERS,
     NEXT_LABELS,
     OPTION_IGNORE,
+    TIMER_LABEL_RE,
     classify_sheet,
     dedupe_results,
     detect_question_type,
@@ -148,6 +149,7 @@ def poll_once(driver, state, results):
         options = [
             d for cls, d in nodes
             if cls == "android.widget.Button" and d and d not in OPTION_IGNORE
+            and not TIMER_LABEL_RE.match(d)
         ]
         # A real question always offers 2+ option buttons; without this
         # floor the mid-run streak popup ("3" / "Day" / Continue) counts

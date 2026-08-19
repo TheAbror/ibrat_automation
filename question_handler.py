@@ -18,6 +18,15 @@ NEXT_LABELS = ("Next",)
 # an option turns that screen into a fake question whose option A restarts
 # the whole test.
 OPTION_IGNORE = NEXT_LABELS + ("Continue", "null", "Retry")
+# The countdown timer above every quiz question is its own clickable
+# Button, labeled with the current time ("9:42") — ticking every second,
+# so it can't be named in OPTION_IGNORE like the others above. Scraped as
+# a spurious option, its value is different on every poll, so it always
+# looks "untried" to choose_mc_option and starves the real options of a
+# turn forever (a live stuck_screen.xml, 2026-08-19: a first-time
+# question stuck tapping "9:44", "9:43", "9:42" instead of any real
+# option).
+TIMER_LABEL_RE = re.compile(r"^\d{1,2}:\d{2}$")
 
 # Full-screen promo/upsell screens: the Pro subscription offer and the
 # IELTS interstitial ("O'ychi o'yini ..." / IELTSGA GOO!). Both carry the
@@ -138,12 +147,19 @@ def detect_question_type(question, options, descs=()):
     """Classify a question screen: multiple_choice, word_translation,
     fill_the_blank, or matching.
 
-    - matching: the title contains "moslashtiring" ("Moslashtiring.",
-      "So'zlarni moslashtiring.", ...) — pair cards. Some German lessons
-      title the same board in German instead ("Finden Sie Sinonymen.",
-      client report 2026-08-08) — falling through to multiple_choice
-      made the runner tap single cards on a board that only ever gives a
-      feedback sheet from a matched pair, stranding it forever.
+    - matching: the title is an Uzbek causative-imperative verb ending
+      "-tiring" — "(you) make them match/combine" — such as
+      "Moslashtiring.", "So'zlarni moslashtiring.", or "Sinonimlarni
+      birlashtiring." (a live stuck_screen.xml, 2026-08-19: falling
+      through to fill_the_blank like the case below). The suffix, not
+      either verb by name, is the durable signal — matching boards keep
+      turning up titled with whichever verb fits the exercise, and
+      enumerating verbs one at a time only catches the ones already
+      seen. Some German lessons title the same board in German instead
+      ("Finden Sie Sinonymen.", client report 2026-08-08) — falling
+      through to multiple_choice made the runner tap single cards on a
+      board that only ever gives a feedback sheet from a matched pair,
+      stranding it forever.
     - fill_the_blank: the sentence is built from many word chips. The chip
       count decides BEFORE any "___"/"|_|" blank in the prompt: the
       sentence-building questions ("The phone rang, but I didn't hear
@@ -159,7 +175,7 @@ def detect_question_type(question, options, descs=()):
       tapping the option submits by itself.
     """
     q = (question or "").strip().lower().rstrip(".")
-    if "moslashtiring" in q or q.startswith("match") or q.startswith("finden sie"):
+    if q.endswith("tiring") or q.startswith("match") or q.startswith("finden sie"):
         return "matching"
     if len(options) >= 5:
         return "fill_the_blank"
