@@ -18,13 +18,38 @@ NEXT_LABELS = ("Next",)
 # an option turns that screen into a fake question whose option A restarts
 # the whole test.
 OPTION_IGNORE = NEXT_LABELS + ("Continue", "null", "Retry")
+# The countdown timer above every quiz question is its own clickable
+# Button, labeled with the current time ("9:42") — ticking every second,
+# so it can't be named in OPTION_IGNORE like the others above. Scraped as
+# a spurious option, its value is different on every poll, so it always
+# looks "untried" to choose_mc_option and starves the real options of a
+# turn forever (a live stuck_screen.xml, 2026-08-19: a first-time
+# question stuck tapping "9:44", "9:43", "9:42" instead of any real
+# option).
+TIMER_LABEL_RE = re.compile(r"^\d{1,2}:\d{2}$")
 
 # Full-screen promo/upsell screens: the Pro subscription offer and the
 # IELTS interstitial ("O'ychi o'yini ..." / IELTSGA GOO!). Both carry the
 # "35 130+ subscribers" pill; the interstitial also has its own CTA texts.
 # Their buttons must never count as answer options — option A would be a
 # paywall CTA.
-PROMO_MARKERS = ("+ subscribers", "IELTSGA", "VAQT TOPILAVERADI")
+# The pill can render split into one-glyph nodes ('3','5',...,'+',
+# ' subscribers') — seen on the IBRAT PRO paywall 2026-08-04, which went
+# unrecognized and cost a restart — so the marker is the one fragment
+# that survives the split. "uzs/oy" is the plan cards' per-month price
+# unit, carried only by paywall screens (bare "soums" could appear in a
+# money-themed question).
+# "% chegirma" — the discount interstitials' "30% chegirma" headline;
+# percent-prefixed so a vocabulary question about "chegirma" (discount)
+# can never read as a promo. "% discount" is the same guard for an
+# English-language render of the same screen (client request, 2026-08-06
+# — never actually seen, since the app has only shown this interstitial
+# in Uzbek so far; added ahead of time in case a client update switches
+# it to English). Its own close surface is labeled "Dismiss" regardless
+# of language and is matched separately (CLOSE_ICON_DESCS) — this marker
+# only backs up looks_like_promo if that surface ever changes too.
+PROMO_MARKERS = (" subscribers", "IELTSGA", "VAQT TOPILAVERADI", "uzs/oy",
+                 "% chegirma", "% discount")
 
 
 def looks_like_promo(descs):
@@ -42,6 +67,53 @@ FINISH_MARKERS = ("Test completed", "Test finished")
 
 def looks_like_finish(descs):
     return any(m in d for d in descs for m in FINISH_MARKERS)
+
+
+# The "How did you hear about us?" survey interstitial (client report,
+# 2026-08-04 — its tree has never been captured in a dump). Recognized
+# two ways, because its exact title is unknown and may drift or render
+# in another language:
+# - title markers, substring and case-blind, for the phrasings clients
+#   have described;
+# - option shape: a TV option next to an untranslatable social-brand
+#   option. Proper nouns survive any translation, and a genuine
+#   media-vocabulary question could offer TV — but never Instagram
+#   beside it — so the pair is this survey and nothing else.
+# Its option Buttons clear the 2-option question floor, and it can carry
+# its own Next/Continue, so both the question and the sheet paths must
+# check for it.
+SURVEY_TITLE_MARKERS = (
+    "did you hear about us",
+    "did you find out about us",
+    "did you learn about us",
+)
+SURVEY_SOCIAL_CHANNELS = ("instagram", "telegram", "facebook", "youtube", "tiktok")
+# The answer the client wants chosen, whatever the label calls it.
+SURVEY_TV_LABELS = ("tv", "televizor")
+
+
+def looks_like_survey(descs):
+    """True when the screen is the hear-about-us survey interstitial."""
+    lowered = [d.strip().lower() for d in descs]
+    if any(m in d for d in lowered for m in SURVEY_TITLE_MARKERS):
+        return True
+    return (any(d in SURVEY_TV_LABELS for d in lowered)
+            and any(d in SURVEY_SOCIAL_CHANNELS for d in lowered))
+
+
+# The ask-to-update-the-app bottom sheet (client report, 2026-08-04 —
+# never captured in a dump): recognized by its Update button alone,
+# matched exactly and case-blind so the word inside a lesson sentence
+# doesn't trigger it. Updating is never the run's job — the button walks
+# out to the Play Store — so the sheet is closed instead
+# (navigation.dismiss_update_sheet), and its buttons must never count as
+# answer options or forward buttons while it covers the real screen.
+UPDATE_LABELS = ("update", "yangilash")
+
+
+def looks_like_update_sheet(descs):
+    """True when the ask-to-update bottom sheet is up."""
+    return any(d.strip().lower() in UPDATE_LABELS for d in descs)
 
 
 def parse_screen(xml):
@@ -75,8 +147,19 @@ def detect_question_type(question, options, descs=()):
     """Classify a question screen: multiple_choice, word_translation,
     fill_the_blank, or matching.
 
-    - matching: the title contains "moslashtiring" ("Moslashtiring.",
-      "So'zlarni moslashtiring.", ...) — pair cards.
+    - matching: the title is an Uzbek causative-imperative verb ending
+      "-tiring" — "(you) make them match/combine" — such as
+      "Moslashtiring.", "So'zlarni moslashtiring.", or "Sinonimlarni
+      birlashtiring." (a live stuck_screen.xml, 2026-08-19: falling
+      through to fill_the_blank like the case below). The suffix, not
+      either verb by name, is the durable signal — matching boards keep
+      turning up titled with whichever verb fits the exercise, and
+      enumerating verbs one at a time only catches the ones already
+      seen. Some German lessons title the same board in German instead
+      ("Finden Sie Sinonymen.", client report 2026-08-08) — falling
+      through to multiple_choice made the runner tap single cards on a
+      board that only ever gives a feedback sheet from a matched pair,
+      stranding it forever.
     - fill_the_blank: the sentence is built from many word chips. The chip
       count decides BEFORE any "___"/"|_|" blank in the prompt: the
       sentence-building questions ("The phone rang, but I didn't hear
@@ -92,7 +175,7 @@ def detect_question_type(question, options, descs=()):
       tapping the option submits by itself.
     """
     q = (question or "").strip().lower().rstrip(".")
-    if "moslashtiring" in q or q.startswith("match"):
+    if q.endswith("tiring") or q.startswith("match") or q.startswith("finden sie"):
         return "matching"
     if len(options) >= 5:
         return "fill_the_blank"
@@ -182,6 +265,15 @@ def dedupe_results(results):
     board shares one question text) newly discovered pairs fold into the
     kept entry. Entries with no question text at all (a sheet met before
     any question) are dropped.
+
+    A kept entry whose OWN result was "incorrect" is not yet a confirmed
+    answer — it was learned from a reveal alongside a wrong attempt, and
+    the reveal-parsing heuristic can occasionally lock in the wrong
+    element (2026-08-06 live run: a fill_the_blank answer learned this
+    way kept reproducing the same wrong sentence every time the question
+    recurred, forever, since nothing ever revisited it). A fresh teaching
+    repeat is let through in that case, the same as for an answerless
+    entry — a confirmed-correct kept entry is never touched.
     """
     kept = {}
     for entry in results:
@@ -203,7 +295,7 @@ def dedupe_results(results):
                    and p[0] not in lefts]
             if new:
                 kept[key] = {**old, "correct_answer": list(known) + new}
-        elif not _teaches(old) and _teaches(entry):
+        elif (not _teaches(old) or old.get("result") == "incorrect") and _teaches(entry):
             kept[key] = entry
     return list(kept.values())
 
@@ -366,16 +458,21 @@ def chip_sequence(question, options, known):
     """Order in which to tap the word chips of a fill_the_blank question.
 
     If the correct sentence is known and every word of it is available as a
-    chip, tap in sentence order. Otherwise tap just the first chip and
+    chip, tap in sentence order. Otherwise tap every chip first-to-last and
     submit — the feedback sheet then reveals the correct sentence, which
-    gets saved for the next encounter.
+    gets saved for the next encounter. Tapping only the first chip used to
+    be enough to unlock Continue, but a multi-blank sentence-builder (a
+    client's stuck_screen.xml, 2026-08-19: 7 chips, Continue stayed
+    disabled after one tap) needs every blank filled first — tapping all
+    the chips still finishes a single-blank screen harmlessly, since the
+    caller already tolerates a chip that's no longer there to tap.
     """
     answer = known.get(question)
     if answer:
         sequence = build_chip_sentence(answer, options)
         if sequence is not None:
             return sequence
-    return list(options[:1])
+    return list(options)
 
 
 def build_chip_sentence(sentence, options):

@@ -26,16 +26,19 @@ from question_handler import (
     INCORRECT_MARKERS,
     NEXT_LABELS,
     OPTION_IGNORE,
+    TIMER_LABEL_RE,
     classify_sheet,
     dedupe_results,
     detect_question_type,
     looks_like_finish,
     looks_like_promo,
+    looks_like_survey,
+    looks_like_update_sheet,
     parse_screen,
     tap_next,
 )
 
-RESULTS_FILE = "results.json"
+RESULTS_FILE = config.RESULTS_FILE
 POLL_INTERVAL = 0.2
 RECONNECT_DELAY = 2
 MAX_RECONNECTS = 3
@@ -126,6 +129,17 @@ def poll_once(driver, state, results):
     state["source"] = source
     nodes = parse_screen(source)
     descs = [d for _, d in nodes if d]
+    # The "How did you hear about us?" survey: its option Buttons read
+    # as a question (option A — "Instagram" — would become the answer),
+    # and one carrying its own Next reads as a feedback sheet, whose
+    # blind Next tap this loop would then retry forever. The
+    # ask-to-update bottom sheet is the same trap with an extra bite:
+    # its Update button could become option A, walking the run out to
+    # the Play Store. Neither path may touch them: the auto-runner
+    # clears both via dismiss_popup, and in watcher mode the human
+    # handles them on the phone.
+    if looks_like_survey(descs) or looks_like_update_sheet(descs):
+        return None
     sheet = classify_sheet(descs)
 
     if sheet is None:
@@ -135,6 +149,7 @@ def poll_once(driver, state, results):
         options = [
             d for cls, d in nodes
             if cls == "android.widget.Button" and d and d not in OPTION_IGNORE
+            and not TIMER_LABEL_RE.match(d)
         ]
         # A real question always offers 2+ option buttons; without this
         # floor the mid-run streak popup ("3" / "Day" / Continue) counts

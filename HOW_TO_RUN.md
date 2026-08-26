@@ -32,6 +32,22 @@ one worker, but a second `python3 main.py` (or `watcher.py`) started by
 hand has the same effect. If runs keep dying with "instrumentation
 process is not running", check for a second runner still going.
 
+## What a run leaves behind (and what to ask for when it misbehaves)
+
+The console is not a record — it scrolls away, and the window gets closed.
+Everything worth keeping is written to the project folder instead:
+
+| File | Contents |
+|---|---|
+| `problems.log` | one block per restart or give-up: reason, phase, question, device, and the screen file. Absent when the run had no trouble. |
+| `run.log` | everything the runner printed, appended across runs |
+| `appium.log` | the Appium server's own output — where session/setup failures land (a missing `ANDROID_HOME` shows up here and nowhere else) |
+| `stuck_screen_*.xml` | one tree per stranding, timestamped so a run that strands repeatedly keeps them all; the newest is copied to `stuck_screen.xml` |
+
+All are gitignored. `appium.log` only gets written when the supervisor starts
+Appium itself — if you run `appium` by hand in another terminal, its output
+goes to that terminal instead and there is nothing to send.
+
 ## On a tall phone, buttons can start below the fold
 
 UiAutomator2 leaves off-screen nodes out of the element tree entirely, so

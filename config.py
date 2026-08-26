@@ -11,8 +11,13 @@ APP_ACTIVITY = ".MainActivity"
 APPIUM_SERVER = "http://127.0.0.1:4723"
 
 # Which course to open. The test itself is no longer configured: the runner
-# always opens whatever the course sequence says is next.
-COURSE_DESCRIPTION = "Ingliz tili B2\nRustam Qoriyev"
+# always opens whatever the course sequence says is next. main_german.py /
+# main_korean.py set IBRAT_COURSE_DESCRIPTION so the same runner can drive
+# a different assigned course instead of English.
+COURSE_DESCRIPTION = os.environ.get("IBRAT_COURSE_DESCRIPTION") or "Ingliz tili B2\nRustam Qoriyev"
 # The module card to open when the app falls back to the "Modules" list
 # (matched as a desc prefix — the full desc carries live progress counts).
-MODULE_PREFIX = "B2 |"
+MODULE_PREFIX = os.environ.get("IBRAT_MODULE_PREFIX") or "B2 |"
+# Answer book: read for known answers and appended to as the runner
+# learns. Per-course, so one language's answers never leak into another's.
+RESULTS_FILE = os.environ.get("IBRAT_RESULTS_FILE") or "results.json"
