@@ -2721,6 +2721,33 @@ class TestStuckScreenRestart(unittest.TestCase):
             f"the fallback must try Continue: {clicks}",
         )
 
+    def test_video_watch_gate_sheet_is_waited_out_not_instantly_restarted(self):
+        # The answer loop's unrecognized-screen path must hand the sheet
+        # to handle_video_watch_gate first — a sheet nothing can clear
+        # still ends in the restart, but only after the video's had its
+        # watch window, never at the bare 10s idle limit.
+        import main as main_mod
+        import navigation
+        self._nav_time = navigation.time
+        navigation.time = FakeTime()
+        self._gate = dict(navigation.VIDEO_GATE)
+        self._done = dict(navigation.WATCH_GATE_DONE)
+        navigation.VIDEO_GATE.update(title=None, seconds=0, since=None)
+        navigation.WATCH_GATE_DONE.update(title=None)
+        try:
+            driver = TapDriver(VIDEO_WATCH_GATE_XML)
+            with self.assertRaises(main_mod.StuckScreenError):
+                main_mod.auto_answer_loop(driver)
+            self.assertGreaterEqual(
+                navigation.time.time() - 1000,
+                navigation.VIDEO_WATCH_GATE_MAX_WAIT,
+                "the sheet must be waited out before the restart",
+            )
+        finally:
+            navigation.time = self._nav_time
+            navigation.VIDEO_GATE.update(self._gate)
+            navigation.WATCH_GATE_DONE.update(self._done)
+
 
 # Trimmed from the real stuck_screen.xml captured 2026-08-02: the app had
 # crashed mid-question and the "unrecognized screen" was the Android
@@ -3178,6 +3205,297 @@ class VideoLessonDriver:
         return el
 
 
+# The app's "watch at least 70% of the video first" bottom-sheet. It
+# pops over a lesson page when its Next is tapped before the video has
+# been watched enough (client, 2026-08-27: a real run hit it, had no
+# handler for it, sat 10s, and force-restarted into a failure cascade).
+# Header and body both vary — "Video is still loading" vs "Watch N more
+# minutes", and two different body sentences — so only the "Watch the
+# video" button and the Watched/Required labels are stable to match on.
+VIDEO_WATCH_GATE_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,596]" clickable="true" content-desc="Scrim"/>
+  <node class="android.view.View" bounds="[339,764][381,809]" content-desc="0%"/>
+  <node class="android.view.View" bounds="[203,907][517,956]" content-desc="Video is still loading"/>
+  <node class="android.view.View" bounds="[42,970][678,1054]" content-desc="Once the video starts, watch at least 70% of it — then you can finish the lesson."/>
+  <node class="android.view.View" bounds="[149,1112][243,1147]" content-desc="Watched"/>
+  <node class="android.view.View" bounds="[475,1112][573,1147]" content-desc="Required"/>
+  <node class="android.view.View" bounds="[172,1150][219,1199]" content-desc="0%"/>
+  <node class="android.view.View" bounds="[491,1150][558,1199]" content-desc="70%"/>
+  <node class="android.view.View" bounds="[119,1268][654,1338]" content-desc="Only the time you actually watch counts. If you skip ahead, the skipped part is not counted."/>
+  <node class="android.widget.Button" bounds="[42,1404][678,1488]" clickable="true" content-desc="Watch the video"/>
+</hierarchy>"""
+
+VIDEO_WATCH_GATE_PLAYING_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,596]" clickable="true" content-desc="Scrim"/>
+  <node class="android.view.View" bounds="[339,764][381,809]" content-desc="12%"/>
+  <node class="android.view.View" bounds="[203,907][517,956]" content-desc="Watch 8 more minutes"/>
+  <node class="android.view.View" bounds="[42,970][678,1120]" content-desc="To finish the lesson you need to watch at least 70% of the video. Play it and keep watching — after that the «Next» button will work."/>
+  <node class="android.view.View" bounds="[149,1112][243,1147]" content-desc="Watched"/>
+  <node class="android.view.View" bounds="[475,1112][573,1147]" content-desc="Required"/>
+  <node class="android.view.View" bounds="[172,1150][219,1199]" content-desc="12%"/>
+  <node class="android.view.View" bounds="[491,1150][558,1199]" content-desc="70%"/>
+  <node class="android.view.View" bounds="[119,1268][654,1338]" content-desc="Only the time you actually watch counts. If you skip ahead, the skipped part is not counted."/>
+  <node class="android.widget.Button" bounds="[42,1404][678,1488]" clickable="true" content-desc="Watch the video"/>
+</hierarchy>"""
+
+
+# The same sheet with every word swapped to German — the app keeps UI
+# chrome in English across all three courses (a Korean-course dump,
+# 2026-08-19, still shows a "Continue" button), but the watch-gate sheet
+# is brand new and unseen on the German/Korean runs, so recognition must
+# not hinge on its text. Structure is stable: a Scrim-backed sheet with a
+# progress ring, a bare "70%" threshold node, and exactly one button.
+VIDEO_WATCH_GATE_LOCALIZED_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,0][720,596]" clickable="true" content-desc="Scrim"/>
+  <node class="android.widget.ProgressBar" bounds="[259,662][462,865]" content-desc="0"/>
+  <node class="android.view.View" bounds="[339,764][381,809]" content-desc="0%"/>
+  <node class="android.view.View" bounds="[203,907][517,956]" content-desc="Video wird noch geladen"/>
+  <node class="android.view.View" bounds="[42,970][678,1054]" content-desc="Sobald das Video startet, sieh dir mindestens 70% davon an."/>
+  <node class="android.view.View" bounds="[149,1112][243,1147]" content-desc="Angesehen"/>
+  <node class="android.view.View" bounds="[475,1112][573,1147]" content-desc="Erforderlich"/>
+  <node class="android.view.View" bounds="[172,1150][219,1199]" content-desc="0%"/>
+  <node class="android.view.View" bounds="[491,1150][558,1199]" content-desc="70%"/>
+  <node class="android.widget.Button" bounds="[42,1404][678,1488]" clickable="true" content-desc="Video ansehen"/>
+</hierarchy>"""
+
+# The pass-stats screen: carries a bare "100%" (accuracy) and buttons,
+# but no Scrim and no progress ring — must not read as the watch-gate.
+QUIZ_RESULTS_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[180,500][540,560]" content-desc="Test completed"/>
+  <node class="android.view.View" bounds="[500,700][580,745]" content-desc="100%"/>
+  <node class="android.view.View" bounds="[200,700][300,745]" content-desc="Accuracy"/>
+  <node class="android.widget.Button" bounds="[42,1000][678,1080]" clickable="true" content-desc="See your answers"/>
+  <node class="android.widget.Button" bounds="[42,1300][678,1380]" clickable="true" content-desc="Lessons"/>
+</hierarchy>"""
+
+
+class WatchGateDriver:
+    """The watch-gate sheet over a lesson page.
+
+    "Watch the video" dismisses the sheet down to the lesson page; "Next"
+    on the lesson page re-pops the (playing) sheet until `unlocked` is
+    set, after which Next advances to the quiz Start page.
+    """
+
+    current_package = "uz.ibrat.farzandlari"
+
+    def __init__(self, start=None):
+        self.xml = start or VIDEO_WATCH_GATE_XML
+        self.clicks = []
+        self.unlocked = False
+
+    @property
+    def page_source(self):
+        return self.xml
+
+    def find_element(self, by, value):
+        el = FakeElement("btn")
+
+        def click():
+            self.clicks.append(value)
+            if "Watch the video" in value:
+                self.xml = LESSON_SCREEN_XML
+            elif "Next" in value:
+                self.xml = QUIZ_START_XML if self.unlocked else VIDEO_WATCH_GATE_PLAYING_XML
+
+        el.click = click
+        return el
+
+    def back(self):
+        self.clicks.append("BACK")
+
+
+class TestVideoWatchGateSheet(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._time = navigation.time
+        navigation.time = FakeTime()
+        self._gate = dict(navigation.VIDEO_GATE)
+        self._done = dict(navigation.WATCH_GATE_DONE)
+        navigation.VIDEO_GATE.update(title=None, seconds=0, since=None)
+        navigation.WATCH_GATE_DONE.update(title=None)
+
+    def tearDown(self):
+        import navigation
+        navigation.time = self._time
+        navigation.VIDEO_GATE.update(self._gate)
+        navigation.WATCH_GATE_DONE.update(self._done)
+
+    def test_recognizes_the_loading_variant(self):
+        import navigation
+        nodes = qh.parse_screen(VIDEO_WATCH_GATE_XML)
+        self.assertTrue(navigation.looks_like_video_watch_gate(nodes))
+
+    def test_recognizes_the_playing_variant(self):
+        import navigation
+        nodes = qh.parse_screen(VIDEO_WATCH_GATE_PLAYING_XML)
+        self.assertTrue(navigation.looks_like_video_watch_gate(nodes))
+
+    def test_recognizes_a_localized_sheet_by_structure(self):
+        # German/Korean courses share this code; if the app ever localizes
+        # the sheet, the Scrim + ring + "70%" + lone button structure must
+        # still catch it — an unrecognized sheet restart-loops the run.
+        import navigation
+        nodes = qh.parse_screen(VIDEO_WATCH_GATE_LOCALIZED_XML)
+        self.assertTrue(navigation.looks_like_video_watch_gate(nodes))
+
+    def test_not_triggered_by_the_plain_lesson_page(self):
+        import navigation
+        nodes = qh.parse_screen(LESSON_SCREEN_XML)
+        self.assertFalse(navigation.looks_like_video_watch_gate(nodes))
+
+    def test_not_triggered_by_a_question_screen(self):
+        import navigation
+        nodes = qh.parse_screen(QUESTION_BOUNDS_XML)
+        self.assertFalse(navigation.looks_like_video_watch_gate(nodes))
+
+    def test_structure_check_ignores_the_quiz_results_screen(self):
+        # "100%" accuracy + buttons, but no Scrim and no ring.
+        import navigation
+        nodes = qh.parse_screen(QUIZ_RESULTS_XML)
+        self.assertFalse(navigation.looks_like_video_watch_gate(nodes))
+
+    def test_structure_check_ignores_the_payment_sheet(self):
+        # Scrim + one Button, but no progress ring and no percentage.
+        import navigation
+        nodes = qh.parse_screen(PAYMENT_SHEET_XML)
+        self.assertFalse(navigation.looks_like_video_watch_gate(nodes))
+
+    def test_minutes_parsed_from_the_playing_header(self):
+        import navigation
+        descs = [d for _, d in qh.parse_screen(VIDEO_WATCH_GATE_PLAYING_XML) if d]
+        self.assertEqual(navigation.video_watch_gate_minutes(descs), 8)
+
+    def test_minutes_zero_on_the_loading_variant(self):
+        import navigation
+        descs = [d for _, d in qh.parse_screen(VIDEO_WATCH_GATE_XML) if d]
+        self.assertEqual(navigation.video_watch_gate_minutes(descs), 0)
+
+    def test_watched_percent_read_off_the_sheet(self):
+        import navigation
+        descs = [d for _, d in qh.parse_screen(VIDEO_WATCH_GATE_PLAYING_XML) if d]
+        self.assertEqual(navigation.video_watch_gate_watched_pct(descs), 12)
+
+    def test_handle_returns_false_when_the_sheet_is_not_up(self):
+        import navigation
+        driver = VideoLessonDriver()
+        self.assertFalse(navigation.handle_video_watch_gate(driver))
+        self.assertEqual(driver.clicks, [])
+
+    def test_blind_tap_through_never_touches_the_watch_gate_button(self):
+        # The sheet belongs to handle_video_watch_gate — the blind
+        # fallback tapping "Watch the video" would defeat the watch
+        # requirement and bounce the run off Next until it stranded.
+        import navigation
+        nodes = qh.parse_screen(VIDEO_WATCH_GATE_XML)
+        self.assertEqual(navigation.candidate_buttons(nodes), [])
+
+    def test_handle_starts_the_video_then_taps_past_after_the_budget(self):
+        import navigation
+        navigation.arm_video_gate("Test 153 At, on, in (time)")
+        driver = WatchGateDriver()
+
+        result = navigation.handle_video_watch_gate(driver)
+
+        self.assertTrue(result)
+        self.assertIn("Watch the video", " ".join(driver.clicks))
+        self.assertIn("Next", " ".join(driver.clicks))
+        # A no-duration sheet gets the full ceiling before it is left.
+        self.assertGreaterEqual(navigation.time.time(),
+                                1000 + navigation.VIDEO_WATCH_GATE_MAX_WAIT)
+
+    def test_handle_stops_early_when_the_screen_advances_on_its_own(self):
+        import navigation
+
+        class AdvancingDriver(WatchGateDriver):
+            def __init__(self):
+                super().__init__()
+                self._reads = 0
+
+            @property
+            def page_source(self):
+                self._reads += 1
+                return QUIZ_START_XML if self._reads > 3 else self.xml
+
+        driver = AdvancingDriver()
+        result = navigation.handle_video_watch_gate(driver)
+
+        self.assertTrue(result)
+        self.assertLess(navigation.time.time(), 1000 + 60)
+
+    def test_handle_stops_early_once_the_sheet_reports_enough_watched(self):
+        import navigation
+        navigation.arm_video_gate("Test 153 At, on, in (time)")
+
+        class WatchedEnoughDriver(WatchGateDriver):
+            def find_element(self, by, value):
+                el = FakeElement("btn")
+
+                def click():
+                    self.clicks.append(value)
+                    if "Watch the video" in value:
+                        self.xml = VIDEO_WATCH_GATE_PLAYING_XML.replace("12%", "82%")
+
+                el.click = click
+                return el
+
+        driver = WatchedEnoughDriver()
+        result = navigation.handle_video_watch_gate(driver)
+
+        self.assertTrue(result)
+        self.assertLess(navigation.time.time(), 1000 + navigation.VIDEO_WATCH_GATE_MAX_WAIT)
+
+    def test_handle_does_not_re_wait_a_lesson_already_given_its_window(self):
+        import navigation
+        navigation.arm_video_gate("Test 153 At, on, in (time)")
+        navigation.WATCH_GATE_DONE.update(title="Test 153 At, on, in (time)")
+        driver = WatchGateDriver()
+
+        result = navigation.handle_video_watch_gate(driver)
+
+        self.assertTrue(result)
+        self.assertLess(navigation.time.time(), 1000 + 60)
+
+    def test_arming_a_new_lesson_clears_the_already_waited_flag(self):
+        import navigation
+        navigation.WATCH_GATE_DONE.update(title="Test 153 At, on, in (time)")
+        navigation.arm_video_gate("Dars 74 Something else\n5 minutes")
+        self.assertIsNone(navigation.WATCH_GATE_DONE["title"])
+
+    def test_push_through_routes_the_watch_gate_through_its_handler(self):
+        import navigation
+        import locators as loc
+        from selenium.common.exceptions import TimeoutException
+
+        navigation.arm_video_gate("Test 153 At, on, in (time)")
+        driver = WatchGateDriver()
+
+        calls = []
+        real = navigation.handle_video_watch_gate
+
+        def spy(d):
+            handled = real(d)
+            calls.append(handled)
+            driver.unlocked = True  # the wait is done; Next works now
+            return handled
+
+        def fake_tap(d, waiter, locator, label):
+            if locator == loc.START_TEST and "Start" in d.xml:
+                return
+            raise TimeoutException(label)
+
+        saved_tap, navigation.tap = navigation.tap, fake_tap
+        navigation.handle_video_watch_gate = spy
+        try:
+            result = navigation.push_through_to_start(driver, attempts=5)
+        finally:
+            navigation.tap = saved_tap
+            navigation.handle_video_watch_gate = real
+
+        self.assertTrue(result)
+        self.assertTrue(calls and calls[0])
+
+
 class TestVideoLessonNavigation(unittest.TestCase):
     def setUp(self):
         import navigation
@@ -3245,6 +3563,182 @@ class TestVideoLessonNavigation(unittest.TestCase):
         self.assertTrue(any("Next" in c for c in driver.clicks), driver.clicks)
         self.assertTrue(all("player controls" not in c for c in driver.clicks),
                         driver.clicks)
+
+
+# The lesson page's video is unreadable to the automation (rendered inside
+# a WebView Android's accessibility service can't see into — confirmed
+# live, 2026-08-27: no seek bar, no player-control overlay, and no
+# progress in the tree at all for the current app build). The lessons-
+# list item text is the only signal of a video's length ("...\n9
+# minutes", also used by TestOpenNextInSequence), so it stands in for
+# "watched": the runner must not tap Next until LESSON_VIDEO_WATCH_FRACTION
+# of that stated runtime has elapsed on the lesson page.
+class TestVideoWatchGate(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._time = navigation.time
+        navigation.time = FakeTime()
+        self._gate = dict(navigation.VIDEO_GATE)
+        navigation.VIDEO_GATE.update(title=None, seconds=0, since=None)
+
+    def tearDown(self):
+        import navigation
+        navigation.time = self._time
+        navigation.VIDEO_GATE.update(self._gate)
+
+    def test_lesson_watch_seconds_is_75_percent_of_the_stated_minutes(self):
+        import navigation
+        self.assertEqual(
+            navigation.lesson_watch_seconds("Dars 72 Names of places\n9 minutes"),
+            9 * 60 * 0.75,
+        )
+
+    def test_lesson_watch_seconds_unparseable_is_zero(self):
+        # A Test/quiz list item ("Test 70.1 Go + prepositions") carries no
+        # duration at all — must never block a screen that isn't a video.
+        import navigation
+        self.assertEqual(
+            navigation.lesson_watch_seconds("Test 70.1  Go + prepositions"), 0
+        )
+
+    def test_remaining_is_zero_before_anything_is_armed(self):
+        import navigation
+        nodes = [("android.view.View", "Dars 72 Names of places")]
+        self.assertEqual(navigation.video_gate_remaining(nodes), 0)
+
+    def test_remaining_counts_down_after_arming(self):
+        import navigation
+        navigation.arm_video_gate("Dars 72 Names of places\n2 minutes")
+        nodes = [("android.view.View", "Dars 72 Names of places")]
+        self.assertAlmostEqual(navigation.video_gate_remaining(nodes), 90)
+        navigation.time.sleep(89)
+        self.assertGreater(navigation.video_gate_remaining(nodes), 0)
+        navigation.time.sleep(1)
+        self.assertLessEqual(navigation.video_gate_remaining(nodes), 0)
+
+    def test_remaining_is_zero_on_a_screen_the_gate_does_not_recognize(self):
+        # Armed for one lesson, then checked against a different screen
+        # (another lesson, or an ordinary quiz page) — never held up by a
+        # gate meant for something else.
+        import navigation
+        navigation.arm_video_gate("Dars 72 Names of places\n9 minutes")
+        nodes = [("android.view.View", "Dars 73 That / This / Those / These")]
+        self.assertEqual(navigation.video_gate_remaining(nodes), 0)
+
+    def test_no_duration_text_never_blocks(self):
+        # Fail open: an unparseable/missing duration must not strand the
+        # run waiting on a target that was never computed.
+        import navigation
+        navigation.arm_video_gate("Dars 5 Something new")
+        nodes = [("android.view.View", "Dars 5 Something new")]
+        self.assertEqual(navigation.video_gate_remaining(nodes), 0)
+
+    def test_tap_plain_next_is_blocked_while_the_gate_is_active(self):
+        import navigation
+        navigation.arm_video_gate(
+            "Dars 73 That / This / Those / These\n2 minutes"
+        )
+        driver = VideoLessonDriver()
+        self.assertFalse(navigation.tap_plain_next(driver))
+        self.assertEqual(driver.clicks, [])
+
+    def test_tap_plain_next_taps_once_the_gate_clears(self):
+        import navigation
+        navigation.arm_video_gate(
+            "Dars 73 That / This / Those / These\n2 minutes"
+        )
+        navigation.time.sleep(90)
+        driver = VideoLessonDriver()
+        self.assertTrue(navigation.tap_plain_next(driver))
+        self.assertTrue(any("Next" in c for c in driver.clicks), driver.clicks)
+
+    def test_forward_tap_label_skips_plain_next_while_gated(self):
+        # The stuck-screen re-tap must not defeat the gate — a plain
+        # "Next" is exactly what tap_plain_next owns, and it's gated.
+        import navigation
+        navigation.arm_video_gate(
+            "Dars 73 That / This / Those / These\n2 minutes"
+        )
+        nodes = qh.parse_screen(LESSON_SCREEN_XML)
+        self.assertIsNone(navigation.forward_tap_label(nodes))
+
+    def test_forward_tap_label_still_returns_other_next_labels_while_gated(self):
+        # Only the exact "Next" belongs to the gate — a finish screen's
+        # "Next lesson ..." must keep working normally alongside it.
+        import navigation
+        navigation.arm_video_gate(
+            "Dars 73 That / This / Those / These\n2 minutes"
+        )
+        nodes = [("android.widget.Button", "Next lesson")]
+        self.assertEqual(navigation.forward_tap_label(nodes), "Next lesson")
+
+    def test_candidate_buttons_excludes_next_while_gated(self):
+        # The blind tap-through fallback must not be the loophole that
+        # taps Next early.
+        import navigation
+        navigation.arm_video_gate(
+            "Dars 73 That / This / Those / These\n2 minutes"
+        )
+        nodes = qh.parse_screen(VIDEO_LESSON_XML)
+        self.assertEqual(navigation.candidate_buttons(nodes), [])
+
+    def test_open_next_in_sequence_arms_the_gate_from_the_list_item(self):
+        import navigation
+
+        class ListDriver:
+            page_source = LESSONS_TOP_XML
+
+            def find_element(self, by, value):
+                if "flingToEnd" in value:
+                    raise NoSuchElementException("no scrollable view")
+                el = FakeElement("item")
+                return el
+
+        navigation.open_next_in_sequence(ListDriver())
+        nodes = [("android.view.View", "Dars 68 A vs The | Articles")]
+        # LESSONS_TOP_XML's fallback (no fling) taps its last VISIBLE item,
+        # "Test 70.1" — no duration text, so this lesson's lock is untouched.
+        self.assertEqual(navigation.video_gate_remaining(nodes), 0)
+
+    def test_push_through_waits_out_the_video_gate_past_the_dead_screen_limit(self):
+        # 75% of an 8-minute lesson is 360s — well past DEAD_SCREEN_LIMIT
+        # (90s). This wait must never read as a stuck screen and force a
+        # restart before the video has had its time.
+        import navigation
+        import locators as loc
+        from selenium.common.exceptions import TimeoutException
+
+        navigation.arm_video_gate(
+            "Dars 73 That / This / Those / These\n8 minutes"
+        )
+        driver = TapDriver(LESSON_SCREEN_XML)
+
+        def find_next(by, value):
+            el = FakeElement("btn")
+
+            def click():
+                driver.xml = QUIZ_START_XML
+
+            el.click = click
+            return el
+
+        driver.find_element = find_next
+
+        def fake_tap(d, waiter, locator, label):
+            if locator == loc.START_TEST and "Start" in d.xml:
+                return
+            raise TimeoutException(label)
+
+        saved = navigation.tap
+        navigation.tap = fake_tap
+        try:
+            result = navigation.push_through_to_start(driver, attempts=3)
+        finally:
+            navigation.tap = saved
+
+        self.assertTrue(result)
+        self.assertGreaterEqual(navigation.time.time() - navigation.VIDEO_GATE["since"],
+                                 8 * 60 * 0.75)
 
 
 class TestPollOnceStuckLesson(unittest.TestCase):
@@ -3904,6 +4398,86 @@ class TestRevealHomeCard(unittest.TestCase):
         self.assertIn("Get certificate", tapped)
         self.assertGreaterEqual(driver.swipes, 1,
                                 "must scroll the cert button into the tree first")
+
+
+# The home screen as the live device actually rendered it once new
+# widgets ("Chat with legends", "Dictionary", "Lucky Wheel") pushed the
+# collection grid further down (confirmed live, 2026-08-27, 720x1600
+# phone): "2+6 Program Certificate" IS in the tree — bounds end exactly
+# at the screen's own height, flush against the system gesture-nav bar.
+# A tap there (raw coordinates, confirmed by hand; Appium's own element
+# click is the live runner's actual failure) does nothing: no exception,
+# no navigation, and the run times out one step later waiting for a
+# screen it never reached.
+HOME_CARD_AT_EDGE_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,300][720,700]" clickable="true" content-desc="Chat with legends"/>
+  <node class="android.view.View" bounds="[0,1433][231,1600]" clickable="true" content-desc="2+6 Program Certificate"/>
+</hierarchy>"""
+
+# Same card, one swipe later — comfortably clear of the bottom edge
+# (the exact position captured live after a single scroll).
+HOME_CARD_CLEAR_OF_EDGE_XML = """<hierarchy>
+  <node class="android.view.View" bounds="[0,300][720,700]" clickable="true" content-desc="Chat with legends"/>
+  <node class="android.view.View" bounds="[0,757][231,946]" clickable="true" content-desc="2+6 Program Certificate"/>
+</hierarchy>"""
+
+
+class EdgeCardDriver:
+    """Home screen whose target card starts flush against the bottom
+    edge and only clears it after `clears_after` swipes."""
+
+    def __init__(self, clears_after=1):
+        self.page_source = HOME_CARD_AT_EDGE_XML
+        self._clears_after = clears_after
+        self.swipes = 0
+
+    def get_window_size(self):
+        return {"width": 720, "height": 1600}
+
+    def swipe(self, *a, **kw):
+        self.swipes += 1
+        if self.swipes >= self._clears_after:
+            self.page_source = HOME_CARD_CLEAR_OF_EDGE_XML
+
+
+class TestRevealCardAvoidsTheDeadZone(unittest.TestCase):
+    def setUp(self):
+        import navigation
+        self._sleep = navigation.time.sleep
+        navigation.time.sleep = lambda s: None
+
+    def tearDown(self):
+        import navigation
+        navigation.time.sleep = self._sleep
+
+    def test_scrolls_past_a_card_flush_against_the_bottom_edge(self):
+        # Present in the tree from the very first read — the bug was that
+        # this alone used to satisfy reveal_card, without ever checking
+        # whether the card was somewhere a tap could actually land.
+        import navigation
+        driver = EdgeCardDriver(clears_after=1)
+        self.assertTrue(
+            navigation.reveal_card(driver, "2+6 Program Certificate")
+        )
+        self.assertGreaterEqual(driver.swipes, 1)
+        self.assertEqual(driver.page_source, HOME_CARD_CLEAR_OF_EDGE_XML)
+
+    def test_no_scroll_when_already_clear_of_the_edge(self):
+        import navigation
+        driver = EdgeCardDriver(clears_after=1)
+        driver.page_source = HOME_CARD_CLEAR_OF_EDGE_XML
+        self.assertTrue(
+            navigation.reveal_card(driver, "2+6 Program Certificate")
+        )
+        self.assertEqual(driver.swipes, 0, "already clear — must not scroll")
+
+    def test_gives_up_after_a_bounded_number_of_swipes_even_at_the_edge(self):
+        # A card that never clears the edge no matter how much is scrolled
+        # (the true end of the scrollable region) must not loop forever.
+        import navigation
+        driver = EdgeCardDriver(clears_after=99)
+        navigation.reveal_card(driver, "2+6 Program Certificate")
+        self.assertLessEqual(driver.swipes, navigation.REVEAL_SWIPES)
 
 
 # The quiz Start page on a 1080x2340 phone: the info card fills the

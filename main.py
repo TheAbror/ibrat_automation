@@ -42,6 +42,7 @@ import watcher
 from navigation import (
     StuckScreenError,
     dismiss_popup,
+    handle_video_watch_gate,
     looks_like_quiz_start,
     navigate_to_test,
     rejoin_lesson_sequence,
@@ -568,6 +569,14 @@ def auto_answer_loop(driver):
             idle_since = time.time()
             continue
         if tap_forward_button(driver):
+            idle_since = time.time()
+            continue
+
+        # The app's "watch ≥70% of the video first" bottom-sheet — it
+        # pops when Next is tapped on a video (often a Test item's, whose
+        # list entry names no duration) before it's watched enough. Wait
+        # it out here instead of letting the idle timer force a restart.
+        if handle_video_watch_gate(driver):
             idle_since = time.time()
             continue
 
