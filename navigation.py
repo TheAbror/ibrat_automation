@@ -107,36 +107,26 @@ STUCK_REMIND_EVERY = 60 # seconds between reminders to tap manually
 # text-attribute rendering are both still possible.
 CHEST_TAP_MARKER = "Tap on the chest"
 CHEST_SCREEN_MARKERS = (CHEST_TAP_MARKER, "Get your reward", "Open chest")
-# A lesson page's video is unreadable to the automation: it renders
-# inside a WebView Android's accessibility service can't see into (no
-# seek bar, no progress, confirmed live 2026-08-27), the app is not
-# WebView-debuggable, and it registers no Android media session — so
-# actual playback position is never observable. The lessons-list item
-# text is the only signal of a video's length ("Dars 72 Names of
-# places\n9 minutes") — captured when the item is opened (arm_video_gate)
-# and used as a time-based stand-in for "watched": the runner won't tap
-# a lesson page's own Next until this fraction of its stated runtime has
-# elapsed (client request, 2026-08-27).
+# The fraction of a video the app requires watched before Next counts
+# (matches the app's own "watch at least 70% of the video" sheet, with a
+# little headroom — see VIDEO_WATCH_GATE_MARKERS below).
 LESSON_VIDEO_WATCH_FRACTION = 0.75
-LESSON_DURATION_RE = re.compile(r"(\d+)\s*minutes?", re.IGNORECASE)
-# The one lesson currently "open" as far as the gate is concerned: its
-# title (the list item's first line — matches the video page's own title
-# node), the watch time required, and when it was opened. One slot, like
-# main.py's LAST_STUCK_SCREEN — only one lesson is ever open at a time,
-# and re-arming (rather than only arming on a title change) is what keeps
-# the timer honest across an app relaunch, which restarts the video too.
-VIDEO_GATE = {"title": None, "seconds": 0, "since": None}
+# The lesson currently "open," as far as the watch-gate sheet is
+# concerned: just its title (the list item's first line — matches the
+# video page's own title node), used to key WATCH_GATE_DONE so a lesson
+# already given its full watch window isn't re-waited on every re-entry.
+# One slot, like main.py's LAST_STUCK_SCREEN — only one lesson is ever
+# open at a time, and re-arming on every open (not only a title change)
+# is what keeps it honest across an app relaunch.
+VIDEO_GATE = {"title": None}
 # The app's own "you must watch at least 70% of the video" bottom-sheet.
 # It pops over a lesson page when Next is tapped before the video has
-# been watched enough — the app stating the gate directly, which the
-# time-based VIDEO_GATE above could only ever approximate (a Test/quiz
-# list item carries no "N minutes" text, so its gate stays disarmed and
-# Next gets tapped at once; client, 2026-08-27: a real run hit this
-# sheet, had no handler, sat 10s, and force-restarted into a failure
-# cascade). Header and body both vary — "Video is still loading" vs
-# "Watch N more minutes"; two different body sentences — so only the
-# "Watch the video" button and the "Watched"/"Required" labels are
-# stable enough to match on.
+# been watched enough (client, 2026-08-27: a real run hit this sheet,
+# had no handler, sat 10s, and force-restarted into a failure cascade).
+# Header and body both vary — "Video is still loading" vs "Watch N more
+# minutes"; two different body sentences — so only the "Watch the video"
+# button and the "Watched"/"Required" labels are stable enough to match
+# on.
 VIDEO_WATCH_GATE_BUTTON = "Watch the video"
 VIDEO_WATCH_GATE_MARKERS = ("Watched", "Required",
                             "Only the time you actually watch counts")
@@ -386,22 +376,17 @@ def looks_like_known_popup(descs):
 def candidate_buttons(nodes):
     """Buttons worth tapping when pushing through an unknown screen.
 
-    A gated lesson's plain "Next" is excluded too — tap_plain_next is
-    its rightful owner, and this blind fallback must not be the loophole
-    that taps it before its watch time is up. The watch-gate sheet's CTA
-    is excluded on the same grounds: it belongs to
+    The watch-gate sheet's CTA is excluded: it belongs to
     handle_video_watch_gate, which waits the video out — a blind tap
     here would lower the sheet, bounce the run off Next, and strand it.
     Its English name plus, on a localized sheet, the sheet's lone button.
     """
-    gated = video_gate_remaining(nodes) > 0
     watch_cta = watch_gate_cta(nodes) if looks_like_video_watch_gate(nodes) else None
     return [
         d for cls, d in nodes
         if cls == "android.widget.Button" and d
         and d not in SKIP_BUTTONS and not is_promo_cta(d)
         and d != VIDEO_WATCH_GATE_BUTTON and d != watch_cta
-        and not (gated and d == "Next")
     ]
 
 
@@ -555,82 +540,23 @@ def tap_desc(driver, label):
         return False
 
 
-def lesson_watch_seconds(desc):
-    """Required watch time for a lessons-list item's desc, or 0 if unknown.
-
-    Parsed from its trailing duration text ("...\\n9 minutes"); a Test/
-    quiz item (no duration) or a format the regex no longer matches both
-    return 0 — unknown/absent means the gate never holds up that lesson.
-    """
-    m = LESSON_DURATION_RE.search(desc)
-    if not m:
-        return 0
-    return int(m.group(1)) * 60 * LESSON_VIDEO_WATCH_FRACTION
-
-
 def arm_video_gate(desc):
-    """Record a freshly opened lesson's title and required watch time.
+    """Record a freshly opened lesson's title.
 
     Called wherever a lessons-list item is tapped open (open_next_in_
     sequence) — including on every reopen, not just a title change: an
     app relaunch restarts the video from 0:00 too, and re-arming
-    unconditionally is what keeps the timer honest across that.
+    unconditionally is what keeps WATCH_GATE_DONE honest across that.
 
-    A genuine move to a different lesson does clear WATCH_GATE_DONE,
-    though — the "already gave this one its 12 minutes" skip is meant to
-    stop one broken video from looping, not to wave every later lesson
-    straight past its watch-gate sheet.
+    A genuine move to a different lesson clears WATCH_GATE_DONE — the
+    "already gave this one its 12 minutes" skip is meant to stop one
+    broken video from looping, not to wave every later lesson straight
+    past its watch-gate sheet.
     """
     title = desc.splitlines()[0]
     if title != VIDEO_GATE["title"]:
         WATCH_GATE_DONE["title"] = None
     VIDEO_GATE["title"] = title
-    VIDEO_GATE["seconds"] = lesson_watch_seconds(desc)
-    VIDEO_GATE["since"] = time.time()
-
-
-def video_gate_remaining(nodes):
-    """Seconds still owed on the current video lesson page, else 0.
-
-    0 whenever the armed lesson has no known duration, or the screen in
-    front of the runner isn't that lesson's own page — a screen the gate
-    knows nothing about is never held up by it.
-    """
-    if not VIDEO_GATE["title"] or not VIDEO_GATE["seconds"]:
-        return 0
-    if not any(d == VIDEO_GATE["title"] for _, d in nodes):
-        return 0
-    return max(0.0, VIDEO_GATE["seconds"] - (time.time() - VIDEO_GATE["since"]))
-
-
-def wait_out_video_gate(driver, remaining):
-    """Sleep out a video lesson's minimum watch time before Next is tried
-    again.
-
-    A dedicated wait rather than routing through wait_for_manual_advance:
-    DEAD_SCREEN_LIMIT (90s) exists to catch a screen that is actually
-    broken, and most lesson videos need several minutes to reach
-    LESSON_VIDEO_WATCH_FRACTION of their stated runtime — a wait that
-    long must never read as "stuck." Gives up early if the screen changes
-    on its own (a human tapped the phone, or the app moved on by itself).
-    """
-    print(f"Video lesson page — waiting ~{remaining:.0f}s more "
-          f"({LESSON_VIDEO_WATCH_FRACTION:.0%} watched) before continuing")
-    before = [d for _, d in parse_screen(driver.page_source) if d]
-    last_remind = time.time()
-    while True:
-        time.sleep(STUCK_POLL)
-        nodes = parse_screen(driver.page_source)
-        if [d for _, d in nodes if d] != before:
-            print("Screen changed while waiting on the video")
-            return
-        left = video_gate_remaining(nodes)
-        if left <= 0:
-            return
-        now = time.time()
-        if now - last_remind >= STUCK_REMIND_EVERY:
-            last_remind = now
-            print(f"Still waiting on the video ({left:.0f}s left)...")
 
 
 def looks_like_video_watch_gate(nodes):
@@ -826,15 +752,9 @@ def tap_plain_next(driver):
     update sheet keep their immunity — their forward buttons belong to
     their dismissers, and a swallowed tap here would reset the
     push-through loop forever.
-
-    Also refuses while video_gate_remaining says this lesson hasn't been
-    given its required watch time yet (client request, 2026-08-27).
     """
-    nodes = parse_screen(driver.page_source)
-    descs = [d for _, d in nodes if d]
+    descs = [d for _, d in parse_screen(driver.page_source) if d]
     if looks_like_survey(descs) or looks_like_update_sheet(descs):
-        return False
-    if video_gate_remaining(nodes) > 0:
         return False
     label = next((d for d in descs if d in NEXT_LABELS), None)
     if label and tap_desc(driver, label):
@@ -1061,9 +981,7 @@ def forward_tap_label(nodes):
 
     Like find_forward_button, but a plain "Next" counts too: the lesson
     pages' button is exactly "Next", and no feedback sheet is involved
-    when a screen is being waited out. Exempt from that while the video
-    gate holds this lesson's plain "Next" back — re-tapping it here would
-    otherwise be the loophole that beats the gate on its own retry timer.
+    when a screen is being waited out.
     """
     # Nothing to re-tap on the survey or under the update sheet — their
     # buttons are their dismissers' to press, and one that can't be
@@ -1072,11 +990,8 @@ def forward_tap_label(nodes):
     descs = [d for _, d in nodes if d]
     if looks_like_survey(descs) or looks_like_update_sheet(descs):
         return None
-    gated = video_gate_remaining(nodes) > 0
     for _, d in nodes:
         if d.lower().startswith("next"):
-            if d == "Next" and gated:
-                continue
             return d
     for label in ("Start", "Continue", "Open chest", "Try again"):
         if any(d == label for _, d in nodes):
@@ -1457,16 +1372,6 @@ def push_through_to_start(driver, attempts=5):
             # video lesson page's bare "Next" counts here too, since no
             # feedback sheet can be up during navigation.
             if tap_forward_button(driver) or tap_plain_next(driver):
-                continue
-
-            # A video lesson page that hasn't had its required watch time
-            # yet: wait it out here, not via wait_for_manual_advance below
-            # — that wait gives up after DEAD_SCREEN_LIMIT (90s), far
-            # short of what most lessons need, and giving up on a healthy
-            # wait would force a needless app restart.
-            remaining = video_gate_remaining(parse_screen(driver.page_source))
-            if remaining > 0:
-                wait_out_video_gate(driver, remaining)
                 continue
 
             # Nothing actionable in the tree yet — the button may simply

@@ -2732,7 +2732,7 @@ class TestStuckScreenRestart(unittest.TestCase):
         navigation.time = FakeTime()
         self._gate = dict(navigation.VIDEO_GATE)
         self._done = dict(navigation.WATCH_GATE_DONE)
-        navigation.VIDEO_GATE.update(title=None, seconds=0, since=None)
+        navigation.VIDEO_GATE.update(title=None)
         navigation.WATCH_GATE_DONE.update(title=None)
         try:
             driver = TapDriver(VIDEO_WATCH_GATE_XML)
@@ -3312,7 +3312,7 @@ class TestVideoWatchGateSheet(unittest.TestCase):
         navigation.time = FakeTime()
         self._gate = dict(navigation.VIDEO_GATE)
         self._done = dict(navigation.WATCH_GATE_DONE)
-        navigation.VIDEO_GATE.update(title=None, seconds=0, since=None)
+        navigation.VIDEO_GATE.update(title=None)
         navigation.WATCH_GATE_DONE.update(title=None)
 
     def tearDown(self):
@@ -3563,182 +3563,6 @@ class TestVideoLessonNavigation(unittest.TestCase):
         self.assertTrue(any("Next" in c for c in driver.clicks), driver.clicks)
         self.assertTrue(all("player controls" not in c for c in driver.clicks),
                         driver.clicks)
-
-
-# The lesson page's video is unreadable to the automation (rendered inside
-# a WebView Android's accessibility service can't see into — confirmed
-# live, 2026-08-27: no seek bar, no player-control overlay, and no
-# progress in the tree at all for the current app build). The lessons-
-# list item text is the only signal of a video's length ("...\n9
-# minutes", also used by TestOpenNextInSequence), so it stands in for
-# "watched": the runner must not tap Next until LESSON_VIDEO_WATCH_FRACTION
-# of that stated runtime has elapsed on the lesson page.
-class TestVideoWatchGate(unittest.TestCase):
-    def setUp(self):
-        import navigation
-        self._time = navigation.time
-        navigation.time = FakeTime()
-        self._gate = dict(navigation.VIDEO_GATE)
-        navigation.VIDEO_GATE.update(title=None, seconds=0, since=None)
-
-    def tearDown(self):
-        import navigation
-        navigation.time = self._time
-        navigation.VIDEO_GATE.update(self._gate)
-
-    def test_lesson_watch_seconds_is_75_percent_of_the_stated_minutes(self):
-        import navigation
-        self.assertEqual(
-            navigation.lesson_watch_seconds("Dars 72 Names of places\n9 minutes"),
-            9 * 60 * 0.75,
-        )
-
-    def test_lesson_watch_seconds_unparseable_is_zero(self):
-        # A Test/quiz list item ("Test 70.1 Go + prepositions") carries no
-        # duration at all — must never block a screen that isn't a video.
-        import navigation
-        self.assertEqual(
-            navigation.lesson_watch_seconds("Test 70.1  Go + prepositions"), 0
-        )
-
-    def test_remaining_is_zero_before_anything_is_armed(self):
-        import navigation
-        nodes = [("android.view.View", "Dars 72 Names of places")]
-        self.assertEqual(navigation.video_gate_remaining(nodes), 0)
-
-    def test_remaining_counts_down_after_arming(self):
-        import navigation
-        navigation.arm_video_gate("Dars 72 Names of places\n2 minutes")
-        nodes = [("android.view.View", "Dars 72 Names of places")]
-        self.assertAlmostEqual(navigation.video_gate_remaining(nodes), 90)
-        navigation.time.sleep(89)
-        self.assertGreater(navigation.video_gate_remaining(nodes), 0)
-        navigation.time.sleep(1)
-        self.assertLessEqual(navigation.video_gate_remaining(nodes), 0)
-
-    def test_remaining_is_zero_on_a_screen_the_gate_does_not_recognize(self):
-        # Armed for one lesson, then checked against a different screen
-        # (another lesson, or an ordinary quiz page) — never held up by a
-        # gate meant for something else.
-        import navigation
-        navigation.arm_video_gate("Dars 72 Names of places\n9 minutes")
-        nodes = [("android.view.View", "Dars 73 That / This / Those / These")]
-        self.assertEqual(navigation.video_gate_remaining(nodes), 0)
-
-    def test_no_duration_text_never_blocks(self):
-        # Fail open: an unparseable/missing duration must not strand the
-        # run waiting on a target that was never computed.
-        import navigation
-        navigation.arm_video_gate("Dars 5 Something new")
-        nodes = [("android.view.View", "Dars 5 Something new")]
-        self.assertEqual(navigation.video_gate_remaining(nodes), 0)
-
-    def test_tap_plain_next_is_blocked_while_the_gate_is_active(self):
-        import navigation
-        navigation.arm_video_gate(
-            "Dars 73 That / This / Those / These\n2 minutes"
-        )
-        driver = VideoLessonDriver()
-        self.assertFalse(navigation.tap_plain_next(driver))
-        self.assertEqual(driver.clicks, [])
-
-    def test_tap_plain_next_taps_once_the_gate_clears(self):
-        import navigation
-        navigation.arm_video_gate(
-            "Dars 73 That / This / Those / These\n2 minutes"
-        )
-        navigation.time.sleep(90)
-        driver = VideoLessonDriver()
-        self.assertTrue(navigation.tap_plain_next(driver))
-        self.assertTrue(any("Next" in c for c in driver.clicks), driver.clicks)
-
-    def test_forward_tap_label_skips_plain_next_while_gated(self):
-        # The stuck-screen re-tap must not defeat the gate — a plain
-        # "Next" is exactly what tap_plain_next owns, and it's gated.
-        import navigation
-        navigation.arm_video_gate(
-            "Dars 73 That / This / Those / These\n2 minutes"
-        )
-        nodes = qh.parse_screen(LESSON_SCREEN_XML)
-        self.assertIsNone(navigation.forward_tap_label(nodes))
-
-    def test_forward_tap_label_still_returns_other_next_labels_while_gated(self):
-        # Only the exact "Next" belongs to the gate — a finish screen's
-        # "Next lesson ..." must keep working normally alongside it.
-        import navigation
-        navigation.arm_video_gate(
-            "Dars 73 That / This / Those / These\n2 minutes"
-        )
-        nodes = [("android.widget.Button", "Next lesson")]
-        self.assertEqual(navigation.forward_tap_label(nodes), "Next lesson")
-
-    def test_candidate_buttons_excludes_next_while_gated(self):
-        # The blind tap-through fallback must not be the loophole that
-        # taps Next early.
-        import navigation
-        navigation.arm_video_gate(
-            "Dars 73 That / This / Those / These\n2 minutes"
-        )
-        nodes = qh.parse_screen(VIDEO_LESSON_XML)
-        self.assertEqual(navigation.candidate_buttons(nodes), [])
-
-    def test_open_next_in_sequence_arms_the_gate_from_the_list_item(self):
-        import navigation
-
-        class ListDriver:
-            page_source = LESSONS_TOP_XML
-
-            def find_element(self, by, value):
-                if "flingToEnd" in value:
-                    raise NoSuchElementException("no scrollable view")
-                el = FakeElement("item")
-                return el
-
-        navigation.open_next_in_sequence(ListDriver())
-        nodes = [("android.view.View", "Dars 68 A vs The | Articles")]
-        # LESSONS_TOP_XML's fallback (no fling) taps its last VISIBLE item,
-        # "Test 70.1" — no duration text, so this lesson's lock is untouched.
-        self.assertEqual(navigation.video_gate_remaining(nodes), 0)
-
-    def test_push_through_waits_out_the_video_gate_past_the_dead_screen_limit(self):
-        # 75% of an 8-minute lesson is 360s — well past DEAD_SCREEN_LIMIT
-        # (90s). This wait must never read as a stuck screen and force a
-        # restart before the video has had its time.
-        import navigation
-        import locators as loc
-        from selenium.common.exceptions import TimeoutException
-
-        navigation.arm_video_gate(
-            "Dars 73 That / This / Those / These\n8 minutes"
-        )
-        driver = TapDriver(LESSON_SCREEN_XML)
-
-        def find_next(by, value):
-            el = FakeElement("btn")
-
-            def click():
-                driver.xml = QUIZ_START_XML
-
-            el.click = click
-            return el
-
-        driver.find_element = find_next
-
-        def fake_tap(d, waiter, locator, label):
-            if locator == loc.START_TEST and "Start" in d.xml:
-                return
-            raise TimeoutException(label)
-
-        saved = navigation.tap
-        navigation.tap = fake_tap
-        try:
-            result = navigation.push_through_to_start(driver, attempts=3)
-        finally:
-            navigation.tap = saved
-
-        self.assertTrue(result)
-        self.assertGreaterEqual(navigation.time.time() - navigation.VIDEO_GATE["since"],
-                                 8 * 60 * 0.75)
 
 
 class TestPollOnceStuckLesson(unittest.TestCase):
